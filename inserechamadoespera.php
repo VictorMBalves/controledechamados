@@ -38,7 +38,7 @@ $usuario=$_SESSION['UsuarioNome'];
 $sql = $conn->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado) 
 VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado')") or die(mysql_error());
 $sql->execute();
-if($_SESSION['UsuarioNivel'] == 2){
+if($_SESSION['UsuarioNivel'] == 2 || 3){
 echo '<script> redireciona() </script>';
 }
 else{

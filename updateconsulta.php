@@ -33,7 +33,7 @@ header("Location: index.php"); exit;
     $sql = $conn->prepare("UPDATE chamadoespera SET historico='$historico', status='$status' WHERE id_chamadoespera='$id'") or die(mysql_error());
     $sql->execute();
 
-        if($_SESSION['UsuarioNivel'] == 2){
+        if($_SESSION['UsuarioNivel'] == 2 || 3){
             echo '<script> redireciona() </script>';
             }
        else{

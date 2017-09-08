@@ -119,7 +119,7 @@ $rs_result = mysqli_query($conn, $sql);
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
           <?php 
-          if($_SESSION['UsuarioNivel'] == 2) {
+          if($_SESSION['UsuarioNivel'] == 2 || 3) {
            echo '<li>
                <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
               </a>
@@ -139,7 +139,7 @@ $rs_result = mysqli_query($conn, $sql);
               </a>
               <ul class="dropdown-menu">
                <?php 
-          if($_SESSION['UsuarioNivel'] == 2) {
+          if($_SESSION['UsuarioNivel'] == 2 || 3) {
                echo '<li>
                   <a href="chamados.php">Atendimentos
                   </a>
@@ -162,7 +162,7 @@ $rs_result = mysqli_query($conn, $sql);
               <li>
               <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
             </li>
-          <?php if($_SESSION['UsuarioNivel'] == 2) {
+          <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
             echo '<ul class="nav navbar-nav">
           <li class="dropdown">
              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -267,7 +267,7 @@ $rs_result = mysqli_query($conn, $sql);
         $sql->execute();
         $result = $sql->fetchall();
         foreach($result as $row){  
-        if($row["nivel"] == 2 ) {    
+        if($row["nivel"] == 2 || 3 ) {    
         echo '<option>'.$row['nome'].'</option>'; 
         }}        
         ?>
