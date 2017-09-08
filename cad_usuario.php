@@ -39,18 +39,17 @@
        );
        function cancelar(){
         window.location.assign("chamados.php");
-      }
-      $(function() {
-    $('input').focusout(function() {
-        // Uppercase-ize contents
-        this.value = this.value.toLocaleUpperCase();
-    });
-});
-    </script>
-    <style>
-        input.uppercase { text-transform: uppercase; }
+      } 
 
-    </style>
+      $(function(){ // declaro o início do jquery
+        $("input[name='usuario']").on('blur', function(){
+          var usuario = $(this).val();
+          $.get('verificausuario.php?usuario=' + usuario, function(data){
+            $('#resultado').html(data);
+          });
+        });
+      });// fim do jquery
+      </script>
   </head>
   <body>
   <?php
@@ -205,38 +204,46 @@ $email = md5( $_SESSION['Email']);
     <div class="row">
       <hr/>
     </div>
-    <div class="alert alert-success" role="alert">
-      <center>Cadastrar nova empresa:
+
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home" class="link"><i class="glyphicon glyphicon-edit"></i>&nbsp&nbspNovo usuário</a></li>
+    <li><a data-toggle="tab" href="#home1" class="link"><i class="glyphicon glyphicon-list"></i>&nbsp&nbspLista de usuários</a></li>
+  </ul>
+
+  <div class="tab-content">
+      <div id="home" class="tab-pane fade in active">
+      <div class="alert alert-success" role="alert">
+      <center>Cadastrar novo usuário:
       </center>
     </div>
-    <form class="form-vertical" action="insereempresa.php" method="POST">
+    <form class="form-vertical" action="insereusuario.php" method="POST">
       <fieldset>
         <!-- Text input-->
         <div class="form-group form">
-          <label class="col-md-4 control-label empresa">Razão Social:
+          <label class="col-md-4 control-label empresa" for="nome">Nome:
           </label>  
-          <input name="empresa" type="text" class="form-control label1 uppercase" required="">
+          <input name="nome" type="text" class="form-control label1" required="">
           <br/>
-            <label class="col-md-4 control-label empresa">CNPJ:
+            <label class="col-md-4 control-label empresa" for="usuario" id="usuario">Login:
+          </label> 
+          <input name="usuario" type="text" class="form-control label1" required="">
+          <div id="resultado"></div> 
+          <label class="col-md-4 control-label empresa" for="usuario">E-mail
           </label>  
-          <input name="cnpj" data-mask="99.999.999/9999-99" type="text" class="form-control label1">
+          <input name="email" type="email" class="form-control label1" required="">
           <br/>
-           <label class="col-md-4 control-label empresa">Telefone:
+           <label class="col-md-4 control-label empresa" for="senha">Senha:
           </label>  
-          <input name="telefone" data-mask="(999)9999-9999" type="text" class="form-control label1">
+          <input name="senha" type="password" class="form-control label1" required="">
           <br/>
-          <label class="col-md-4 control-label empresa">Celular:
-          </label>  
-          <input name="celular" data-mask="(999)99999-9999" type="text" class="form-control label1">
-          <br/>
-          <label class="col-md-4 control-label empresa">Situação:
+          <label class="col-md-4 control-label empresa">Nivel
           </label>
-          <select name="situacao" class="form-control label1">
-            <option value="ATIVO">Ativo
+          <select name="nivel" class="form-control label1" required="">
+            <option value="3">Suporte Avançado
             </option>
-            <option value="BLOQUEADO">Bloqueado
+            <option value="2">Help-Desk
             </option>
-            <option value="DESISTENTE">Desistente
+            <option value="1">Financeiro
             </option>
           </select>
         </div>
@@ -249,6 +256,37 @@ $email = md5( $_SESSION['Email']);
         
          </fieldset>
     </form>
-  </div>
-  </body>
+      </div>
+
+      <div id="home1" class="tab-pane fade">
+        <table class="table table-responsive table-hover">
+        <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Login</th>
+        <th>Email</th>
+        <th><center><img src="imagem/acao.png"></center></th>
+        </tr>
+        <tbody id="target-content">
+        <?php
+        include ('include/dbconf.php');
+        $sql = $conn->prepare('SELECT id, nome, usuario, email FROM usuarios ORDER BY id desc');
+        $sql->execute();
+        $result = $sql->fetchall();
+        foreach($result as $row){  
+        echo '<tr>';            
+        echo '<td>'.$row["id"].'</td>';
+        echo '<td>'.$row["nome"].'</td>';
+        echo '<td>'.$row["usuario"].'</td>';
+        echo '<td>'.$row["email"].'</td>';
+        echo "<td> <a style='margin-top:2px;' href='editaempresa.php?id_empresa=".$row['id']."'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>";
+        }?>
+        </tbody> 
+        </table>
+      </div>     
+</br>
+</br>
+</br>
+</div> 
+</body>
 </html>
