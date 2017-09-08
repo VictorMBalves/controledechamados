@@ -1,0 +1,42 @@
+/*FORMULARIOS*/
+.label1{
+    width:81.5%;
+    margin:0px;
+    margin-bottom:15px;
+}
+
+.label2{
+   float:left;
+   width:30%;
+   margin-bottom:15px;
+}
+.label3{
+   float:left;
+   width:20%;
+   margin-bottom:15px;
+}
+
+.contato{
+    width:60px;
+}
+.empresa{
+    width:160px;
+    padding-right: 0px;
+}
+.empresa1{
+    width:100px;
+    padding-right: 0px;
+}
+.forma{
+   float:left;
+   width:37.5%;
+   margin-bottom:15px;
+
+}
+.forma1{
+   float:left;
+   width:22%;
+   margin-bottom:15px;
+
+}
+/*FIM DO CSS FORMULARIOS*/
