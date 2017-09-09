@@ -55,7 +55,7 @@ header("Location: index.php"); exit;
 }}
 $email = md5( $_SESSION['Email']);
 ?>
- <nav class="navbar navbar-inverse navbar-fixed-top">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -76,7 +76,7 @@ $email = md5( $_SESSION['Email']);
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
           <?php 
-          if($_SESSION['UsuarioNivel'] == 2) {
+          if($_SESSION['UsuarioNivel'] == 2 || 3) {
            echo '<li>
                <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
               </a>
@@ -96,7 +96,7 @@ $email = md5( $_SESSION['Email']);
               </a>
               <ul class="dropdown-menu">
                <?php 
-          if($_SESSION['UsuarioNivel'] == 2) {
+          if($_SESSION['UsuarioNivel'] == 2 || 3) {
                echo '<li>
                   <a href="chamados.php">Atendimentos
                   </a>
@@ -119,7 +119,8 @@ $email = md5( $_SESSION['Email']);
               <li>
               <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
             </li>
-          <?php if($_SESSION['UsuarioNivel'] == 2) {
+          
+          <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
             echo '<ul class="nav navbar-nav">
           <li class="dropdown">
              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -140,7 +141,11 @@ $email = md5( $_SESSION['Email']);
             <li role="separator" class="divider">
             </li>
           </ul>
-          </ul>';}?>
+</ul>';}?>
+
+          <ul class="nav navbar-nav">
+             
+          </ul>
            <ul class="nav navbar-nav">
             <li class="dropdown">
              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> 
@@ -155,15 +160,27 @@ $email = md5( $_SESSION['Email']);
                 </span>
               </a>
             </li>
+           
+            <?php
+                if($_SESSION['UsuarioNivel'] == 3){
+            
+                  echo ' <li role="separator" class="divider">
+                          </li>         
+                          <li>
+                          <a href="cad_usuario.php">Cadastrar usuário
+                          </a>
+                        </li>';
+                         }
+            ?>
             <li role="separator" class="divider">
             </li>
             <li>
               <a href="alterasenha.php">Alterar senha
               </a>
             </li>
-            <li role="separator" class="divider"></li>
-
-            <li><a href="logout.php">Sair</a></li>
+             <li role="separator" class="divider">
+            </li>
+          <li><a href="logout.php">Sair</a></li>
             <li role="separator" class="divider"></li>
           </ul>
           </li>

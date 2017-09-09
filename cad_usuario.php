@@ -28,7 +28,7 @@
     <script>
      function erro(){
         alert('Acesso negado! Redirecinando a pagina principal.');
-        window.location.assign("chamadoespera.php");
+        window.location.assign("home.php");
       }
       $(function() {
         $( "#skills" ).autocomplete({
@@ -56,6 +56,9 @@
 header("Content-type: text/html; charset=utf-8");
 // A sessão precisa ser iniciada em cada página diferente
 if (!isset($_SESSION)) session_start();
+if(!($_SESSION['UsuarioNivel'] == 3)) {
+  echo'<script>erro()</script>';
+  }  else {
 // Verifica se não há a variável da sessão que identifica o usuário
 if (!isset($_SESSION['UsuarioID'])) {
 // Destrói a sessão por segurança
@@ -63,6 +66,7 @@ session_destroy();
 // Redireciona o visitante de volta pro login
 header("Location: index.php"); exit;
 }
+  }
 $email = md5( $_SESSION['Email']);
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top">

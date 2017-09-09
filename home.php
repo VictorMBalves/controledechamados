@@ -186,6 +186,18 @@ $email = md5($_SESSION['Email']);
                 </span>
               </a>
             </li>
+           
+            <?php
+                if($_SESSION['UsuarioNivel'] == 3){
+            
+                  echo ' <li role="separator" class="divider">
+                          </li>         
+                          <li>
+                          <a href="cad_usuario.php">Cadastrar usuário
+                          </a>
+                        </li>';
+                         }
+            ?>
             <li role="separator" class="divider">
             </li>
             <li>
