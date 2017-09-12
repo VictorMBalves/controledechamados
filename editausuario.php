@@ -164,7 +164,8 @@ $email = md5( $_SESSION['Email']);
                 <span class="caret">
                 </span>
               </a>
-              <ul class="dropdown-menu">
+                <!--adsdad-->
+                <ul class="dropdown-menu">
               <li>
               <a style="padding-left:10px;" href="meuschamados.php"><?php echo "<img src='https://www.gravatar.com/avatar/$email' width='25px'>";?>
                 <?php echo $_SESSION['UsuarioNome']; ?> 
