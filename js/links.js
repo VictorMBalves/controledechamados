@@ -23,6 +23,9 @@ function cancelar2(){
 function cancelar3(){
     window.location.assign("plantao.php");
 }
+function cancelar4(){
+    window.location.assign("cad_usuario.php");
+}
 function cadastrar(){
     window.location.assign("cad_empresa.php");
 }

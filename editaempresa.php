@@ -29,13 +29,7 @@
      function erro(){
         alert('Acesso negado! Redirecinando a pagina principal.');
         window.location.assign("chamadoespera.php");
-      }
-      function deletado(){
-        alert('Cadastro deletado com sucesso!');
-        window.location.assign("empresa.php");
-      }
-
-
+      }  
       $(function() {
         $( "#skills" ).autocomplete({
           source: 'search.php'
@@ -46,6 +40,11 @@
        function cancelar(){
         window.location.assign("chamados.php");
       }
+      function deletado(){
+        alert('Cadastro deletado com sucesso!');
+        window.location.assign("empresa.php");
+      }
+
        $(function () {
   $('[data-toggle="popover"]').popover()
 })

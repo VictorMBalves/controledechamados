@@ -30,25 +30,27 @@
         alert('Acesso negado! Redirecinando a pagina principal.');
         window.location.assign("home.php");
       }
-      $(function() {
-        $( "#skills" ).autocomplete({
-          source: 'search.php'
-        }
-                                   );
-      }
-       );
        function cancelar(){
         window.location.assign("chamados.php");
       } 
 
-      $(function(){ // declaro o início do jquery
-        $("input[name='usuario']").on('blur', function(){
-          var usuario = $(this).val();
-          $.get('verificausuario.php?usuario=' + usuario, function(data){
-            $('#resultado').html(data);
-          });
-        });
-      });// fim do jquery
+      function deletado(){
+        alert('Cadastro deletado com sucesso!');
+        window.location.assign("cad_usuario.php");
+      }
+
+       $(function () {
+  $('[data-toggle="popover"]').popover()
+})
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+function atualizarTarefas() {
+           // aqui voce passa o id do usuario
+           var url="notifica.php";
+            jQuery("#tarefas").load(url);
+        }
+        setInterval("atualizarTarefas()",1000);
       </script>
   </head>
   <body>
@@ -67,6 +69,7 @@ session_destroy();
 header("Location: index.php"); exit;
 }
   }
+  
 $email = md5( $_SESSION['Email']);
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -208,33 +211,49 @@ $email = md5( $_SESSION['Email']);
     <div class="row">
       <hr/>
     </div>
-
-<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home" class="link"><i class="glyphicon glyphicon-edit"></i>&nbsp&nbspNovo usuário</a></li>
-    <li><a data-toggle="tab" href="#home1" class="link"><i class="glyphicon glyphicon-list"></i>&nbsp&nbspLista de usuários</a></li>
-  </ul>
-
-  <div class="tab-content">
-      <div id="home" class="tab-pane fade in active">
       <div class="alert alert-success" role="alert">
-      <center>Cadastrar novo usuário:
+      <center>Editar cadastro de usuário:
       </center>
     </div>
-    <form class="form-vertical" action="insereusuario.php" method="POST">
+    <?php 
+include 'include/dbconf.php';
+$conn->exec('SET CHARACTER SET utf8');
+$id=$_GET['id'];
+$sql = $conn->prepare("SELECT * FROM usuarios WHERE id=$id");
+$sql->execute();
+$row = $sql->fetch(PDO::FETCH_ASSOC);
+$epr = "";
+
+if(isset($_GET['epr'])) {
+    $epr=$_GET['epr'];
+  }
+  if($epr=='excluir'){
+      $id=$_GET['id'];
+      $query = $conn ->prepare("DELETE FROM usuarios WHERE id=$id");
+      $query->execute();
+       echo "<script>deletado()</script>";  
+  }
+
+?>
+    <div class="text-right">
+     <?php echo "<a href='editausuario.php?id=".$row['id']."&epr=excluir'><button type='reset' class='btn btn-danger'data-toggle='tooltip' data-placement='left' title='Excluir cadastro!'><span class='glyphicon glyphicon-trash'></span></button></a>"; ?>
+    </div>
+    <form class="form-vertical" action="updateusuario.php" method="POST">
       <fieldset>
         <!-- Text input-->
         <div class="form-group form">
+          <input style="display:none;"  name='id' value='<?php echo $id; ?>'readonly/>  
           <label class="col-md-4 control-label empresa" for="nome">Nome:
           </label>  
-          <input name="nome" type="text" class="form-control label1" required="">
+          <input name="nome" type="text" class="form-control label1" value="<?php echo $row['nome']?>" required="">
           <br/>
             <label class="col-md-4 control-label empresa" for="usuario" id="usuario">Login:
           </label> 
-          <input name="usuario" type="text" class="form-control label1" required="">
+          <input name="usuario" type="text" class="form-control label1" value="<?php echo $row['usuario']?>" required="">
           <div id="resultado"></div> 
           <label class="col-md-4 control-label empresa" for="usuario">E-mail
           </label>  
-          <input name="email" type="email" class="form-control label1" required="">
+          <input name="email" type="email" class="form-control label1" value="<?php echo $row['email']?>" required="">
           <br/>
            <label class="col-md-4 control-label empresa" for="senha">Senha:
           </label>  
@@ -255,42 +274,14 @@ $email = md5( $_SESSION['Email']);
         <!-- Button -->
         <div class="col-md-12 text-center">
           <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Cadastrar</button>
-          <button type="reset" class="btn btn-group-lg btn-warning" onclick="cancelar2()">Cancelar</button>
+          <button type="reset" class="btn btn-group-lg btn-warning" onclick="cancelar4()">Cancelar</button>
       </div>    
         
          </fieldset>
     </form>
       </div>
-
-      <div id="home1" class="tab-pane fade">
-        <table class="table table-responsive table-hover">
-        <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Login</th>
-        <th>Email</th>
-        <th><center><img src="imagem/acao.png"></center></th>
-        </tr>
-        <tbody id="target-content">
-        <?php
-        include ('include/dbconf.php');
-        $sql = $conn->prepare('SELECT id, nome, usuario, email FROM usuarios ORDER BY id desc');
-        $sql->execute();
-        $result = $sql->fetchall();
-        foreach($result as $row){  
-        echo '<tr>';            
-        echo '<td>'.$row["id"].'</td>';
-        echo '<td>'.$row["nome"].'</td>';
-        echo '<td>'.$row["usuario"].'</td>';
-        echo '<td>'.$row["email"].'</td>';
-        echo "<td> <a style='margin-top:2px;' href='editausuario.php?id=".$row['id']."'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>";
-        }?>
-        </tbody> 
-        </table>
-      </div>     
 </br>
 </br>
 </br>
-</div> 
 </body>
 </html>
