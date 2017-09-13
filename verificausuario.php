@@ -3,7 +3,7 @@
   header("Content-Type: text/html; charset=UTF-8");
 
 
-  $mysqli = new mysqli('localhost', 'root', '', 'chamados');
+  include ('include/db.php');
 
   $user = filter_input(INPUT_GET, 'usuario');
   if($user == ''){
@@ -13,7 +13,7 @@
   $sql = "SELECT * FROM `usuarios` WHERE `usuario` = '{$user}'"; //monto a query
 
 
-  $query = $mysqli->query( $sql ); //executo a query
+  $query = $conn->query( $sql ); //executo a query
 
   if( $query->num_rows > 0 ) {//se retornar algum resultado
     echo '<p class="text-danger" style="margin-left:160px;"><small>Usuário <strong>'.$user.'</strong> já cadastrado!</small></p>';
