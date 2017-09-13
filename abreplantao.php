@@ -1,57 +1,30 @@
 <!Doctype html>
   <html >
     <head>
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <link rel="shortcut icon" href="imagem/favicon.ico" />
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Controle de Chamados</title>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <meta charset="utf-8"/>
-      <title>Controle de Chamados
-      </title>
+      <link rel="shortcut icon" href="imagem/favicon.ico" />
       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-      <script src="//code.jquery.com/jquery-1.10.2.js">
-      </script>
-      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js">
-      </script>         
-      <script src="js/links.js" >
-      </script> 
       <link href="css/bootstrap.css" rel="stylesheet">
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js">
-      </script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
-      </script>
       <link href="css/cad.css" rel="stylesheet">
-      <script src="js/bootstrap.min.js">
-      </script>
-
-        <script>
-            function erro(){
-               alert('Acesso negado! Redirecinando a pagina principal.');
-              window.location.assign("chamadoespera.php");
-              }
-            $(function() {
-             $( "#skills" ).autocomplete({
-               source: 'search.php'
-                });
-              });
-           function cancelar(){
-            window.location.assign("chamados.php");
-              }
-        </script>
     </head>
       <body>
     
-            <?php
-          include 'include/dbconf.php';
-          header("Content-type: text/html; charset=utf-8");
-          if (!isset($_SESSION)) session_start();
-          if($_SESSION['UsuarioNivel'] == 1) {
-          echo'<script>erro()</script>';
-          }  else {
-          if (!isset($_SESSION['UsuarioID'])) {
-          session_destroy();
-          header("Location: index.php"); exit;
-          }}
-          $email = md5( $_SESSION['Email']);
+          <?php
+            include 'include/dbconf.php';
+            header("Content-type: text/html; charset=utf-8");
+            if (!isset($_SESSION)) session_start();
+              if($_SESSION['UsuarioNivel'] == 1) {
+                echo'<script>erro()</script>';
+              }  
+            else {
+              if (!isset($_SESSION['UsuarioID'])) {
+                 session_destroy();
+                  header("Location: index.php"); exit;
+                }}
+            $email = md5( $_SESSION['Email']);
           ?>
      <nav class="navbar navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
@@ -120,29 +93,28 @@
          
          <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
            echo '<ul class="nav navbar-nav">
-         <li class="dropdown">
-            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
-               <span class="caret">
-               </span>
-             </a>
-             <ul class="dropdown-menu">
-           <li>
-             <a href="relatorio.php">Chamados por atendente
-             </a>
-           </li>
-           <li role="separator" class="divider">
-           </li>
-           <li>
-             <a href="relatorioempre.php">Empresas Solicitantes 
-             </a>
-           </li>
-           <li role="separator" class="divider">
-           </li>
-         </ul>
-</ul>';}?>
+                  <li class="dropdown">
+                      <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
+                        <span class="caret">
+                        </span>
+                      </a>
+                      <ul class="dropdown-menu">
+                    <li>
+                      <a href="relatorio.php">Chamados por atendente
+                      </a>
+                    </li>
+                    <li role="separator" class="divider">
+                    </li>
+                    <li>
+                      <a href="relatorioempre.php">Empresas Solicitantes 
+                      </a>
+                    </li>
+                    <li role="separator" class="divider">
+                    </li>
+                  </ul>
+                </ul>';}?>
 
          <ul class="nav navbar-nav">
-            
          </ul>
           <ul class="nav navbar-nav">
            <li class="dropdown">
@@ -158,10 +130,8 @@
                </span>
              </a>
            </li>
-          
            <?php
                if($_SESSION['UsuarioNivel'] == 3){
-           
                  echo ' <li role="separator" class="divider">
                          </li>         
                          <li>
@@ -275,5 +245,20 @@
     </div>
     </br>
     </br>
+      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>         
+      <script src="js/links.js" ></script> 
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+        <script>
+            function erro(){
+               alert('Acesso negado! Redirecinando a pagina principal.');
+                  window.location.assign("chamadoespera.php");
+              }
+            function cancelar(){
+              window.location.assign("chamados.php");
+              }
+        </script>
     </body>
   </html>

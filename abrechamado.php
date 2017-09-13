@@ -1,58 +1,32 @@
 <!Doctype html>
-  <html >
+  <html>
     <head>
+      <title>Controle de Chamados</title>
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <link rel="shortcut icon" href="imagem/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta charset="utf-8"/>
-      <title>Controle de Chamados
-      </title>
+      <link rel="shortcut icon" href="imagem/favicon.ico" />  
       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-      <script src="//code.jquery.com/jquery-1.10.2.js">
-      </script>
-      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js">
-      </script>         
-      <script src="js/links.js" >
-      </script> 
       <link href="css/bootstrap.css" rel="stylesheet">
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js">
-      </script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
-      </script>
       <link href="css/cad.css" rel="stylesheet">
-      <script src="js/bootstrap.min.js">
-      </script>
-
-        <script>
-            function erro(){
-               alert('Acesso negado! Redirecinando a pagina principal.');
-              window.location.assign("chamadoespera.php");
-              }
-            $(function() {
-             $( "#skills" ).autocomplete({
-               source: 'search.php'
-                });
-              });
-           function cancelar(){
-            window.location.assign("chamados.php");
-              }
-        </script>
     </head>
-      <body>
     
-            <?php
-          include 'include/dbconf.php';
-          header("Content-type: text/html; charset=utf-8");
-          if (!isset($_SESSION)) session_start();
-          if($_SESSION['UsuarioNivel'] == 1) {
-          echo'<script>erro()</script>';
-          }  else {
-          if (!isset($_SESSION['UsuarioID'])) {
-          session_destroy();
-          header("Location: index.php"); exit;
-          }}
-          $email = md5( $_SESSION['Email']);
-          ?>
+    <body>
+        <?php
+            include 'include/dbconf.php';
+            header("Content-type: text/html; charset=utf-8");
+            if (!isset($_SESSION)) session_start();
+              if($_SESSION['UsuarioNivel'] == 1) {
+                echo'<script>erro()</script>';
+                }  
+            else {
+              if (!isset($_SESSION['UsuarioID'])) {
+                session_destroy();
+                header("Location: index.php"); exit;
+              }
+              }
+              $email = md5( $_SESSION['Email']);
+        ?>
      <nav class="navbar navbar-inverse navbar-fixed-top">
      <div class="container-fluid">
        <!-- Brand and toggle get grouped for better mobile display -->
@@ -73,16 +47,14 @@
        <!-- Collect the nav links, forms, and other content for toggling -->
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
-         <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
-          echo '<li>
-              <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
-             </a>
-           </li>';}
-           ?>
+          <?php 
+            if($_SESSION['UsuarioNivel'] == 2 || 3) {
+              echo '<li>
+                      <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome</a>
+                    </li>';}
+          ?>
            <li>
-             <a href="empresa.php"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbspClientes
-             </a>
+             <a href="empresa.php"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbspClientes</a>
            </li>
          </ul>
          
@@ -139,7 +111,7 @@
            <li role="separator" class="divider">
            </li>
          </ul>
-</ul>';}?>
+          </ul>';}?>
 
          <ul class="nav navbar-nav">
             
@@ -208,13 +180,13 @@
       <div class="row">
         <hr/>
         <?php 
-  $conn->exec('SET CHARACTER SET utf8');
-  $id=$_GET['id_chamado'];
-  $sql = $conn->prepare("SELECT * FROM chamado WHERE id_chamado = :id");
-  $sql->bindParam(":id", $id, PDO::PARAM_INT);
-  $sql->execute();
-  $row = $sql->fetch(PDO::FETCH_ASSOC);
-  ?>
+          $conn->exec('SET CHARACTER SET utf8');
+          $id=$_GET['id_chamado'];
+          $sql = $conn->prepare("SELECT * FROM chamado WHERE id_chamado = :id");
+          $sql->bindParam(":id", $id, PDO::PARAM_INT);
+          $sql->execute();
+          $row = $sql->fetch(PDO::FETCH_ASSOC);
+        ?>
       </div>
       <div class="alert alert-success" role="alert">
         <center>Finalizar Chamado Nº: 
@@ -270,10 +242,25 @@
             
             <button id="singlebutton" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning" onclick="cancelar()">Cancelar</button>
         </div>
-
       </form>
     </div>
     </br>
     </br>
-    </body>
+    
+      <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+      <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>         
+      <script src="js/links.js" ></script> 
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <script>
+            function erro(){
+               alert('Acesso negado! Redirecinando a pagina principal.');
+              window.location.assign("chamadoespera.php");
+              }
+           function cancelar(){
+            window.location.assign("chamados.php");
+              }
+      </script>
+      </body>
   </html>
