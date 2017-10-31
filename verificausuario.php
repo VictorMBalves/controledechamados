@@ -3,7 +3,7 @@
   header("Content-Type: text/html; charset=UTF-8");
 
 
-  $mysqli = new mysqli('localhost', 'root', '', 'chamados');
+  $mysqli = new mysqli('localhost', 'root', 'd8hj0ptr', 'chamados');
 
   $user = filter_input(INPUT_GET, 'usuario');
   if($user == ''){
