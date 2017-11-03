@@ -29,7 +29,8 @@ $cnpj=$_POST['cnpj'];
 $situacao=$_POST['situacao'];
 $telefone=$_POST['telefone'];
 $celular=$_POST['celular'];
-$sql = $conn->prepare("UPDATE empresa SET nome='$empresa', cnpj='$cnpj', situacao='$situacao', telefone='$telefone', celular='$celular' WHERE id_empresa='$id'") or die(mysql_error());
+$backup = $_POST['backup'];
+$sql = $conn->prepare("UPDATE empresa SET nome='$empresa', cnpj='$cnpj', situacao='$situacao', telefone='$telefone', celular='$celular', backup='$backup' WHERE id_empresa='$id'") or die(mysql_error());
 $sql->execute();
 echo '<script> redireciona() </script>'      
 ?>

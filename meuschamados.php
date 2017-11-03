@@ -137,7 +137,7 @@ $rs_result = mysqli_query($conn, $sql);
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
     <?php 
-    if($_SESSION['UsuarioNivel'] == 2 || 3) {
+    if($_SESSION['UsuarioNivel'] != 1) {
      echo '<li>
          <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
         </a>
@@ -157,7 +157,7 @@ $rs_result = mysqli_query($conn, $sql);
         </a>
         <ul class="dropdown-menu">
          <?php 
-    if($_SESSION['UsuarioNivel'] == 2 || 3) {
+    if($_SESSION['UsuarioNivel'] != 1) {
          echo '<li>
             <a href="chamados.php">Atendimentos
             </a>
@@ -181,7 +181,7 @@ $rs_result = mysqli_query($conn, $sql);
         <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
       </li>
     
-    <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
+    <?php if($_SESSION['UsuarioNivel'] != 1) {
       echo '<ul class="nav navbar-nav">
     <li class="dropdown">
        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -291,7 +291,7 @@ $rs_result = mysqli_query($conn, $sql);
       <?php 
 include 'include/dbconf.php';
 $enderecado=$_SESSION['UsuarioNome'];
-$sql = $conn->prepare("SELECT id_chamadoespera, usuario, status, empresa, contato, telefone, data FROM chamadoespera WHERE status = 'Aguardando Retorno' AND enderecado LIKE '$enderecado' ORDER BY data DESC");
+$sql = $conn->prepare("SELECT id_chamadoespera, usuario, status, empresa, contato, telefone, data FROM chamadoespera WHERE status in ('Aguardando Retorno','Entrado em contato') AND enderecado LIKE '$enderecado' ORDER BY data DESC");
 $sql->execute();
 if($sql->rowCount()>0){
   $result = $sql->fetchall();
@@ -307,7 +307,7 @@ if($sql->rowCount()>0){
   echo '<th width="100px"><center><img src="imagem/acao.png"></center></th>
   </tr>   
   <tbody>';
-  foreach($result as $row){ 
+  foreach($result as $row){  
   echo '<tr>';
   echo '<td><div class="circle3" data-toggle="tooltip" data-placement="left" title="Aguardando Retorno"></div></td>';
   echo '<td>'.$row["data"].'</td>'; 

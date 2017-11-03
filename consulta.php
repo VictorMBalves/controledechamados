@@ -71,7 +71,7 @@ $email = md5( $_SESSION['Email']);
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
          <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
           echo '<li>
               <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
              </a>
@@ -91,7 +91,7 @@ $email = md5( $_SESSION['Email']);
              </a>
              <ul class="dropdown-menu">
               <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
               echo '<li>
                  <a href="chamados.php">Atendimentos
                  </a>
@@ -115,7 +115,7 @@ $email = md5( $_SESSION['Email']);
              <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
            </li>
          
-         <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         <?php if($_SESSION['UsuarioNivel'] != 1) {
            echo '<ul class="nav navbar-nav">
          <li class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -212,6 +212,10 @@ $id=$_GET['id_chamado'];
 $sql = $conn->prepare("SELECT * FROM chamado WHERE id_chamado=$id");
 $sql->execute();
 $row = $sql->fetch(PDO::FETCH_ASSOC);
+$empresa = $row['empresa'];
+$sql2 = $conn->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
+$sql2->execute();
+$row2 = $sql2->fetch(PDO::FETCH_ASSOC);
 //header("Content-type: text/html; charset=iso-8859-1");
 ?> 
     <div class="alert alert-success" role="alert">
@@ -246,9 +250,12 @@ $row = $sql->fetch(PDO::FETCH_ASSOC);
               <?php  echo $row['modulo'];?>
             </option>
           </select>
-          <label class="col-md-4 control-label empresa disabled" >Versão:
-          </label>  
-          <input value='<?php  echo $row['versao'];?>' disabled name="versao" type="text" class="form-control label2 disabled" onkeypress="return SomenteNumero(event)">
+          <label class="col-md-4 control-label empresa" for="backup">Backup:</label>  
+          <select name="backup" class="form-control label2 disabled" disabled="">
+            <option>
+                <?php if($row2['backup'] == 0){echo "Google drive não configurado";}else{echo "Google drive configurado";}?>
+            </option>
+          </select>
           <label class="col-md-4 control-label empresa disabled">Categoria:
           </label>
           <select name="categoria" disabled class="form-control forma disabled">

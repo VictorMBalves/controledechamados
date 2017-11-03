@@ -11,6 +11,7 @@
     <link href="css/cad.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
   </head>
+
   <body>
     <?php
       include 'include/dbconf.php';
@@ -51,7 +52,7 @@
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
          <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
           echo '<li>
               <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
              </a>
@@ -71,7 +72,7 @@
              </a>
              <ul class="dropdown-menu">
               <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
               echo '<li>
                  <a href="chamados.php">Atendimentos
                  </a>
@@ -95,7 +96,7 @@
              <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
            </li>
          
-         <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         <?php if($_SESSION['UsuarioNivel'] != 1) {
            echo '<ul class="nav navbar-nav">
          <li class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -192,6 +193,10 @@
       $sql = $conn->prepare("SELECT * FROM chamadoespera WHERE id_chamadoespera=$id");
       $sql->execute();
       $row = $sql->fetch(PDO::FETCH_ASSOC);
+      $empresa = $row['empresa'];
+      $sql2 = $conn->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
+      $sql2->execute();
+      $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
     ?> 
     <div class="alert alert-warning" role="alert">
       <center>Atender chamado em espera Nº:
@@ -220,6 +225,8 @@
                   </option>
                   <option value="Team Viewer">Team Viewer
                   </option>
+                  <option value="Skype">Skype
+                  </option>
               </select>
 
         <label class="col-md-4 control-label empresa" for="telefone">Telefone</label>  
@@ -241,8 +248,18 @@
                   </option>
               </select>
 
-        <label class="col-md-4 control-label empresa" for="versao">Versão:</label>  
-              <input name="versao" type="text" class="form-control label2" data-mask="9.99.9" required="">
+              <label class="col-md-4 control-label empresa" for="backup">Backup:</label>  
+              <select name="backup" class="form-control label2">
+                <option>
+                    <?php if($row2['backup'] == 0){echo "Google drive não configurado";}else{echo "Google drive configurado";}?>
+                </option>
+                <option>
+                  </option>
+                  <option value="1">Google drive configurado
+                  </option>
+                  <option value="0">Google drive não configurado
+                  </option>
+              </select>
 
         <label class="col-md-4 control-label empresa" for="categoria">Categoria:</label>  
               <select name="categoria" type="text" class="form-control forma" required="">

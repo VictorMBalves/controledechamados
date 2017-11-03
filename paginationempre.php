@@ -1,10 +1,22 @@
 <?php
 include 'include/db.php';
-
+if (!isset($_SESSION)) session_start();
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 $start_from = ($page-1) * $limit;  
-  
-$sql = "SELECT * FROM empresa ORDER BY id_empresa ASC LIMIT $start_from, $limit";  
+$situacao = $_SESSION['situacao'];
+$palavra = $_SESSION['palavra'];
+$query = "SELECT * FROM empresa ";
+if ($situacao != null) {                                        
+$query = " $query WHERE situacao LIKE '$situacao' ";
+}               
+if ($palavra != null) {
+if ($situacao != null) {
+$query = " $query AND nome LIKE '%".$palavra."%' ";
+} else {
+$query = " $query WHERE nome LIKE '%".$palavra."%' ";
+}
+}
+$sql = " $query ORDER BY id_empresa ASC LIMIT $start_from, $limit";
 $rs_result = mysqli_query($conn, $sql); 
 ?>
 

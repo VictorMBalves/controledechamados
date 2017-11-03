@@ -39,6 +39,11 @@ $formacontato=$_POST['formacontato'];
 $categoria=$_POST['categoria'];
 $descproblema=$_POST['descproblema'];
 $usuario=$_SESSION['UsuarioNome'];
+$backup=$_POST['backup'];
+$sql = $conn->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
+$sql->execute();
+$sql = $conn->prepare("UPDATE usuarios set disponivel=1 where nome = '$usuario'") or die(mysql_error());
+$sql->execute();
 $sql = $conn->prepare("INSERT INTO chamado (usuario, status, empresa, contato, telefone, modulo, versao, formacontato, categoria, descproblema, datainicio) 
 VALUES (:usuario, :status, :empresa, :contato, :telefone, :modulo, :versao, :formacontato, :categoria, :descproblema, :datainicio)") or die(mysql_error());
 $sql ->bindParam(":usuario", $usuario, PDO::PARAM_STR,500);

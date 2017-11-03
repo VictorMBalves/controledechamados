@@ -17,7 +17,8 @@ $cnpj=$_POST['cnpj'];
 $situacao=$_POST['situacao'];
 $telefone=$_POST['telefone'];
 $celular=$_POST['celular'];
-$sql = $conn->prepare("INSERT INTO empresa (nome, cnpj, situacao, telefone, celular) VALUES ('$empresa','$cnpj','$situacao','$telefone','$celular')") or die(mysql_error());
+$backup=$_POST['backup'];
+$sql = $conn->prepare("INSERT INTO empresa (nome, cnpj, situacao, telefone, celular, backup) VALUES ('$empresa','$cnpj','$situacao','$telefone','$celular','$backup')") or die(mysql_error());
 $sql->execute();
 echo '<script> redireciona() </script>'      
 ?>

@@ -20,6 +20,9 @@ $versao=$_POST['versao'];
 $formacontato=$_POST['formacontato'];
 $categoria=$_POST['categoria'];
 $descproblema=$_POST['descproblema'];
+$backup=$_POST['backup'];
+$sql = $conn->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
+$sql->execute();
 $sql = $conn->prepare("UPDATE chamado SET  contato='$contato', telefone='$telefone', modulo='$modulo', versao='$versao', formacontato='$formacontato', descproblema='$descproblema', categoria='$categoria'  WHERE id_chamado='$id'") 
 or die(mysql_error());
 $sql->execute();

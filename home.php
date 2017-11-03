@@ -9,7 +9,7 @@
     </title>
     <script src='js/jquery.min.js'>
     </script>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js">
     </script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
@@ -29,6 +29,18 @@
         alert('Acesso negado! Redirecinando a pagina principal.');
         window.location.assign("chamadoespera.php");
       }
+      function refresh_usuarios() {
+        var url="atendentedispo.php";
+        jQuery("#usuarios").load(url);
+      }
+      
+      $(function() {
+      refresh_usuarios(); //first initialize
+        });
+        setInterval(function(){
+          refresh_usuarios() // this will run after every 5 seconds
+        }, 5000);  
+      
     </script>
     <style>
       .circle3{
@@ -59,7 +71,7 @@
        .bttt{
          width:40px;
          margin-right:0px;
-       }    
+       }  
     </style>
   </head>
 
@@ -69,15 +81,12 @@ header("Content-type: text/html; charset=utf-8");
 // A sessão precisa ser iniciada em cada página diferente
 if (!isset($_SESSION)) session_start();
 // Verifica se não há a variável da sessão que identifica o usuário
-if($_SESSION['UsuarioNivel'] == 1) {
-echo'<script>erro()</script>';
-} else {
 if (!isset($_SESSION['UsuarioID'])) {
 //Destrói a sessão por segurança
 session_destroy();
 //Redireciona o visitante de volta pro login
 header("Location: index.php"); exit;
-}}
+}
 $email = md5($_SESSION['Email']);
 ?>
 
@@ -102,7 +111,7 @@ $email = md5($_SESSION['Email']);
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
           <?php 
-          if($_SESSION['UsuarioNivel'] == 2 || 3) {
+          if($_SESSION['UsuarioNivel'] != 1) {
            echo '<li>
                <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
               </a>
@@ -121,20 +130,22 @@ $email = md5($_SESSION['Email']);
                 </span>
               </a>
               <ul class="dropdown-menu">
-               <?php 
-          if($_SESSION['UsuarioNivel'] == 2 || 3) {
-               echo '<li>
-                  <a href="chamados.php">Atendimentos
-                  </a>
-                </li>
-                <li role="separator" class="divider">
-                </li>
-                <li>
-                  <a href="cad_chamado.php">Novo Chamado
-                  </a>
-                </li>
-                <li role="separator" class="divider">
-                </li>';}?>
+              <?php 
+                if($_SESSION['UsuarioNivel'] != 1) {
+                  echo '<li>
+                          <a href="chamados.php">Atendimentos
+                          </a>
+                        </li>
+                        <li role="separator" class="divider">
+                        </li>
+                        <li>
+                          <a href="cad_chamado.php">Novo Chamado
+                          </a>
+                        </li>
+                        <li role="separator" class="divider">
+                        </li>';
+                  }
+              ?>
                 <li>
                   <a href="chamadoespera.php">Novo Chamado Em Espera
                   </a>
@@ -146,7 +157,7 @@ $email = md5($_SESSION['Email']);
               <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
             </li>
           
-          <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
+          <?php if($_SESSION['UsuarioNivel'] != 1) {
             echo '<ul class="nav navbar-nav">
           <li class="dropdown">
              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -167,7 +178,7 @@ $email = md5($_SESSION['Email']);
             <li role="separator" class="divider">
             </li>
           </ul>
-</ul>';}?>
+            </ul>';}?>
 
           <ul class="nav navbar-nav">
              
@@ -221,24 +232,21 @@ $email = md5($_SESSION['Email']);
 <br/>
 <br/>
 <br/>
-
-<div class="container">
+<div id="usuarios" class="col-xs-6 col-md-3">
+</div>
+<div class="col-xs-12 col-sm-6 col-md-8">
  <div id="tarefas"></div>
   <div class="row">
     <h1>
-      <div class="container">
-        <div class="row">
           <?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail' alt='Cinque Terre' width='100'>";?>
-          <span style="margin-left:15px;">Bem-vindo, 
-            <?php echo $_SESSION['UsuarioNome']; ?>
-            <div class="col-xs-6 col-md-3 navbar-right">
-          <a href="home.php" class="thumbnail teste">
-            <img src="imagem/logo.png" >
-          </a>
-        </div> 
+          <span style="margin-left:15px;">Bem-vindo, <?php echo $_SESSION['UsuarioNome']; ?>
+            <div class="col-xs-6 col-sm-4 navbar-right">
+              <a href="home.php" class="thumbnail teste">
+               <img src="imagem/logo.png" >
+              </a>
+            </div> 
           </span>
         </img>
-       
     </h1>
   </div>
    
@@ -269,8 +277,7 @@ echo '<th width="100px"><center><img src="imagem/acao.png"></center></th>
 $sql = $conn->prepare('SELECT id_chamadoespera, usuario, status, empresa, contato, telefone, data, enderecado, historico FROM chamadoespera ORDER BY data desc');
 $sql->execute();
 $result = $sql->fetchall();
-foreach($result as $row){  
-if($row["enderecado"] == ""){  
+foreach($result as $row){   
 if(!($row["status"] == "Finalizado")) {    
 echo '<tr>';
 echo '<td>'; if($row['status']=="Aguardando Retorno"){ echo '<div class="circle3" data-toggle="tooltip" data-placement="left" title="Aguardando Retorno"></div>'; } else { echo '<div class="circle4" data-toggle="tooltip" data-placement="left" title="Entrado em contato"></div>';} echo '</td>';
@@ -283,7 +290,6 @@ echo '<td>'.$row["telefone"].'</td>';
 echo "<td><a href='consultaespera.php?id_chamadoespera=".$row['id_chamadoespera']."'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> 
 <a href='abrechamadoespera.php?id_chamadoespera=".$row['id_chamadoespera']. "'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
 echo '</tr>'; 
-}
 }
 }
 ?>

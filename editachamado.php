@@ -80,7 +80,7 @@ $email = md5( $_SESSION['Email']);
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
           <?php 
-          if($_SESSION['UsuarioNivel'] == 2 || 3) {
+          if($_SESSION['UsuarioNivel'] != 1) {
            echo '<li>
                <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
               </a>
@@ -100,7 +100,7 @@ $email = md5( $_SESSION['Email']);
               </a>
               <ul class="dropdown-menu">
                <?php 
-          if($_SESSION['UsuarioNivel'] == 2 || 3) {
+          if($_SESSION['UsuarioNivel'] != 1) {
                echo '<li>
                   <a href="chamados.php">Atendimentos
                   </a>
@@ -124,7 +124,7 @@ $email = md5( $_SESSION['Email']);
               <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
             </li>
           
-          <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
+          <?php if($_SESSION['UsuarioNivel'] != 1) {
             echo '<ul class="nav navbar-nav">
           <li class="dropdown">
              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -215,13 +215,17 @@ $email = md5( $_SESSION['Email']);
     <div class="row">
       <hr/>
       <?php 
-include 'include/dbconf.php';
-$conn->exec('SET CHARACTER SET utf8');
-$id=$_GET['id_chamado'];
-$sql = $conn->prepare("SELECT * FROM chamado WHERE id_chamado=$id");
-$sql->execute();
-$row = $sql->fetch(PDO::FETCH_ASSOC);
-?>
+        include 'include/dbconf.php';
+        $conn->exec('SET CHARACTER SET utf8');
+        $id=$_GET['id_chamado'];
+        $sql = $conn->prepare("SELECT * FROM chamado WHERE id_chamado=$id");
+        $sql->execute();
+        $row = $sql->fetch(PDO::FETCH_ASSOC);
+        $empresa = $row['empresa'];
+        $sql2 = $conn->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
+        $sql2->execute();
+        $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
+      ?>
     </div>
     <div class="alert alert-success" role="alert">
       <center>Editar Chamado Nº: 
@@ -253,6 +257,8 @@ $row = $sql->fetch(PDO::FETCH_ASSOC);
                   </option>
                   <option value="Team Viewer">Team Viewer
                   </option>
+                  <option value="Skype">Skype
+                  </option>
               </select>
 
         <label class="col-md-4 control-label empresa" for="telefone">Telefone</label>  
@@ -275,8 +281,18 @@ $row = $sql->fetch(PDO::FETCH_ASSOC);
                   </option>
               </select>
 
-        <label class="col-md-4 control-label empresa" for="versao">Versão:</label>  
-              <input value='<?php echo $row['versao'];?>' name="versao" type="text" class="form-control label2" data-mask="9.99.9" required="">
+              <label class="col-md-4 control-label empresa" for="backup">Backup:</label>  
+              <select name="backup" class="form-control label2">
+                <option>
+                    <?php if($row2['backup'] == 0){echo "Google drive não configurado";}else{echo "Google drive configurado";}?>
+                </option>
+                <option>
+                  </option>
+                  <option value="1">Google drive configurado
+                  </option>
+                  <option value="0">Google drive não configurado
+                  </option>
+              </select>
 
         <label class="col-md-4 control-label empresa" for="categoria">Categoria:</label>  
               <select name="categoria" type="text" class="form-control forma" required="">

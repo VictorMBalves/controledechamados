@@ -98,7 +98,7 @@ $email = md5( $_SESSION['Email']);
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
          <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
           echo '<li>
               <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
              </a>
@@ -118,7 +118,7 @@ $email = md5( $_SESSION['Email']);
              </a>
              <ul class="dropdown-menu">
               <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
               echo '<li>
                  <a href="chamados.php">Atendimentos
                  </a>
@@ -142,7 +142,7 @@ $email = md5( $_SESSION['Email']);
              <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
            </li>
          
-         <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         <?php if($_SESSION['UsuarioNivel'] != 1) {
            echo '<ul class="nav navbar-nav">
          <li class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -271,7 +271,7 @@ $data = time('Y-m-d');
 $data2 = time('Y-m-d');
 }
 $conn->exec('SET CHARACTER SET utf8');   
-$query = $conn->prepare("SELECT DISTINCT usuario from chamado where date(datainicio) BETWEEN '$data' and '$data2' group by date(datainicio), usuario ORDER BY usuario");
+$query = $conn->prepare("SELECT DISTINCT chamado.usuario from chamado INNER JOIN usuarios us on chamado.usuario = us.nome where date(datainicio) BETWEEN '$data' and '$data2' and us.nivel = 2 group by date(datainicio), chamado.usuario ORDER BY usuario");
 $query->execute();
 $usuarios = $query->fetchall();
 if (array_key_exists('data', $_POST)) {             
@@ -290,19 +290,19 @@ $total = 0;
 echo '</tr>';
 echo '</thead>';
 echo '<tbody>';
-$query = $conn->prepare("SELECT DISTINCT date(datainicio) from chamado where date(datainicio) BETWEEN '$data' and '$data2' group by date(datainicio), usuario ORDER BY date(datainicio)");
+$query = $conn->prepare("SELECT DISTINCT date(datainicio) from chamado inner JOIN usuarios us ON us.nome = chamado.usuario where date(datainicio) BETWEEN '$data' and '$data2' AND us.nivel = 2 group by date(datainicio), chamado.usuario ORDER BY date(datainicio)");
 $query->execute();
 $datas = $query->fetchall();
 foreach($datas as $data){
 echo '<tr>'; 
 echo '<td>'.$data['date(datainicio)'].'</td>';
 $datainicio = $data['date(datainicio)'];
-$query = $conn->prepare("SELECT usuario, count(datainicio) from chamado where date(datainicio) = '$datainicio' group by date(datainicio), usuario ORDER BY date(datainicio), usuario");
+$query = $conn->prepare("SELECT cha.usuario, count(datainicio) from chamado cha INNER JOIN usuarios us ON us.nome = cha.usuario where date(datainicio) = '$datainicio' AND us.nivel = 2 group by date(datainicio), usuario ORDER BY date(datainicio), usuario");
 $query->execute();
 $resultados =$query->fetchall();
 $atual=0;
 foreach($usuarios as $usuario){
-if ($atual!=sizeof($resultados) && $usuario['usuario']==$resultados[$atual]['usuario']) {                                                                        
+if ($atual!=sizeof($resultados) || $usuario['usuario']==$resultados[$atual]['usuario']) {                                                                        
 echo '<td>'.$resultados[$atual]['count(datainicio)'].'</td>';                        
 $totalUsuarios[$usuario['usuario']] += $resultados[$atual]['count(datainicio)'];
 $total += $resultados[$atual]['count(datainicio)'];

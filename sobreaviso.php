@@ -22,7 +22,10 @@
                     margin-right:15px;   
                 }
                 th, td{
-                  padding:5px;  
+                  padding:5px;
+                  border: 0.5px solid black;
+                  border-left:0px;
+                  border-right:0px;  
                 }
                 th{
                     background-color:#eee;
@@ -62,9 +65,10 @@
                include 'include/dbconf.php';
                     $data1=$_POST['data1'];
                     $data2=$_POST['data2'];
+                    $usuario=$_SESSION['UsuarioNome'];
 
                     $conn->exec('SET CHARACTER SET utf8');   
-                    $query = $conn->prepare("SELECT id_plantao, datainicio, date(datainicio), empresa, contato, descsolucao, descproblema, datafinal, data, horainicio, horafim FROM plantao where date(datainicio) BETWEEN '$data1' and '$data2' OR data BETWEEN '$data1' and '$data2' ORDER BY id_plantao desc");
+                    $query = $conn->prepare("SELECT id_plantao, datainicio, date(datainicio), empresa, contato, descsolucao, descproblema, datafinal, data, horainicio, horafim FROM plantao where date(datainicio) BETWEEN '$data1' and '$data2' OR data BETWEEN '$data1' and '$data2' and usuario = '$usuario' ORDER BY id_plantao desc");
                     $query->execute();
                     $resultado = $query->fetchall(); 
             ?>
@@ -92,8 +96,8 @@
                         <th>Data</th>
                         <th>Empresa</th>
                         <th>Contato</th>
-                        <th>Horario ínicio</th>
-                        <th>Horario término</th>
+                        <th>Horário ínicio</th>
+                        <th>Horário término</th>
                         <th>Desc. Problema</th>
                         <th>Desc. Solução</th>
                     </tr>
@@ -124,13 +128,13 @@
             <div class="footer">
                     <table class="foot">
                     <tr>   
-                        <th>Segunda à Sexta Feira: 12:01 às 13:29 e 18:01 às 22:00. Sábados: 12:01 às 22:00. Domingos e Feriados: 08:00 às 22:00.</th>
+                        <th>Segunda à Sexta Feira: 12:01 às 13:29 e 18:01 às 22:00. Sábados, domingos e feriados: 08:00 às 22:00.</th>
                     </tr>
                     <tr>
                         <td>TOTAL DIARIO SEGUNDA A SEXTA&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>05:27:00</strong></td>
                     </tr>
                     <tr>
-                        <td>SABÁDO&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>09:59:00</strong></td>
+                        <td>SABÁDO&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>14:00:00</strong></td>
                     </tr>
                     <tr>
                         <td>DOMINGO&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>14:00:00</strong></td>

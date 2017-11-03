@@ -37,10 +37,7 @@ else {
   $_SESSION['UsuarioNivel'] = $resultado['nivel'];
   $_SESSION['Email'] = $resultado['email'];
   // Redireciona o visitante
-  if($resultado['nivel'] == 2 || 3) {
     header("Location:home.php"); exit;
-  } else {
-    header("Location:chamadoespera.php"); exit;
+
   }
-}
 ?>

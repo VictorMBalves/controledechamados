@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "d8hj0ptr";
+$password = "ledzeppelin";
 $dbname = "chamados";
 $limit = 15;
 

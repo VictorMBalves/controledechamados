@@ -25,6 +25,42 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js">
     </script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("input[name='empresa']").blur(function(){
+          var $telefone = $("input[name='telefone']");
+          var $celular;
+
+          $telefone.val('Carregando...');
+
+            $.getJSON(
+              'gettelefone.php',
+              { empresa: $( this ).val() },
+              function( json )
+              {
+                if( json.telefone == "(000)0000-0000" ){
+                  $telefone.val( json.celular );
+                }
+                else{
+                  $telefone.val( json.telefone );
+                }
+              }
+            );
+        });
+      });
+
+      function refresh_usuarios() {
+        var url="atendentedispo.php";
+        jQuery("#usuarios").load(url);
+      }
+      
+      $(function() {
+      refresh_usuarios(); //first initialize
+        });
+        setInterval(function(){
+          refresh_usuarios() // this will run after every 5 seconds
+        }, 5000);  
+    </script>
     <script>
     function erro(){
         alert('Acesso negado! Redirecinando a pagina principal.');
@@ -73,7 +109,7 @@ $email = md5( $_SESSION['Email']);
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
          <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
           echo '<li>
               <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
              </a>
@@ -93,7 +129,7 @@ $email = md5( $_SESSION['Email']);
              </a>
              <ul class="dropdown-menu">
               <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
               echo '<li>
                  <a href="chamados.php">Atendimentos
                  </a>
@@ -117,7 +153,7 @@ $email = md5( $_SESSION['Email']);
              <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
            </li>
          
-         <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         <?php if($_SESSION['UsuarioNivel'] != 1) {
            echo '<ul class="nav navbar-nav">
          <li class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -192,6 +228,8 @@ $email = md5( $_SESSION['Email']);
 <br/>
 <br/>
 <br/>
+<div id="usuarios" class="col-xs-6 col-md-3 navbar-right" style="margin-right:20px;">
+</div>
 <div class="container">
  <div id="tarefas"></div>
   <div class="row">
@@ -229,11 +267,11 @@ $email = md5( $_SESSION['Email']);
         <?php 
         include 'include/dbconf.php';
         $conn->exec('SET CHARACTER SET utf8'); 
-        $sql = $conn->prepare('SELECT nome, nivel FROM usuarios');
+        $sql = $conn->prepare('SELECT nome, nivel, disponivel FROM usuarios');
         $sql->execute();
         $result = $sql->fetchall();
         foreach($result as $row){  
-        if($row["nivel"] == 2 || 3 ) {    
+        if($row["nivel"] != 1 ) {    
         echo '<option>'.$row['nome'].'</option>'; 
         }}        
         ?>
@@ -244,7 +282,7 @@ $email = md5( $_SESSION['Email']);
         <input id="skills" name="contato" type="text" class="form-control label2" required="">
         <label class="col-md-4 control-label empresa" for="telefone">Telefone:
         </label>  
-        <input name="telefone" type="text" data-mask="(999)9999-9999" class="form-control forma" onkeypress="return SomenteNumero(event)" required="">
+        <input name="telefone" type="text" class="form-control forma" onkeypress="return SomenteNumero(event)" required="">
        <label class="col-md-4 control-label empresa" for="descproblema">Descrição do problema:</label>  
       <textarea name="descproblema" class="form-control label1" required=""></textarea>
     </div>

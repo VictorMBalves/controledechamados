@@ -27,6 +27,40 @@
     </script>
     <link rel="stylesheet" href="dist/simplePagination.css" />
     <script src="dist/jquery.simplePagination.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $("input[name='empresa']").blur(function(){
+          var $telefone = $("input[name='telefone']");
+          var $backup = $("input[name='backup']");
+          var select = document.getElementById('backup');
+          var select2 = document.getElementById('backup2');
+          var $celular;
+
+          $telefone.val('Carregando...');
+
+            $.getJSON(
+              'gettelefone.php',
+              { empresa: $( this ).val() },
+              function( json )
+              {
+                if (json.backup == 0){
+                  $(select).val("0");
+                  $(select2).val("0");
+                }else{
+                  $(select).val("1");
+                  $(select2).val("1");
+                }
+                if( json.telefone == "(000)0000-0000" ){
+                $telefone.val( json.celular );
+                }
+                else{
+                  $telefone.val( json.telefone );
+                }
+              }
+            );
+        });
+      });
+  </script>
     <script>
     function erro(){
         alert('Acesso negado! Redirecinando a pagina principal.');
@@ -160,7 +194,7 @@ $rs_result = mysqli_query($conn, $sql);
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
          <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
           echo '<li>
               <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
              </a>
@@ -180,7 +214,7 @@ $rs_result = mysqli_query($conn, $sql);
              </a>
              <ul class="dropdown-menu">
               <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
               echo '<li>
                  <a href="chamados.php">Atendimentos
                  </a>
@@ -204,7 +238,7 @@ $rs_result = mysqli_query($conn, $sql);
              <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
            </li>
          
-         <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         <?php if($_SESSION['UsuarioNivel'] != 1) {
            echo '<ul class="nav navbar-nav">
          <li class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -330,10 +364,12 @@ $rs_result = mysqli_query($conn, $sql);
                               </option>
                               <option value="Team Viewer">Team Viewer
                               </option>
+                              <option value="Skype">Skype
+                              </option>
                           </select>
 
                     <label class="col-md-4 control-label empresa" for="telefone">Telefone</label>  
-                          <input data-mask="(999)9999-9999" name="telefone" type="text" class="col-md-4 form-control label2" onkeypress="return SomenteNumero(event)" required="">
+                          <input name="telefone" type="text" class="col-md-4 form-control label2" onkeypress="return SomenteNumero(event)" required="">
 
                     <label class="col-md-4 control-label empresa" for="modulo">Módulo:</label>  
                           <select name="modulo" type="text" class="col-md-4 form-control forma" required="">
@@ -351,9 +387,15 @@ $rs_result = mysqli_query($conn, $sql);
                               </option>
                           </select>
 
-                    <label class="col-md-4 control-label empresa" for="versao">Versão:</label>  
-                          <input name="versao" type="text" class="col-md-4 form-control label2" data-mask="9.99.9" required="">
-
+                          <label class="col-md-4 control-label empresa" for="backup">Backup:</label>  
+                          <select id="backup" name="backup" type="text" class="col-md-4 form-control label2" required="">
+                              <option>
+                              </option>
+                              <option value="1">Google drive configurado
+                              </option>
+                              <option value="0">Google drive não configurado
+                              </option>
+                            </select>
                     <label class="col-md-4 control-label empresa" for="categoria">Categoria:</label>  
                           <select name="categoria" type="text" class="col-md-4 form-control forma" required="">
                               <option>
@@ -427,10 +469,12 @@ $rs_result = mysqli_query($conn, $sql);
                               </option>
                               <option value="Team Viewer">Team Viewer
                               </option>
+                              <option value="Skype">Skype
+                              </option>
                           </select>
 
                     <label class="col-md-4 control-label empresa" for="telefone">Telefone</label>  
-                          <input data-mask="(999)9999-9999" name="telefone" type="text" class="col-md-4 form-control label2" onkeypress="return SomenteNumero(event)" required="">
+                          <input name="telefone" type="text" class="col-md-4 form-control label2" onkeypress="return SomenteNumero(event)" required="">
 
                     <label class="col-md-4 control-label empresa" for="modulo">Módulo:</label>  
                           <select name="modulo" type="text" class="col-md-4 form-control forma" required="">
@@ -448,9 +492,15 @@ $rs_result = mysqli_query($conn, $sql);
                               </option>
                           </select>
 
-                    <label class="col-md-4 control-label empresa" for="versao">Versão:</label>  
-                          <input name="versao" type="text" class="col-md-4 form-control label2" data-mask="9.99.9" required="">
-
+                          <label class="col-md-4 control-label empresa" for="backup">Backup:</label>  
+                          <select id="backup2" name="backup2" type="text" class="col-md-4 form-control label2" required="">
+                              <option>
+                              </option>
+                              <option value="1">Google drive configurado
+                              </option>
+                              <option value="0">Google drive não configurado
+                              </option>
+                            </select>
                     <label class="col-md-4 control-label empresa" for="categoria">Categoria:</label>  
                           <select name="categoria" type="text" class="col-md-4 form-control forma" required="">
                               <option>

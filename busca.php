@@ -118,7 +118,7 @@ $rs_result = mysqli_query($conn, $sql);
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
          <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
           echo '<li>
               <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
              </a>
@@ -138,7 +138,7 @@ $rs_result = mysqli_query($conn, $sql);
              </a>
              <ul class="dropdown-menu">
               <?php 
-         if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         if($_SESSION['UsuarioNivel'] != 1) {
               echo '<li>
                  <a href="chamados.php">Atendimentos
                  </a>
@@ -162,7 +162,7 @@ $rs_result = mysqli_query($conn, $sql);
              <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
            </li>
          
-         <?php if($_SESSION['UsuarioNivel'] == 2 || 3) {
+         <?php if($_SESSION['UsuarioNivel'] != 1) {
            echo '<ul class="nav navbar-nav">
          <li class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
@@ -283,7 +283,7 @@ $rs_result = mysqli_query($conn, $sql);
         $sql->execute();
         $result = $sql->fetchall();
         foreach($result as $row){  
-        if($row["nivel"] == 2 || 3 ) {    
+        if($row["nivel"] != 1 ) {    
         echo '<option>'.$row['nome'].'</option>'; 
         }}        
         ?>
@@ -323,6 +323,10 @@ $status = $_POST['status'];
 $palavra = $_POST['palavra'];
 $usuario = $_POST['usuario'];
 $data = $_POST['data'];
+$_SESSION['status'] = $_POST['status'];
+$_SESSION['palavra'] = $_POST['palavra'];
+$_SESSION['usuario'] = $_POST['usuario'];
+$_SESSION['data'] = $_POST['data'];
 $query = "SELECT id_chamado, usuario, status, empresa, contato, telefone, date(datainicio) FROM chamado ";
 if ($status != null) {                                        
 $query = " $query WHERE status LIKE '$status' ";

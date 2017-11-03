@@ -1,11 +1,40 @@
 <?php
 include 'include/db.php';
-
+if (!isset($_SESSION)) session_start();
 if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 $start_from = ($page-1) * $limit;  
-  
-$sql = "SELECT id_chamado,usuario, status, empresa, contato, telefone, date(datainicio) FROM chamado ORDER BY id_chamado DESC LIMIT $start_from, $limit";  
-$rs_result = mysqli_query($conn, $sql); 
+$status = $_SESSION['status'];
+$palavra = $_SESSION['palavra'];
+$usuario = $_SESSION['usuario'];
+$data = $_SESSION['data']; 
+
+$query = "SELECT id_chamado, usuario, status, empresa, contato, telefone, date(datainicio) FROM chamado ";
+if ($status != null) {                                        
+$query = " $query WHERE status LIKE '$status' ";
+}               
+if ($palavra != null) {
+if ($status != null) {
+$query = " $query AND empresa LIKE '%".$palavra."%' ";
+} else {
+$query = " $query WHERE empresa LIKE '%".$palavra."%' ";
+}
+}
+if ($usuario != null) {
+if ($status != null || $palavra != null) {
+$query = " $query AND usuario LIKE '$usuario' ";
+} else {
+$query = " $query WHERE usuario LIKE '$usuario' ";
+}
+}
+if ($data != null) {
+if ($status != null || $palavra != null || $usuario != null) {
+$query = " $query AND datainicio LIKE '%".$data."%' ";
+} else {
+$query = " $query WHERE datainicio LIKE '%".$data."%'  ";
+}
+}
+$query = " $query ORDER BY datainicio desc limit $start_from, $limit";
+$rs_result = mysqli_query($conn, $query); 
 ?>
 
 <?php  
