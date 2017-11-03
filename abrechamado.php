@@ -47,12 +47,9 @@
        <!-- Collect the nav links, forms, and other content for toggling -->
        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
          <ul class="nav navbar-nav">
-          <?php 
-            if($_SESSION['UsuarioNivel'] != 1) {
-              echo '<li>
-                      <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome</a>
-                    </li>';}
-          ?>
+          <li>
+            <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome</a>
+          </li>
            <li>
              <a href="empresa.php"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbspClientes</a>
            </li>
@@ -86,9 +83,10 @@
            </ul>
          </ul>
            <ul class="nav navbar-nav navbar-right">
-             <li>
-             <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
-           </li>
+           <?php if($_SESSION['UsuarioNivel'] != 1) { echo'
+            <li>
+            <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
+          </li>';}?>
          
          <?php if($_SESSION['UsuarioNivel'] != 1) {
            echo '<ul class="nav navbar-nav">

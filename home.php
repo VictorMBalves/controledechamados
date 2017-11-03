@@ -110,13 +110,9 @@ $email = md5($_SESSION['Email']);
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-          <?php 
-          if($_SESSION['UsuarioNivel'] != 1) {
-           echo '<li>
-               <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome
-              </a>
-            </li>';}
-            ?>
+          <li>
+            <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome</a>
+          </li>
             <li>
               <a href="empresa.php"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbspClientes
               </a>
@@ -153,9 +149,10 @@ $email = md5($_SESSION['Email']);
             </ul>
           </ul>
             <ul class="nav navbar-nav navbar-right">
+            <?php if($_SESSION['UsuarioNivel'] != 1) { echo'
               <li>
               <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
-            </li>
+            </li>';}?>
           
           <?php if($_SESSION['UsuarioNivel'] != 1) {
             echo '<ul class="nav navbar-nav">
@@ -268,6 +265,7 @@ echo '<th>Status</th>';
 echo '<th>Entrado em contato</th>';
 echo '<th>Data</th>';
 echo '<th>Atendente</th>';
+echo '<th>Atribuído para</th>';
 echo '<th>Empresa</th>';
 echo '<th>Contato</th>';
 echo '<th>Telefone</th>';
@@ -284,6 +282,7 @@ echo '<td>'; if($row['status']=="Aguardando Retorno"){ echo '<div class="circle3
 echo '<td>';if(is_null($row['historico'])){ echo 'Não'; } else {echo 'Sim'; } echo '</td>';
 echo '<td>'.$row["data"].'</td>'; 
 echo '<td>'.$row["usuario"].'</td>';
+echo '<td>';if($row["enderecado"] == null){echo"Ninguém";}else{echo $row['enderecado'];}echo'</td>';
 echo '<td>'.$row["empresa"].'</td>';
 echo '<td>'.$row["contato"].'</td>';
 echo '<td>'.$row["telefone"].'</td>';
