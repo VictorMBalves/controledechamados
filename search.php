@@ -1,5 +1,5 @@
 <?php
- include 'include/db.php';
+ include('include/db.php');
     
     //get search term
     $searchTerm = $_GET['term'];

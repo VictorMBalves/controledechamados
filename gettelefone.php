@@ -25,6 +25,6 @@
 /* só se for enviado o parâmetro, que devolve os dados */
 if( isset($_GET['empresa']) )
 {
-  $db = new mysqli('localhost', 'root', 'ledzeppelin', 'chamados');
+  $db = new mysqli('localhost', 'root', 'ledZeppelin', 'chamados');
   echo retorna($_GET['empresa'], $db );
 }

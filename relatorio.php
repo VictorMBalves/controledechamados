@@ -260,69 +260,75 @@ $data2 = date('Y-m-t');
   <?php
 include 'include/dbconf.php';
 if (array_key_exists('data', $_POST)) {             
-$data=$_POST['data'];            
-$data2=$_POST['data1'];             
+  $data=$_POST['data'];            
+  $data2=$_POST['data1'];             
 } else {
-$data = time('Y-m-d');
-$data2 = time('Y-m-d');
+  $data = time('Y-m-d');
+  $data2 = time('Y-m-d');
 }
 $conn->exec('SET CHARACTER SET utf8');   
 $query = $conn->prepare("SELECT DISTINCT chamado.usuario from chamado INNER JOIN usuarios us on chamado.usuario = us.nome where date(datainicio) BETWEEN '$data' and '$data2' and us.nivel = 2 group by date(datainicio), chamado.usuario ORDER BY usuario");
 $query->execute();
 $usuarios = $query->fetchall();
 if (array_key_exists('data', $_POST)) {             
-$data=$_POST['data'];            
-$data2=$_POST['data1'];             
-echo '<div teste table-responsive table-hover">';
-echo '<table class="table table-striped text-center">';
-echo '<thead>';
-echo '<tr class="text-center">';
-echo '<th class="text-center">Data</th>';
-foreach($usuarios as $usuario){ 
-echo '<th class="text-center">'.$usuario['usuario'].'</th>';                   
-$totalUsuarios[$usuario['usuario']] = 0;
-}
-$total = 0;
-echo '</tr>';
-echo '</thead>';
-echo '<tbody>';
-$query = $conn->prepare("SELECT DISTINCT date(datainicio) from chamado inner JOIN usuarios us ON us.nome = chamado.usuario where date(datainicio) BETWEEN '$data' and '$data2' AND us.nivel = 2 group by date(datainicio), chamado.usuario ORDER BY date(datainicio)");
-$query->execute();
-$datas = $query->fetchall();
-foreach($datas as $data){
-echo '<tr>'; 
-echo '<td>'.$data['date(datainicio)'].'</td>';
-$datainicio = $data['date(datainicio)'];
-$query = $conn->prepare("SELECT cha.usuario, count(datainicio) from chamado cha INNER JOIN usuarios us ON us.nome = cha.usuario where date(datainicio) = '$datainicio' AND us.nivel = 2 group by date(datainicio), usuario ORDER BY date(datainicio), usuario");
-$query->execute();
-$resultados =$query->fetchall();
-$atual=0;
-foreach($usuarios as $usuario){
-if ($atual!=sizeof($resultados) || $usuario['usuario']==$resultados[$atual]['usuario']) {                                                                        
-echo '<td>'.$resultados[$atual]['count(datainicio)'].'</td>';                        
-$totalUsuarios[$usuario['usuario']] += $resultados[$atual]['count(datainicio)'];
-$total += $resultados[$atual]['count(datainicio)'];
-$atual++;
-} else {
-echo '<td>0</td>';
-}
-}
-echo '</tr>';
-}
-echo '<tr> <td><strong>Total por Atendente</strong></td>';
-foreach($usuarios as $usuario){
-echo '<td><strong>'.$totalUsuarios[$usuario['usuario']].'</strong></td>';
-}
-echo '</tr>';
-echo '<tr class="info">';
-echo '<td><strong>Total</strong></td>';
-echo '<td><strong>'.$total.'</strong></td>';        
-for($i = 1; $i < count($usuarios); $i++) {
-echo '<td></td>';
-}
-echo '</tr>';
-echo '</tbody>';
-echo '</table>'; 
+  $data=$_POST['data'];            
+  $data2=$_POST['data1'];             
+  echo '<div teste table-responsive table-hover">';
+  echo '<table class="table table-striped text-center">';
+  echo '<thead>';
+  echo '<tr class="text-center">';
+  echo '<th class="text-center">Data</th>';
+  foreach($usuarios as $usuario){ 
+    echo '<th class="text-center">'.$usuario['usuario'].'</th>';                   
+    $totalUsuarios[$usuario['usuario']] = 0;
+  }
+  $total = 0;
+  echo '</tr>';
+  echo '</thead>';
+  echo '<tbody>';
+  $query = $conn->prepare("SELECT DISTINCT date(datainicio) from chamado inner JOIN usuarios us ON us.nome = chamado.usuario where date(datainicio) BETWEEN '$data' and '$data2' AND us.nivel = 2 group by date(datainicio), chamado.usuario ORDER BY date(datainicio)");
+  $query->execute();
+  $datas = $query->fetchall();
+  foreach($datas as $data){
+    echo '<tr>'; 
+    $datainicio = date_create($data['date(datainicio)']);
+    $dataFormatada = date_format($datainicio, 'd/m/Y');
+    echo '<td>'.$dataFormatada.'</td>';
+    $datainicio = $data['date(datainicio)'];
+    $query = $conn->prepare("SELECT cha.usuario, count(datainicio) from chamado cha INNER JOIN usuarios us ON us.nome = cha.usuario where date(datainicio) = '$datainicio' AND us.nivel = 2 group by date(datainicio), usuario ORDER BY usuario");
+    $query->execute();
+    $resultados =$query->fetchall();
+    $atual=0;
+    foreach($usuarios as $usuario){
+        if ($atual==sizeof($resultados) || $usuario['usuario']==$resultados[$atual]['usuario']) {
+          if($usuario['usuario']==$resultados[$atual]['usuario']){  
+          echo '<td>'.$resultados[$atual]['count(datainicio)'].'</td>';                        
+          $totalUsuarios[$usuario['usuario']] += $resultados[$atual]['count(datainicio)'];
+          $total += $resultados[$atual]['count(datainicio)'];
+          $atual++;
+          }else {
+            echo '<td>0</td>';
+          }
+        } else {
+          echo '<td>0</td>';
+        }
+    }
+    echo '</tr>';
+  }
+  echo '<tr> <td><strong>Total por Atendente</strong></td>';
+  foreach($usuarios as $usuario){
+  echo '<td><strong>'.$totalUsuarios[$usuario['usuario']].'</strong></td>';
+  }
+  echo '</tr>';
+  echo '<tr class="info">';
+  echo '<td><strong>Total</strong></td>';
+  echo '<td><strong>'.$total.'</strong></td>';        
+  for($i = 1; $i < count($usuarios); $i++) {
+  echo '<td></td>';
+  }
+  echo '</tr>';
+  echo '</tbody>';
+  echo '</table>'; 
 }
 ?>
   </body>
