@@ -40,15 +40,18 @@
   <?php
 header('Content-Type: text/html; charset=UTF-8');
 // A sessão precisa ser iniciada em cada página diferente
-if (!isset($_SESSION)) session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 // Verifica se não há  variável da sessão que identifica o usuário
 if (!isset($_SESSION['UsuarioID'])) {
-// Destrói a sessão por segurança
-session_destroy();
-// Redireciona o visitante de volta pro login
-header("Location: index.php"); exit;
+    // Destrói a sessão por segurança
+    session_destroy();
+    // Redireciona o visitante de volta pro login
+    header("Location: index.php");
+    exit;
 }
-$email = md5( $_SESSION['Email']);
+$email = md5($_SESSION['Email']);
 include('include/menu.php');
 ?>
 <br/>
@@ -119,7 +122,11 @@ $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
           </label>  
           <select id="backup" disabled name="backup" class="form-control label2 disabled">
             <option>
-              <?php if($row2['backup'] == 0){echo "Google drive não configurado";}else{echo "Google drive configurado";}?>
+              <?php if ($row2['backup'] == 0) {
+    echo "Google drive não configurado";
+} else {
+    echo "Google drive configurado";
+}?>
             </option>
           </select>
           <label class="col-md-4 control-label empresa disabled">Categoria:
@@ -132,10 +139,18 @@ $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
       
           <label class="col-md-4 control-label empresa disabled">Data inicio: 
           </label >
-          <input class="form-control label2 disabled" disabled value='<?php if(is_null($row['datainicio'])){ echo $row['data'].' '.$row['horainicio'].':00';} else {echo $row['datainicio'];}?>'> 
+          <input class="form-control label2 disabled" disabled value='<?php if (is_null($row['datainicio'])) {
+    echo $row['data'].' '.$row['horainicio'].':00';
+} else {
+    echo $row['datainicio'];
+}?>'> 
           <label class="col-md-4 control-label empresa disabled">Data término: 
           </label>
-          <input class="form-control forma disabled" disabled value='<?php if(is_null($row['datafinal'])){ echo $row['data'].' '.$row['horafim'].':00';} else {echo $row['datafinal'];}?>'> 
+          <input class="form-control forma disabled" disabled value='<?php if (is_null($row['datafinal'])) {
+    echo $row['data'].' '.$row['horafim'].':00';
+} else {
+    echo $row['datafinal'];
+}?>'> 
           <label class="col-md-4 control-label empresa disabled">Responsavel: 
           </label>
           <input class="form-control label1 disabled" disabled value='<?php echo $row['usuario']?>'> 

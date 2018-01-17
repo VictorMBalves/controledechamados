@@ -33,15 +33,17 @@
 </head>
 </html>
 <?php
-    if (!isset($_SESSION)) session_start();
+    if (!isset($_SESSION)) {
+        session_start();
+    }
 
 if (!isset($_SESSION['UsuarioID'])) {
+    session_destroy();
 
-session_destroy();
-
-header("Location: index.php"); exit;
+    header("Location: index.php");
+    exit;
 }
-$email = md5( $_SESSION['Email']);
+$email = md5($_SESSION['Email']);
 
         include 'include/dbconf.php';
         $conn->exec('SET CHARACTER SET utf8');
@@ -51,17 +53,26 @@ $email = md5( $_SESSION['Email']);
         $sql->execute();
         $result = $sql->fetchall();
         
-        foreach($result as $row){
-                if($row > 1){
-               echo '<div class="alert alert-info alert-dismissible" role="alert">';
-              // echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-               echo '<div class="text-center">';
-               echo '<a href="meuschamados.php" class="link"><i class="glyphicon glyphicon-bell bells"></i>&nbsp<strong>'.$_SESSION["UsuarioNome"].'</strong>, há <strong>'.$row["COUNT(enderecado)"].'</strong>'; if ($row["COUNT(enderecado)"] > 1){ echo ' notificações'; } else {echo ' notificação';}if ($row["COUNT(enderecado)"] > 1){ echo ' direcionadas'; } else {echo ' direcionada';}   echo ' para você!</a>';
-               echo '</div>';
-               echo '</div>';   
-             
-        
-        }
+        foreach ($result as $row) {
+            if ($row > 1) {
+                echo '<div class="alert alert-info alert-dismissible" role="alert">';
+                // echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                echo '<div class="text-center">';
+                echo '<a href="meuschamados.php" class="link"><i class="glyphicon glyphicon-bell bells"></i>&nbsp<strong>'.$_SESSION["UsuarioNome"].'</strong>, há <strong>'.$row["COUNT(enderecado)"].'</strong>';
+                if ($row["COUNT(enderecado)"] > 1) {
+                    echo ' notificações';
+                } else {
+                    echo ' notificação';
+                }
+                if ($row["COUNT(enderecado)"] > 1) {
+                    echo ' direcionadas';
+                } else {
+                    echo ' direcionada';
+                }
+                echo ' para você!</a>';
+                echo '</div>';
+                echo '</div>';
+            }
         }
  ?>       
 

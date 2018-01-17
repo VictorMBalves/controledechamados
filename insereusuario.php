@@ -22,7 +22,7 @@ $data= date("Y-m-d H:i:s");
 $sql = $conn->prepare("INSERT INTO usuarios (nome, usuario, senha, email, nivel, ativo, cadastro) 
 VALUES ('$nome','$usuario',SHA1('$senha'),'$email','$nivel','$ativo','$data')") or die(mysql_error());
 $sql->execute();
-echo '<script> redireciona() </script>'      
+echo '<script> redireciona() </script>'
 ?>
 </body>
 </html>

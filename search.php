@@ -12,4 +12,3 @@
     
     //return json data
     echo json_encode($data);
-?>

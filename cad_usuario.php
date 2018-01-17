@@ -55,19 +55,22 @@
 <?php
   header("Content-type: text/html; charset=utf-8");
   // A sessão precisa ser iniciada em cada página diferente
-  if (!isset($_SESSION)) session_start();
-  if(!($_SESSION['UsuarioNivel'] == 3)) {
-      echo'<script>erro()</script>';
-  }else{
-    // Verifica se não há a variável da sessão que identifica o usuário
-    if (!isset($_SESSION['UsuarioID'])) {
-      // Destrói a sessão por segurança
-      session_destroy();
-      // Redireciona o visitante de volta pro login
-      header("Location: index.php"); exit;
-    }
+  if (!isset($_SESSION)) {
+      session_start();
   }
-  $email = md5( $_SESSION['Email']);
+  if (!($_SESSION['UsuarioNivel'] == 3)) {
+      echo'<script>erro()</script>';
+  } else {
+      // Verifica se não há a variável da sessão que identifica o usuário
+      if (!isset($_SESSION['UsuarioID'])) {
+          // Destrói a sessão por segurança
+          session_destroy();
+          // Redireciona o visitante de volta pro login
+          header("Location: index.php");
+          exit;
+      }
+  }
+  $email = md5($_SESSION['Email']);
   include('include/menu.php');
 ?>
 <br/>
@@ -155,17 +158,17 @@
         </tr>
         <tbody id="target-content">
         <?php
-        include ('include/dbconf.php');
+        include('include/dbconf.php');
         $sql = $conn->prepare('SELECT id, nome, usuario, email FROM usuarios ORDER BY id desc');
         $sql->execute();
         $result = $sql->fetchall();
-        foreach($result as $row){  
-        echo '<tr>';            
-        echo '<td>'.$row["id"].'</td>';
-        echo '<td>'.$row["nome"].'</td>';
-        echo '<td>'.$row["usuario"].'</td>';
-        echo '<td>'.$row["email"].'</td>';
-        echo "<td> <a style='margin-top:2px;' href='editausuario.php?id=".$row['id']."'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>";
+        foreach ($result as $row) {
+            echo '<tr>';
+            echo '<td>'.$row["id"].'</td>';
+            echo '<td>'.$row["nome"].'</td>';
+            echo '<td>'.$row["usuario"].'</td>';
+            echo '<td>'.$row["email"].'</td>';
+            echo "<td> <a style='margin-top:2px;' href='editausuario.php?id=".$row['id']."'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>";
         }?>
         </tbody> 
         </table>

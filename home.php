@@ -78,11 +78,13 @@
   <body>
 <?php
   header("Content-type: text/html; charset=utf-8");
-  if (!isset($_SESSION)) session_start();
+  if (!isset($_SESSION)) {
+      session_start();
+  }
   if (!isset($_SESSION['UsuarioID'])) {
-    session_destroy();
-    header("Location: index.php"); 
-    exit;
+      session_destroy();
+      header("Location: index.php");
+      exit;
   }
   $email = md5($_SESSION['Email']);
   include('include/menu.php');
@@ -137,21 +139,39 @@ echo '<th width="100px"><center><img src="imagem/acao.png"></center></th>
 $sql = $conn->prepare('SELECT id_chamadoespera, usuario, status, empresa, contato, telefone, data, enderecado, historico FROM chamadoespera ORDER BY data desc');
 $sql->execute();
 $result = $sql->fetchall();
-foreach($result as $row){   
-if(!($row["status"] == "Finalizado")) {    
-echo '<tr>';
-echo '<td>'; if($row['status']=="Aguardando Retorno"){ echo '<div class="circle3" data-toggle="tooltip" data-placement="left" title="Aguardando Retorno"></div>'; } else { echo '<div class="circle4" data-toggle="tooltip" data-placement="left" title="Entrado em contato"></div>';} echo '</td>';
-echo '<td>';if(is_null($row['historico'])){ echo 'Não'; } else {echo 'Sim'; } echo '</td>';
-echo '<td>'.$row["data"].'</td>'; 
-echo '<td>'.$row["usuario"].'</td>';
-echo '<td>';if($row["enderecado"] == null){echo"Ninguém";}else{echo $row['enderecado'];}echo'</td>';
-echo '<td>'.$row["empresa"].'</td>';
-echo '<td>'.$row["contato"].'</td>';
-echo '<td>'.$row["telefone"].'</td>';
-echo "<td><a href='consultaespera.php?id_chamadoespera=".$row['id_chamadoespera']."'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> 
+foreach ($result as $row) {
+    if (!($row["status"] == "Finalizado")) {
+        echo '<tr>';
+        echo '<td>';
+        if ($row['status']=="Aguardando Retorno") {
+            echo '<div class="circle3" data-toggle="tooltip" data-placement="left" title="Aguardando Retorno"></div>';
+        } else {
+            echo '<div class="circle4" data-toggle="tooltip" data-placement="left" title="Entrado em contato"></div>';
+        }
+        echo '</td>';
+        echo '<td>';
+        if (is_null($row['historico'])) {
+            echo 'Não';
+        } else {
+            echo 'Sim';
+        }
+        echo '</td>';
+        echo '<td>'.$row["data"].'</td>';
+        echo '<td>'.$row["usuario"].'</td>';
+        echo '<td>';
+        if ($row["enderecado"] == null) {
+            echo"Ninguém";
+        } else {
+            echo $row['enderecado'];
+        }
+        echo'</td>';
+        echo '<td>'.$row["empresa"].'</td>';
+        echo '<td>'.$row["contato"].'</td>';
+        echo '<td>'.$row["telefone"].'</td>';
+        echo "<td><a href='consultaespera.php?id_chamadoespera=".$row['id_chamadoespera']."'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> 
 <a href='abrechamadoespera.php?id_chamadoespera=".$row['id_chamadoespera']. "'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
-echo '</tr>'; 
-}
+        echo '</tr>';
+    }
 }
 ?>
   </tbody> 

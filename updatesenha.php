@@ -11,13 +11,16 @@
 </html>
 <?php
 // A sessão precisa ser iniciada em cada página diferente
-if (!isset($_SESSION)) session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 // Verifica se não há a variável da sessão que identifica o usuário
 if (!isset($_SESSION['UsuarioID'])) {
-  // Destrói a sessão por segurança
-  session_destroy();
-  // Redireciona o visitante de volta pro login
-  header("Location: index.php"); exit;
+    // Destrói a sessão por segurança
+    session_destroy();
+    // Redireciona o visitante de volta pro login
+    header("Location: index.php");
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -42,10 +45,10 @@ $conn->exec('SET CHARACTER SET utf8');
 $senha=$_POST['senha'];
 $idusuario=$_SESSION['UsuarioID'];
 
-$sql = $conn->prepare("UPDATE usuarios SET senha=sha1('$senha') WHERE id='$idusuario'") 
+$sql = $conn->prepare("UPDATE usuarios SET senha=sha1('$senha') WHERE id='$idusuario'")
 or die(mysql_error());
 $sql->execute();
-   echo '<script> redireciona() </script>'      
+   echo '<script> redireciona() </script>'
 ?>
 
 </body>

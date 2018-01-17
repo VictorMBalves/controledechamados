@@ -64,17 +64,19 @@
   <body>
 <?php
   header("Content-type: text/html; charset=utf-8");
-  if (!isset($_SESSION)) session_start();
-  if($_SESSION['UsuarioNivel'] == 1) {
-    echo'<script>erro()</script>';
-  } else {
-    if (!isset($_SESSION['UsuarioID'])) {
-      session_destroy();
-      header("Location: index.php"); 
-      exit;
-    }
+  if (!isset($_SESSION)) {
+      session_start();
   }
-  $email = md5( $_SESSION['Email']);
+  if ($_SESSION['UsuarioNivel'] == 1) {
+      echo'<script>erro()</script>';
+  } else {
+      if (!isset($_SESSION['UsuarioID'])) {
+          session_destroy();
+          header("Location: index.php");
+          exit;
+      }
+  }
+  $email = md5($_SESSION['Email']);
   include('include/menu.php');
 ?>
 <br/>
@@ -90,12 +92,12 @@
   </center>
 </div>
 <?php 
-if (array_key_exists('data', $_POST)) {             
-$data=$_POST['data'];            
-$data2=$_POST['data1'];             
+if (array_key_exists('data', $_POST)) {
+    $data=$_POST['data'];
+    $data2=$_POST['data1'];
 } else {
-$data = date('Y-m').'-01';
-$data2 = date('Y-m-t');
+    $data = date('Y-m').'-01';
+    $data2 = date('Y-m-t');
 }
 ?>
 <div class="container">
@@ -130,43 +132,41 @@ $data2 = date('Y-m-t');
   </div>    
   <?php
 include 'include/dbconf.php';
-if (array_key_exists('data', $_POST)) {             
-$data=$_POST['data'];            
-$data2=$_POST['data1'];
-$limite=$_POST['limite'];              
+if (array_key_exists('data', $_POST)) {
+    $data=$_POST['data'];
+    $data2=$_POST['data1'];
+    $limite=$_POST['limite'];
 } else {
-$data = time('Y-m-d');
-$data2 = time('Y-m-d');
-$limite='10';              
-
+    $data = time('Y-m-d');
+    $data2 = time('Y-m-d');
+    $limite='10';
 }
 
-if (array_key_exists('data', $_POST)) {             
-$data=$_POST['data'];            
-$data2=$_POST['data1'];
-$limite=$_POST['limite'];             
-echo '<div teste table-responsive table-hover">';
-echo '<table class="table table-striped text-center">';
-echo '<thead>';
-echo '<tr class="text-center">';
-echo '<th class="text-center">Nº de Chamados</th>';
-echo '<th class="text-center">Empresa</th>';                   
-echo '</tr>';
-echo '</thead>';
+if (array_key_exists('data', $_POST)) {
+    $data=$_POST['data'];
+    $data2=$_POST['data1'];
+    $limite=$_POST['limite'];
+    echo '<div teste table-responsive table-hover">';
+    echo '<table class="table table-striped text-center">';
+    echo '<thead>';
+    echo '<tr class="text-center">';
+    echo '<th class="text-center">Nº de Chamados</th>';
+    echo '<th class="text-center">Empresa</th>';
+    echo '</tr>';
+    echo '</thead>';
 
-echo '<tbody>';
-$conn->exec('SET CHARACTER SET utf8');   
-$query = $conn->prepare("SELECT COUNT(empresa), empresa FROM chamado WHERE date(datainicio) BETWEEN '$data' and '$data2' GROUP BY empresa ORDER BY COUNT(empresa) DESC LIMIT $limite");
-$query->execute();
-foreach($query as $row){
-echo'<tr>';
-echo'<td >'.$row['COUNT(empresa)'].'</td>';
-echo'<td>'.$row['empresa'].'</td>';
-echo '</tr>';
-}
-echo '</tbody>';
-echo '</table>'; 
-
+    echo '<tbody>';
+    $conn->exec('SET CHARACTER SET utf8');
+    $query = $conn->prepare("SELECT COUNT(empresa), empresa FROM chamado WHERE date(datainicio) BETWEEN '$data' and '$data2' GROUP BY empresa ORDER BY COUNT(empresa) DESC LIMIT $limite");
+    $query->execute();
+    foreach ($query as $row) {
+        echo'<tr>';
+        echo'<td >'.$row['COUNT(empresa)'].'</td>';
+        echo'<td>'.$row['empresa'].'</td>';
+        echo '</tr>';
+    }
+    echo '</tbody>';
+    echo '</table>';
 }
 ?>
   </body>

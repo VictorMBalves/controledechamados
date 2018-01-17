@@ -56,18 +56,20 @@
 <?php
   header("Content-type: text/html; charset=utf-8");
   // A sessão precisa ser iniciada em cada página diferente
-  if (!isset($_SESSION)) session_start();
+  if (!isset($_SESSION)) {
+      session_start();
+  }
   // Verifica se não há a variável da sessão que identifica o usuário
-  if($_SESSION['UsuarioNivel'] == 1) {
-    echo'<script>erro()</script>';
+  if ($_SESSION['UsuarioNivel'] == 1) {
+      echo'<script>erro()</script>';
   } else {
-    if (!isset($_SESSION['UsuarioID'])) {
-      //Destrói a sessão por segurança
-      session_destroy();
-      //Redireciona o visitante de volta pro login
-      header("Location: index.php"); 
-      exit;
-    }
+      if (!isset($_SESSION['UsuarioID'])) {
+          //Destrói a sessão por segurança
+          session_destroy();
+          //Redireciona o visitante de volta pro login
+          header("Location: index.php");
+          exit;
+      }
   }
   $email = md5($_SESSION['Email']);
   include('include/menu.php');
@@ -126,20 +128,20 @@ $conn->exec("Content-type: text/html; charset=iso-8859-1");
 $sql = $conn->prepare("SELECT id_chamadoespera, usuario, status, empresa, contato, telefone, data FROM chamadoespera WHERE enderecado LIKE '$enderecado' ORDER BY data DESC");
 $sql->execute();
 $result = $sql->fetchall();
-foreach($result as $row){  
-if($row["status"] =="Aguardando Retorno" ) {    
-echo '<tr>';
-echo '<td><div class="circle3" data-toggle="tooltip" data-placement="left" title="Aguardando Retorno"></div></td>';
-echo '<td>'.$row["data"].'</td>'; 
-echo '<td>'.$row["id_chamadoespera"].'</td>';
-echo '<td>'.$row["usuario"].'</td>';
-echo '<td>'.$row["empresa"].'</td>';
-echo '<td>'.$row["contato"].'</td>';
-echo '<td>'.$row["telefone"].'</td>';
-echo "<td><a href='consultaespera.php?id_chamadoespera=".$row['id_chamadoespera']."'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> 
+foreach ($result as $row) {
+    if ($row["status"] =="Aguardando Retorno") {
+        echo '<tr>';
+        echo '<td><div class="circle3" data-toggle="tooltip" data-placement="left" title="Aguardando Retorno"></div></td>';
+        echo '<td>'.$row["data"].'</td>';
+        echo '<td>'.$row["id_chamadoespera"].'</td>';
+        echo '<td>'.$row["usuario"].'</td>';
+        echo '<td>'.$row["empresa"].'</td>';
+        echo '<td>'.$row["contato"].'</td>';
+        echo '<td>'.$row["telefone"].'</td>';
+        echo "<td><a href='consultaespera.php?id_chamadoespera=".$row['id_chamadoespera']."'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> 
 <a href='abrechamadoespera.php?id_chamadoespera=".$row['id_chamadoespera']. "'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
-echo '</tr>'; 
-}
+        echo '</tr>';
+    }
 }
 ?>
   </tbody> 

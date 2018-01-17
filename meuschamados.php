@@ -84,15 +84,17 @@
   </head>
   <body>
     <?php
-      if (!isset($_SESSION)) session_start();
-      if($_SESSION['UsuarioNivel'] == 1) {
-        echo'<script>erro()</script>';
-      }else{
-        if (!isset($_SESSION['UsuarioID'])) {
-          session_destroy();
-          header("Location: index.php"); 
-          exit;
-        }
+      if (!isset($_SESSION)) {
+          session_start();
+      }
+      if ($_SESSION['UsuarioNivel'] == 1) {
+          echo'<script>erro()</script>';
+      } else {
+          if (!isset($_SESSION['UsuarioID'])) {
+              session_destroy();
+              header("Location: index.php");
+              exit;
+          }
       }
       $email = md5($_SESSION['Email']);
       include('include/db.php');
@@ -100,18 +102,22 @@
       //for total count data
       header('SET CHARACTER SET utf8');
       $usuario=$_SESSION['UsuarioNome'];
-      $countSql = "SELECT COUNT(id_chamado) FROM chamado where usuario='$usuario'";  
-      $tot_result = mysqli_query($conn, $countSql);   
-      $row = mysqli_fetch_row($tot_result);  
-      $total_records = $row[0];  
+      $countSql = "SELECT COUNT(id_chamado) FROM chamado where usuario='$usuario'";
+      $tot_result = mysqli_query($conn, $countSql);
+      $row = mysqli_fetch_row($tot_result);
+      $total_records = $row[0];
       $total_pages = ceil($total_records / $limit);
 
       //for first time load data
-      if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
-      $start_from = ($page-1) * $limit;  
+      if (isset($_GET["page"])) {
+          $page  = $_GET["page"];
+      } else {
+          $page=1;
+      };
+      $start_from = ($page-1) * $limit;
 
-      $sql = "SELECT id_chamado,usuario, status, empresa, contato, telefone, date(datainicio) FROM chamado where usuario='$usuario' ORDER BY id_chamado DESC LIMIT $start_from, $limit";  
-      $rs_result = mysqli_query($conn, $sql); 
+      $sql = "SELECT id_chamado,usuario, status, empresa, contato, telefone, date(datainicio) FROM chamado where usuario='$usuario' ORDER BY id_chamado DESC LIMIT $start_from, $limit";
+      $rs_result = mysqli_query($conn, $sql);
     ?>
     <br/>
     <br/>
@@ -154,44 +160,42 @@
     $enderecado=$_SESSION['UsuarioNome'];
     $sql = $conn->prepare("SELECT id_chamadoespera, usuario, status, empresa, contato, telefone, data FROM chamadoespera WHERE status in ('Aguardando Retorno','Entrado em contato') AND enderecado LIKE '$enderecado' ORDER BY data DESC");
     $sql->execute();
-    if($sql->rowCount()>0){
-      $result = $sql->fetchall();
-      echo '<table class="table table-hover">';
-      echo '<tr class="caption">' ;
-      echo '<th>Status</th>';
-      echo '<th>Data</th>';
-      echo '<th>Nº Chamado </th>';
-      echo '<th>Encaminhado por</th>';
-      echo '<th>Empresa</th>';
-      echo '<th>Contato</th>';
-      echo '<th>Telefone</th>';
-      echo '<th width="100px"><center><img src="imagem/acao.png"></center></th>
+    if ($sql->rowCount()>0) {
+        $result = $sql->fetchall();
+        echo '<table class="table table-hover">';
+        echo '<tr class="caption">' ;
+        echo '<th>Status</th>';
+        echo '<th>Data</th>';
+        echo '<th>Nº Chamado </th>';
+        echo '<th>Encaminhado por</th>';
+        echo '<th>Empresa</th>';
+        echo '<th>Contato</th>';
+        echo '<th>Telefone</th>';
+        echo '<th width="100px"><center><img src="imagem/acao.png"></center></th>
       </tr>   
       <tbody>';
-      foreach($result as $row){  
-      echo '<tr>';
-      echo '<td><div class="circle3" data-toggle="tooltip" data-placement="left" title="Aguardando Retorno"></div></td>';
-      echo '<td>'.$row["data"].'</td>'; 
-      echo '<td>'.$row["id_chamadoespera"].'</td>';
-      echo '<td>'.$row["usuario"].'</td>';
-      echo '<td>'.$row["empresa"].'</td>';
-      echo '<td>'.$row["contato"].'</td>';
-      echo '<td>'.$row["telefone"].'</td>';
-      echo "<td><a href='consultaespera.php?id_chamadoespera=".$row['id_chamadoespera']."'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> 
+        foreach ($result as $row) {
+            echo '<tr>';
+            echo '<td><div class="circle3" data-toggle="tooltip" data-placement="left" title="Aguardando Retorno"></div></td>';
+            echo '<td>'.$row["data"].'</td>';
+            echo '<td>'.$row["id_chamadoespera"].'</td>';
+            echo '<td>'.$row["usuario"].'</td>';
+            echo '<td>'.$row["empresa"].'</td>';
+            echo '<td>'.$row["contato"].'</td>';
+            echo '<td>'.$row["telefone"].'</td>';
+            echo "<td><a href='consultaespera.php?id_chamadoespera=".$row['id_chamadoespera']."'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> 
       <a href='abrechamadoespera.php?id_chamadoespera=".$row['id_chamadoespera']. "'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
-      echo '</tr>'; 
-      
-      }
-      echo '</tbody>';
-    echo '</table>';
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
     } else {
-      echo '<br/>';
-      echo'<div class="alert alert-success alert-dismissible" role="alert">';
-                  echo '<div class="text-center">';
-                  echo 'Que bom '.$_SESSION['UsuarioNome'].', você não possuí nenhum chamado direcionado aguardando Retorno!';
-                  echo '</div>';
-                  echo '</div>';   
-
+        echo '<br/>';
+        echo'<div class="alert alert-success alert-dismissible" role="alert">';
+        echo '<div class="text-center">';
+        echo 'Que bom '.$_SESSION['UsuarioNome'].', você não possuí nenhum chamado direcionado aguardando Retorno!';
+        echo '</div>';
+        echo '</div>';
     }
     ?>
         </div>
@@ -210,33 +214,37 @@
     <tbody id="target-content">
     <?php 
     while ($row = mysqli_fetch_assoc($rs_result)) {
-    echo '<tr>';            
-    echo '<td>';if($row['status']!="Finalizado"){echo'<div class="circle2" data-toggle="tooltip" data-placement="left" title="Status: Aberto"></div>';} else {echo'<div class="circle" data-toggle="tooltip" data-placement="left" title="Status: Finalizado"></div> '; } 
-    echo'</td>';
-    echo '<td>'.$row["date(datainicio)"].'</td>';
-    echo '<td>'.$row["usuario"].'</td>';
-    echo '<td>'.$row["id_chamado"].'</td>';
-    echo '<td>'.$row["empresa"].'</td>';
-    echo '<td>'.$row["contato"].'</td>';
-    echo '<td>'.$row["telefone"].'</td>';
-    echo '<td>';
-    if ($row["status"]!="Finalizado") {
-    echo "
+        echo '<tr>';
+        echo '<td>';
+        if ($row['status']!="Finalizado") {
+            echo'<div class="circle2" data-toggle="tooltip" data-placement="left" title="Status: Aberto"></div>';
+        } else {
+            echo'<div class="circle" data-toggle="tooltip" data-placement="left" title="Status: Finalizado"></div> ';
+        }
+        echo'</td>';
+        echo '<td>'.$row["date(datainicio)"].'</td>';
+        echo '<td>'.$row["usuario"].'</td>';
+        echo '<td>'.$row["id_chamado"].'</td>';
+        echo '<td>'.$row["empresa"].'</td>';
+        echo '<td>'.$row["contato"].'</td>';
+        echo '<td>'.$row["telefone"].'</td>';
+        echo '<td>';
+        if ($row["status"]!="Finalizado") {
+            echo "
     <a style='margin-top:2px;' href='editachamado.php?id_chamado=".$row['id_chamado']."'><button data-toggle='tooltip' data-placement='left' title='Editar chamado' class='btn btn-warning teste12' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>
     <a href='abrechamado.php?id_chamado=".$row['id_chamado']."'><button data-toggle='tooltip' data-placement='left' title='Finalizar chamado' class='btn btn-success teste12' type='button'><span class='glyphicon glyphicon-ok'></span></button></a>";
-    }
-    else{
-    echo "<a href='consulta.php?id_chamado=".$row['id_chamado']. "'><button class='btn btn-info btn-sm btn-block' type='button'>Consultar</button></a> </td>";
-    echo '</tr>';
-    }  
+        } else {
+            echo "<a href='consulta.php?id_chamado=".$row['id_chamado']. "'><button class='btn btn-info btn-sm btn-block' type='button'>Consultar</button></a> </td>";
+            echo '</tr>';
+        }
     }
     echo '</tbody> 
     </table>';
     ?>
     <div class="col-md-12 text-center">
     <center><ul class="pagination">
-    <?php if(!empty($total_pages)):for($i=1; $i<=$total_pages; $i++):  
-                if($i == 1):?>
+    <?php if (!empty($total_pages)): for ($i=1; $i<=$total_pages; $i++):
+                if ($i == 1):?>
                 <li class='active'  id="<?php echo $i;?>"><a href='paginationmeus.php?page=<?php echo $i;?>'><?php echo $i;?></a></li> 
                 <?php else:?>
                 <li id="<?php echo $i;?>"><a href='paginationmeus.php?page=<?php echo $i;?>'><?php echo $i;?></a></li>

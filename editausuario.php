@@ -56,16 +56,19 @@ function atualizarTarefas() {
   <body>
 <?php
   header("Content-type: text/html; charset=utf-8");
-  if (!isset($_SESSION)) session_start();
-  if(!($_SESSION['UsuarioNivel'] == 3)) {
-    echo'<script>erro()</script>';
-  }else {
-    if (!isset($_SESSION['UsuarioID'])) {
-      session_destroy();
-      header("Location: index.php"); exit;
-    }
+  if (!isset($_SESSION)) {
+      session_start();
   }
-  $email = md5( $_SESSION['Email']);
+  if (!($_SESSION['UsuarioNivel'] == 3)) {
+      echo'<script>erro()</script>';
+  } else {
+      if (!isset($_SESSION['UsuarioID'])) {
+          session_destroy();
+          header("Location: index.php");
+          exit;
+      }
+  }
+  $email = md5($_SESSION['Email']);
   include('include/menu.php');
 ?>
 <br/>
@@ -101,14 +104,14 @@ $sql->execute();
 $row = $sql->fetch(PDO::FETCH_ASSOC);
 $epr = "";
 
-if(isset($_GET['epr'])) {
+if (isset($_GET['epr'])) {
     $epr=$_GET['epr'];
-  }
-  if($epr=='excluir'){
+}
+  if ($epr=='excluir') {
       $id=$_GET['id'];
       $query = $conn ->prepare("DELETE FROM usuarios WHERE id=$id");
       $query->execute();
-       echo "<script>deletado()</script>";  
+      echo "<script>deletado()</script>";
   }
 
 ?>

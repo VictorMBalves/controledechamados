@@ -50,27 +50,31 @@
             <?php
             header("Content-type: text/html; charset=utf-8");
             // A sessão precisa ser iniciada em cada página diferente
-            if (!isset($_SESSION)) session_start();
+            if (!isset($_SESSION)) {
+                session_start();
+            }
             // Verifica se não há a variável da sessão que identifica o usuário
-            if($_SESSION['UsuarioNivel'] == 1) {
-            echo'<script>erro()</script>';
+            if ($_SESSION['UsuarioNivel'] == 1) {
+                echo'<script>erro()</script>';
             } else {
-            if (!isset($_SESSION['UsuarioID'])) {
-            // Destrói a sessão por segurança
-            session_destroy();
-            // Redireciona o visitante de volta pro login
-            header("Location: index.php"); exit;
-            }}
-            $email = md5( $_SESSION['Email']);
+                if (!isset($_SESSION['UsuarioID'])) {
+                    // Destrói a sessão por segurança
+                    session_destroy();
+                    // Redireciona o visitante de volta pro login
+                    header("Location: index.php");
+                    exit;
+                }
+            }
+            $email = md5($_SESSION['Email']);
                include 'include/dbconf.php';
                     $data1=$_POST['data1'];
                     $data2=$_POST['data2'];
                     $usuario=$_SESSION['UsuarioNome'];
 
-                    $conn->exec('SET CHARACTER SET utf8');   
+                    $conn->exec('SET CHARACTER SET utf8');
                     $query = $conn->prepare("SELECT id_plantao, datainicio, date(datainicio), empresa, contato, descsolucao, descproblema, datafinal, data, horainicio, horafim FROM plantao where date(datainicio) BETWEEN '$data1' and '$data2' OR data BETWEEN '$data1' and '$data2' and usuario = '$usuario' ORDER BY id_plantao desc");
                     $query->execute();
-                    $resultado = $query->fetchall(); 
+                    $resultado = $query->fetchall();
             ?>
 
                 <div class="container">
@@ -103,21 +107,39 @@
                     </tr>
                    
                     <tbody>
-                        <?php foreach($resultado as $row){ 
-                            $horai = substr($row['datainicio'], 11, 8);
-                            $horaf = substr($row['datafinal'], 11, 8);
+                        <?php foreach ($resultado as $row) {
+                $horai = substr($row['datainicio'], 11, 8);
+                $horaf = substr($row['datafinal'], 11, 8);
                         
-                            echo '<tr>';
-                                echo'<td>'.$row['id_plantao'].'</td>';
-                                echo'<td>'; if(is_null($row['date(datainicio)'])){ echo $row['data'];}  else{ echo $row['date(datainicio)'];} echo'</td>';
-                                echo'<td>'.$row['empresa'].'</td>';
-                                echo'<td>'.$row['contato'].'</td>';
-                                echo'<td>';if(is_null($row['date(datainicio)'])){ echo $row['horainicio'].':00';}  else{ echo $horai;} echo'</td>';
-                                echo'<td>';if(is_null($row['date(datainicio)'])){ echo $row['horafim'].':00';}  else{ echo $horaf;} echo'</td>';
-                                echo'<td>'.$row['descproblema'].'</td>';
-                                echo'<td>'.$row['descsolucao'].'</td>';
-                            echo'</tr>';
-                         }?>   
+                echo '<tr>';
+                echo'<td>'.$row['id_plantao'].'</td>';
+                echo'<td>';
+                if (is_null($row['date(datainicio)'])) {
+                    echo $row['data'];
+                } else {
+                    echo $row['date(datainicio)'];
+                }
+                echo'</td>';
+                echo'<td>'.$row['empresa'].'</td>';
+                echo'<td>'.$row['contato'].'</td>';
+                echo'<td>';
+                if (is_null($row['date(datainicio)'])) {
+                    echo $row['horainicio'].':00';
+                } else {
+                    echo $horai;
+                }
+                echo'</td>';
+                echo'<td>';
+                if (is_null($row['date(datainicio)'])) {
+                    echo $row['horafim'].':00';
+                } else {
+                    echo $horaf;
+                }
+                echo'</td>';
+                echo'<td>'.$row['descproblema'].'</td>';
+                echo'<td>'.$row['descsolucao'].'</td>';
+                echo'</tr>';
+            }?>   
                     </tbody>
 
                 </table>

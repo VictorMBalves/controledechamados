@@ -78,28 +78,34 @@ $(function () {
   </head>
   <body>
 <?php
-  if (!isset($_SESSION)) session_start();
-  if (!isset($_SESSION['UsuarioID'])) {
-    session_destroy();
-    header("Location: index.php"); 
-    exit;
+  if (!isset($_SESSION)) {
+      session_start();
   }
-  $email = md5( $_SESSION['Email']);
+  if (!isset($_SESSION['UsuarioID'])) {
+      session_destroy();
+      header("Location: index.php");
+      exit;
+  }
+  $email = md5($_SESSION['Email']);
   include('include/db.php');
   include('include/menu.php');
 
   //PAGINATION
   header('SET CHARACTER SET utf8');
-  $countSql = "SELECT COUNT(id_empresa) FROM empresa";  
-  $tot_result = mysqli_query($conn, $countSql);   
-  $row = mysqli_fetch_row($tot_result);  
-  $total_records = $row[0];  
+  $countSql = "SELECT COUNT(id_empresa) FROM empresa";
+  $tot_result = mysqli_query($conn, $countSql);
+  $row = mysqli_fetch_row($tot_result);
+  $total_records = $row[0];
   $total_pages = ceil($total_records / $limit);
 
-  if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
-  $start_from = ($page-1) * $limit;  
-  $sql = "SELECT * FROM empresa ORDER BY id_empresa ASC LIMIT $start_from, $limit";  
-  $rs_result = mysqli_query($conn, $sql); 
+  if (isset($_GET["page"])) {
+      $page  = $_GET["page"];
+  } else {
+      $page=1;
+  };
+  $start_from = ($page-1) * $limit;
+  $sql = "SELECT * FROM empresa ORDER BY id_empresa ASC LIMIT $start_from, $limit";
+  $rs_result = mysqli_query($conn, $sql);
 ?>
 <br/>
 <br/>
@@ -165,22 +171,22 @@ $(function () {
 </tr>
 <tbody id="target-content">
 <?php
-while ($row = mysqli_fetch_assoc($rs_result)) { 
-echo '<tr>';            
-echo '<td>'.$row["id_empresa"].'</td>';
-echo '<td>'.$row["nome"].'</td>';
-echo '<td>'.$row["situacao"].'</td>';
-echo '<td>'.$row["cnpj"].'</td>';
-echo '<td>'.$row["telefone"].'</td>';
-echo '<td>'.$row["celular"].'</td>';
-echo "<td> <a style='margin-top:2px;' href='editaempresa.php?id_empresa=".$row['id_empresa']."'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>";
+while ($row = mysqli_fetch_assoc($rs_result)) {
+    echo '<tr>';
+    echo '<td>'.$row["id_empresa"].'</td>';
+    echo '<td>'.$row["nome"].'</td>';
+    echo '<td>'.$row["situacao"].'</td>';
+    echo '<td>'.$row["cnpj"].'</td>';
+    echo '<td>'.$row["telefone"].'</td>';
+    echo '<td>'.$row["celular"].'</td>';
+    echo "<td> <a style='margin-top:2px;' href='editaempresa.php?id_empresa=".$row['id_empresa']."'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>";
 }?>
 </tbody> 
 </table>
 <div class="col-md-12 text-center">
 <center><ul class="pagination">
-<?php if(!empty($total_pages)):for($i=1; $i<=$total_pages; $i++):  
-            if($i == 1):?>
+<?php if (!empty($total_pages)): for ($i=1; $i<=$total_pages; $i++):
+            if ($i == 1):?>
             <li class='active'  id="<?php echo $i;?>"><a href='paginationempre.php?page=<?php echo $i;?>'><?php echo $i;?></a></li> 
             <?php else:?>
             <li id="<?php echo $i;?>"><a href='paginationempre.php?page=<?php echo $i;?>'><?php echo $i;?></a></li>

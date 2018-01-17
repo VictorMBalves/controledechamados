@@ -17,12 +17,12 @@ $datafinal = date("Y-m-d H:i:s");
 $status = "Finalizado";
 $descsolucao=$_POST['descsolucao'];
 $sql = $conn->prepare("UPDATE plantao SET status= :status, descsolucao= :descs, datafinal= :data WHERE id_plantao=:id") or die(mysql_error());
-$sql ->bindParam(":status", $status, PDO::PARAM_STR,500);
-$sql ->bindParam(":descs", $descsolucao, PDO::PARAM_STR,500);
-$sql ->bindParam(":data", $datafinal, PDO::PARAM_STR,500);
-$sql ->bindParam(":id", $id, PDO::PARAM_STR,500);
+$sql ->bindParam(":status", $status, PDO::PARAM_STR, 500);
+$sql ->bindParam(":descs", $descsolucao, PDO::PARAM_STR, 500);
+$sql ->bindParam(":data", $datafinal, PDO::PARAM_STR, 500);
+$sql ->bindParam(":id", $id, PDO::PARAM_STR, 500);
 $sql->execute();
-echo '<script> redireciona() </script>'      
+echo '<script> redireciona() </script>'
 ?>
 </body>
 </html>

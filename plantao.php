@@ -143,34 +143,40 @@
   </head>
   <body>
 <?php
-  if (!isset($_SESSION)) session_start();
-  if($_SESSION['UsuarioNivel'] == 1) {
-    echo'<script>erro()</script>';
-  } else {
-    if (!isset($_SESSION['UsuarioID'])) {
-      session_destroy();
-      header("Location: index.php"); 
-      exit;
-    }
+  if (!isset($_SESSION)) {
+      session_start();
   }
-  $email = md5( $_SESSION['Email']);
+  if ($_SESSION['UsuarioNivel'] == 1) {
+      echo'<script>erro()</script>';
+  } else {
+      if (!isset($_SESSION['UsuarioID'])) {
+          session_destroy();
+          header("Location: index.php");
+          exit;
+      }
+  }
+  $email = md5($_SESSION['Email']);
   /////////////////////
   include('include/db.php');
   include('include/menu.php');
   /////////////////////
   header('SET CHARACTER SET utf8');
   $usuario=$_SESSION['UsuarioNome'];
-  $countSql = "SELECT COUNT(id_plantao) FROM plantao WHERE usuario = '$usuario'";  
-  $tot_result = mysqli_query($conn, $countSql);   
-  $row = mysqli_fetch_row($tot_result);  
-  $total_records = $row[0];  
+  $countSql = "SELECT COUNT(id_plantao) FROM plantao WHERE usuario = '$usuario'";
+  $tot_result = mysqli_query($conn, $countSql);
+  $row = mysqli_fetch_row($tot_result);
+  $total_records = $row[0];
   $total_pages = ceil($total_records / $limit);
 
   //for first time load data
-  if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
-  $start_from = ($page-1) * $limit;  
-  $sql = "SELECT id_plantao, usuario, status, empresa, contato, telefone, date(datainicio), data FROM plantao WHERE usuario = '$usuario' ORDER BY id_plantao DESC LIMIT $start_from, $limit";  
-  $rs_result = mysqli_query($conn, $sql); 
+  if (isset($_GET["page"])) {
+      $page  = $_GET["page"];
+  } else {
+      $page=1;
+  };
+  $start_from = ($page-1) * $limit;
+  $sql = "SELECT id_plantao, usuario, status, empresa, contato, telefone, date(datainicio), data FROM plantao WHERE usuario = '$usuario' ORDER BY id_plantao DESC LIMIT $start_from, $limit";
+  $rs_result = mysqli_query($conn, $sql);
 ?>
 <br/>
 <br/>
@@ -416,33 +422,43 @@
         <tbody id="target-content">
         <?php 
         while ($row = mysqli_fetch_assoc($rs_result)) {
-        echo '<tr>';            
-        echo '<td>';if($row['status']!="Finalizado"){echo'<div class="circle2" data-toggle="tooltip" data-placement="left" title="Status: Aberto"></div>';} else {echo'<div class="circle" data-toggle="tooltip" data-placement="left" title="Status: Finalizado"></div> '; } 
-        echo'</td>';
-        echo '<td>';if($row['date(datainicio)'] === NULL ){ echo $row['data'];} else{echo $row['date(datainicio)'];}echo'</td>';
-        echo '<td>'.$row["usuario"].'</td>';
-        echo '<td>'.$row["id_plantao"].'</td>';
-        echo '<td>'.$row["empresa"].'</td>';
-        echo '<td>'.$row["contato"].'</td>';
-        echo '<td>'.$row["telefone"].'</td>';
-        echo '<td>';
-        if ($row["status"]!="Finalizado") {
-        echo "
+            echo '<tr>';
+            echo '<td>';
+            if ($row['status']!="Finalizado") {
+                echo'<div class="circle2" data-toggle="tooltip" data-placement="left" title="Status: Aberto"></div>';
+            } else {
+                echo'<div class="circle" data-toggle="tooltip" data-placement="left" title="Status: Finalizado"></div> ';
+            }
+            echo'</td>';
+            echo '<td>';
+            if ($row['date(datainicio)'] === null) {
+                echo $row['data'];
+            } else {
+                echo $row['date(datainicio)'];
+            }
+            echo'</td>';
+            echo '<td>'.$row["usuario"].'</td>';
+            echo '<td>'.$row["id_plantao"].'</td>';
+            echo '<td>'.$row["empresa"].'</td>';
+            echo '<td>'.$row["contato"].'</td>';
+            echo '<td>'.$row["telefone"].'</td>';
+            echo '<td>';
+            if ($row["status"]!="Finalizado") {
+                echo "
         <a style='margin-top:2px;' href='editaplantao.php?id_plantao=".$row['id_plantao']."'><button data-toggle='tooltip' data-placement='left' title='Editar chamado' class='btn btn-warning teste12' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>
         <a href='abreplantao.php?id_plantao=".$row['id_plantao']."'><button data-toggle='tooltip' data-placement='left' title='Finalizar chamado' class='btn btn-success teste12' type='button'><span class='glyphicon glyphicon-ok'></span></button></a>";
-        }
-        else{
-        echo "<a href='consultaplantao.php?id_plantao=".$row['id_plantao']. "'><button class='btn btn-info btn-sm btn-block' type='button'>Consultar</button></a> </td>";
-        echo '</tr>';
-        }  
+            } else {
+                echo "<a href='consultaplantao.php?id_plantao=".$row['id_plantao']. "'><button class='btn btn-info btn-sm btn-block' type='button'>Consultar</button></a> </td>";
+                echo '</tr>';
+            }
         }
         echo '</tbody> 
         </table>';
         ?>
         <div class="col-md-12 text-center">
         <center><ul class="pagination">
-        <?php if(!empty($total_pages)):for($i=1; $i<=$total_pages; $i++):  
-                    if($i == 1):?>
+        <?php if (!empty($total_pages)): for ($i=1; $i<=$total_pages; $i++):
+                    if ($i == 1):?>
                     <li class='active'  id="<?php echo $i;?>"><a href='paginationplantao.php?page=<?php echo $i;?>'><?php echo $i;?></a></li> 
                     <?php else:?>
                     <li id="<?php echo $i;?>"><a href='paginationplantao.php?page=<?php echo $i;?>'><?php echo $i;?></a></li>
@@ -470,12 +486,12 @@ $('.pagination').pagination({
 </div>
     
     <?php 
-if (array_key_exists('data', $_POST)) {             
-$data=$_POST['data'];            
-$data2=$_POST['data1'];             
+if (array_key_exists('data', $_POST)) {
+    $data=$_POST['data'];
+    $data2=$_POST['data1'];
 } else {
-$data = date('Y-m').'-01';
-$data2 = date('Y-m-t');
+    $data = date('Y-m').'-01';
+    $data2 = date('Y-m-t');
 }
 ?>
     

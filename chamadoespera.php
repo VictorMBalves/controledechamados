@@ -78,15 +78,18 @@
   <body>
 <?php
   // A sessão precisa ser iniciada em cada página diferente
-  if (!isset($_SESSION)) session_start();
+  if (!isset($_SESSION)) {
+      session_start();
+  }
   // Verifica se não há a variável da sessão que identifica o usuário
   if (!isset($_SESSION['UsuarioID'])) {
-  // Destrói a sessão por segurança
-  session_destroy();
-  // Redireciona o visitante de volta pro login
-  header("Location: index.php"); exit;
+      // Destrói a sessão por segurança
+      session_destroy();
+      // Redireciona o visitante de volta pro login
+      header("Location: index.php");
+      exit;
   }
-  $email = md5( $_SESSION['Email']);
+  $email = md5($_SESSION['Email']);
   include('include/menu.php');
 ?>
 <br/>
@@ -131,14 +134,15 @@
           <option value=""></option>       
         <?php 
         include 'include/dbconf.php';
-        $conn->exec('SET CHARACTER SET utf8'); 
+        $conn->exec('SET CHARACTER SET utf8');
         $sql = $conn->prepare('SELECT nome, nivel, disponivel FROM usuarios');
         $sql->execute();
         $result = $sql->fetchall();
-        foreach($result as $row){  
-        if($row["nivel"] != 1 ) {    
-        echo '<option>'.$row['nome'].'</option>'; 
-        }}        
+        foreach ($result as $row) {
+            if ($row["nivel"] != 1) {
+                echo '<option>'.$row['nome'].'</option>';
+            }
+        }
         ?>
         </select>
         <br/>

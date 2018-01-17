@@ -1,12 +1,15 @@
 <?php
 // A sessão precisa ser iniciada em cada página diferente
-if (!isset($_SESSION)) session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 // Verifica se não há a variável da sessão que identifica o usuário
 if (!isset($_SESSION['UsuarioID'])) {
-// Destrói a sessão por segurança
-session_destroy();
-// Redireciona o visitante de volta pro login
-header("Location: index.php"); exit;
+    // Destrói a sessão por segurança
+    session_destroy();
+    // Redireciona o visitante de volta pro login
+    header("Location: index.php");
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -34,7 +37,7 @@ $pass =SHA1($senha);
 
 $sql = $conn->prepare("UPDATE usuarios SET nome='$nome', usuario='$usuario', email='$email', senha='$pass', nivel='$nivel' WHERE id='$id'") or die(mysql_error());
 $sql->execute();
-echo '<script> redireciona() </script>'      
+echo '<script> redireciona() </script>'
 ?>
 </body>
 </html>

@@ -14,30 +14,32 @@ function loginfail() {
 </html>
 <?php
 
-if (!empty($_POST) AND (empty($_POST['usuario']) OR empty($_POST['senha']))) {
-  header("Location: index.php"); exit;
+if (!empty($_POST) and (empty($_POST['usuario']) or empty($_POST['senha']))) {
+    header("Location: index.php");
+    exit;
 }
 include 'include/dbconf.php';
 $usuario = ($_POST['usuario']);
 $senha = ($_POST['senha']);
 
 $sql = $conn->prepare('SELECT id, nome, nivel, email FROM usuarios WHERE (usuario = :usuario ) AND (senha = :senha)  AND (ativo = 1) LIMIT 1');
-$sql->bindParam(':usuario',$usuario, PDO::PARAM_STR,25); 
-$sql->bindParam(':senha',sha1($senha), PDO::PARAM_STR,40);                 
+$sql->bindParam(':usuario', $usuario, PDO::PARAM_STR, 25);
+$sql->bindParam(':senha', sha1($senha), PDO::PARAM_STR, 40);
 $sql->execute();
 $resultado = $sql->fetch();
-if (empty($resultado)){
-   echo "<script>loginfail()</script>"; 
-    } 
-else {
-  if (!isset($_SESSION)) session_start();
-  // Salva os dados encontrados na sessão
-  $_SESSION['UsuarioID'] = $resultado['id'];
-  $_SESSION['UsuarioNome'] = $resultado['nome'];
-  $_SESSION['UsuarioNivel'] = $resultado['nivel'];
-  $_SESSION['Email'] = $resultado['email'];
-  // Redireciona o visitante
-    header("Location:home.php"); exit;
-
-  }
+if (empty($resultado)) {
+    echo "<script>loginfail()</script>";
+} else {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    // Salva os dados encontrados na sessão
+    $_SESSION['UsuarioID'] = $resultado['id'];
+    $_SESSION['UsuarioNome'] = $resultado['nome'];
+    $_SESSION['UsuarioNivel'] = $resultado['nivel'];
+    $_SESSION['Email'] = $resultado['email'];
+    // Redireciona o visitante
+    header("Location:home.php");
+    exit;
+}
 ?>

@@ -10,22 +10,24 @@
       <link href="css/bootstrap.css" rel="stylesheet">
       <link href="css/cad.css" rel="stylesheet">
     </head>
-    
+
     <body>
         <?php
             include 'include/dbconf.php';
             header("Content-type: text/html; charset=utf-8");
-            if (!isset($_SESSION)) session_start();
-            if($_SESSION['UsuarioNivel'] == 1) {
-              echo'<script>erro()</script>';
-            }  
-            else {
-              if (!isset($_SESSION['UsuarioID'])) {
-                session_destroy();
-                header("Location: index.php"); exit;
-              }
+            if (!isset($_SESSION)) {
+                session_start();
             }
-            $email = md5( $_SESSION['Email']);
+            if ($_SESSION['UsuarioNivel'] == 1) {
+                echo'<script>erro()</script>';
+            } else {
+                if (!isset($_SESSION['UsuarioID'])) {
+                    session_destroy();
+                    header("Location: index.php");
+                    exit;
+                }
+            }
+            $email = md5($_SESSION['Email']);
             
             include('include/menu.php');
           ?>
@@ -95,7 +97,11 @@
         <label class="col-md-4 control-label empresa" for="backup">Backup:</label>  
               <select name="backup" class="form-control label2">
                 <option>
-                    <?php if($row2['backup'] == 0){echo "Google drive não configurado";}else{echo "Google drive configurado";}?>
+                    <?php if ($row2['backup'] == 0) {
+            echo "Google drive não configurado";
+        } else {
+            echo "Google drive configurado";
+        }?>
                 </option>
               </select>
         <label class="col-md-4 control-label empresa" for="categoria">Categoria:</label>  

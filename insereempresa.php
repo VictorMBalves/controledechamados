@@ -20,7 +20,7 @@ $celular=$_POST['celular'];
 $backup=$_POST['backup'];
 $sql = $conn->prepare("INSERT INTO empresa (nome, cnpj, situacao, telefone, celular, backup) VALUES ('$empresa','$cnpj','$situacao','$telefone','$celular','$backup')") or die(mysql_error());
 $sql->execute();
-echo '<script> redireciona() </script>'      
+echo '<script> redireciona() </script>'
 ?>
 </body>
 </html>

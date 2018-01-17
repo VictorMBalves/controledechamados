@@ -64,27 +64,30 @@ function atualizarTarefas() {
   <body>
 <?php
   header("Content-type: text/html; charset=utf-8");
-  if (!isset($_SESSION)) session_start();
+  if (!isset($_SESSION)) {
+      session_start();
+  }
   if (!isset($_SESSION['UsuarioID'])) {
-    session_destroy();
-    header("Location: index.php"); exit;
+      session_destroy();
+      header("Location: index.php");
+      exit;
   }
   include 'include/dbconf.php';
   $conn->exec('SET CHARACTER SET utf8');
   $epr='';
   $msg='';
 
-  if(isset($_GET['epr'])) {
-    $epr=$_GET['epr'];
+  if (isset($_GET['epr'])) {
+      $epr=$_GET['epr'];
   }
-  if($epr=='excluir'){
+  if ($epr=='excluir') {
       $id=$_GET['id_empresa'];
       $query = $conn ->prepare("DELETE FROM empresa WHERE id_empresa=$id");
       $query->execute();
-      echo "<script>deletado()</script>";  
+      echo "<script>deletado()</script>";
   }
-  $email = md5( $_SESSION['Email']);
-  include('include/menu.php'); 
+  $email = md5($_SESSION['Email']);
+  include('include/menu.php');
 ?>
 <br/>
 <br/>
@@ -165,7 +168,11 @@ $row = $sql->fetch(PDO::FETCH_ASSOC);
           </label>
           <select name="backup" class="form-control label1 ">
             <option>
-            <?php if($row['backup'] == 0){echo'Google drive não configurado';}else{echo'Google drive configurado';}?>
+            <?php if ($row['backup'] == 0) {
+    echo'Google drive não configurado';
+} else {
+    echo'Google drive configurado';
+}?>
             </option>
              <option>
             </option>

@@ -1,12 +1,15 @@
 <?php
 // A sessão precisa ser iniciada em cada página diferente
-if (!isset($_SESSION)) session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 // Verifica se não há a variável da sessão que identifica o usuário
 if (!isset($_SESSION['UsuarioID'])) {
-// Destrói a sessão por segurança
-session_destroy();
-// Redireciona o visitante de volta pro login
-header("Location: index.php"); exit;
+    // Destrói a sessão por segurança
+    session_destroy();
+    // Redireciona o visitante de volta pro login
+    header("Location: index.php");
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -47,28 +50,26 @@ $sql = $conn->prepare("UPDATE empresa set backup = '$backup' where nome='$empres
 $sql->execute();
 $sql = $conn->prepare("INSERT INTO plantao (usuario, status, empresa, contato, telefone, modulo, versao, formacontato, categoria, descproblema, descsolucao, data, horainicio, horafim) 
 VALUES (:usuario, :status, :empresa, :contato, :telefone, :modulo, :versao, :formacontato, :categoria, :descproblema, :descsolucao, :data, :horai, :horaf)") or die(mysql_error());
-$sql ->bindParam(":usuario", $usuario, PDO::PARAM_STR,500);
-$sql ->bindParam(":status", $status, PDO::PARAM_STR,500);
-$sql ->bindParam(":empresa", $empresa, PDO::PARAM_STR,500);
-$sql ->bindParam(":contato", $contato, PDO::PARAM_STR,500);
-$sql ->bindParam(":telefone", $telefone, PDO::PARAM_STR,500);
-$sql ->bindParam(":modulo", $modulo, PDO::PARAM_STR,500);
-$sql ->bindParam(":versao", $versao, PDO::PARAM_STR,500);
-$sql ->bindParam(":formacontato", $formacontato, PDO::PARAM_STR,500);
-$sql ->bindParam(":categoria", $categoria, PDO::PARAM_STR,500);
-$sql ->bindParam(":descproblema", $descproblema, PDO::PARAM_STR,500);
-$sql ->bindParam(":descsolucao", $descsolucao, PDO::PARAM_STR,500);
-$sql ->bindParam(":data", $data, PDO::PARAM_STR,500);
-$sql ->bindParam(":horai", $horai, PDO::PARAM_STR,500);
-$sql ->bindParam(":horaf", $horaf, PDO::PARAM_STR,500);
+$sql ->bindParam(":usuario", $usuario, PDO::PARAM_STR, 500);
+$sql ->bindParam(":status", $status, PDO::PARAM_STR, 500);
+$sql ->bindParam(":empresa", $empresa, PDO::PARAM_STR, 500);
+$sql ->bindParam(":contato", $contato, PDO::PARAM_STR, 500);
+$sql ->bindParam(":telefone", $telefone, PDO::PARAM_STR, 500);
+$sql ->bindParam(":modulo", $modulo, PDO::PARAM_STR, 500);
+$sql ->bindParam(":versao", $versao, PDO::PARAM_STR, 500);
+$sql ->bindParam(":formacontato", $formacontato, PDO::PARAM_STR, 500);
+$sql ->bindParam(":categoria", $categoria, PDO::PARAM_STR, 500);
+$sql ->bindParam(":descproblema", $descproblema, PDO::PARAM_STR, 500);
+$sql ->bindParam(":descsolucao", $descsolucao, PDO::PARAM_STR, 500);
+$sql ->bindParam(":data", $data, PDO::PARAM_STR, 500);
+$sql ->bindParam(":horai", $horai, PDO::PARAM_STR, 500);
+$sql ->bindParam(":horaf", $horaf, PDO::PARAM_STR, 500);
 $sql->execute();
-if($sql->rowCount() > 0 ){
-echo '<script> redireciona() </script>';
+if ($sql->rowCount() > 0) {
+    echo '<script> redireciona() </script>';
+} else {
+    echo '<script> erro() </script>';
 }
-else
-{
-echo '<script> erro() </script>';
-} 
 ?>
 </body>
 </html>

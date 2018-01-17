@@ -51,18 +51,22 @@
 <?php
     header("Content-type: text/html; charset=utf-8");
     // A sessão precisa ser iniciada em cada página diferente
-    if (!isset($_SESSION)) session_start();
+    if (!isset($_SESSION)) {
+        session_start();
+    }
     // Verifica se não há a variável da sessão que identifica o usuário
-    if($_SESSION['UsuarioNivel'] == 1) {
-    echo'<script>erro()</script>';
-    }  else {
-    if (!isset($_SESSION['UsuarioID'])) {
-    // Destrói a sessão por segurança
-    session_destroy();
-    // Redireciona o visitante de volta pro login
-    header("Location: index.php"); exit;
-    }}
-    $email = md5( $_SESSION['Email']);
+    if ($_SESSION['UsuarioNivel'] == 1) {
+        echo'<script>erro()</script>';
+    } else {
+        if (!isset($_SESSION['UsuarioID'])) {
+            // Destrói a sessão por segurança
+            session_destroy();
+            // Redireciona o visitante de volta pro login
+            header("Location: index.php");
+            exit;
+        }
+    }
+    $email = md5($_SESSION['Email']);
     include('include/menu.php');
 ?>
 <br/>
@@ -127,8 +131,8 @@
               <textarea name="descproblema" class="form-control label1 disabled" disabled required=""><?php echo $row['descproblema'];?></textarea>
 
               <?php 
-                 if(!(is_null($row['historico']))){
-                  echo ' <label class="col-md-4 control-label empresa" for="descproblema">Histórico de contato:</label>  
+                 if (!(is_null($row['historico']))) {
+                     echo ' <label class="col-md-4 control-label empresa" for="descproblema">Histórico de contato:</label>  
                       <textarea name="historico" class="form-control label1 disabled" disabled>'.$row['historico'].'</textarea> ';
                  }
               ?>
