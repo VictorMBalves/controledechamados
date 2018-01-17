@@ -68,7 +68,7 @@
     }
   }
   $email = md5( $_SESSION['Email']);
-  include('includes/menu.php');
+  include('include/menu.php');
 ?>
 <br/>
 <br/>

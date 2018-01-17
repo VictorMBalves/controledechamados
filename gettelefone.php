@@ -2,12 +2,13 @@
   /**
    * função que devolve em formato JSON os dados do cliente
    */
-  function retorna( $nome, $db )
+  include('include/db.php');
+  function retorna( $nome, $conn )
   {
     $sql = "SELECT `telefone`, `celular`,`backup`
       FROM `empresa` WHERE `nome` = '{$nome}' ";
 
-    $query = $db->query( $sql );
+    $query = $conn->query( $sql );
 
     $arr;
     if( $query->num_rows )
@@ -25,6 +26,5 @@
 /* só se for enviado o parâmetro, que devolve os dados */
 if( isset($_GET['empresa']) )
 {
-  $db = new mysqli('localhost', 'root', 'ledZeppelin', 'chamados');
-  echo retorna($_GET['empresa'], $db );
+  echo retorna($_GET['empresa'], $conn );
 }
