@@ -4,37 +4,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
-    <title>Controle de Chamados
-    </title>
+    <title>Controle de Chamados</title>
     <link rel="shortcut icon" href="imagem/favicon.ico" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js">
-    </script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js">
-    </script>         
-    <script src="js/links.js" >
-    </script>
     <link href="css/bootstrap.css" rel="stylesheet">
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js">
-    </script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
-    </script>
-    <link href="css/cad.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js">
-    </script>
-    <script>
-    function erro(){
-        alert('Acesso negado! Redirecinando a pagina principal.');
-        window.location.assign("chamadoespera.php");
-      }
-      $(function() {
-        $( "#skills" ).autocomplete({
-          source: 'search.php'
-        }
-                                   );
-      }
-       );
-    </script>
   </head>
   <body>
 
@@ -79,18 +52,36 @@
       </center>
     </div>
     <br>
-    <form class="form-vertical" action="updatesenha.php" method="POST">
-      <fieldset>
-        <!-- Text input-->
-        <div class="form-group form text-center">
-          <label class="col-md-4 control-label empresa" for="skills">Nova Senha:
-          </label>  
-          <input  name="senha" type="password" class="form-control label1" required="">
-          <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Alterar
-          </button>
-        </div>
-      </fieldset>
+    <form class="form-horizontal" action="updatesenha.php" method="POST">
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="senha">Nova Senha:</label>
+          <div class="col-sm-8">
+            <input  name="senha" type="password" class="form-control" required="" style="padding-bottom:15px;">
+          </div>
+          <div class="col-sm-2">
+            <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Alterar</button>
+          </div>
+      </div>
     </form>
+    </div>
   </div>
-  </body>
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>         
+  <script src="js/links.js" ></script>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+    function erro(){
+        alert('Acesso negado! Redirecinando a pagina principal.');
+        window.location.assign("chamadoespera.php");
+      }
+      $(function() {
+        $( "#skills" ).autocomplete({
+          source: 'search.php'
+        });
+      }
+       );
+  </script>
+</body>
 </html>

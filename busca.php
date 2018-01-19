@@ -4,35 +4,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="shortcut icon" href="imagem/favicon.ico" />
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <script>
-    function erro(){
-        alert('Acesso negado! Redirecinando a pagina principal.');
-        window.location.assign("chamadoespera.php");
-      }
-      $(function() {
-        $( "#skills" ).autocomplete({
-          source: 'search.php'
-        }
-                                   );
-      }
-       );
-       $(function () {
-  $('[data-toggle="popover"]').popover()
-})
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-});
-</script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-<!--<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.js"></script>-->
-<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="dist/simplePagination.css" />
-<script src="dist/jquery.simplePagination.js"></script>
+<link rel="stylesheet" href="css/bootstrap.css">
+
 <title></title>
 </head>
   <style>
@@ -105,6 +79,11 @@ $(function () {
   $sql = "SELECT id_chamado,usuario, status, empresa, contato, telefone, date(datainicio) FROM chamado ORDER BY id_chamado DESC LIMIT $start_from, $limit";
   $rs_result = mysqli_query($conn, $sql);
   include('include/menu.php');
+  include('include/dbconf.php');
+  $conn->exec('SET CHARACTER SET utf8');
+  $sql = $conn->prepare('SELECT nome, nivel FROM usuarios');
+  $sql->execute();
+  $result = $sql->fetchall();
 ?>
 <br/>
 <br/>
@@ -131,46 +110,11 @@ $(function () {
       </center>
     </div>
     <br>
-    <form class="navbar-form  col-md-12 text-center" method="POST" action="busca.php">
-      <label class="control-label">Empresa Solicitante:
-      </label>
-      <input name="palavra" type="text" class="form-control" placeholder="Empresa" id="skills">
-      <label style="padding-left:15px;" class="control-label">Status:
-      </label>
-      <select name="status" class="form-control modulo">
-        <option value="">
-        </option>
-        <option value="Aberto">Aberto
-        </option>
-        <option value="Finalizado">Finalizado
-        </option>
-      </select>
-      <label style="padding-left:15px;" class="control-label">Responsável:
-      </label>
-     <select name="usuario" class="form-control modulo">
-        <option></option>       
-        <?php 
-        include 'include/dbconf.php';
-        $conn->exec('SET CHARACTER SET utf8');
-        $sql = $conn->prepare('SELECT nome, nivel FROM usuarios');
-        $sql->execute();
-        $result = $sql->fetchall();
-        foreach ($result as $row) {
-            if ($row["nivel"] != 1) {
-                echo '<option>'.$row['nome'].'</option>';
-            }
-        }
+    <div class="text-center">
+        <?php   
+            include('include/formPesquisa.php');
         ?>
-        </select>
-      <label style="padding-left:15px;" class="control-label">Data:
-      </label>
-      <input type="date" name="data" class="form-control">
-      <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Buscar
-      </button>
-    </form> 
-    <br>
-    <br>
-    <br> 
+    </div>
     <div class="row">
       <hr/>
     </div>       
@@ -269,21 +213,40 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
 </center>
 </div>
 </div>
-</body>
-<script type="text/javascript">
-$(document).ready(function(){
-$('.pagination').pagination({
-        items: <?php echo $total_records;?>,
-        itemsOnPage: <?php echo $limit;?>,
-        cssStyle: 'light-theme',
-		currentPage : 1,
-		onPageClick : function(pageNumber) {
-			jQuery("#target-content").html('loading...');
-			jQuery("#target-content").load("pagination.php?page=" + pageNumber);
-		}
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="dist/jquery.simplePagination.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script>
+        function erro(){
+            alert('Acesso negado! Redirecinando a pagina principal.');
+            window.location.assign("chamadoespera.php");
+        }
+        $(function() {
+            $( "#skills" ).autocomplete({
+                source: 'search.php'
+            });
+        });
+        $(function () {$('[data-toggle="popover"]').popover()});
+        $(function () {$('[data-toggle="tooltip"]').tooltip()});
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    $('.pagination').pagination({
+            items: <?php echo $total_records;?>,
+            itemsOnPage: <?php echo $limit;?>,
+            cssStyle: 'light-theme',
+            currentPage : 1,
+            onPageClick : function(pageNumber) {
+                jQuery("#target-content").html('loading...');
+                jQuery("#target-content").load("pagination.php?page=" + pageNumber);
+            }
+        });
     });
-});
-</script>
+    </script>
+</body>
 </br>
 </br>
 </br>

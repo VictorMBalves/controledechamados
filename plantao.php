@@ -160,7 +160,6 @@
   include('include/db.php');
   include('include/menu.php');
   /////////////////////
-  header('SET CHARACTER SET utf8');
   $usuario=$_SESSION['UsuarioNome'];
   $countSql = "SELECT COUNT(id_plantao) FROM plantao WHERE usuario = '$usuario'";
   $tot_result = mysqli_query($conn, $countSql);

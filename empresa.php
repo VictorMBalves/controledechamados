@@ -91,7 +91,7 @@ $(function () {
   include('include/menu.php');
 
   //PAGINATION
-  header('SET CHARACTER SET utf8');
+  //header('SET CHARACTER SET utf8');
   $countSql = "SELECT COUNT(id_empresa) FROM empresa";
   $tot_result = mysqli_query($conn, $countSql);
   $row = mysqli_fetch_row($tot_result);
@@ -131,30 +131,9 @@ $(function () {
       <center>Lista de clientes:
       </center>
     </div>
-    <br>
-    <form class="navbar-form  col-md-12 text-center" method="POST" action="buscaempresa.php">
-      <label class="control-label">Razão Social:
-      </label>
-      <input name="palavra" type="text" class="form-control" placeholder="Empresa" id="skills">
-      <label style="padding-left:15px;" class="control-label">Situação:
-      </label>
-            <select name="situacao" class="form-control modulo">
-        <option value="">
-        </option>
-        <option value="ATIVO">Ativo
-        </option>
-        <option value="DESISTENTE">Desistente
-        </option>
-        <option value="BLOQUEADO">Bloqueado
-        </option>
-      </select>
-      <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Buscar
-      </button>
-      <button type="reset" class="btn btn-group-lg btn-success xxx" onclick="cadastrar()">Cadastrar nova empresa</button>
-    </form> 
-    <br>
-    <br>
-    <br> 
+    <div class="text-center">
+      <?php include('include/formEmpresa.php');?>
+    </div>
     <div class="row">
       <hr/>
     </div>       

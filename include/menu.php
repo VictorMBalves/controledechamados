@@ -12,7 +12,7 @@
             <span class="icon-bar">
             </span>
           </button>
-          <a class="navbar-brand" href="#">German Tech Controle de chamados
+          <a class="navbar-brand" href="#">Controle de chamados
           </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,9 +27,9 @@
             </li>
           </ul>
           
-           <ul class="nav navbar-nav">
+          <ul class="nav navbar-nav">
             <li class="dropdown">
-             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list"></span>&nbsp&nbspChamados 
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list"></span>&nbsp&nbspChamados 
                 <span class="caret">
                 </span>
               </a>
@@ -56,39 +56,38 @@
                 </li>
             </ul>
           </ul>
-            <ul class="nav navbar-nav navbar-right">
-            <?php if($_SESSION['UsuarioNivel'] != 1) { echo'
-              <li>
-              <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
-            </li>';}?>
+          <ul class="nav navbar-nav navbar-right">
+            <?php if($_SESSION['UsuarioNivel'] != 1) { 
+              echo'
+                <li>
+                  <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
+                </li>';
+            }?>
           
-          <?php if($_SESSION['UsuarioNivel'] != 1) {
-            echo '<ul class="nav navbar-nav">
-          <li class="dropdown">
-             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
-                <span class="caret">
-                </span>
-              </a>
-              <ul class="dropdown-menu">
-            <li>
-              <a href="relatorio.php">Chamados por atendente
-              </a>
-            </li>
-            <li role="separator" class="divider">
-            </li>
-            <li>
-              <a href="relatorioempre.php">Empresas Solicitantes 
-              </a>
-            </li>
-            <li role="separator" class="divider">
-            </li>
-          </ul>
-            </ul>';}?>
+            <?php if($_SESSION['UsuarioNivel'] != 1) {
+            echo '
+                <ul class="nav navbar-nav" style="padding-left:15px;">
+                  <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-tasks"></span>&nbsp&nbspRelatórios 
+                      <span class="caret"></span>
+                    </a>
+                  <ul class="dropdown-menu">
+                  <li>
+                    <a href="relatorio.php">Chamados por atendente
+                    </a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="relatorioempre.php">Empresas Solicitantes </a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                </ul>
+              </ul>';}?>
 
           <ul class="nav navbar-nav">
              
           </ul>
-           <ul class="nav navbar-nav">
+           <ul class="nav navbar-nav" style="padding-left:15px;">
             <li class="dropdown">
              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span> 
                 <span class="caret">

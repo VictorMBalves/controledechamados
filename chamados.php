@@ -104,6 +104,11 @@ $(function () {
   $sql = "SELECT id_chamado,usuario, status, empresa, contato, telefone, date(datainicio) FROM chamado ORDER BY id_chamado DESC LIMIT $start_from, $limit";
   $rs_result = mysqli_query($conn, $sql);
   include('include/menu.php');
+  include('include/dbconf.php');
+  $conn->exec('SET CHARACTER SET utf8');
+  $sql = $conn->prepare('SELECT nome, nivel FROM usuarios');
+  $sql->execute();
+  $result = $sql->fetchall();
 ?>
 <br/>
 <br/>
@@ -130,46 +135,11 @@ $(function () {
       </center>
     </div>
     <br>
-    <form class="navbar-form  col-md-12 text-center" method="POST" action="busca.php">
-      <label class="control-label">Empresa Solicitante:
-      </label>
-      <input name="palavra" type="text" class="form-control" placeholder="Empresa" id="skills">
-      <label style="padding-left:15px;" class="control-label">Status:
-      </label>
-      <select name="status" class="form-control modulo">
-        <option value="">
-        </option>
-        <option value="Aberto">Aberto
-        </option>
-        <option value="Finalizado">Finalizado
-        </option>
-      </select>
-      <label style="padding-left:15px;" class="control-label">Responsável:
-      </label>
-     <select name="usuario" class="form-control modulo">
-        <option></option>       
-        <?php 
-        include 'include/dbconf.php';
-        $conn->exec('SET CHARACTER SET utf8');
-        $sql = $conn->prepare('SELECT nome, nivel FROM usuarios');
-        $sql->execute();
-        $result = $sql->fetchall();
-        foreach ($result as $row) {
-            if ($row["nivel"] != 1) {
-                echo '<option>'.$row['nome'].'</option>';
-            }
-        }
-        ?>
-        </select>
-      <label style="padding-left:15px;" class="control-label">Data:
-      </label>
-      <input type="date" name="data" class="form-control">
-      <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Buscar
-      </button>
-    </form> 
-    <br>
-    <br>
-    <br> 
+    <div class="text-center">
+      <?php
+        include('include/formPesquisa.php');
+      ?> 
+    </div>
     <div class="row">
       <hr/>
     </div>       
