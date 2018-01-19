@@ -100,7 +100,6 @@
       include('include/db.php');
       include('include/menu.php');
       //for total count data
-      header('SET CHARACTER SET utf8');
       $usuario=$_SESSION['UsuarioNome'];
       $countSql = "SELECT COUNT(id_chamado) FROM chamado where usuario='$usuario'";
       $tot_result = mysqli_query($conn, $countSql);

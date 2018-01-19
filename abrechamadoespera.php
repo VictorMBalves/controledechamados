@@ -76,7 +76,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label> 
               <div class="col-sm-10">
-                  <input value='<?php echo $row['empresa'];?>'name="empresa" type="text" class="form-control readonly" required="">
+                  <input value='<?php echo $row['empresa'];?>'name="empresa" type="text" class="form-control readonly" readonly required="">
               </div>
           </div>
           <div class="form-group">
@@ -129,13 +129,12 @@
             <label class="col-md-2 control-label" for="backup">Backup:</label>  
               <div class = "col-sm-4">
                 <select name="backup" class="form-control">
-                  <option>
-                    <?php 
-                      if ($row2['backup'] == 0) {
-                          echo "Google drive não configurado";
-                      } else {
-                          echo "Google drive configurado";
-                      }?>
+                  <?php 
+                    if ($row2['backup'] == 0) {
+                      echo "<option value='0'>Google drive não configurado</option>";
+                    } else {
+                      echo "<option value='1'>Google drive configurado</option>";
+                    }?>
                   </option>
                   <option>
                   </option>

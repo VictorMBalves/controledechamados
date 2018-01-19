@@ -1,13 +1,13 @@
 <!Doctype html>
 <html>
-<head>
-<script>
-        function erro(){
-            alert('Acesso negado! Redirecinando a pagina principal.');
-             window.location.assign("chamado_usuario.php");
-            }
-      </script>
-</head>
+    <head>
+        <script>
+            function erro(){
+                alert('Acesso negado! Redirecinando a pagina principal.');
+                window.location.assign("chamado_usuario.php");
+                }
+        </script>
+    </head>
 </html>
 <?php
 // A sessão precisa ser iniciada em cada página diferente
@@ -32,7 +32,6 @@ function redireciona(){
          window.location.assign("home.php");
     
 }
-
 </script>
 </head>
 </html>
