@@ -80,11 +80,11 @@
               <div class="col-sm-4">
                 <input value='<?php echo $row['telefone'];?>' disabled name="telefone" type="text" class="form-control disabled">
               </div>
-            <label class="col-md-2 control-label" for="modulo">Módulo:</label>
+            <label class="col-md-2 control-label" for="sistema">Sistema:</label>
               <div class="col-sm-4">
-                <select name="modulo" class="form-control disabled" disabled>
+                <select name="sistema" class="form-control disabled" disabled>
                   <option>
-                    <?php  echo $row['modulo'];?>
+                    <?php  echo $row['sistema'];?>
                   </option>
                 </select>
               </div>

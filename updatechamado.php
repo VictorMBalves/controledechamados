@@ -16,14 +16,15 @@ $id=$_POST['id_chamado'];
 $empresa=$_POST['empresa'];
 $contato=$_POST['contato'];
 $telefone=$_POST['telefone'];
-$modulo=$_POST['modulo'];
+$sistema=$_POST['sistema'];
+$versao=$_POST['versao'];
 $formacontato=$_POST['formacontato'];
 $categoria=$_POST['categoria'];
 $descproblema=$_POST['descproblema'];
 $backup=$_POST['backup'];
 $sql = $conn->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
 $sql->execute();
-$sql = $conn->prepare("UPDATE chamado SET  contato='$contato', telefone='$telefone', modulo='$modulo', formacontato='$formacontato', descproblema='$descproblema', categoria='$categoria'  WHERE id_chamado='$id'")
+$sql = $conn->prepare("UPDATE chamado SET  contato='$contato', telefone='$telefone', sistema='$sistema', formacontato='$formacontato', descproblema='$descproblema', categoria='$categoria', versao='$versao'  WHERE id_chamado='$id'")
 or die(mysql_error());
 $sql->execute();
 echo '<script> redireciona() </script>'

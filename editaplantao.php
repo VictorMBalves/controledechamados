@@ -100,11 +100,11 @@
               <div class="col-sm-4">
                 <input value='<?php echo $row['telefone'];?>' name="telefone" type="text" class="form-control" onkeypress="return SomenteNumero(event)" required="">
               </div>
-            <label class="col-md-2 control-label" for="modulo">Módulo:</label>  
+            <label class="col-md-2 control-label" for="sistema">Sistema:</label>  
               <div class="col-sm-4">
-                <select name="modulo" type="text" class="form-control forma" required="">
+                <select name="sistema" type="text" class="form-control forma" required="">
                   <option>
-                  <?php echo $row['modulo'];?>
+                  <?php echo $row['sistema'];?>
                   </option>
                   <option value="Manager">Manager
                   </option>

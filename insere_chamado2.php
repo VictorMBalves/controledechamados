@@ -40,7 +40,8 @@ $idchamadoespera=$_POST['id_chamadoespera'];
 $empresa=$_POST['empresa'];
 $contato=$_POST['contato'];
 $telefone=$_POST['telefone'];
-$modulo=$_POST['modulo'];
+$sistema=$_POST['sistema'];
+$versao=$_POST['versao'];
 $formacontato=$_POST['formacontato'];
 $categoria=$_POST['categoria'];
 $descproblema=$_POST['descproblema'];
@@ -50,15 +51,16 @@ $sql = $conn->prepare("UPDATE empresa set backup = '$backup' where nome='$empres
 $sql->execute();
 $sql = $conn->prepare("UPDATE usuarios set disponivel=1 where nome = '$usuario'") or die(mysql_error());
 $sql->execute();
-$sql = $conn->prepare("INSERT INTO chamado (id_chamadoespera, usuario, status, empresa, contato, telefone, modulo, formacontato, categoria, descproblema, datainicio) 
-VALUES (:idesp, :us, :sta, :empre, :cont, :tel, :modu, :for, :cat, :des, :data)") or die(mysql_error());
+$sql = $conn->prepare("INSERT INTO chamado (id_chamadoespera, usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, datainicio) 
+VALUES (:idesp, :us, :sta, :empre, :cont, :tel, :sis, :versao, :for, :cat, :des, :data)") or die(mysql_error());
 $sql->bindParam(":idesp", $idchamadoespera, PDO::PARAM_INT);
 $sql->bindParam(":us", $usuario, PDO::PARAM_STR, 500);
 $sql->bindParam(":sta", $status, PDO::PARAM_STR, 500);
 $sql->bindParam(":empre", $empresa, PDO::PARAM_STR, 500);
 $sql->bindParam(":cont", $contato, PDO::PARAM_STR, 500);
 $sql->bindParam(":tel", $telefone, PDO::PARAM_STR, 500);
-$sql->bindParam(":modu", $modulo, PDO::PARAM_STR, 500);
+$sql->bindParam(":sis", $sistema, PDO::PARAM_STR, 500);
+$sql ->bindParam(":versao", $versao, PDO::PARAM_STR, 500);
 $sql->bindParam(":for", $formacontato, PDO::PARAM_STR, 500);
 $sql->bindParam(":cat", $categoria, PDO::PARAM_STR, 500);
 $sql->bindParam(":des", $descproblema, PDO::PARAM_STR, 500);

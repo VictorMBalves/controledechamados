@@ -74,28 +74,34 @@
             </div>  
             <div class="form-group">
               <label for="contato" class="col-sm-2 control-label">Contato:</label> 
-                <div class="col-sm-4">
+                <div class="col-sm-10">
                   <input value='<?php echo $row['contato'];?>' name="contato" type="text" class="form-control" required="">
                 </div>
+            </div>
+            <div class="form-group">
               <label for="formacontato" class="col-sm-2 control-label">Forma de contato:</label> 
-              <div class="col-sm-4"> 
-                <select name="formacontato" type="text" class="form-control" required="">
-                  <option>
-                    <?php echo $row['formacontato'];?>
-                  </option>
-                </select>
-              </div>
+                <div class="col-sm-4"> 
+                  <select name="formacontato" type="text" class="form-control" required="">
+                    <option>
+                      <?php echo $row['formacontato'];?>
+                    </option>
+                  </select>
+                </div>
+              <label for="versao" class="col-sm-2 control-label">Versão:</label>
+                <div class="col-sm-4">
+                  <input class="form-control" value="<?php echo $row['versao']?>" type="text" required="">
+                </div>
             </div>
             <div class="form-group">
               <label for="telefone" class="col-sm-2 control-label">Telefone:</label>  
                 <div class="col-sm-4">
                   <input value='<?php echo $row['telefone'];?>' data-mask="(999)9999-9999" name="telefone" type="text" class="form-control" onkeypress="return SomenteNumero(event)" required="">
                 </div>
-              <label for="modulo" class="col-sm-2 control-label">Módulo:</label>
+              <label for="sistema" class="col-sm-2 control-label">Sistema:</label>
                 <div class="col-sm-4">  
-                  <select name="modulo" type="text" class="form-control" required="">
+                  <select name="sistema" type="text" class="form-control" required="">
                     <option>
-                      <?php echo $row['modulo'];?>
+                      <?php echo $row['sistema'];?>
                     </option>
                   </select>
                 </div>

@@ -61,9 +61,11 @@
           </div>
           <div class=form-group>
             <label class="col-md-2 control-label" for="contato">Contato:</label>
-              <div class="col-sm-4">
+              <div class="col-sm-10">
                 <input name="contato" type="text" class="form-control" required="">
-        </div>
+              </div>
+          </div>
+          <div class="form-group">
             <label class="col-md-2 control-label" for="formacontato">Forma de contato:</label>
               <div class="col-sm-4">
                 <select name="formacontato" type="text" class="form-control" required="">
@@ -81,15 +83,19 @@
                   </option>
               </select>
               </div>
+            <label class="col-md-2 control-label" for="versao">Versão:</label>
+              <div class="col-sm-4">
+                <input name="versao" type="text" class="form-control" required="">
+              </div>
             </div>
             <div class="form-group">
               <label class="col-md-2 control-label" for="telefone">Telefone</label>
                 <div class="col-sm-4">
                   <input id="telefone" name="telefone" type="text" class="form-control" onkeypress="return SomenteNumero(event)" required="">
                 </div>
-              <label class="col-md-2 control-label" for="modulo">Módulo:</label>
+              <label class="col-md-2 control-label" for="sistema">Sistema:</label>
                 <div class="col-sm-4">
-                  <select name="modulo" type="text" class="form-control" required="">
+                  <select name="sistema" type="text" class="form-control" required="">
                   <option>
                   </option>
                   <option value="Manager">Manager
@@ -142,8 +148,8 @@
                 </div>
             </div>
               <div class="col-md-12 text-center">
-              <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Gravar</button>
-              <button id="singlebutton" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning" onclick="cancelar()">Cancelar</button>
+              <button id="salvar" name="singlebutton" class="btn btn-group-lg btn-primary">Gravar</button>
+              <button id="voltar" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning" onclick="cancelar()">Cancelar</button>
               </div>
         </form>
         </div>
@@ -157,32 +163,6 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
         <script type="text/javascript">
-          $(document).ready(function() {
-            $("input[name='empresa']").blur(function() {
-              var $telefone = $("input[name='telefone']");
-              var $backup = $("input[name='backup']");
-              var select = document.getElementById('backup');
-              var $celular;
-                var $bloqueado = new Boolean(false);
-
-              $telefone.val('Carregando...');
-
-              $.getJSON(
-                  'callAPI.php', {
-                  empresa: $(this).val()
-                  }
-                )
-                .done(function(data) {
-                  $bloqueado = data.is_blocked;
-                  $telefone.val(data.phone);
-                  console.log($bloqueado);
-                //Verifica o bloqueio do sistema
-                $.get('verificabloqueio.php?bloqueio=' + $bloqueado, function(data) {
-                  $('#resultado').html(data);
-            });
-                })
-          });
-            });
           function erro() {
             alert('Acesso negado! Redirecinando a pagina principal.');
             window.location.assign("chamadoespera.php");

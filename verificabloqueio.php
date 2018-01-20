@@ -9,12 +9,12 @@
             </div>';
   } else {
       if ($bloqueio == "true") {
-          echo '<div class="alert alert-warning" role="alert">
-                    <center>BLOQUEADO</center>
+          echo '<div class="alert alert-danger" role="alert">
+                    <center>Empresa bloqueada</center>
                 </div>';
-      } else {
-          echo '<div class="alert alert-success" role="alert">
-                    <center>DEU CERTO</center>
-                </div>';
+      } else{
+        echo '<div class="alert alert-success" role="alert">
+                <center>Novo chamado:</center>
+            </div>';
       }
   }

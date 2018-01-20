@@ -49,8 +49,10 @@
         <div class="row">
           <hr/>
         </div>
-        <div class="alert alert-success" role="alert">
-          <center>Novo chamado em espera:</center>
+        <div id="resultado">
+          <div class="alert alert-success" role="alert">
+            <center>Novo chamado em espera:</center>
+          </div>
         </div>
         <form class="form-horizontal" action="inserechamadoespera.php" method="POST">
           <div class="form-group">
@@ -106,28 +108,6 @@
       <script src="js/bootstrap.min.js"></script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
       <script type="text/javascript">
-        $(document).ready(function() {
-          $("input[name='empresa']").blur(function() {
-            var $telefone = $("input[name='telefone']");
-            var $celular;
-
-            $telefone.val('Carregando...');
-
-            $.getJSON(
-              'gettelefone.php', {
-                empresa: $(this).val()
-              },
-              function(json) {
-                if (json.telefone == "(000)0000-0000") {
-                  $telefone.val(json.celular);
-                } else {
-                  $telefone.val(json.telefone);
-                }
-              }
-            );
-          });
-        });
-
         function refresh_usuarios() {
           var url = "atendentedispo.php";
           jQuery("#usuarios").load(url);

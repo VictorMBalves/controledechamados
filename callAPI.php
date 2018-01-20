@@ -66,3 +66,4 @@ function retorna($nome, $conn)
     //retorna os dados da empresa em JSON encode
     return $result;
 }
+//"{"cnpj":"11586637000128","name":"GERMAN TECH SISTEMAS E SERVICOS ADMINISTRATIVOS LTDA - ME","lock_date":"2099-12-31","is_blocked":false,"version":"4.30.2","system":"Light","phone":"4530569091","city":"Toledo","state":"Toledo - PR","version_problem":false,"system_problem":true}"
