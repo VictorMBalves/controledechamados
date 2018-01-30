@@ -95,20 +95,7 @@
                 </div>
               <label class="col-md-2 control-label" for="sistema">Sistema:</label>
                 <div class="col-sm-4">
-                  <select name="sistema" type="text" class="form-control" required="">
-                  <option>
-                  </option>
-                  <option value="Manager">Manager
-                  </option>
-                  <option value="Light">Light
-                  </option>
-                  <option value="Gourmet">Gourmet
-                  </option>
-                  <option value="Fiscal">Fiscal
-                  </option>
-                  <option value="Folha">Folha
-                  </option>
-              </select>
+                  <input name="sistema" type="text" class="form-control" required="">
                 </div>
             </div>
             <div class="form-group">
@@ -147,7 +134,17 @@
               <textarea name="descproblema" type="text" class="col-md-4 form-control label1" required=""></textarea>
                 </div>
             </div>
+            <div class="collapse" id="abrirModulos"> 
+              <div class="form-group">
+                <label class="col-md-2 control-label"></label> 
+                  <div class="col-sm-10">     
+                    <div id="modulos">
+                    </div>
+                  </div>
+              </div>
+            </div>
               <div class="col-md-12 text-center">
+              <button id="verModulo" class="btn btn-info" type="button" data-toggle="collapse" data-target="#abrirModulos" aria-expanded="false" aria-controls="collapseExample" data-placement='left' title='Visualizar módulos!'><icon class="glyphicon glyphicon-th-list"></icon>&nbspVisualizar módulos</button>
               <button id="salvar" name="singlebutton" class="btn btn-group-lg btn-primary">Gravar</button>
               <button id="voltar" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning" onclick="cancelar()">Cancelar</button>
               </div>
@@ -158,12 +155,16 @@
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script src="js/links.js"></script>
+        <script src="js/apiConsulta.js"></script>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
         <script type="text/javascript">
-          function erro() {
+
+        document.getElementById('verModulo').disabled = true;
+        
+        function erro() {
             alert('Acesso negado! Redirecinando a pagina principal.');
             window.location.assign("chamadoespera.php");
           }

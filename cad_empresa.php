@@ -62,7 +62,7 @@
                 </div>
               <label class="col-md-2 control-label" for="cnpj">CNPJ:</label>
                 <div class="col-sm-4">
-                  <input name="cnpj" data-mask="99.999.999/9999-99" type="text" class="form-control" required="">
+                  <input name="cnpj" id="cnpj" data-mask="99.999.999/9999-99" type="text" class="form-control" required="">
                 </div>
             </div>
             <div class="form-group">
@@ -107,6 +107,7 @@
       <script src="//code.jquery.com/jquery-1.10.2.js"></script>
       <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
       <script src="js/links.js"></script>
+      <script src="js/apiConsulta.js"></script>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <script src="js/bootstrap.min.js"></script>

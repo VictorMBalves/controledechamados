@@ -35,11 +35,13 @@ $status = "Aguardando Retorno";
 $empresa=$_POST['empresa'];
 $contato=$_POST['contato'];
 $telefone=$_POST['telefone'];
-$descproblema=$_POST['descproblema'];
+$descproblema = $_POST['descproblema'];
 $enderecado = $_POST['enderecado'];
+$sistema = $_POST['sistema'];
+$versao = $_POST['versao'];
 $usuario=$_SESSION['UsuarioNome'];
-$sql = $conn->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado) 
-VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado')") or die(mysql_error());
+$sql = $conn->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao) 
+VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao')") or die(mysql_error());
 $sql->execute();
 if ($_SESSION['UsuarioNivel'] != 1) {
     echo '<script> redireciona() </script>';

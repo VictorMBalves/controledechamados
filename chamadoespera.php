@@ -87,6 +87,16 @@
               </div>
           </div>
           <div class="form-group">
+              <label class="col-md-2 control-label" for="versao">Versão</label>
+                <div class="col-sm-4">
+                  <input id="versao" name="versao" type="text" class="form-control" required="">
+                </div>
+              <label class="col-md-2 control-label" for="sistema">Sistema:</label>
+                <div class="col-sm-4">
+                  <input name="sistema" type="text" class="form-control" required="">
+                </div>
+          </div>
+          <div class="form-group">
             <label class="col-md-2 control-label" for="descproblema">Descrição do problema:</label>
               <div class="col-sm-10">
                 <textarea name="descproblema" class="form-control label1" required=""></textarea>
@@ -103,6 +113,7 @@
       <script src="//code.jquery.com/jquery-1.10.2.js"></script>
       <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
       <script src="js/links.js"></script>
+      <script src="js/apiConsulta.js"></script>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <script src="js/bootstrap.min.js"></script>

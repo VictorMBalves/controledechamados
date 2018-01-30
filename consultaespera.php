@@ -89,8 +89,18 @@
               </div>
             <label class="col-md-2 control-label empresa">Data:</label>
               <div class="col-sm-4">
-                <input name="usuario" value="<?php echo $row['data'];?>" type="text" class="form-control forma disabled" disabled>
+                <input name="usuario" value="<?php echo $row['data'];?>" type="text" class="form-control disabled" disabled>
               </div>
+          </div>
+          <div class="form-group">
+              <label class="col-md-2 control-label" for="versao">Versão</label>
+                <div class="col-sm-4">
+                  <input id="versao" name="versao" type="text" class="form-control disabled" value="<?php echo $row['versao']?>" disabled>
+                </div>
+              <label class="col-md-2 control-label" for="sistema">Sistema:</label>
+                <div class="col-sm-4">
+                  <input name="sistema" type="text" class="form-control disabled" value="<?php echo $row['sistema']?>" disabled>
+                </div>
           </div>
           <div class="form-group">
             <label class="col-md-2 control-label" for="descproblema">Descrição do problema:</label>  

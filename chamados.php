@@ -82,6 +82,11 @@
   $sql = $conn->prepare('SELECT nome, nivel FROM usuarios');
   $sql->execute();
   $result = $sql->fetchall();
+  $_SESSION['situacao'] = null;
+  $_SESSION['palavra'] = null;
+  $_SESSION['versao'] = null;
+  $_SESSION['sistema'] = null;
+  $_SESSION['versaoDiferente'] = null;
 ?>
 <br/>
 <br/>

@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -106,13 +107,19 @@ $(function () {
   $start_from = ($page-1) * $limit;
   $sql = "SELECT * FROM empresa ORDER BY id_empresa ASC LIMIT $start_from, $limit";
   $rs_result = mysqli_query($conn, $sql);
+
+  $_SESSION['situacao'] = null;
+  $_SESSION['palavra'] = null;
+  $_SESSION['versao'] = null;
+  $_SESSION['sistema'] = null;
+  $_SESSION['versaoDiferente'] = null;
 ?>
 <br/>
 <br/>
 <br/>
 <br/>
 <div class="container">
- <div id="tarefas"></div>
+  <div id="tarefas"></div>
   <div class="row">
     <h1>
       <div class="row">
@@ -121,8 +128,8 @@ $(function () {
             <img src="imagem/logo.png" >
           </a>
         </div>
-        </h1>
       </div>
+    </h1>
     <br>
     <div class="row">
       <hr/>
@@ -134,9 +141,10 @@ $(function () {
     <div class="text-center">
       <?php include('include/formEmpresa.php');?>
     </div>
+    </br>  
     <div class="row">
       <hr/>
-    </div>       
+    </div>    
 <div class="teste">
 <table class="table table-responsive table-hover">
 <tr>
@@ -144,8 +152,8 @@ $(function () {
 <th>Empresa</th>
 <th>Situação</th>
 <th>CNPJ</th>
-<th>Telefone</th>
-<th>Celular</th>
+<th>Sistema</th>
+<th>Versão</th>
 <th><center><img src="imagem/acao.png"></center></th>
 </tr>
 <tbody id="target-content">
@@ -156,8 +164,8 @@ while ($row = mysqli_fetch_assoc($rs_result)) {
     echo '<td>'.$row["nome"].'</td>';
     echo '<td>'.$row["situacao"].'</td>';
     echo '<td>'.$row["cnpj"].'</td>';
-    echo '<td>'.$row["telefone"].'</td>';
-    echo '<td>'.$row["celular"].'</td>';
+    echo '<td>'.$row["sistema"].'</td>';
+    echo '<td>'.$row["versao"].'</td>';
     echo "<td> <a style='margin-top:2px;' href='editaempresa.php?id_empresa=".$row['id_empresa']."'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>";
 }?>
 </tbody> 

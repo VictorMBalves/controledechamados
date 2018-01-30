@@ -11,12 +11,12 @@
   <body>
     <?php
       if (!isset($_SESSION)) {
-        session_start();
+          session_start();
       }
       if (!isset($_SESSION['UsuarioID'])) {
-        session_destroy();
-        header("Location: index.php");
-        exit;
+          session_destroy();
+          header("Location: index.php");
+          exit;
       }
       $email = md5($_SESSION['Email']);
       include('include/db.php');
@@ -29,9 +29,9 @@
 
       //for first time load data
       if (isset($_GET["page"])) {
-        $page  = $_GET["page"];
+          $page  = $_GET["page"];
       } else {
-        $page=1;
+          $page=1;
       };
       $start_from = ($page-1) * $limit;
       $sql = "SELECT * FROM empresa ORDER BY id_empresa ASC LIMIT $start_from, $limit";
@@ -64,6 +64,7 @@
         <div class="text-center">
           <?php include('include/formEmpresa.php');?>
         </div>
+        </br>
         <div class="row">
           <hr/>
         </div>                    
@@ -75,38 +76,84 @@
       <th>Empresa</th>
       <th>Situação</th>
       <th>CNPJ</th>
-      <th>Telefone</th>
-      <th>Celular</th>
+      <th>Sistema</th>
+      <th>Versão</th>
       <th><center><img src="imagem/acao.png"></center></th>
       </tr>     
       <tbody id="target-content">
       <?php
-      $situacao = $_POST['situacao'];
-      $palavra = $_POST['palavra'];
-      $_SESSION['situacao'] = $_POST['situacao'];
-      $_SESSION['palavra'] = $_POST['palavra'];
-      $query = "SELECT * FROM empresa ";
+      if (isset($_POST['situacao'])) {
+          $situacao = $_POST['situacao'];
+          $_SESSION['situacao'] = $_POST['situacao'];
+      }
+      if (isset($_POST['palavra'])){
+        $palavra = $_POST['palavra'];
+        $_SESSION['palavra'] = $_POST['palavra'];
+      }
+      if (isset($_POST['negaVersao'])) {
+          $versaoDiferente = $_POST['negaVersao'];
+          $_SESSION['negaVersao'] = $_POST['negaVersao'];
+      }
+      if (isset($_POST['sistema'])) {
+          $sistema = $_POST['sistema'];
+          $_SESSION['sistema'] = $_POST['sistema'];
+      }
+      if (isset($_POST['versao'])) {
+          $versao = $_POST['versao'];
+          $_SESSION['versao'] = $_POST['versao'];
+      }
+
+      $query = "SELECT * FROM empresa";
       if ($situacao != null) {
-      $query = " $query WHERE situacao LIKE '$situacao' ";
+          $query = " $query WHERE situacao LIKE '$situacao' ";
       }
       if ($palavra != null) {
-      if ($situacao != null) {
-        $query = " $query AND nome LIKE '%".$palavra."%' ";
-      } else {
-        $query = " $query WHERE nome LIKE '%".$palavra."%' ";
+          if ($situacao != null) {
+              $query = " $query AND nome LIKE '%".$palavra."%' ";
+          } else {
+              $query = " $query WHERE nome LIKE '%".$palavra."%' ";
+          }
       }
+      if ($sistema != null) {
+          if ($situacao != null || $palavra != null) {
+              $query = " $query AND sistema LIKE '$sistema'";
+          } else {
+              $query = " $query WHERE sistema LIKE '$sistema'";
+          }
       }
-      $query = " $query ORDER BY id_empresa asc limit $limit";
-      $rs_result = mysqli_query($conn, $query);
+      if ($versao != null) {
+          if (isset($versaoDiferente)) {
+              if ($situacao != null || $palavra != null || $sistema != null) {
+                  $query = " $query AND versao <> '$versao'";
+              } else {
+                  $query = " $query WHERE versao <> '$versao'";
+              }
+          } else {
+              if ($situacao != null || $palavra != null || $sistema != null) {
+                  $query = " $query AND versao LIKE '$versao'";
+              } else {
+                  $query = " $query WHERE versao LIKE '$versao'";
+              }
+          }
+      }
+      //pega quantidade de registros
+      $sql = " $query ORDER BY id_empresa asc";
+      $num = mysqli_query($conn, $sql);
+      $total_records = mysqli_num_rows($num);
+      $total_pages = ceil($total_records / $limit);
+
+      $sql = " $query ORDER BY id_empresa asc limit $limit";
+      $rs_result = mysqli_query($conn, $sql);
+    
       while ($row = mysqli_fetch_assoc($rs_result)) {
-      echo '<tr>';
-      echo '<td>'.$row["id_empresa"].'</td>';
-      echo '<td>'.$row["nome"].'</td>';
-      echo '<td>'.$row["situacao"].'</td>';
-      echo '<td>'.$row["cnpj"].'</td>';
-      echo '<td>'.$row["telefone"].'</td>';
-      echo '<td>'.$row["celular"].'</td>';
-      echo "<td> <a style='margin-top:2px;' href='editaempresa.php?id_empresa=".$row['id_empresa']."'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>";
+          echo '<tr>';
+          echo '<td>'.$row["id_empresa"].'</td>';
+          echo '<td>'.$row["nome"].'</td>';
+          echo '<td>'.$row["situacao"].'</td>';
+          echo '<td>'.$row["cnpj"].'</td>';
+          echo '<td>'.$row["sistema"].'</td>';
+          echo '<td>'.$row["versao"].'</td>';
+          echo "<td> <a style='margin-top:2px;' href='editaempresa.php?id_empresa=".$row['id_empresa']."'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a>";
       }?>
       </tbody> 
       </table>

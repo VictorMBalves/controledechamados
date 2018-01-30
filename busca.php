@@ -170,8 +170,13 @@ if ($data != null) {
         $query = " $query WHERE datainicio LIKE '%".$data."%'  ";
     }
 }
-$query = " $query ORDER BY datainicio desc limit $limit";
-$rs_result = mysqli_query($conn, $query);
+$sql = " $query ORDER BY datainicio desc";
+$num = mysqli_query($conn, $sql);
+$total_records = mysqli_num_rows($num);
+$total_pages = ceil($total_records / $limit);
+
+$sql = " $query ORDER BY datainicio desc limit $limit";
+$rs_result = mysqli_query($conn, $sql);
 while ($row = mysqli_fetch_assoc($rs_result)) {
     echo '<tr>';
     echo '<td>';

@@ -9,6 +9,26 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
     <link href="css/bootstrap.css" rel="stylesheet">
+    <script>
+        function erro(){
+          alert('Acesso negado! Redirecinando a pagina principal.');
+          window.location.assign("chamadoespera.php");
+        }  
+        function cancelar(){
+          window.location.assign("chamados.php");
+        }
+        function deletado(){
+          alert('Cadastro deletado com sucesso!');
+          window.location.assign("empresa.php");
+        }
+        $(function () {$('[data-toggle="popover"]').popover()});
+        $(function () {$('[data-toggle="tooltip"]').tooltip()});
+        function atualizarTarefas() {
+          var url="notifica.php";
+          jQuery("#tarefas").load(url);
+        }
+        setInterval("atualizarTarefas()",1000);
+      </script>
   </head>
   <body>
     <?php
@@ -77,7 +97,7 @@
           <div class="form-group">
             <label class="col-md-2 control-label">Razão Social:</label>  
               <div class="col-sm-4">
-                <input value='<?php echo $row['nome'];?>' name="empresa" type="text" class="form-control" required="">
+                <input value='<?php echo $row['nome'];?>' id="skills" name="empresa" type="text" class="form-control" required="">
               </div>
             <label class="col-md-2 control-label">CNPJ:</label>
               <div class="col-sm-4">  
@@ -87,11 +107,11 @@
           <div class="form-group">
             <label class="col-md-2 control-label">Telefone:</label>  
               <div class="col-sm-4">
-                <input value='<?php echo $row['telefone'];?>'name="telefone" data-mask="(999)9999-9999" type="text" class="form-control" required="">
+                <input value='<?php echo $row['telefone'];?>'name="telefone" data-mask="(99)9999-9999" type="text" class="form-control" required="">
               </div>
             <label class="col-md-2 control-label">Celular:</label>  
               <div class='col-sm-4'>
-                <input value='<?php echo $row['celular'];?>' name="celular" data-mask="(999)99999-9999" type="text" class="form-control" required="">
+                <input value='<?php echo $row['celular'];?>' name="celular" data-mask="(99)99999-9999" type="text" class="form-control" required="">
               </div>
           </div>
           <div class="form-group">
@@ -129,7 +149,27 @@
                 </select>
               </div>
           </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Sistema:</label>  
+              <div class="col-sm-4">
+                <input value='<?php echo $row['sistema'];?>'name="sistema" type="text" class="form-control" readonly="">
+              </div>
+            <label class="col-md-2 control-label">Versão:</label>  
+              <div class='col-sm-4'>
+                <input value='<?php echo $row['versao'];?>' name="versao" type="text" class="form-control" readonly="">
+              </div>
+          </div>
+          <div class="collapse" id="abrirModulos"> 
+            <div class="form-group">
+              <label class="col-md-2 control-label"></label> 
+                <div class="col-sm-10">     
+                  <div id="modulos">
+                  </div>
+                </div>
+            </div>
+          </div>
           <div class="col-md-12 text-center">
+            <button id="verModulo" name="verModulos" class="btn btn-info" type="button" data-toggle="collapse" data-target="#abrirModulos" aria-expanded="false" aria-controls="collapseExample" data-placement='left' title='Visualizar módulos!'><icon class="glyphicon glyphicon-th-list"></icon>&nbspVisualizar módulos</button>
             <button type="submit" id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Alterar</button>
             <button type="reset" class="btn btn-group-lg btn-warning" onclick="cancelar2()">Cancelar</button>
           </div>    
@@ -140,34 +180,11 @@
         <script src="//code.jquery.com/jquery-1.10.2.js"></script>
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>         
         <script src="js/links.js"></script>
+        <script src="js/apiConsulta.js"></script>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
-        <script>
-          function erro(){
-            alert('Acesso negado! Redirecinando a pagina principal.');
-            window.location.assign("chamadoespera.php");
-          }  
-          $(function() {
-            $( "#skills" ).autocomplete({
-              source: 'search.php'
-            });
-          });
-          function cancelar(){
-            window.location.assign("chamados.php");
-          }
-          function deletado(){
-            alert('Cadastro deletado com sucesso!');
-            window.location.assign("empresa.php");
-          }
-          $(function () {$('[data-toggle="popover"]').popover()});
-          $(function () {$('[data-toggle="tooltip"]').tooltip()});
-          function atualizarTarefas() {
-            var url="notifica.php";
-            jQuery("#tarefas").load(url);
-          }
-          setInterval("atualizarTarefas()",1000);
-        </script>
+        
   </body>
 </html>

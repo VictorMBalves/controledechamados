@@ -81,9 +81,11 @@
           </div>
           <div class="form-group">
             <label class="col-md-2 control-label" for="contato">Contato:</label>  
-              <div class="col-sm-4">
+              <div class="col-sm-10">
                 <input value='<?php echo $row['contato'];?>' name="contato" type="text" class="form-control label2" required="">
               </div>
+          </div>
+          <div class="form-group">
             <label class="col-md-2 control-label" for="formacontato">Forma de contato:</label>  
               <div class="col-sm-4">
                 <select name="formacontato" type="text" class="form-control forma" required="">
@@ -101,28 +103,19 @@
                   </option>
                 </select>
               </div>
-          </div>
-          <div class="form-group">
             <label class="col-md-2 control-label" for="telefone">Telefone</label>  
               <div class="col-sm-4">
                 <input value='<?php echo $row['telefone'];?>' name="telefone" type="text" class="form-control label2" onkeypress="return SomenteNumero(event)" required="">
               </div>
+          </div>
+          <div class="form-group">
             <label class="col-md-2 control-label" for="sistema">Sistema:</label>  
               <div class="col-sm-4">
-                <select name="sistema" type="text" class="form-control" required="">
-                  <option>
-                  </option>
-                  <option value="Manager">Manager
-                  </option>
-                  <option value="Light">Light
-                  </option>
-                  <option value="Gourmet">Gourmet
-                  </option>
-                  <option value="Fiscal">Fiscal
-                  </option>
-                  <option value="Folha">Folha
-                  </option>
-                </select>
+                <input name="sistema" type="text" value='<?php echo $row['sistema'];?>' class="form-control" required="">
+              </div>
+              <label class="col-md-2 control-label" for="versao">Versão:</label>  
+              <div class="col-sm-4">
+                <input name="versao" type="text" value='<?php echo $row['versao'];?>' class="form-control" required="">
               </div>
           </div>
           <div class="form-group">
