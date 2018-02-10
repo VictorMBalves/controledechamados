@@ -1,7 +1,7 @@
 {
     "onSave": true,
     "javascript": {
-        "indent_size": 4,
+        "indent_size": 2,
         "indent_char": " ",
         "eol": "auto",
         "preserve_newlines": true,
@@ -21,7 +21,7 @@
         "brace_style": "collapse-preserve-inline"
     },
     "css": {
-        "indent_size": 4,
+        "indent_size": 2,
         "indentCharacter": " ",
         "indent_char": " ",
         "selector_separator_newline": true,
@@ -31,7 +31,7 @@
     },
     "html": {
         "indent_inner_html": false,
-        "indent_size": 4,
+        "indent_size": 2,
         "indent_char": " ",
         "indent_character": " "
     }

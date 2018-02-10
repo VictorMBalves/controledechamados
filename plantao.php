@@ -13,6 +13,7 @@
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>         
     <script src="js/links.js" ></script>
+    <script src="js/apiConsulta.js" ></script>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -25,11 +26,6 @@
         }
         $(function() {
           $( "#skills" ).autocomplete({
-            source: 'search.php'
-          });
-        });
-        $(function() {
-          $( "#skills2" ).autocomplete({
             source: 'search.php'
           });
         });
@@ -147,123 +143,13 @@
         </div>
         <br>
         <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#home" class="link"><i class="glyphicon glyphicon-bell"></i>&nbsp&nbspNovo plantão</a></li>
-          <li><a data-toggle="tab" href="#home1" class="link"><i class="glyphicon glyphicon-sunglasses"></i>&nbsp&nbspNovo plantão decorrido</a></li>
+          <li class="active"><a data-toggle="tab" href="#home1" class="link"><i class="glyphicon glyphicon-sunglasses"></i>&nbsp&nbspNovo plantão decorrido</a></li>
           <li><a data-toggle="tab" href="#menu1" class="link"><i class="glyphicon glyphicon-user"></i>&nbsp&nbspMeus chamados</a></li>
           <li><a data-toggle="tab" href="#menu2" class="link"><i class="glyphicon glyphicon-calendar"></i>&nbsp&nbspSobreaviso</a></li>
         </ul>
         <div class="tab-content">
-          <div id="home" class="tab-pane fade in active">
-            <br/>
-            <div class="alert alert-success" role="alert">
-              <center>Novo atendimento plantão:</center>
-            </div>
-            <form class="form-horizontal" action="insere_plantao.php" method="POST">
-              <div class="form-group">
-                <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>  
-                  <div class="col-sm-10">
-                    <input name="empresa" type="text" id="skills" class="form-control" required="">
-                  </div>
-              </div>
-              <div class="form-group"> 
-                <label class="col-md-2 control-label" for="contato">Contato:</label>  
-                  <div class="col-sm-10">
-                    <input name="contato" type="text" class="form-control" required="">
-                  </div>
-              </div> 
-              <div class="form-group">               
-                <label class="col-md-2 control-label" for="formacontato">Forma de contato:</label>  
-                  <div class="col-sm-4">
-                    <select name="formacontato" type="text" class="form-control" required="">
-                      <option>
-                      </option>
-                      <option value="Cliente ligou">Cliente ligou
-                      </option>
-                      <option value="Ligado para o cliente">Ligado para o cliente
-                      </option>
-                      <option value="Whatsapp">Whatsapp
-                      </option>
-                      <option value="Team Viewer">Team Viewer
-                      </option>
-                      <option value="Skype">Skype
-                      </option>
-                    </select>
-                  </div>
-                <label class="col-md-2 control-label" for="telefone">Telefone</label>  
-                  <div class="col-sm-4">
-                    <input name="telefone" type="text" class="form-control" required="">
-                  </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-2 control-label" for="sistema">Sistema:</label>  
-                  <div class="col-sm-4">
-                    <select name="sistema" type="text" class="form-control" required="">
-                      <option>
-                      </option>
-                      <option value="Manager">Manager
-                      </option>
-                      <option value="Light">Light
-                      </option>
-                      <option value="Gourmet">Gourmet
-                      </option>
-                      <option value="Fiscal">Fiscal
-                      </option>
-                      <option value="Folha">Folha
-                      </option>
-                    </select>
-                  </div>
-                <label class="col-md-2 control-label" for="versao">Versão</label>
-                  <div class="col-sm-4">
-                    <input class="form-control" name="versao" type="text" required="">
-                  </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-2 control-label" for="backup">Backup:</label>  
-                  <div class="col-sm-4">
-                    <select id="backup" name="backup" type="text" class="form-control" required="">
-                      <option>
-                      </option>
-                      <option value="1">Google drive configurado
-                      </option>
-                      <option value="0">Google drive não configurado
-                      </option>
-                    </select>
-                  </div>
-                <label class="col-md-2 control-label" for="categoria">Categoria:</label>  
-                  <div class="col-sm-4">                
-                    <select name="categoria" type="text" class="col-md-4 form-control forma" required="">
-                      <option>
-                      </option>
-                      <option value="Erro">Erro
-                      </option>
-                      <option value="Duvida">Duvida
-                      </option>
-                      <option value="Atualização sistema">Atualização sistema
-                      </option>
-                      <option value="Sugestão de melhoria">Sugestão de melhoria
-                      </option>
-                      <option value="Outros">Outros
-                      </option>
-                    </select>
-                  </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-2 control-label" for="descproblema">Descrição do problema:</label>  
-                  <div class="col-sm-10">
-                    <textarea name="descproblema" type="text" class="col-md-4 form-control label1" required=""></textarea>
-                  </div>
-              </div>         
-              <div class="col-md-12 text-center">
-                <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Gravar</button>
-                <button id="singlebutton" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning" onclick="cancelar()">Cancelar</button>
-              </div>          
-            </form>
-            </br>
-            </br>
-            </br>
-          </div>
           <!-- PLANTAO DECORRIDO -->
-          <div id="home1" class="tab-pane fade">
+          <div id="home1" class="tab-pane fade in active">
             <?php $time = date("Y-m-d");?>
             <br/>
             <div class="alert alert-success" role="alert">
@@ -273,7 +159,7 @@
               <div class="form-group">
                 <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>  
                   <div class="col-sm-10">      
-                    <input name="empresa" type="text" id="skills2" class="form-control" required="">
+                    <input name="empresa" type="text" id="skills" class="form-control" required="">
                   </div>
               </div>
               <div class="form-group">               
