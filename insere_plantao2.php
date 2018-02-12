@@ -45,7 +45,7 @@ $categoria=$_POST['categoria'];
 $descproblema=$_POST['descproblema'];
 $descsolucao=$_POST['descsolucao'];
 $usuario=$_SESSION['UsuarioNome'];
-$backup=$_POST['backup2'];
+$backup=$_POST['backup'];
 $sql = $conn->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
 $sql->execute();
 $sql = $conn->prepare("INSERT INTO plantao (usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, descsolucao, data, horainicio, horafim) 

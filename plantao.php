@@ -29,6 +29,17 @@
             source: 'search.php'
           });
         });
+
+      function validarHorario(){
+        var startTime = formplantao.horainicio.value;
+        var endTime = formplantao.horafim.value;
+        var regExp = /(\d{1,2})\:(\d{1,2})\:(\d{1,2})/;
+        if(parseInt(endTime .replace(regExp, "$1$2$3")) < parseInt(startTime .replace(regExp, "$1$2$3"))){
+          alert("Horário de termino deve ser maior que o horário de inicio");
+          formplantao.horafim.focus();
+          return false;
+        }
+      }
     </script>
     <style>
       .circle3{
@@ -155,7 +166,7 @@
             <div class="alert alert-success" role="alert">
               <center>Novo atendimento plantão:</center>
             </div>
-            <form class="form-horizontal" action="insere_plantao2.php" method="POST">
+            <form name="formplantao"class="form-horizontal" action="insere_plantao2.php" method="POST">
               <div class="form-group">
                 <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>  
                   <div class="col-sm-10">      
@@ -170,7 +181,7 @@
               </div>
               <div class="form-group">                
                 <label class="col-md-2 control-label" for="formacontato">Forma de contato:</label>  
-                  <div class="col-sm-4">
+                  <div class="col-sm-2">
                     <select name="formacontato" type="text" class="form-control" required="">
                       <option>
                       </option>
@@ -187,8 +198,12 @@
                     </select>
                   </div>
                 <label class="col-md-2 control-label" for="telefone">Telefone</label>  
-                  <div class="col-sm-4">
+                  <div class="col-sm-2">
                     <input name="telefone" type="text" class="form-control" required="">
+                  </div>
+                <label class="col-md-2 control-label" for="versao">Versão:</label>
+                  <div class="col-sm-2">
+                    <input name="versao" type="text" class="form-control" required="">
                   </div>
               </div>
               <div class="form-group">
@@ -206,34 +221,21 @@
                   </div>
               </div>
               <div class="form-group">
-                <label class="col-md-2 control-label" for="sistema">Sistema:</label>  
-                  <div class="col-sm-2">
-                    <select name="sistema" type="text" class="form-control" required="">
-                      <option>
-                      </option>
-                      <option value="Manager">Manager
-                      </option>
-                      <option value="Light">Light
-                      </option>
-                      <option value="Gourmet">Gourmet
-                      </option>
-                      <option value="Fiscal">Fiscal
-                      </option>
-                      <option value="Folha">Folha
-                      </option>
-                    </select>
-                  </div>
-                <label class="col-md-2 control-label" for="backup2">Backup:</label>  
-                  <div class="col-sm-2">
-                    <select id="backup2" name="backup2" type="text" class="form-control" required="">
-                      <option>
-                      </option>
-                      <option value="1">Google drive configurado
-                      </option>
-                      <option value="0">Google drive não configurado
-                      </option>
-                    </select>
-                  </div>
+              <label class="col-md-2 control-label" for="sistema">Sistema:</label>
+              <div class="col-sm-2">
+                <input name="sistema" type="text" class="form-control" required="">
+              </div>
+              <label class="col-md-2 control-label" for="backup">Backup:</label>
+              <div class="col-sm-2">
+                <select id="backup" name="backup" type="text" class="form-control" required="">
+                  <option>
+                  </option>
+                  <option value="1">Google drive configurado
+                  </option>
+                  <option value="0">Google drive não configurado
+                  </option>
+                </select>
+              </div>
                 <label class="col-md-2 control-label" for="categoria">Categoria:</label>  
                   <div class="col-sm-2">
                     <select name="categoria" type="text" class="form-control" required="">
@@ -265,7 +267,7 @@
                   </div>
               </div>  
               <div class="col-md-12 text-center">
-                <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Gravar</button>
+                <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary" onclick="validarHorario()">Gravar</button>
                 <button id="singlebutton" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning" onclick="cancelar()">Cancelar</button>
               </div>
             </form>
