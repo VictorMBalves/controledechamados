@@ -46,8 +46,8 @@
 
             </style>
         </head>
-        <body >
-        <!-- onload="self.print();self.close();" -->
+        <body onload="self.print();self.close();">
+        <!--  -->
 <?php
 header("Content-type: text/html; charset=utf-8");
 // A sessão precisa ser iniciada em cada página diferente
@@ -66,13 +66,6 @@ if ($_SESSION['UsuarioNivel'] == 1) {
         exit;
     }
 }
-function formatarData($data)
-{
-    $datainicio = date_create($data);
-    $dataFormatada = date_format($datainicio, 'd/m/Y');
-    return $dataFormatada;
-}
-
 $email = md5($_SESSION['Email']);
 
 //CALL API DE FERIADOS
@@ -92,226 +85,274 @@ curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 $result = curl_exec($ch);
 $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); //get status code
 curl_close($ch);
-//retorna os dados da empresa em JSON encode
-//print_r("<pre>".$result."</pre>");
-//return $result;
-
 $feriados = json_decode($result);
 
-/*
- *GLOBAIS
- */
-//Verificador de data
-$verificadorData = date_format(new DateTime('2000-01-01'), 'd/m/Y');
-//Hora Sobreaviso
-$HSA = new DateTime('05:27:00');
-//Hora Extra 50% Sobreaviso
-$HE50SA = new DateTime('14:00:00');
-//Hora Extra 100% Sobreaviso
-$HE100SA = new DateTime('14:00:00');
-/////////////////////
+$verificadorData = date_format(date_create('2000-01-01'), 'd/m/Y');
 include 'include/dbconf.php';
 $data1 = $_POST['data1'];
 $data2 = $_POST['data2'];
 $usuario = $_SESSION['UsuarioNome'];
-$query = $conn->prepare("SELECT DISTINCT data FROM plantao where data BETWEEN '$data1' and '$data2' and usuario = '$usuario' ORDER BY data desc");
+
+$query = $conn->prepare("select * from 
+(select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) data from
+ (select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
+ (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
+ (select 0 t2 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t2,
+ (select 0 t3 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t3,
+ (select 0 t4 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
+where data between '$data1' and '$data2'");
 $query->execute();
 $datas = $query->fetchall();
-$i = 0;
 for($i = 0; $i < count($datas); $i++) {
+
+    $datas[$i]['isFeriado'] = false;
+    $datas[$i]['isDomingo'] = isDomingo($datas[$i]['data']);
+    $datas[$i]['isSabado'] = isSabado($datas[$i]['data']);
+    $datas[$i]['descricao'] = 'Dia util';
+    $datas[$i]['duracao'] = '00:00:00';
+    $datas[$i]['horas'] = isSabado($datas[$i]['data']) ? '14:00:00' : isDomingo($datas[$i]['data']) ? '14:00:00' : '05:27:00';
     $dataplantao = $datas[$i]['data'];
-    $query = $conn->prepare("SELECT id_plantao, empresa, contato, descsolucao, descproblema, data, horainicio, horafim FROM plantao where data = '$dataplantao' and usuario = '$usuario' ORDER BY id_plantao desc");
+    
+    foreach ($feriados as $feriado) {
+      if (formatarData($dataplantao) == $feriado->date && ($feriado->type_code == 1)) {
+        $datas[$i]['descricao'] = $feriado->name;
+        $datas[$i]['isFeriado'] = true;
+        $datas[$i]['horas'] = $datas[$i]['isFeriado'] ? '14:00:00' : '05:27:00';
+      }
+    }
+
+    $query = $conn->prepare("SELECT id_plantao, empresa, contato, descsolucao, descproblema, data, horainicio, horafim FROM plantao where data = '$dataplantao' and usuario = '$usuario' ORDER BY data asc");
     $query->execute();
     $plantoes = $query->fetchall();
     foreach ($plantoes as $plantao) {
-        $datas[$i]['isFeriado'] = false;
-        $dataplan = formatarData($plantao['data']);
-        foreach ($feriados as $feriado) {
-          if ($dataplan == $feriado->date) {
-              $dataPlantao = date_format(new DateTime($plantao['data']), 'd/m/Y');
-              $horarioInicio = new DateTime($plantao['horainicio']);
-              $horarioTermino = new DateTime($plantao['horafim']);
-
-              if ($verificadorData == $dataPlantao) {
-                $duracao = $horarioInicio->diff($horarioTermino);
-                $duracao = $duracao->format("%H:%I:%S");
-                $duracao = new DateTime($duracao);
-                $hora = new DateTime($datas[$i]['horas']);
-                $datas[$i]['horas'] = $hora->diff($duracao);
-                $datas[$i]['isFeriado'] = true;
-                $datas[$i]['isDomingo'] = false;
-                $duriction = new DateTime($datas[$i]['duracao']);
-                $duriction=$duriction->add($duracao);
-                $result = $duriction->format("%H:%I:%S");
-                $datas[$i]['duracao'] = $result;
-              } else {
-                  $duracao = $horarioInicio->diff($horarioTermino);
-                  $duracao = $duracao->format("%H:%I:%S");
-                  $datas[$i]['duracao'] = $duracao;
-                  $duracao = new DateTime($duracao);
-                  $HE100SA = $HE100SA->diff($duracao);
-
-                  $HE100SA = $HE100SA->format("%H:%I:%S");
-                  $duracao = $duracao->format("%H:%I:%S");
-
-                  $datas[$i]['horas'] = $HE100SA;
-                  $datas[$i]['isFeriado'] = true;
-                  $datas[$i]['isDomingo'] = false;
-                  $verificadorData = $dataPlantao;
-              }
-            }
+      $dataPlantao = formatarData($plantao['data']);
+      $horarioInicio = new DateTime($plantao['horainicio']);
+      $horarioTermino = new DateTime($plantao['horafim']);
+            
+      if($datas[$i]['isFeriado']){
+        $datas[$i] =calcularHoras($datas[$i],$verificadorData,$dataPlantao,$horarioInicio,$horarioTermino, true, false, false);
         continue;
         }
-        if($datas[$i]['isFeriado']){
-          continue;
-        }
-        $dataPlantao = date_format(new DateTime($plantao['data']), 'd/m/Y');
-        $horarioInicio = new DateTime($plantao['horainicio']);
-        $horarioTermino = new DateTime($plantao['horafim']);
 
-       
-        if ($verificadorData == $dataPlantao) {
-            $duracao = $horarioInicio->diff($horarioTermino);
-            $duracao = $duracao->format("%H:%I:%S");
-            $duracao = new DateTime($duracao);
-            $hora = new DateTime($datas[$i]['horas']);
-            $datas[$i]['horas'] = $hora->diff($duracao);
-            $datas[$i]['isDomingo'] = false;
-            $datas[$i]['isFeriado'] = false;
-            $duriction = new DateTime($datas[$i]['duracao']);
-            $duriction = $duriction->add($duracao);
-            $result = $duriction->format("%H:%I:%S");
-            $datas[$i]['duracao'] = $result;
-        } else {
-            $duracao = null;
-            $HSA = new DateTime('05:27:00');
-            $duracao = $horarioInicio->diff($horarioTermino);
-            $duracao = $duracao->format("%H:%I:%S");
-            $datas[$i]['duracao'] = $duracao;
-            $duracao = new DateTime($duracao);
-            $HSA = $HSA->diff($duracao);
-            $HSA = $HSA->format("%H:%I:%S");
-            $datas[$i]['isDomingo'] = false;
-            $datas[$i]['isFeriado'] = false;
-            $datas[$i]['horas'] = $HSA;
-            $verificadorData = $dataPlantao;
+      if(isDomingo($datas[$i]['data'])){
+        $datas[$i] = calcularHoras($datas[$i],$verificadorData,$dataPlantao,$horarioInicio,$horarioTermino, false, true, false);
+        continue; 
+      } 
+      if(isSabado($datas[$i]['data'])){
+        $datas[$i] = calcularHoras($datas[$i],$verificadorData,$dataPlantao,$horarioInicio,$horarioTermino, false, false, true);
+        $day = date("D", strtotime($datas[$i]['data']));
+        if($day == 'Sat'){
+          $datas[$i]['isDomingo'] = false;
+          $datas[$i]['isSabado'] = true;
         }
-      }    
+        continue;
+    }
+    $datas[$i] = calcularHoras($datas[$i],$verificadorData,$dataPlantao,$horarioInicio,$horarioTermino, false, false, false);
+  }    
 }
 
-function isDomingo($data)
-{
-    if (date('N', strtotime($data)) == 7) {
-        return true;
-    } else {
-        return false;
-    }
+function calcularHoras($datas,$verificadorData,$dataPlantao,$horarioInicio,$horarioTermino, $isFeriado, $isDomingo, $isSabado){
+  if ($verificadorData == $dataPlantao) {
+    $duracao = $horarioInicio->diff($horarioTermino);
+    $duracao = $duracao->format("%H:%I:%S");
+    $datas['duracao'] = sum_the_time($datas['duracao'],$duracao);
+    $duracao = date_create($duracao);
+    $HORAS = date_create($datas['horas']);
+    $totalHotas = $HORAS->diff($duracao);
+    $totalHotas = $totalHotas->format("%H:%I:%S");
+    $datas['horas'] = $totalHotas;
+  } else {
+      $duracao = $horarioInicio->diff($horarioTermino);
+      $duracao = $duracao->format("%H:%I:%S");
+      $datas['duracao'] = $duracao;
+      $duracao = date_create($duracao);
+      $HORAS = date_create($datas['horas']);
+      $HORAS = $HORAS->diff($duracao);
+      $HORAS = $HORAS->format("%H:%I:%S");
+      $duracao = $duracao->format("%H:%I:%S");
+      $datas['horas'] = $HORAS;
+      $datas['isFeriado'] = $isFeriado;
+      $datas['isDomingo'] = $isDomingo;
+      $datas['isSabado'] = $isSabado;
+      $verificadorData = $dataPlantao;
+  }
+  return $datas;
+}
+
+function sum_the_time($time1, $time2) {
+  $times = array($time1, $time2);
+  $seconds = 0;
+  foreach ($times as $time)
+  {
+    list($hour,$minute,$second) = explode(':', $time);
+    $seconds += $hour*3600;
+    $seconds += $minute*60;
+    $seconds += $second;
+  }
+  $hours = floor($seconds/3600);
+  $seconds -= $hours*3600;
+  $minutes  = floor($seconds/60);
+  $seconds -= $minutes*60;
+
+  $result = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+  return $result;
+}
+function isDomingo($date) {
+  $day = date("D", strtotime($date));
+  if($day == 'Sun'){
+    return true;
+  }else{
+    return false;
+  }
+}
+function isSabado($date) {
+  $day = date("D", strtotime($date));
+  if($day == 'Sat'){
+    return true;
+  }else{
+    return false;
+  }
+}
+function formatarData($data){
+  $datainicio = date_create($data);
+  $dataFormatada = date_format($datainicio, 'd/m/Y');
+  return $dataFormatada;
 }
 
 ?>
-
-                <div class="container">
-             <div class="row">
-                <h1>
-            <div class="row">
-                Relatório de sobreaviso:
-                </h1>
-            </div>
-            <br>
-             </div>
-                <div class="text-center">
-                   <h4> <p> Relatório referente do período <strong><?php echo $data1 ?></strong> ao <strong><?php echo $data2 ?></strong> </p></h5>
-                    </div>
-                 <div class="row">
-                    <hr/>
+    <div class="row">
+      <h1>
+      <div class="text-center">
+        <div class="row">
+          Relatório de sobreaviso:
+        </div>
+      </div>
+      </h1>
+      <br>
+    </div>  
+    <div class="text-center">
+      <h4> <p> Relatório referente ao período de <strong><?php echo formatarData($data1) ?></strong> á <strong><?php echo formatarData($data2) ?></strong> </p></h5>
+    </div>
+    <div class="row">
+      <hr/>
+    </div>
+    <div class="rel text-ceter">
+      <table class="table-striped">
+        <tr>
+          <th>ID</th>
+          <th>Data</th>
+          <th>Empresa</th>
+          <th>Contato</th>
+          <th>Horário ínicio</th>
+          <th>Horário término</th>
+          <th>Desc. Problema</th>
+          <th>Desc. Solução</th>
+        </tr>
+        <tbody>
+          <?php
+            include 'include/db.php';
+            $sql = "SELECT id_plantao, empresa, contato, descsolucao, descproblema, data, horainicio, horafim FROM plantao where data BETWEEN '$data1' and '$data2' and usuario = '$usuario' ORDER BY data asc";
+            $query = $conn->query($sql);
+            while ($dados = $query->fetch_object()) {
+              echo '<tr>';
+              echo '<td>' . $dados->id_plantao . '</td>';
+              echo '<td>';
+              echo formatarData($dados->data);
+              echo '</td>';
+              echo '<td>' . $dados->empresa . '</td>';
+              echo '<td>' . $dados->contato . '</td>';
+              echo '<td>';
+              echo $dados->horainicio . ':00';
+              echo '</td>';
+              echo '<td>';
+              echo $dados->horafim . ':00';
+              echo '</td>';
+              echo '<td>' . $dados->descproblema . '</td>';
+              echo '<td>' . $dados->descsolucao . '</td>';
+              echo '</tr>';
+            }
+          ?>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <hr/>
+    </div>
+    <div class="align-left">
+      <div class="col-sm-6" style="padding:0px;">
+        <table class="table-striped">
+          <tr>
+            <th>Data</th>
+            <th>Horas Sobreaviso</th>
+            <th>Horas Extras</th>
+          </tr>
+          <tbody>
+            <?php
+              foreach($datas as $data){
+                echo'<tr>';
+                echo'<td>'.formatarData($data['data']);  
+                if($data['isFeriado']){
+                  echo ' '.$data['descricao'];
+                }else if($data['isDomingo']){
+                  echo ' Domingo';
+                }else if($data['isSabado']){
+                  echo' Sábado';
+                }else{
+                  echo '';
+                }'</td>';
+                echo'<td>'.$data['horas'].'</td>';
+                echo'<td>'.$data['duracao'].'</td>';
+                echo'</tr>';
+              }
+            ?>
+          </tbody>
+          <tr>
+            <th>TOTAL SOBREAVISO</th>
+            <th><?php
+                $resultadoTotal = '00:00:00';
+                foreach($datas as $data){
+                  $resultadoTotal = sum_the_time($data['horas'], $resultadoTotal);
+                }
+                echo $resultadoTotal;
+              ?>
+            </th>
+            <th></th>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="align-left">
+        <div class="col-sm-6" style="padding:0px; border-left:1px solid black;">
+          <table class="table-striped">
+            <tr>
+              <th>Segunda à Sexta Feira: 12:01 às 13:29 e 18:01 às 22:00. Sábados, domingos e feriados: 08:00 às 22:00.</th>
+              </tr>
+              <tr>
+              <td>TOTAL DIARIO SEGUNDA A SEXTA&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>05:27:00</strong></td>
+              </tr>
+              <tr>
+              <td>SABÁDO&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>14:00:00</strong></td>
+              </tr>
+              <tr>
+              <td>DOMINGO&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>14:00:00</strong></td>
+              </tr>
+              <tr>
+              <td>TOTAL SEMANA&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>51:14:00</strong></td>
+            </tr>
+            <tr>
+              <td>
+              <center>
+                <div class="assin">
+                  <hr style="border-color:black;"/>
+                    <center><h3><?php echo $_SESSION['UsuarioNome']; ?></h3></center>
                 </div>
-            <div class="rel text-ceter">
-
-                <table class="table-striped">
-                    <tr>
-                        <th>ID</th>
-                        <th>Data</th>
-                        <th>Empresa</th>
-                        <th>Contato</th>
-                        <th>Horário ínicio</th>
-                        <th>Horário término</th>
-                        <th>Desc. Problema</th>
-                        <th>Desc. Solução</th>
-                    </tr>
-
-                    <tbody>
-<?php
-include 'include/db.php';
-$sql = "SELECT id_plantao, empresa, contato, descsolucao, descproblema, data, horainicio, horafim FROM plantao where date(datainicio) BETWEEN '$data1' and '$data2' OR data BETWEEN '$data1' and '$data2' and usuario = '$usuario' ORDER BY id_plantao desc";
-$query = $conn->query($sql);
-while ($dados = $query->fetch_object()) {
-    echo '<tr>';
-    echo '<td>' . $dados->id_plantao . '</td>';
-    echo '<td>';
-    echo formatarData($dados->data);
-    echo '</td>';
-    echo '<td>' . $dados->empresa . '</td>';
-    echo '<td>' . $dados->contato . '</td>';
-    echo '<td>';
-    echo $dados->horainicio . ':00';
-    echo '</td>';
-    echo '<td>';
-    echo $dados->horafim . ':00';
-    echo '</td>';
-    echo '<td>' . $dados->descproblema . '</td>';
-    echo '<td>' . $dados->descsolucao . '</td>';
-    echo '</tr>';
-}?>
-                    </tbody>
-
-                </table>
-            </div>
-            <div class="row">
-                    <hr/>
-                </div>
-            <div class="footer">
-                    <table class="foot">
-                    <tr>
-                        <th>Segunda à Sexta Feira: 12:01 às 13:29 e 18:01 às 22:00. Sábados, domingos e feriados: 08:00 às 22:00.</th>
-                    </tr>
-                    <tr>
-                        <td>TOTAL DIARIO SEGUNDA A SEXTA&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>05:27:00</strong></td>
-                    </tr>
-                    <tr>
-                        <td>SABÁDO&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>14:00:00</strong></td>
-                    </tr>
-                    <tr>
-                        <td>DOMINGO&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>14:00:00</strong></td>
-                    </tr>
-                    <tr>
-                        <td>TOTAL SEMANA&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<strong>51:14:00</strong></td>
-                    </tr>
-                    <div class="assin">
-                        <hr style="border-color:black;"/>
-                        <center><h3><?php echo $_SESSION['UsuarioNome']; ?></h3></center>
-                    </div>
-                    </table>
-                    <div class="align-left">
-                      <div class="col-sm-6">
-                    <table class="table-striped">
-                    <tr>
-                        <th>Data</th>
-                        <th>Sobreaviso</th>
-                        <th>Horas</th>
-                    </tr>
-                    <tbody>
-                      <?php
-                        foreach($datas as $data){
-                          echo'<tr>';
-                          echo'<td>'.formatarData($data['data']); echo $data['isFeriado'] ? ' FERIADO' : ''.'</td>';
-                          echo'<td>'.$data['horas'].'</td>';
-                          echo'<td>'.$data['duracao'].'</td>';
-                          echo'</tr>';
-                        }
-                        ?>
-                    </div>
-                      </div>
-            </div>
-
-        </body>
-    </html>
+              </center>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </footer>
+</body>
+</html>
