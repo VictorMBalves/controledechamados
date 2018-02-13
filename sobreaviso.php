@@ -131,23 +131,22 @@ for($i = 0; $i < count($datas); $i++) {
             
       if($datas[$i]['isFeriado']){
         $datas[$i] =calcularHoras($datas[$i],$verificadorData,$dataPlantao,$horarioInicio,$horarioTermino, true, false, false);
+        $verificadorData = $dataPlantao;
         continue;
         }
 
       if(isDomingo($datas[$i]['data'])){
         $datas[$i] = calcularHoras($datas[$i],$verificadorData,$dataPlantao,$horarioInicio,$horarioTermino, false, true, false);
+        $verificadorData = $dataPlantao;
         continue; 
       } 
       if(isSabado($datas[$i]['data'])){
         $datas[$i] = calcularHoras($datas[$i],$verificadorData,$dataPlantao,$horarioInicio,$horarioTermino, false, false, true);
-        $day = date("D", strtotime($datas[$i]['data']));
-        if($day == 'Sat'){
-          $datas[$i]['isDomingo'] = false;
-          $datas[$i]['isSabado'] = true;
-        }
+        $verificadorData = $dataPlantao;
         continue;
     }
     $datas[$i] = calcularHoras($datas[$i],$verificadorData,$dataPlantao,$horarioInicio,$horarioTermino, false, false, false);
+    $verificadorData = $dataPlantao;
   }    
 }
 
@@ -174,7 +173,6 @@ function calcularHoras($datas,$verificadorData,$dataPlantao,$horarioInicio,$hora
       $datas['isFeriado'] = $isFeriado;
       $datas['isDomingo'] = $isDomingo;
       $datas['isSabado'] = $isSabado;
-      $verificadorData = $dataPlantao;
   }
   return $datas;
 }
