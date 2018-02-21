@@ -25,7 +25,11 @@ function callApi(empresa) {
         .done(function(data) {
             
             bloqueado = data.is_blocked;
-            telefone.val(data.phone);
+            if(data.phone == null){
+                callBanco(empresa);
+            }else{
+                telefone.val(data.phone);
+            }
             versao.val(data.version);
             sistema.val(data.system);
             notafiscal = data.nota_fiscal;
@@ -78,6 +82,8 @@ function callApi(empresa) {
         });
 }
  function callBanco(empresa) {
+    var $telefone = $("input[name='telefone']");
+    var $celular;
     var $backup = $("input[name='backup']");
     var select = document.getElementById('backup');
     var empresa = $('#skills').val();
@@ -92,6 +98,11 @@ function callApi(empresa) {
             }else{
             $(select).val("1");
             }
+            if (json.telefone == "(000)0000-0000") {
+                $telefone.val(json.celular);
+              } else {
+                $telefone.val(json.telefone);
+              }
         }); 
 }
 

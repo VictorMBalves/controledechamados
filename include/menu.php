@@ -81,6 +81,10 @@
                     <a href="relatorioempre.php">Empresas Solicitantes </a>
                   </li>
                   <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="dadosempresasapi.php">Dados empresas API </a>
+                  </li>
+                  <li role="separator" class="divider"></li>
                 </ul>
               </ul>';}?>
 

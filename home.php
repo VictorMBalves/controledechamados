@@ -129,7 +129,7 @@ echo '<th>Status</th>';
 echo '<th>Entrado em contato</th>';
 echo '<th>Data</th>';
 echo '<th>Atendente</th>';
-echo '<th>Atribuído para</th>';
+echo '<th>Atribuí­do para</th>';
 echo '<th>Empresa</th>';
 echo '<th>Contato</th>';
 echo '<th>Telefone</th>';
@@ -151,7 +151,7 @@ foreach ($result as $row) {
         echo '</td>';
         echo '<td>';
         if (is_null($row['historico'])) {
-            echo 'Não';
+            echo 'NÃ£o';
         } else {
             echo 'Sim';
         }
