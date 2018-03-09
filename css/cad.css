@@ -1,0 +1,85 @@
+/*FORMULARIOS*/
+
+.label1 {
+    width: 81.5%;
+    margin: 0px;
+    margin-bottom: 15px;
+}
+
+.label2 {
+    float: left;
+    width: 30%;
+    margin-bottom: 15px;
+}
+
+.label3 {
+    float: left;
+    width: 20%;
+    margin-bottom: 15px;
+}
+
+.contato {
+    width: 60px;
+}
+
+.empresa {
+    width: 160px;
+    padding-right: 0px;
+}
+
+.empresa1 {
+    width: 100px;
+    padding-right: 0px;
+}
+
+.forma {
+    float: left;
+    width: 37.5%;
+    margin-bottom: 15px;
+}
+
+.forma1 {
+    float: left;
+    width: 22%;
+    margin-bottom: 15px;
+}
+
+
+/*FIM DO CSS FORMULARIOS*/
+
+.circle {
+    display: block;
+    left: 100px;
+    width: 30px;
+    height: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 0px;
+    border-radius: 50px;
+    background-color: #5bc0de;
+    box-shadow: none;
+}
+
+.circle2 {
+    display: block;
+    left: 100px;
+    width: 30px;
+    margin-right: 0px;
+    margin-left: 0px;
+    height: 10px;
+    border-radius: 50px;
+    background-color: #f0ad4e;
+    box-shadow: none;
+}
+
+.teste12 {
+    margin-bottom: 3px;
+    margin-right: 0px;
+    width: 40px;
+    height: 24px;
+}
+
+.xxx {
+    text-align: right;
+    margin-left: 355px;
+}
