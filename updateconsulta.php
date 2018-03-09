@@ -30,7 +30,7 @@ if (!isset($_SESSION['UsuarioID'])) {
 <?php 
     include 'include/dbconf.php';
     $status = "Entrado em contato";
-    $historico = $_POST['historico'];
+    $historico = str_replace("'","''",$_POST['historico']);
     $id = $_POST['id_chamadoespera'];
     echo $historico, $id;
     $sql = $conn->prepare("UPDATE chamadoespera SET historico='$historico', status='$status' WHERE id_chamadoespera='$id'") or die(mysql_error());

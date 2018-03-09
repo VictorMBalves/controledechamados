@@ -48,7 +48,7 @@
           <hr/>
         </div>
         <div id="resultado">
-        <div class="alert alert-success" role="alert">
+          <div class="alert alert-success" role="alert">
             <center>Novo chamado:</center>
           </div>
         </div>
@@ -144,6 +144,7 @@
               </div>
             </div>
               <div class="col-md-12 text-center">
+              <?php include("statusDados.php");?>
               <button id="verModulo" class="btn btn-info" type="button" data-toggle="collapse" data-target="#abrirModulos" aria-expanded="false" aria-controls="collapseExample" data-placement='left' title='Visualizar módulos!'><icon class="glyphicon glyphicon-th-list"></icon>&nbspVisualizar módulos</button>
               <button id="salvar" name="singlebutton" class="btn btn-group-lg btn-primary">Gravar</button>
               <button id="voltar" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning" onclick="cancelar()">Cancelar</button>

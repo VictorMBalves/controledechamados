@@ -40,7 +40,7 @@ $sistema=$_POST['sistema'];
 $versao=$_POST['versao'];
 $formacontato=$_POST['formacontato'];
 $categoria=$_POST['categoria'];
-$descproblema=$_POST['descproblema'];
+$descproblema=str_replace("'","''",$_POST['descproblema']);
 $usuario=$_SESSION['UsuarioNome'];
 $backup=$_POST['backup'];
 $sql = $conn->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());

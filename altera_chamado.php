@@ -27,7 +27,7 @@ $conn->exec('SET CHARACTER SET utf8');
 $id=$_POST['id_chamado'];
 $datafinal = date("Y-m-d H:i:s");
 $status = "Finalizado";
-$descsolucao=$_POST['descsolucao'];
+$descsolucao=str_replace("'","''",$_POST['descsolucao']);
 $usuario=$_SESSION['UsuarioNome'];
 $sql = $conn->prepare("UPDATE chamado SET status= :status, descsolucao= :descs, datafinal= :data WHERE id_chamado=:id") or die(mysql_error());
 $sql ->bindParam(":status", $status, PDO::PARAM_STR, 500);

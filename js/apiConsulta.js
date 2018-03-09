@@ -23,62 +23,66 @@ function callApi(empresa) {
             }
         )
         .done(function(data) {
-            
-            bloqueado = data.is_blocked;
-            if(data.phone == null){
+                bloqueado = data.is_blocked;
+                if(data.phone == null){
+                    callBanco(empresa);
+                }else{
+                    telefone.val(data.phone);
+                }
+                versao.val(data.version);
+                sistema.val(data.system);
+                notafiscal = data.nota_fiscal;
+                notafiscalconsumidor = data.nota_fiscal_consumidor;
+                conhecimentotrasporte = data.conhecimento_trasporte;
+                manifestoeletronico = data.manifesto_eletronico;
+                notafiscalservico = data.nota_fiscal_servico;
+                consultabloqueio = data.consulta_bloqueio;
+                cupomfiscaleletronicosat = data.cupom_fiscal_eletronico_sat;
+                emissordocumentosfiscaiseletronicos = data.emissor_documentos_fiscais_eletronicos;
+                if(emissordocumentosfiscaiseletronicos == true){
+                    sistema.val('GermanTech Emissor');
+                }
+                    //Verifica o bloqueio do sistema
+                $.get('verificabloqueio.php?bloqueio=' + bloqueado, function(bl) {
+                    $('#resultado').html(bl);
+                });
+                if(document.getElementById('verModulo') != null){
+                    document.getElementById('verModulo').disabled = false;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "visualizaModulo.php",
+                    data: {
+                    nf:notafiscal,
+                    nfc:notafiscalconsumidor,
+                    cte:conhecimentotrasporte,
+                    mdf:manifestoeletronico,
+                    nfs:notafiscalservico,
+                    conbloq:consultabloqueio,
+                    sat:cupomfiscaleletronicosat,
+                    emissor:emissordocumentosfiscaiseletronicos,
+                    empresa:empresa,
+                    sistema:data.system,
+                    versao:data.version    
+                    },
+                    success: function(mod) {
+                    $('#modulos').html(mod);
+                    },
+                    error: function(jqXhr, textStatus, errorThrown){
+                    console.log(errorThrown);
+                }
+                });
+                if(data.version == null || data.system == null){
+                    $("#infoLoad").addClass("hidden");
+                    $("#alertLoad").removeClass("hidden");
+                }else{
+                    $("#infoLoad").addClass("hidden");
+                    $("#successLoad").removeClass("hidden");
+                }
+        }).error(function(data){
+                $("#infoLoad").addClass("hidden");
+                $("#erroLoad").removeClass("hidden");
                 callBanco(empresa);
-            }else{
-                telefone.val(data.phone);
-            }
-            versao.val(data.version);
-            sistema.val(data.system);
-            notafiscal = data.nota_fiscal;
-            notafiscalconsumidor = data.nota_fiscal_consumidor;
-            conhecimentotrasporte = data.conhecimento_trasporte;
-            manifestoeletronico = data.manifesto_eletronico;
-            notafiscalservico = data.nota_fiscal_servico;
-            consultabloqueio = data.consulta_bloqueio;
-            cupomfiscaleletronicosat = data.cupom_fiscal_eletronico_sat;
-            emissordocumentosfiscaiseletronicos = data.emissor_documentos_fiscais_eletronicos;
-            if(emissordocumentosfiscaiseletronicos == true){
-                sistema.val('GermanTech Emissor');
-            }
-                //Verifica o bloqueio do sistema
-            $.get('verificabloqueio.php?bloqueio=' + bloqueado, function(bl) {
-                $('#resultado').html(bl);
-            });
-            
-            document.getElementById('verModulo').disabled = false;
-            
-            $.ajax({
-                type: "POST",
-                url: "visualizaModulo.php",
-                data: {
-                nf:notafiscal,
-                nfc:notafiscalconsumidor,
-                cte:conhecimentotrasporte,
-                mdf:manifestoeletronico,
-                nfs:notafiscalservico,
-                conbloq:consultabloqueio,
-                sat:cupomfiscaleletronicosat,
-                emissor:emissordocumentosfiscaiseletronicos,
-                empresa:empresa,
-                sistema:data.system,
-                versao:data.version    
-                },
-                success: function(mod) {
-                $('#modulos').html(mod);
-                },
-                error: function(jqXhr, textStatus, errorThrown){
-                console.log(errorThrown);
-            }
-            });
-
-            //if ($bloqueado == true) {
-            //   if (!document.getElementById('salvar').disabled) document.getElementById('salvar').disabled = true;
-            //} else if ($bloqueado == false) {
-            //if (document.getElementById('salvar').disabled) document.getElementById('salvar').disabled = false;
-            //}
         });
 }
  function callBanco(empresa) {
@@ -107,6 +111,10 @@ function callApi(empresa) {
 }
 
 $(document).ready(function(){$("input[name='empresa']").blur(function(){
+    $("#alertLoad").addClass("hidden");
+    $("#successLoad").addClass("hidden");
+    $("#erroLoad").addClass("hidden");
+    $("#infoLoad").removeClass("hidden");
     callApi();
     callBanco();
     });

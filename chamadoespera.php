@@ -104,6 +104,7 @@
           </div>
             <!-- Button -->
             <div class="col-md-12 text-center">
+              <?php include("statusDados.php");?>
               <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Salvar</button>
             </div>
         </form>

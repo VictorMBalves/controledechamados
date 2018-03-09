@@ -267,6 +267,7 @@
                   </div>
               </div>  
               <div class="col-md-12 text-center">
+                <?php include("statusDados.php");?>
                 <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary" onclick="validarHorario()">Gravar</button>
                 <button id="singlebutton" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning" onclick="cancelar()">Cancelar</button>
               </div>
