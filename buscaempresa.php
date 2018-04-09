@@ -44,8 +44,6 @@
     <br/>
     <div class="container">
       <div id="tarefas"></div>
-      <div class="row">
-        <h1>
           <div class="row">
             <div class="col-xs-6 col-md-3">
               <a href="#" class="thumbnail">
@@ -53,7 +51,6 @@
               </a>
             </div>
           </div>
-        </h1>
         <br>
         <div class="row">
           <hr/>
@@ -64,7 +61,8 @@
         <div class="text-center">
           <?php include('include/formEmpresa.php');?>
         </div>
-        </br>
+        <br>
+        <br>
         <div class="row">
           <hr/>
         </div>                    

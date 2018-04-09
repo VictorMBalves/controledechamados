@@ -87,7 +87,7 @@
         margin-bottom:3px;
         margin-right:0px;
         width:40px;
-        heigth:24px;
+        height:24px;
       }
       .link{
         color:#333;        

@@ -37,7 +37,7 @@
         margin-bottom:3px;
         margin-right:0px;
         width:40px;
-        heigth:24px;
+        height:24px;
       }
     </style>
   </head>
@@ -57,6 +57,13 @@
           exit;
       }
   }
+
+  $_SESSION['status'] = NULL;
+  $_SESSION['palavra'] = NULL;
+  $_SESSION['usuario'] = NULL;
+  $_SESSION['data'] = NULL;
+
+
   $email = md5($_SESSION['Email']);
   include('include/db.php');
   //for total count data
@@ -82,11 +89,6 @@
   $sql = $conn->prepare('SELECT nome, nivel FROM usuarios');
   $sql->execute();
   $result = $sql->fetchall();
-  $_SESSION['situacao'] = null;
-  $_SESSION['palavra'] = null;
-  $_SESSION['versao'] = null;
-  $_SESSION['sistema'] = null;
-  $_SESSION['versaoDiferente'] = null;
 ?>
 <br/>
 <br/>
@@ -178,12 +180,11 @@
     </div>
   </div>
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="js/links.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="dist/jquery.simplePagination.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript">
     function erro(){
       alert('Acesso negado! Redirecinando a pagina principal.');

@@ -1,7 +1,5 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "phpformatter.arguments": [
-        "--level=psr2", "--fixers=linefeed,short_tag,indentation"
-    ],
+    "phpcs.executablePath": "vendor/squizlabs/php_codesniffer/bin/phpcs",
     "files.autoSave": "afterDelay"
 }

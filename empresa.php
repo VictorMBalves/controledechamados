@@ -121,30 +121,28 @@ $(function () {
 <div class="container">
   <div id="tarefas"></div>
   <div class="row">
-    <h1>
-      <div class="row">
-        <div class="col-xs-6 col-md-3">
-          <a href="#" class="thumbnail">
-            <img src="imagem/logo.png" >
-          </a>
-        </div>
-      </div>
-    </h1>
-    <br>
-    <div class="row">
-      <hr/>
+    <div class="col-xs-6 col-md-3">
+      <a href="#" class="thumbnail">
+        <img src="imagem/logo.png" >
+      </a>
     </div>
-    <div class="alert alert-warning" role="alert">
-      <center>Lista de clientes:
-      </center>
-    </div>
-    <div class="text-center">
-      <?php include('include/formEmpresa.php');?>
-    </div>
-    </br>  
-    <div class="row">
-      <hr/>
-    </div>    
+  </div>
+  <br>
+  <div class="row">
+    <hr/>
+  </div>
+  <div class="alert alert-warning" role="alert">
+    <center>Lista de clientes:
+    </center>
+  </div>
+  <div class="text-center">
+    <?php include('include/formEmpresa.php');?>
+  </div>
+  <br>  
+  <br>  
+  <div class="row">
+    <hr/>
+  </div>  
 <div class="teste">
 <table class="table table-responsive table-hover">
 <tr>

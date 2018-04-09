@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "d8hj0ptr";
+$password = "ledzeppelin";
 $dbname = "chamados";
 $limit = 15;
 
@@ -12,5 +12,4 @@ if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 } 
-
 ?> 

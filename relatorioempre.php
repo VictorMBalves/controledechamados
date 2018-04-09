@@ -78,37 +78,23 @@
   }
   $email = md5($_SESSION['Email']);
   include('include/menu.php');
+  if (array_key_exists('data', $_POST)) {
+      $data=$_POST['data'];
+      $data2=$_POST['data1'];
+  } else {
+      $data = date('Y-m').'-01';
+      $data2 = date('Y-m-t');
+  }
 ?>
+<div class="container">
 <br/>
 <br/>
 <br/>
 <br/>
 <br>
-<div class="row">
-  <hr/>
-</div>
 <div class="alert alert-success" role="alert">
-  <center>Relatório de Nº de chamados por empresa:
-  </center>
+  <center>Relatório de Nº de chamados por empresa:</center>
 </div>
-<?php 
-if (array_key_exists('data', $_POST)) {
-    $data=$_POST['data'];
-    $data2=$_POST['data1'];
-} else {
-    $data = date('Y-m').'-01';
-    $data2 = date('Y-m-t');
-}
-?>
-<div class="container">
-  <div class="row">
-    <h1>
-      <div class="row">
-        <div class="col-xs-6 col-md-3">
-          </a>
-      </div>
-    </h1>
-  </div>
   <form class="navbar-form text-center" method="POST" action="relatorioempre.php">
     <fieldset>
       <legend>Período:
@@ -127,9 +113,7 @@ if (array_key_exists('data', $_POST)) {
     </fieldset>
   </form> 
   <br>
-  <div class="row">
-    <hr/>
-  </div>    
+  <hr/>
   <?php
 include 'include/dbconf.php';
 if (array_key_exists('data', $_POST)) {

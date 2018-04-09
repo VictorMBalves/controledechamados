@@ -9,10 +9,26 @@ if (isset($_GET["page"])) {
     $page=1;
 };
 $start_from = ($page-1) * $limit;
-$status = $_SESSION['status'];
-$palavra = $_SESSION['palavra'];
-$usuario = $_SESSION['usuario'];
-$data = $_SESSION['data'];
+if(isset($_SESSION['status'])){
+    $status = $_SESSION['status'];
+}else{
+    $status = NULL;
+}
+if(isset($_SESSION['palavra'])){
+    $palavra = $_SESSION['palavra'];
+}else{
+    $palavra = NULL;
+}
+if(isset($_SESSION['usuario'])){
+    $usuario = $_SESSION['usuario'];
+}else{
+    $usuario = NULL;
+}
+if(isset($_SESSION['data'])){
+    $data = $_SESSION['data'];
+}else{
+    $data = NULL;
+}
 
 $query = "SELECT id_chamado, usuario, status, empresa, contato, telefone, date(datainicio) FROM chamado ";
 if ($status != null) {

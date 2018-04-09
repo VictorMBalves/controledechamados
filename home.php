@@ -145,24 +145,29 @@ include 'include/menu.php';
         </div>
 
         <div class="col-md-8">
-          <div id="tarefas"></div>
-            <div class="row">
-              <h1>
-                    <?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail' alt='Cinque Terre' width='100'>"; ?>
-                    <span style="margin-left:15px;">Bem-vindo, <?php echo $_SESSION['UsuarioNome']; ?>
-                      <div class="col-xs-6 col-sm-4 navbar-right">
-                        <a href="home.php" class="thumbnail teste">
+            <div id="tarefas"></div>
+                <div class="col-md-8">
+                    <div class="col-sm-3">
+                        <?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail' alt='Usuario' width='100'>"; ?>
+                    </div>
+                    <div class="col-md-8">
+                        <h2>
+                            <span style="margin-left:15px;">Bem-vindo, <?php echo $_SESSION['UsuarioNome']; ?> </span>
+                        </h2>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <a href="home.php" class="thumbnail teste">
                         <img src="imagem/logo.png" >
-                        </a>
-                      </div>
-                    </span>
-                  </img>
-              </h1>
-            </div>
-
+                    </a>
+                </div>
+            <br>
+            <br>
+            <br>
+            <br>
             <br>
             <div class="row">
-              <hr/>
+              <hr>
             </div>
             <div class="alert alert-warning" role="alert">
               <center>Chamados aguardando retorno:

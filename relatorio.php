@@ -81,20 +81,7 @@ if ($_SESSION['UsuarioNivel'] == 1) {
 }
 $email = md5($_SESSION['Email']);
 include('include/menu.php');
-?>
-<br/>
-<br/>
-<br/>
-<br/>
-<br>
-<div class="row">
-  <hr/>
-</div>
-<div class="alert alert-success" role="alert">
-  <center>Relatório de chamados:
-  </center>
-</div>
-<?php 
+
 if (array_key_exists('data', $_POST)) {
     $data=$_POST['data'];
     $data2=$_POST['data1'];
@@ -104,18 +91,17 @@ if (array_key_exists('data', $_POST)) {
 }
 ?>
 <div class="container">
-  <div class="row">
-    <h1>
-      <div class="row">
-        <div class="col-xs-6 col-md-3">
-          </a>
-      </div>
-    </h1>
-  </div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br>
+<div class="alert alert-success" role="alert">
+  <center>Relatório de chamados:</center>
+</div>
   <form class="navbar-form text-center" method="POST" action="relatorio.php">
     <fieldset>
-      <legend>Período:
-      </legend>
+      <legend>Período:</legend>
       <label style="padding-left:15px; padding-right:10px;" class="control-label">De:
       </label>
       <input type="date" value="<?php echo $data;?>" name="data" class="form-control">
@@ -125,11 +111,9 @@ if (array_key_exists('data', $_POST)) {
       <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Buscar
       </button>
     </fieldset>
+    <hr>
   </form> 
   <br>
-  <div class="row">
-    <hr/>
-  </div>    
   <?php
 include 'include/dbconf.php';
 if (array_key_exists('data', $_POST)) {
