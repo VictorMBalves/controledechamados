@@ -12,12 +12,12 @@
     <link href="datatables/responsive.dataTables.min.css" rel="stylesheet">
     <link href="datatables/rowReorder.dataTables.min.css" rel="stylesheet">
     <style>
-        .html5buttons, .dataTables_length, .dataTables_info, .dataTables_filter {
+        /* .html5buttons, .dataTables_length, .dataTables_info, .dataTables_filter {
             padding: 5px;
             float:none;
             right: 0px;
             width: 200px;
-        }
+        } */
         </style>
 </head>
   <body>
@@ -44,7 +44,7 @@
 <div class="container-fluid">
     
     <table id="myTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <div class="html5buttons text-right"></div>
+        <!-- <div class="html5buttons text-right"></div> -->
         <thead>
             <tr>
                 <th>Empresa</th>

@@ -17,9 +17,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
     <script type="text/javascript">
       $(function () {
-       $('[data-toggle="tooltip"]').tooltip()
-        });
-
+        $('[data-toggle="tooltip"]').tooltip()
+      })
       function erro(){
         alert('Acesso negado! Redirecinando a pagina principal.');
         window.location.assign("chamadoespera.php");
@@ -49,6 +48,13 @@
               url: "avisos.php",
               success:function(data){
                 $("#avisos").html(data);
+              }
+          });
+          $.ajax({
+              type: "POST",
+              url: "responsavelsemana.php",
+              success:function(data){
+                $("#plantao").html(data);
               }
           });
         });
@@ -123,21 +129,23 @@
 
   <body>
     <div class="wrapper">
-      <?php
-header("Content-type: text/html; charset=utf-8");
-if (!isset($_SESSION)) {
-    session_start();
-}
-if (!isset($_SESSION['UsuarioID'])) {
-    session_destroy();
-    header("Location: index.php");
-    exit;
-}
-$email = md5($_SESSION['Email']);
-include 'include/menu.php';
-?>
+    <?php
+      header("Content-type: text/html; charset=utf-8");
+      if (!isset($_SESSION)) {
+          session_start();
+      }
+      if (!isset($_SESSION['UsuarioID'])) {
+          session_destroy();
+          header("Location: index.php");
+          exit;
+      }
+      $email = md5($_SESSION['Email']);
+      include 'include/menu.php';
+    ?>
       <div class="content">
-        <div class="col-md-4 hidden-xs hidden-sm hidden-md sidebar-outer" style="height: 100%;">
+        <div class="col-md-4 sidebar-outer" style="height: 100%;">
+          <div id="plantao">
+          </div>
           <div id="usuarios">
           </div>
           <div id="avisos">

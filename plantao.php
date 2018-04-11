@@ -157,10 +157,11 @@
           <li class="active"><a data-toggle="tab" href="#home1" class="link"><i class="glyphicon glyphicon-sunglasses"></i>&nbsp&nbspNovo plantão decorrido</a></li>
           <li><a data-toggle="tab" href="#menu1" class="link"><i class="glyphicon glyphicon-user"></i>&nbsp&nbspMeus chamados</a></li>
           <li><a data-toggle="tab" href="#menu2" class="link"><i class="glyphicon glyphicon-calendar"></i>&nbsp&nbspSobreaviso</a></li>
+          <li><a data-toggle="tab" href="#menu3" class="link"><i class="glyphicon glyphicon-transfer"></i>&nbsp&nbspEscala sobreaviso</a></li>
         </ul>
         <div class="tab-content">
           <!-- PLANTAO DECORRIDO -->
-          <div id="home1" class="tab-pane fade in active">
+        <div id="home1" class="tab-pane fade in active">
             <?php $time = date("Y-m-d");?>
             <br/>
             <div class="alert alert-success" role="alert">
@@ -383,6 +384,10 @@ if (array_key_exists('data', $_POST)) {
   </form> 
 
 </div>
+<div id="menu3" class="tab-pane fade">
+  <?php include 'escalamensalpage.php'?>
+</div>
+
     
   
 </body>

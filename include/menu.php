@@ -85,10 +85,6 @@
                     <a href="dadosempresasapi.php">Dados empresas API </a>
                   </li>
                   <li role="separator" class="divider"></li>
-                  <li>
-                    <a href="escalamensalpage.php">Escala sobreaviso </a>
-                  </li>
-                  <li role="separator" class="divider"></li>
                 </ul>
               </ul>';}?>
 

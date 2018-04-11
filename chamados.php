@@ -37,7 +37,6 @@
         margin-bottom:3px;
         margin-right:0px;
         width:40px;
-        height:24px;
       }
     </style>
   </head>
