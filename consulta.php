@@ -39,9 +39,7 @@
       $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
       include('include/menu.php');
     ?>
-        <br/>
-        <br/>
-        <div class="container">
+        <div class="container" style="margin-top:60px; margin-bottom:50px;">
             <div class="row">
                 <h1>
                     <div class="row">

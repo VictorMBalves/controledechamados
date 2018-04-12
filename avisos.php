@@ -138,7 +138,7 @@ var modalConfirm = function(callback){
                     
             $.ajax({
                 type: "POST",
-                url: "updateAviso.php?acao=novo",
+                url: "updates/updateAviso.php?acao=novo",
                 data:dados,
                 success: function(data)
                 {
@@ -158,7 +158,7 @@ var modalConfirm = function(callback){
     function excluirAviso(id){
         $.ajax({
             type: "POST",
-            url: "updateAviso.php?acao=excluir",
+            url: "updates/updateAviso.php?acao=excluir",
             data:{id:id},
             success: function(data)
             {
@@ -175,7 +175,7 @@ var modalConfirm = function(callback){
 
     function editarAviso(id){
         (function() {
-        var getAviso = "updateAviso.php?id="+id+"&acao=getAviso";
+        var getAviso = "updates/updateAviso.php?id="+id+"&acao=getAviso";
         $.getJSON( getAviso, {
             format: "json"
         })
@@ -192,7 +192,7 @@ var modalConfirm = function(callback){
         var dados = $('#formAviso').serialize();
         $.ajax({
             type: "POST",
-            url: "updateAviso.php?acao=update&id="+id,
+            url: "updates/updateAviso.php?acao=update&id="+id,
             data:dados,
             success: function(data)
             {

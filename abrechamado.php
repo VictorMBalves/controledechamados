@@ -40,11 +40,8 @@
       $sql2->execute();
       $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
     ?>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div class="container">
+
+    <div class="container" style="margin-top:60px; margin-bottom:50px;">
       <div id="tarefas"></div>
         <div class="row">
           <h1>

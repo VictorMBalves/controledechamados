@@ -30,11 +30,7 @@
       $email = md5($_SESSION['Email']);
       include('include/menu.php');
     ?>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div class="container">
+    <div class="container" style="margin-top:60px; margin-bottom:50px;">
       <div id="tarefas"></div>
       <div class="row">
         <h1>
@@ -53,7 +49,7 @@
         <div class="alert alert-success" role="alert">
           <center>Cadastrar nova empresa:</center>
         </div>
-        <form class="form-horizontal" action="insereempresa.php" method="POST">
+        <form class="form-horizontal" action="inserts/insereempresa.php" method="POST">
           <div class="text-center">
             <div class="form-group">
               <label class="col-md-2 control-label" for="empresa">Razão Social:</label>

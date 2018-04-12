@@ -28,13 +28,9 @@
       $email = md5($_SESSION['Email']);
       include('include/menu.php');
     ?>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div id="usuarios" class="col-xs-6 col-md-3 navbar-right" style="margin-right:20px;"></div>
-    <div class="container">
+    <div class="container" style="margin-top:60px; margin-bottom:50px;">
       <div id="tarefas"></div>
+      <div id="usuarios" class="col-xs-6 col-md-3 navbar-right" style="margin-right:20px;"></div>
       <div class="row">
         <h1>
           <div class="row">
@@ -54,7 +50,7 @@
             <center>Novo chamado em espera:</center>
           </div>
         </div>
-        <form class="form-horizontal" action="inserechamadoespera.php" method="POST">
+        <form class="form-horizontal" action="inserts/inserechamadoespera.php" method="POST">
           <div class="form-group">
             <label class="col-md-2 control-label" for="skills">Empresa solicitante:</label>
               <div class="col-sm-10">

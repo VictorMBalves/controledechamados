@@ -90,12 +90,7 @@ if (array_key_exists('data', $_POST)) {
     $data2 = date('Y-m-t');
 }
 ?>
-<div class="container">
-<br/>
-<br/>
-<br/>
-<br/>
-<br>
+<div class="container" style="margin-top:60px; margin-bottom:50px;">
 <div class="alert alert-success" role="alert">
   <center>Relatório de chamados:</center>
 </div>

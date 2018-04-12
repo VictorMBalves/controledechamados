@@ -49,7 +49,7 @@
     <br/>
     <br/>
     <br/>
-    <div class="container">
+    <div class="container" style="margin-top:60px; margin-bottom:50px;">
     <div id="tarefas"></div>
       <div class="row">
         <h1>
@@ -74,7 +74,7 @@
             <?php echo "<a href='editausuario.php?id=".$row['id']."&epr=excluir'><button type='reset' class='btn btn-danger'data-toggle='tooltip' data-placement='left' title='Excluir cadastro!'><span class='glyphicon glyphicon-trash'></span></button></a>"; ?>
           </div>
         </div>
-        <form class="form-horizontal" action="updateusuario.php" method="POST">
+        <form class="form-horizontal" action="updates/updateusuario.php" method="POST">
           <input style="display:none;"  name='id' value='<?php echo $id; ?>'readonly/>  
           <div class="form-group">
             <label class="col-md-2 control-label" for="nome">Nome:</label>  

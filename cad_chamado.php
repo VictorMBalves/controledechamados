@@ -28,11 +28,7 @@
     $email = md5($_SESSION['Email']);
     include('include/menu.php');
   ?>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div class="container">
+    <div class="container" style="margin-top:60px; margin-bottom:50px;">
       <div id="tarefas"></div>
       <div class="row">
         <h1>
@@ -52,7 +48,7 @@
             <center>Novo chamado:</center>
           </div>
         </div>
-        <form class="form-horizontal" action="insere_chamado.php" method="POST">
+        <form class="form-horizontal" action="inserts/insere_chamado.php" method="POST">
           <div class="form-group">
             <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>
               <div class="col-sm-10">

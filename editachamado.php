@@ -38,11 +38,7 @@
       $email = md5($_SESSION['Email']);
       include('include/menu.php');
     ?>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div class="container">
+    <div class="container" style="margin-top:60px; margin-bottom:50px;">
       <div id="tarefas"></div>
       <div class="row">
         <h1>
@@ -61,7 +57,7 @@
         <div class="alert alert-success" role="alert">
           <center>Editar Chamado Nº: <?php echo $id?></center>
         </div>
-        <form class="form-horizontal" action="updatechamado.php" method="POST">
+        <form class="form-horizontal" action="updates/updatechamado.php" method="POST">
           <input style="display:none;"  name='id_chamado' value='<?php echo $id; ?>'/>
           <div class="form-group">
             <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label> 

@@ -27,11 +27,7 @@
   $email = md5($_SESSION['Email']);
   include('include/menu.php');
 ?>
-<br/>
-<br/>
-<br/>
-<br/>
-<div class="container">
+<div class="container" style="margin-top:60px; margin-bottom:50px;">
  <div id="tarefas"></div>
   <div class="row">
     <h1>
@@ -52,7 +48,7 @@
       </center>
     </div>
     <br>
-    <form class="form-horizontal" action="updatesenha.php" method="POST">
+    <form class="form-horizontal" action="updates/updatesenha.php" method="POST">
       <div class="form-group">
         <label class="col-md-2 control-label" for="senha">Nova Senha:</label>
           <div class="col-sm-8">

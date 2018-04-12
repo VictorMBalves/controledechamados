@@ -42,7 +42,7 @@
     <br/>
     <br/>
     <br/>
-    <div class="container">
+    <div class="container" style="margin-top:60px; margin-bottom:50px;">
       <div id="tarefas"></div>
       <div class="row">
         <h1>
@@ -63,7 +63,7 @@
             <?php echo $id?>
           </center>
         </div>
-        <form class="form-horizontal" action="updateplantao.php" method="POST">
+        <form class="form-horizontal" action="updates/updateplantao.php" method="POST">
           <input style="display:none;"  name='id_plantao' value='<?php echo $id; ?>'/>
           <div class="form-group">
             <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>  

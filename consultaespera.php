@@ -38,11 +38,7 @@
       $row = $sql->fetch(PDO::FETCH_ASSOC);
       include('include/menu.php');
     ?>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div class="container">
+    <div class="container" style="margin-top:60px; margin-bottom:50px;">
     <div id="tarefas"></div>
       <div class="row">
         <h1>
@@ -64,7 +60,7 @@
           </center>
         </div>
         <br>
-        <form class="form-horizontal" action="updateconsulta.php" method="POST">
+        <form class="form-horizontal" action="updates/updateconsulta.php" method="POST">
           <input style="display:none;" name="id_chamadoespera" value="<?php echo $id?>">
           <div class="form-group">
             <label class="col-md-2 control-label">Empresa Solicitante:</label>  

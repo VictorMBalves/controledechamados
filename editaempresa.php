@@ -9,26 +9,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
     <link href="css/bootstrap.css" rel="stylesheet">
-    <script>
-        function erro(){
-          alert('Acesso negado! Redirecinando a pagina principal.');
-          window.location.assign("chamadoespera.php");
-        }  
-        function cancelar(){
-          window.location.assign("chamados.php");
-        }
-        function deletado(){
-          alert('Cadastro deletado com sucesso!');
-          window.location.assign("empresa.php");
-        }
-        $(function () {$('[data-toggle="popover"]').popover()});
-        $(function () {$('[data-toggle="tooltip"]').tooltip()});
-        function atualizarTarefas() {
-          var url="notifica.php";
-          jQuery("#tarefas").load(url);
-        }
-        setInterval("atualizarTarefas()",1000);
-      </script>
+   
   </head>
   <body>
     <?php
@@ -64,11 +45,7 @@
       $row = $sql->fetch(PDO::FETCH_ASSOC);
       include('include/menu.php');
     ?>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <div class="container">
+    <div class="container" style="margin-top:60px; margin-bottom:50px;">
       <div id="tarefas"></div>
       <div class="row">
         <h1>
@@ -92,7 +69,7 @@
             <?php echo "<a href='editaempresa.php?id_empresa=".$row['id_empresa']."&epr=excluir'><button type='reset' class='btn btn-danger'data-toggle='tooltip' data-placement='left' title='Excluir cadastro!'><span class='glyphicon glyphicon-trash'></span></button></a>"; ?>
           </div>
         </div>
-        <form class="form-horizontal" action="updateempresa.php" method="POST"> 
+        <form class="form-horizontal" action="updates/updateempresa.php" method="POST"> 
           <input style="display:none;"  name='id_empresa' value='<?php echo $id; ?>'readonly/>
           <div class="form-group">
             <label class="col-md-2 control-label">Razão Social:</label>  
@@ -185,6 +162,25 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
-        
+        <script>
+          function erro(){
+            alert('Acesso negado! Redirecinando a pagina principal.');
+            window.location.assign("chamadoespera.php");
+          }  
+          function cancelar(){
+            window.location.assign("chamados.php");
+          }
+          function deletado(){
+            alert('Cadastro deletado com sucesso!');
+            window.location.assign("empresa.php");
+          }
+          $(function () {$('[data-toggle="popover"]').popover()});
+          $(function () {$('[data-toggle="tooltip"]').tooltip()});
+          function atualizarTarefas() {
+            var url="notifica.php";
+            jQuery("#tarefas").load(url);
+          }
+          setInterval("atualizarTarefas()",1000);
+      </script>
   </body>
 </html>

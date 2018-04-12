@@ -20,7 +20,7 @@ $email = md5($_SESSION['Email']);
         echo '<li style="background-color:#222;color:white;" class="list-group-item"><div>Lista de Atendentes</div></li>';
                 foreach ($result as $row) {
                     if ($row > 1) {
-                        echo '<li class="list-group-item"><img src="https://www.gravatar.com/avatar/'.md5($row['email']).'" width="25px"> ';
+                        echo '<li class="list-group-item" style="padding:5px;"><img src="https://www.gravatar.com/avatar/'.md5($row['email']).'" width="25px"> ';
                         echo $row['nome'];
                         if ($row['disponivel']) {
                             echo'<em style="color:#d9534f;"> - Em atendimento</em>';
