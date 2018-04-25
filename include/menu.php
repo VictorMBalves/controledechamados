@@ -19,10 +19,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
           <li>
-            <a href="home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome</a>
+            <a href="../pages/home.php"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome</a>
           </li>
             <li>
-              <a href="empresa.php"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbspClientes
+              <a href="../pages/empresa.php"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbspClientes
               </a>
             </li>
           </ul>
@@ -37,13 +37,13 @@
               <?php 
                 if($_SESSION['UsuarioNivel'] != 1) {
                   echo '<li>
-                          <a href="chamados.php">Atendimentos
+                          <a href="../pages/chamados.php">Atendimentos
                           </a>
                         </li>
                         <li role="separator" class="divider">
                         </li>
                         <li>
-                          <a href="cad_chamado.php">Novo Chamado
+                          <a href="../pages/cad_chamado.php">Novo Chamado
                           </a>
                         </li>
                         <li role="separator" class="divider">
@@ -51,7 +51,7 @@
                   }
               ?>
                 <li>
-                  <a href="chamadoespera.php">Novo Chamado Em Espera
+                  <a href="../pages/chamadoespera.php">Novo Chamado Em Espera
                   </a>
                 </li>
             </ul>
@@ -60,7 +60,7 @@
             <?php if($_SESSION['UsuarioNivel'] != 1) { 
               echo'
                 <li>
-                  <a href="plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
+                  <a href="../pages/plantao.php"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
                 </li>';
             }?>
           
@@ -73,16 +73,16 @@
                     </a>
                   <ul class="dropdown-menu">
                   <li>
-                    <a href="relatorio.php">Chamados por atendente
+                    <a href="../pages/relatorio.php">Chamados por atendente
                     </a>
                   </li>
                   <li role="separator" class="divider"></li>
                   <li>
-                    <a href="relatorioempre.php">Empresas Solicitantes </a>
+                    <a href="../pages/relatorioempre.php">Empresas Solicitantes </a>
                   </li>
                   <li role="separator" class="divider"></li>
                   <li>
-                    <a href="dadosempresasapi.php">Dados empresas API </a>
+                    <a href="../pages/dadosempresasapi.php">Dados empresas API </a>
                   </li>
                   <li role="separator" class="divider"></li>
                 </ul>
@@ -99,7 +99,7 @@
               </a>
               <ul class="dropdown-menu">
               <li>
-              <a style="padding-left:10px;" href="meuschamados.php"><?php echo "<img src='https://www.gravatar.com/avatar/$email' width='25px'>";?>
+              <a style="padding-left:10px;" href="../pages/meuschamados.php"><?php echo "<img src='https://www.gravatar.com/avatar/$email' width='25px'>";?>
                 <?php echo $_SESSION['UsuarioNome']; ?> 
                 <span class="sr-only">(current)
                 </span>
@@ -112,7 +112,7 @@
                   echo ' <li role="separator" class="divider">
                           </li>         
                           <li>
-                          <a href="cad_usuario.php">Cadastrar usuário
+                          <a href="../pages/cad_usuario.php">Cadastrar usuário
                           </a>
                         </li>';
                          }
@@ -120,12 +120,12 @@
             <li role="separator" class="divider">
             </li>
             <li>
-              <a href="alterasenha.php">Alterar senha
+              <a href="../pages/alterasenha.php">Alterar senha
               </a>
             </li>
              <li role="separator" class="divider">
             </li>
-          <li><a href="logout.php">Sair</a></li>
+          <li><a href="../utilsPHP/logout.php">Sair</a></li>
             <li role="separator" class="divider"></li>
           </ul>
           </li>

@@ -8,11 +8,11 @@
 
     function erro(){
         alert('Acesso negado! Redirecinando a pagina principal.');
-        window.location.assign("chamadoespera.php");
+        window.location.assign("../pages/chamadoespera.php");
     }
     $(function() {
         $("#usuarios").autocomplete({
-            source: 'searchusers.php'
+            source: '../utilsPHP/searchusers.php'
         });
     });
 
@@ -54,7 +54,7 @@
             });
         });
         
-        if (users === undefined || users.length == 0) {
+        if (users == undefined || users.length == 0) {
             return alert("Nenhum usuário selecionado");
         }
 
@@ -62,14 +62,14 @@
         data.push({name: 'mes', value: mes});
         $.ajax({
             type: "POST",
-            url: "gerarPDFescala.php",
+            url: "../utilsPHP/gerarPDFescala.php",
             data:data,
             success: function(data){
                 if(data == 'null'){
                     alert("Nenhum usuário salvo para escala mensal!");
                     return;
                 }
-                window.location = 'downloadpdf.php';
+                window.location = '../utilsPHP/downloadpdf.php';
             }
         });
     });
@@ -84,7 +84,7 @@
             });
         });
 
-        if (users === undefined || users.length == 0) {
+        if (users == undefined || users.length == 0) {
             return alert("Nenhum usuário selecionado");
         }
         
@@ -94,8 +94,8 @@
 
         $.ajax({
             type: "POST",
-            url: "escalamensal.php",
-            data:data,
+            url: "../utilsPHP/escalamensal.php",
+            data: data,
             success: function(data){
                 getUsuarios();
                 alert("Escala salva com sucesso");
@@ -130,7 +130,7 @@
         var mes = $("#mes").val();
         $("#lista").html('');
         $.getJSON(
-        'getusermes.php',
+        '../utilsPHP/getusermes.php',
         { mes: mes },
         function( json )
         {

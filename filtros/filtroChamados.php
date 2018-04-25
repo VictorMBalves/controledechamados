@@ -19,7 +19,7 @@
             <select name="usuario" class="form-control">
                 <option></option>       
                 <?php 
-                    include './include/dbconf.php';
+                    include '../include/dbconf.php';
                     $conn->exec('SET CHARACTER SET utf8');
                     $sql = $conn->prepare('SELECT nome, nivel FROM usuarios');
                     $sql->execute();

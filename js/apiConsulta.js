@@ -18,7 +18,7 @@ function callApi(empresa) {
     sistema.val('');
 
     $.getJSON(
-            'callAPI.php', {
+            '../utilsPHP/callAPI.php', {
                 empresa: empresa,
             }
         )
@@ -43,7 +43,7 @@ function callApi(empresa) {
                     sistema.val('GermanTech Emissor');
                 }
                     //Verifica o bloqueio do sistema
-                $.get('verificabloqueio.php?bloqueio=' + bloqueado, function(bl) {
+                $.get('../utilsPHP/verificabloqueio.php?bloqueio=' + bloqueado, function(bl) {
                     $('#resultado').html(bl);
                 });
                 if(document.getElementById('verModulo') != null){
@@ -51,7 +51,7 @@ function callApi(empresa) {
                 }
                 $.ajax({
                     type: "POST",
-                    url: "visualizaModulo.php",
+                    url: "../utilsPHP/visualizaModulo.php",
                     data: {
                     nf:notafiscal,
                     nfc:notafiscalconsumidor,
@@ -93,7 +93,7 @@ function callApi(empresa) {
     var empresa = $('#skills').val();
 
         $.getJSON(
-        'gettelefone.php',
+        '../utilsPHP/gettelefone.php',
         { empresa: empresa },
         function( json )
         {

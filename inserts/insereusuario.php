@@ -4,7 +4,7 @@
     <script>
       function redireciona(){
         alert("Usuario cadastrado!");
-        window.location.assign("../cad_usuario.php");
+        window.location.assign("../pages/cad_usuario.php");
       }
     </script>
   </head>

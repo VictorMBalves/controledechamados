@@ -5,17 +5,17 @@ $(document).ready(function() {
 
 function erro() {
     alert('Acesso negado! Redirecinando a pagina principal.');
-    window.location.assign("home.php");
+    window.location.assign("../pages/home.php");
 }
 
 function cancelar() {
-    window.location.assign("chamados.php");
+    window.location.assign("../pages/chamados.php");
 }
 
 $(function() {
     $("input[name='usuario']").on('blur', function() {
         var usuario = $(this).val();
-        $.get('verificausuario.php?usuario=' + usuario, function(data) {
+        $.get('../utilsPHP/verificausuario.php?usuario=' + usuario, function(data) {
             $('#resultado').html(data);
         });
     });
@@ -24,7 +24,7 @@ $(function() {
 function loadTable(){
     $.ajax({
         type: 'POST',
-        url: 'consultaTabelas/tabelausuarios.php',
+        url: '../consultaTabelas/tabelausuarios.php',
         dataType:"json",
         success: function(data){ 
             if(data){
@@ -46,7 +46,7 @@ function buildTable(data){
             txt+='<td>'+data[i].nome+'</td>';
             txt+='<td>'+data[i].usuario+'</td>';
             txt+='<td>'+data[i].email+'</td>';
-            txt+="<td><a style='margin-top:2px;' href='editausuario.php?id="+data[i].id+"'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
+            txt+="<td><a style='margin-top:2px;' href='../pages/editausuario.php?id="+data[i].id+"'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
             txt+="</tr>";
         }
 

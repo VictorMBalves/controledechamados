@@ -1,45 +1,45 @@
 function home() {
-    window.location.assign("home.php");
+    window.location.assign("../pages/home.php");
 }
 
 function novo() {
-    window.location.assign("cad_chamado.php");
+    window.location.assign("../pages/cad_chamado.php");
 }
 
 function chamado() {
-    window.location.assign("chamados.php");
+    window.location.assign("../pages/chamados.php");
 }
 
 function sair() {
-    window.location.assign("logout.php");
+    window.location.assign("../utilsPHP/logout.php");
 }
 
 function redireciona() {
-    window.location.assign("cad_chamado.php");
+    window.location.assign("../pages/cad_chamado.php");
 }
 
 function cancelar() {
-    window.location.assign("chamados.php");
+    window.location.assign("../pages/chamados.php");
 }
 
 function cancelar2() {
-    window.location.assign("empresa.php");
+    window.location.assign("../pages/empresa.php");
 }
 
 function cancelar3() {
-    window.location.assign("plantao.php");
+    window.location.assign("../pages/plantao.php");
 }
 
 function cancelar4() {
-    window.location.assign("cad_usuario.php");
+    window.location.assign("../pages/cad_usuario.php");
 }
 
 function cadastrar() {
-    window.location.assign("cad_empresa.php");
+    window.location.assign("../pages/cad_empresa.php");
 }
 
 function reeturn() {
-    window.location.assign("plantao.php");
+    window.location.assign("../pages/plantao.php");
 }
 
 function SomenteNumero(e) {
@@ -69,7 +69,7 @@ function validar() {
 }
 
 function atualizarTarefas() {
-    var url = "notifica.php";
+    var url = "../utilsPHP/notifica.php";
     jQuery("#tarefas").load(url);
 }
 setTimeout("atualizarTarefas()", 100);

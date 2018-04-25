@@ -1,15 +1,15 @@
 $( document ).ready(function() {
-    $("#loading").html('<img src="imagem/loading.gif">');
+    $("#loading").html('<img src="../imagem/loading.gif">');
     loadTable();
 });
 
 function erro(){
     alert('Acesso negado! Redirecinando a pagina principal.');
-    window.location.assign("chamadoespera.php");
+    window.location.assign("../pages/chamadoespera.php");
 }
 $(function() {
     $( "#skills" ).autocomplete({
-        source: 'search.php'
+        source: '../utilsPHP/search.php'
     });
 });
 
@@ -27,7 +27,7 @@ function validarHorario(){
 function loadTable(){
     $.ajax({
         type: 'POST',
-        url: 'consultaTabelas/tabelaplantao.php',
+        url: '../consultaTabelas/tabelaplantao.php',
         dataType:"json",
         success: function(data){ 
             if(data){
@@ -53,7 +53,7 @@ function buildTable(data){
             txt+='<td>'+data[i].empresa+'</td>';
             txt+='<td>'+data[i].contato+'</td>';
             txt+='<td>'+data[i].telefone+'</td>';
-            txt+="<td><a href='consultaespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> <a href='abrechamadoespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
+            txt+='<td><a href="../pages/consultaplantao.php?id_plantao='+data[i].id_plantao+'"><button class="btn btn-info btn-sm btn-block" type="button">Consultar</button></a> </td>';
             txt+="</tr>";
         }
 

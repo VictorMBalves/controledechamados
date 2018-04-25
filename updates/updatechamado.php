@@ -4,7 +4,7 @@
     <script>
       function redireciona(){
         alert("Atendimento Editado!");
-        window.location.assign("../chamados.php");
+        window.location.assign("../pages/chamados.php");
       }
     </script>
   </head>

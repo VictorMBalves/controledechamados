@@ -1,9 +1,9 @@
 $(document).ready(function() {
-    $("#loading").html('<img src="imagem/loading.gif">');
+    $("#loading").html('<img src="../imagem/loading.gif">');
     
     $.ajax({
         type: 'POST',
-        url: 'callTodasEmpresas.php',
+        url: '../utilsPHP/callTodasEmpresas.php',
         dataType:"json", //to parse string into JSON object,
         success: function(data){ 
             if(data){

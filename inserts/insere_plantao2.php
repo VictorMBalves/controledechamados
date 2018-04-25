@@ -8,7 +8,7 @@ if (!isset($_SESSION['UsuarioID'])) {
     // Destrói a sessão por segurança
     session_destroy();
     // Redireciona o visitante de volta pro login
-    header("Location: index.php");
+    header("Location: ../index.html");
     exit;
 }
 ?>
@@ -18,11 +18,11 @@ if (!isset($_SESSION['UsuarioID'])) {
     <script>
       function redireciona(){
         alert("Plantão Registrado!");
-        window.location.assign("../plantao.php?#menu1");
+        window.location.assign("../pages/plantao.php?#menu1");
       }
       function erro(){
         alert("Erro ao registrar atendimento!");
-        window.location.assign("../plantao.php");
+        window.location.assign("../pages/plantao.php");
       }
     
     </script>

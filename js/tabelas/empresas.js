@@ -1,22 +1,22 @@
 function erro(){
     alert('Acesso negado! Redirecinando a pagina principal.');
-    window.location.assign("chamadoespera.php");
+    window.location.assign("../pages/chamadoespera.php");
 }
-$(function () {$('#skills').autocomplete({source: 'search.php'});});
-$(function () {$('[data-toggle="popover"]').popover()});
-$(function () {$('[data-toggle="tooltip"]').tooltip()});
+$(function () {$('#skills').autocomplete({source: '../utilsPHP/search.php'});});
+$(function () {$('[data-toggle="popover"]').popover();});
+$(function () {$('[data-toggle="tooltip"]').tooltip();});
 
 $(document).ready(function() {
-    $("#loading").html('<img src="imagem/loading.gif">');
+    $("#loading").html('<img src="../imagem/loading.gif">');
     loadTable();
 });
 
 $("#buscar").on("click", function(){
-    $("#loading").html('<img src="imagem/loading.gif">');
+    $("#loading").html('<img src="../imagem/loading.gif">');
     var data = $('#filtros').serialize();
     $.ajax({
         type: 'POST',
-        url: 'consultaTabelas/tabelaempresas.php',
+        url: '../consultaTabelas/tabelaempresas.php',
         data: data,
         dataType:"json",
         success: function(dados){ 
@@ -34,7 +34,7 @@ $("#buscar").on("click", function(){
 });
 
 $("#refresh").on("click", function(){
-    $("#loading").html('<img src="imagem/loading.gif">');
+    $("#loading").html('<img src="../imagem/loading.gif">');
     $('#tabela').DataTable().destroy();
     $('#tbody').empty();
     loadTable();
@@ -44,7 +44,7 @@ $("#refresh").on("click", function(){
 function loadTable(){
     $.ajax({
         type: 'POST',
-        url: 'consultaTabelas/tabelaempresas.php',
+        url: '../consultaTabelas/tabelaempresas.php',
         dataType:"json",
         success: function(data){ 
             
@@ -76,7 +76,7 @@ function buildTable(data){
             }else{
                 txt +="<td>"+data[i].versao+"</td>";
             }
-            txt +="<td><a style='margin-top:2px;' href='editaempresa.php?id_empresa="+data[i].id_empresa+"'><button data-toggle='tooltip' data-placement='left' title='Editar Cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
+            txt +="<td><a style='margin-top:2px;' href='../pages/editaempresa.php?id_empresa="+data[i].id_empresa+"'><button data-toggle='tooltip' data-placement='left' title='Editar Cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
             txt +='</tr>';
         }
 

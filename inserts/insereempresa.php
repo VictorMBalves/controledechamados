@@ -4,7 +4,7 @@
     <script>
       function redireciona(){
         alert("Empresa cadastrada!");
-        window.location.assign("../empresa.php");
+        window.location.assign("../pages/empresa.php");
       }
     </script>
   </head>

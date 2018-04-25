@@ -1,7 +1,7 @@
     $( document ).ready(function() {
         loadAvisos();
         loadResponsavelSemana();
-        $("#loading").html('<img src="imagem/loading.gif">');
+        $("#loading").html('<img src="../imagem/loading.gif">');
         loadTable();
     });
     
@@ -11,11 +11,11 @@
 
     function erro(){
         alert('Acesso negado! Redirecinando a pagina principal.');
-         window.location.assign("chamadoespera.php");
+         window.location.assign("../pages/chamadoespera.php");
     }
 
     function refresh_usuarios() {
-        var url="atendentedispo.php";
+        var url="../utilsPHP/atendentedispo.php";
         jQuery("#usuarios").load(url);
     }
 
@@ -30,7 +30,7 @@
     function loadAvisos(){
         $.ajax({
             type: "POST",
-            url: "avisos.php",
+            url: "../pages/avisos.php",
             success:function(data){
                 $("#avisos").html(data);
             }
@@ -40,7 +40,7 @@
     function loadResponsavelSemana(){
         $.ajax({
             type: "POST",
-            url: "responsavelsemana.php",
+            url: "../utilsPHP/responsavelsemana.php",
             success:function(data){
                 $("#plantao").html(data);
             }
@@ -50,7 +50,7 @@
     function loadTable(){
         $.ajax({
             type: 'POST',
-            url: 'consultaTabelas/tabelahome.php',
+            url: '../consultaTabelas/tabelahome.php',
             dataType:"json",
             success: function(data){ 
                 if(data){
@@ -74,11 +74,6 @@
                 }else{
                     txt +='<td><div class="circle4" data-toggle="tooltip" data-placement="left" title="Entrado em contato"></div></td>';
                 }
-                // if(data[i].historico == null){
-                //     txt +='<td>Não</td>';    
-                // }else{
-                //     txt +='<td>Sim</td>';
-                // }
                 txt+='<td>'+data[i].data+'</td>';
                 txt+='<td>'+data[i].usuario+'</td>';
 
@@ -90,7 +85,7 @@
                 txt+='<td>'+data[i].empresa+'</td>';
                 txt+='<td>'+data[i].contato+'</td>';
                 txt+='<td>'+data[i].telefone+'</td>';
-                txt+="<td><a href='consultaespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> <a href='abrechamadoespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
+                txt+="<td><a href='../pages/consultaespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> <a href='../pages/abrechamadoespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
                 txt+="</tr>";
             }
     
@@ -105,7 +100,7 @@
                 });
             }
         }else{
-            $('#loading').html('<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nenhum registro encontrado</div>');
+            $('#loading').html('<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nenhum chamado aguardando retorno!</div>');
         }
     }
 

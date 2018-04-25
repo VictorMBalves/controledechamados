@@ -1,14 +1,14 @@
 function erro(){
     alert('Acesso negado! Redirecinando a pagina principal.');
-    window.location.assign("chamadoespera.php");
+    window.location.assign("../pages/chamadoespera.php");
 }  
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
 
 $( document ).ready(function(){
-    $("#loading").html('<img src="imagem/loading.gif">');
-    $("#loadingdirecionados").html('<img src="imagem/loading.gif">');
+    $("#loading").html('<img src="../imagem/loading.gif">');
+    $("#loadingdirecionados").html('<img src="../imagem/loading.gif">');
     loadTable();
     loadTableDirecionados();
 });
@@ -16,7 +16,7 @@ $( document ).ready(function(){
 function loadTable(){
     $.ajax({
         type: 'POST',
-        url: 'consultaTabelas/tabelameuschamados.php',
+        url: '../consultaTabelas/tabelameuschamados.php',
         dataType:"json",
         success: function(data){ 
             if(data){
@@ -44,11 +44,11 @@ function buildTable(data){
         
             if (data[i].status !="Finalizado") {
                 txt +='<td><center>';
-                txt +='<a style="margin-top:2px; margin-right:5px;" href="editachamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
-                txt +='<a href="abrechamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
+                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
+                txt +='<a href="../pages/abrechamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
                 txt +='</center></td>';
             }else{
-                txt +='<td><a href="consulta.php?id_chamado='+data[i].id_chamado+'"><button class="btn btn-info btn-sm btn-block" type="button">Consultar</button></a> </td>';
+                txt +='<td><a href="../pages/consulta.php?id_chamado='+data[i].id_chamado+'"><button class="btn btn-info btn-sm btn-block" type="button">Consultar</button></a> </td>';
             }  
             txt +='</tr>';
         }
@@ -72,7 +72,7 @@ function buildTable(data){
 function loadTableDirecionados(){
     $.ajax({
         type: 'POST',
-        url: 'consultaTabelas/tabeladirecionados.php',
+        url: '../consultaTabelas/tabeladirecionados.php',
         dataType:"json",
         success: function(data){ 
             if(data){
@@ -102,7 +102,7 @@ function buildTableDirecionados(data){
             txt+='<td>'+data[i].empresa+'</td>';
             txt+='<td>'+data[i].contato+'</td>';
             txt+='<td>'+data[i].telefone+'</td>';
-            txt+="<td><a href='consultaespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> <a href='abrechamadoespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
+            txt+="<td><a href='../pages/consultaespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> <a href='../pages/abrechamadoespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
             txt+="</tr>";
         }
 

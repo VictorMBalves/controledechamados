@@ -8,7 +8,7 @@ if (!isset($_SESSION['UsuarioID'])) {
     // Destrói a sessão por segurança
     session_destroy();
     // Redireciona o visitante de volta pro login
-    header("Location: ../index.php");
+    header("Location: ../index.html");
     exit;
 }
 ?>
@@ -18,11 +18,11 @@ if (!isset($_SESSION['UsuarioID'])) {
     <script>
       function redireciona(){
         alert("Atendimento Registrado!");
-        window.location.assign("../home.php");
+        window.location.assign("../pages/home.php");
       }
       function redireciona2(){
         alert("Atendimento Registrado!");
-        window.location.assign("../chamadoespera.php");
+        window.location.assign("../pages/chamadoespera.php");
       }
     </script>
   </head>

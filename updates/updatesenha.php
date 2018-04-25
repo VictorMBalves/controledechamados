@@ -19,7 +19,7 @@ if (!isset($_SESSION['UsuarioID'])) {
     // Destrói a sessão por segurança
     session_destroy();
     // Redireciona o visitante de volta pro login
-    header("Location: ../index.php");
+    header("Location: ../index.html");
     exit;
 }
 ?>
@@ -29,7 +29,7 @@ if (!isset($_SESSION['UsuarioID'])) {
 <script>
 function redireciona(){
     alert("Senha alterada com sucesso!");
-         window.location.assign("../home.php");
+         window.location.assign("../pages/home.php");
     
 }
 </script>
