@@ -1,21 +1,6 @@
-<!DOCTYPE>
-<html>
-<head>
-<script>
-function loginfail() {
-	alert('Usuario não cadastrado');
-	setTimeout(window.location='../index.html',5000);
-}
- 
-</script>
-</head>
-<body>
-</body>
-</html>
 <?php
-
 if (!empty($_POST) and (empty($_POST['usuario']) or empty($_POST['senha']))) {
-    header("Location:../index.html");
+    echo 'fail';
     exit;
 }
 include '../include/dbconf.php';
@@ -28,7 +13,8 @@ $sql->bindParam(':senha', $senha, PDO::PARAM_STR, 40);
 $sql->execute();
 $resultado = $sql->fetch();
 if (empty($resultado)) {
-    echo "<script>loginfail()</script>";
+    echo "fail";
+    exit;
 } else {
     if (!isset($_SESSION)) {
         session_start();
@@ -39,7 +25,12 @@ if (empty($resultado)) {
     $_SESSION['UsuarioNivel'] = $resultado['nivel'];
     $_SESSION['Email'] = $resultado['email'];
     // Redireciona o visitante
-    header("Location:../pages/home.php");
+    if($_SESSION['UsuarioNivel'] == 1){
+        echo 'successNivel1';
+        exit;
+    }
+
+    echo 'success';
     exit;
 }
 ?>

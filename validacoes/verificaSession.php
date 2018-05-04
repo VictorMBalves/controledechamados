@@ -3,16 +3,16 @@
     if (!isset($_SESSION)) {
         session_start();
     }
-    if ($_SESSION['UsuarioNivel'] == 1) {
+    if (!isset($_SESSION['UsuarioID'])) {
         session_destroy();
-        header("Location: index.html");
+        header("Location: ../index.html");
         exit;
-    } else {
-        if (!isset($_SESSION['UsuarioID'])) {
-            session_destroy();
-            header("Location: index.html");
-            exit;
-        }
+    }
+
+    if ($_SESSION['UsuarioNivel'] == 1) {
+        $email = md5($_SESSION['Email']);
+        header("Location: ../pages/chamadoespera.php");
+        exit;
     }
     $email = md5($_SESSION['Email']);
 ?>

@@ -1,6 +1,5 @@
 <?php
 include '../include/dbconf.php';
-include '../validacoes/verificaSession.php';
 $conn->exec('SET CHARACTER SET utf8');
 $sql = $conn->prepare("SELECT nome, email, disponivel FROM usuarios WHERE nivel = 2");
 $sql->execute();

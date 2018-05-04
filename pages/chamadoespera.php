@@ -1,5 +1,5 @@
 <?php
-	include '../validacoes/verificaSession.php';
+	include '../validacoes/verificaSessionFinan.php';
 	include '../include/dbconf.php';
 	$conn->exec('SET CHARACTER SET utf8');
 	$sql = $conn->prepare('SELECT nome, nivel, disponivel FROM usuarios');
