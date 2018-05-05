@@ -85,6 +85,7 @@ function buildTable(data){
             $("#tabela").append(txt);
             $('#tabela').DataTable({
                 pageLength: 10,
+                responsive: isCelular(),
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
                 }

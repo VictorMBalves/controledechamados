@@ -73,3 +73,7 @@ function atualizarTarefas() {
     jQuery("#tarefas").load(url);
 }
 setTimeout("atualizarTarefas()", 100);
+
+function isCelular(){
+    return ($( window ).width() <= 720);
+}

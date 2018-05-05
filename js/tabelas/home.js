@@ -4,7 +4,8 @@
         $("#loading").html('<img src="../imagem/loading.gif">');
         loadTable();
     });
-    
+
+
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
       });
@@ -106,4 +107,8 @@
 
     $.extend( true, $.fn.dataTable.defaults, {
         "ordering": false
+    } );
+
+    $.extend( true, $.fn.dataTable.defaults, {
+        responsive: isCelular(),
     } );

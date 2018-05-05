@@ -18,6 +18,11 @@
 				include '../include/menu.php';
 			?>
 			<div class="content">
+				<div class="col-md-4 sidebar-outer">
+					<div id="plantao"></div><!--Responsavel pelo plantão -->
+					<div id="usuarios"></div><!--Usuários disponiveis -->
+					<div id="avisos"></div><!-- Panel de avisos -->
+				</div>
 				<div class="col-md-8">
 					<div id="tarefas"></div><!--Aviso de chamado direcionado-->
 					<div class="row">
@@ -30,11 +35,6 @@
 							</div>					
 						</div>
 					</div>
-					<!-- <div class="col-md-4">
-						<a href="home.php" class="thumbnail teste">
-							<img src="../imagem/logo.png" >
-						</a>
-					</div> -->
 					<br>
 					<div class="alert alert-warning" role="alert">
 						<center>Chamados aguardando retorno:</center>
@@ -58,11 +58,6 @@
 						</tbody> 
 					</table>
 					<div class="col-sm-12 text-center" id="loading"></div>
-				</div>
-				<div class="col-md-4 sidebar-outer">
-					<div id="plantao"></div><!--Responsavel pelo plantão -->
-					<div id="usuarios"></div><!--Usuários disponiveis -->
-					<div id="avisos"></div><!-- Panel de avisos -->
 				</div>
 			</div>
 		</div>
