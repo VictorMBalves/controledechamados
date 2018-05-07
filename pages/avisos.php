@@ -60,10 +60,10 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Avisos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <h5 class="modal-title">Avisos</h5>
             </div>
             <div class="modal-body">
                 <form id="formAviso" class="form-horizontal">
@@ -82,8 +82,10 @@
                 </form>
             </div>
             <div class="modal-footer" id="rodape">
-                <button type="button" class="btn btn-primary" id="modal-salvar">salvar</button>
-                <button type="button" class="btn btn-secundary" id="modal-retornar">Retornar</button>
+                <div class="col-md-12 text-center">
+                    <button type="button" class="btn btn-primary" id="modal-salvar">salvar</button>
+                    <button type="button" class="btn btn-secundary" id="modal-retornar">Retornar</button>
+                </div>
             </div>
             </div>
         </div>

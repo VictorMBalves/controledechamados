@@ -45,6 +45,10 @@
 				<div class="col-sm-12 text-center" id="loading"></div>
 			</table>
 		</div>
+
+		<div id="modalConsulta">
+		</div>
+		
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

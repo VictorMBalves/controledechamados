@@ -25,11 +25,25 @@ $sql ->bindParam(":data", $datafinal, PDO::PARAM_STR, 500);
 $sql ->bindParam(":id", $id, PDO::PARAM_STR, 500);
 $sql->execute();
 
-$sql = $conn->prepare("SELECT * FROM chamado WHERE usuario = '$usuario' and status = 'Aberto' ") or die(mysql_error());
+$sql = $conn->prepare("SELECT usuario FROM chamado WHERE id_chamado = '$id'");
 $sql->execute();
-if ($sql->rowCount()<1) {
-    $sql = $conn->prepare("UPDATE usuarios set disponivel=0 where nome = '$usuario'") or die(mysql_error());
-    $sql->execute();
+$resultado = $sql->fetch();
+
+if($resultado['usuario'] == $usuario){
+  $sql = $conn->prepare("SELECT id_chamado FROM chamado WHERE usuario = '$usuario' and status = 'Aberto' ") or die(mysql_error());
+  $sql->execute();
+  if ($sql->rowCount()<1) {
+      $sql = $conn->prepare("UPDATE usuarios set disponivel=0 where nome = '$usuario'") or die(mysql_error());
+      $sql->execute();
+  }
+}else{
+  $usuario = $resultado['usuario'];
+  $sql = $conn->prepare("SELECT id_chamado FROM chamado WHERE usuario = '$usuario' and status = 'Aberto' ") or die(mysql_error());
+  $sql->execute();
+  if ($sql->rowCount()<1) {
+      $sql = $conn->prepare("UPDATE usuarios set disponivel=0 where nome = '$usuario'") or die(mysql_error());
+      $sql->execute();
+  }
 }
 echo '<script> redireciona() </script>'
 ?>

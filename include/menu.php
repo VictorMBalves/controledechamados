@@ -127,7 +127,7 @@
             </li>
           		<li><a href="../utilsPHP/logout.php">Sair</a></li>
 				<li role="separator" class="divider"></li>
-				<li><a href="#">versão 1.1.0</a></li>
+				<li><a href="#">versão 1.1.1</a></li>
 				<li role="separator" class="divider"></li>
           </ul>
           </li>
