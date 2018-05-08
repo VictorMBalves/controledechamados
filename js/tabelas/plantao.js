@@ -53,7 +53,7 @@ function buildTable(data){
             txt+='<td>'+data[i].empresa+'</td>';
             txt+='<td>'+data[i].contato+'</td>';
             txt+='<td>'+data[i].telefone+'</td>';
-            txt+='<td><a href="../pages/consultaplantao.php?id_plantao='+data[i].id_plantao+'"><button class="btn btn-info btn-sm btn-block" type="button">Consultar</button></a> </td>';
+            txt+='<td><button class="btn btn-info btn-sm btn-block" type="button" onclick="abrirVisualizacao('+data[i].id_plantao+')">Consultar</button></td>';
             txt+="</tr>";
         }
 
@@ -76,3 +76,10 @@ function buildTable(data){
 $.extend( true, $.fn.dataTable.defaults, {
     "ordering": false
 } );
+
+function abrirVisualizacao(id){
+    $("#modalConsulta").load("../modals/modalConsultaPlantao.php?id_plantao="+id);
+    setTimeout(function(){
+        $("#modalCon").modal('show');
+    }, 300);
+}

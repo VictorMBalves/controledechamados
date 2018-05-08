@@ -97,7 +97,7 @@ function buildTable(data){
 }
 
 function abrirVisualizacao(id){
-    $("#modalConsulta").load("../pages/modalConsultaChamado.php?id_chamado="+id);
+    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id);
     setTimeout(function(){
         $("#modalCon").modal('show');
     }, 300);

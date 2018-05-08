@@ -114,7 +114,7 @@
     } );
 
     function abrirVisualizacao(id){
-        $("#modalConsulta").load("../pages/modalConsultaEspera.php?id_chamadoespera="+id);
+        $("#modalConsulta").load("../modals/modalConsultaEspera.php?id_chamadoespera="+id);
         setTimeout(function(){
             $("#modalCon").modal('show');
         }, 300);
