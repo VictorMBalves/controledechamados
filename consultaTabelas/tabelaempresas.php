@@ -1,12 +1,13 @@
 <?php
 
-    include '../include/dbconf.php'; 
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
 
     if($_POST == null){
         $sql = "SELECT id_empresa, nome, situacao, cnpj, sistema, versao FROM empresa ORDER BY id_empresa ASC";
-        $query = $conn->prepare($sql);
+        $query = $db->prepare($sql);
         $query->execute();
-        $resultado = $query->fetchall();
+        $resultado = $query->fetchall(PDO::FETCH_ASSOC);
         echo json_encode($resultado);
     }else{
         $situacao = $_POST['situacao'];
@@ -50,9 +51,9 @@
         }
         $sql = " $query ORDER BY id_empresa asc";
         
-        $query = $conn->prepare($sql);
+        $query = $db->prepare($sql);
         $query->execute();
-        $resultado = $query->fetchall();
+        $resultado = $query->fetchall(PDO::FETCH_ASSOC);
         echo json_encode($resultado);
     }
 

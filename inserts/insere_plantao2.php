@@ -29,8 +29,9 @@ if (!isset($_SESSION['UsuarioID'])) {
   </head>
 </html>
 <?php 
-include '../include/dbconf.php'; 
-$conn->exec('SET CHARACTER SET utf8');
+require_once '../include/Database.class.php';
+$db = Database::conexao();
+
 $data=$_POST['data'];
 $horai=$_POST['horainicio'];
 $horaf=$_POST['horafim'];
@@ -46,9 +47,9 @@ $descproblema=str_replace("'","''",$_POST['descproblema']);
 $descsolucao=str_replace("'","''",$_POST['descsolucao']);
 $usuario=$_SESSION['UsuarioNome'];
 $backup=$_POST['backup'];
-$sql = $conn->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
+$sql = $db->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
 $sql->execute();
-$sql = $conn->prepare("INSERT INTO plantao (usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, descsolucao, data, horainicio, horafim) 
+$sql = $db->prepare("INSERT INTO plantao (usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, descsolucao, data, horainicio, horafim) 
 VALUES (:usuario, :status, :empresa, :contato, :telefone, :sistema, :versao, :formacontato, :categoria, :descproblema, :descsolucao, :data, :horai, :horaf)") or die(mysql_error());
 $sql ->bindParam(":usuario", $usuario, PDO::PARAM_STR, 500);
 $sql ->bindParam(":status", $status, PDO::PARAM_STR, 500);

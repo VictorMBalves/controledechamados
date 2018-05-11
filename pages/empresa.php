@@ -13,7 +13,6 @@
 	<body>
 	<?php
 		include '../validacoes/verificaSession.php';
-		include '../include/db.php';
 		include '../include/menu.php';
 	?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">

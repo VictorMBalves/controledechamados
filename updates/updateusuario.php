@@ -23,9 +23,11 @@ if (!isset($_SESSION['UsuarioID'])) {
     </script>
   </head>
 </html>
-<?php 
-include '../include/dbconf.php';
-$conn->exec('SET CHARACTER SET utf8');
+<?php
+
+require_once '../include/Database.class.php';
+$db = Database::conexao();
+
 $id=$_POST['id'];
 $nome=$_POST['nome'];
 $usuario=$_POST['usuario'];
@@ -35,7 +37,7 @@ $nivel=$_POST['nivel'];
 
 $pass =SHA1($senha);
 
-$sql = $conn->prepare("UPDATE usuarios SET nome='$nome', usuario='$usuario', email='$email', senha='$pass', nivel='$nivel' WHERE id='$id'") or die(mysql_error());
+$sql = $db->prepare("UPDATE usuarios SET nome='$nome', usuario='$usuario', email='$email', senha='$pass', nivel='$nivel' WHERE id='$id'") or die(mysql_error());
 $sql->execute();
 echo '<script> redireciona() </script>'
 ?>

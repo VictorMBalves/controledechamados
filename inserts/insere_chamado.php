@@ -29,8 +29,9 @@ if (!isset($_SESSION['UsuarioID'])) {
   </head>
 </html>
 <?php 
-include '../include/dbconf.php'; 
-$conn->exec('SET CHARACTER SET utf8');
+require_once '../include/Database.class.php';
+$db = Database::conexao();
+
 $datainicio = date("Y-m-d H:i:s");
 $status = "Aberto";
 $empresa=$_POST['empresa'];
@@ -43,11 +44,11 @@ $categoria=$_POST['categoria'];
 $descproblema=str_replace("'","''",$_POST['descproblema']);
 $usuario=$_SESSION['UsuarioNome'];
 $backup=$_POST['backup'];
-$sql = $conn->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
+$sql = $db->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
 $sql->execute();
-$sql = $conn->prepare("UPDATE usuarios set disponivel=1 where nome = '$usuario'") or die(mysql_error());
+$sql = $db->prepare("UPDATE usuarios set disponivel=1 where nome = '$usuario'") or die(mysql_error());
 $sql->execute();
-$sql = $conn->prepare("INSERT INTO chamado (usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, datainicio) 
+$sql = $db->prepare("INSERT INTO chamado (usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, datainicio) 
 VALUES (:usuario, :status, :empresa, :contato, :telefone, :sistema, :versao, :formacontato, :categoria, :descproblema, :datainicio)") or die(mysql_error());
 $sql ->bindParam(":usuario", $usuario, PDO::PARAM_STR, 500);
 $sql ->bindParam(":status", $status, PDO::PARAM_STR, 500);

@@ -1,3 +1,11 @@
+<?php
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
+
+    $sql = $db->prepare('SELECT nome, nivel FROM usuarios');
+    $sql->execute();
+    $result = $sql->fetchall(PDO::FETCH_ASSOC);
+?>
 <form class="form-inline" id="filtros">
     <div class="form-group">
         <label for="palavra">Empresa Solicitante:</label>
@@ -18,12 +26,7 @@
         <label for="usuario">Responsável: </label>
             <select name="usuario" class="form-control">
                 <option></option>       
-                <?php 
-                    include '../include/dbconf.php';
-                    $conn->exec('SET CHARACTER SET utf8');
-                    $sql = $conn->prepare('SELECT nome, nivel FROM usuarios');
-                    $sql->execute();
-                    $result = $sql->fetchall();
+                <?php
                     foreach ($result as $row) {
                         if ($row["nivel"] != 1) {
                             echo '<option>'.$row['nome'].'</option>';

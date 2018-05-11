@@ -1,14 +1,14 @@
 <?php
-include('../include/db.php');
-
+require_once '../include/Database.class.php';
+$db = Database::conexao();
 //get search term
 $searchTerm = $_GET['term'];
-
-//get matched data from skills table
-$query = $conn->query("SELECT * FROM usuarios WHERE lower(nome) LIKE lower('%".$searchTerm."%')");
-while ($row = $query->fetch_assoc()) {
-    $data[] = $row['nome'];
+$query = $db->prepare("SELECT nome FROM usuarios WHERE lower(nome) LIKE lower('%".$searchTerm."%')");
+$query->execute();
+$result = $query->fetchAll();
+if ($query->rowcount() > 0) {
+    foreach($result as $dado){
+        $data[] = $dado['nome'];
+    }
 }
-
-//return json data
 echo json_encode($data);

@@ -17,10 +17,11 @@
 <div style="max-height: 300px; overflow: auto;">
 <br>
 <?php
-    include "../include/dbconf.php";
-    $sql = $conn->prepare("SELECT * FROM avisos ORDER BY data DESC");
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
+    $sql = $db->prepare("SELECT * FROM avisos ORDER BY data DESC");
     $sql->execute();
-    $avisos = $sql->fetchall();
+    $avisos = $sql->fetchall(PDO::FETCH_ASSOC);
 
     foreach($avisos as $aviso){
     echo'<div class="panel panel-default">

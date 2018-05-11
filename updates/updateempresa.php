@@ -24,8 +24,9 @@ if (!isset($_SESSION['UsuarioID'])) {
   </head>
 </html>
 <?php 
-include '../include/dbconf.php';
-$conn->exec('SET CHARACTER SET utf8');
+require_once '../include/Database.class.php';
+$db = Database::conexao();
+
 $id=$_POST['id_empresa'];
 $empresa=$_POST['empresa'];
 $cnpj=$_POST['cnpj'];
@@ -33,7 +34,7 @@ $situacao=$_POST['situacao'];
 $telefone=$_POST['telefone'];
 $celular=$_POST['celular'];
 $backup = $_POST['backup'];
-$sql = $conn->prepare("UPDATE empresa SET nome='$empresa', cnpj='$cnpj', situacao='$situacao', telefone='$telefone', celular='$celular', backup='$backup' WHERE id_empresa='$id'") or die(mysql_error());
+$sql = $db->prepare("UPDATE empresa SET nome='$empresa', cnpj='$cnpj', situacao='$situacao', telefone='$telefone', celular='$celular', backup='$backup' WHERE id_empresa='$id'") or die(mysql_error());
 $sql->execute();
 echo '<script> redireciona() </script>'
 ?>

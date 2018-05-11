@@ -1,10 +1,10 @@
 <?php
 	include '../validacoes/verificaSessionFinan.php';
-	include '../include/dbconf.php';
-	$conn->exec('SET CHARACTER SET utf8');
-	$sql = $conn->prepare('SELECT nome, nivel, disponivel FROM usuarios');
+	require_once '../include/Database.class.php';
+    $db = Database::conexao();
+	$sql = $db->prepare('SELECT nome, nivel, disponivel FROM usuarios');
 	$sql->execute();
-	$result = $sql->fetchall();
+	$result = $sql->fetchall(PDO::FETCH_ASSOC);
 ?> 
 <!Doctype html>
 <html>

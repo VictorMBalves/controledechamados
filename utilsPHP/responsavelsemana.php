@@ -1,8 +1,9 @@
 <?php
-include "../include/dbconf.php";
+require_once '../include/Database.class.php';
+$db = Database::conexao();
 $hoje = date('Y-m-d');
 $mes = date('m');
-$query = $conn->prepare("SELECT * FROM escalasobreaviso WHERE mes = '$mes' AND '$hoje' BETWEEN inicioperido AND fimperiodo");
+$query = $db->prepare("SELECT * FROM escalasobreaviso WHERE mes = '$mes' AND '$hoje' BETWEEN inicioperido AND fimperiodo");
 $query->execute();
 $resultado = $query->fetch();
 

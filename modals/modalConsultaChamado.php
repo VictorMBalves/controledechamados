@@ -1,13 +1,14 @@
 <?php
     include '../validacoes/verificaSession.php';
-    include '../include/dbconf.php';
-    $conn->exec('SET CHARACTER SET utf8');
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
+
     $id=$_GET['id_chamado'];
-    $sql = $conn->prepare("SELECT *, DATE_FORMAT(datainicio,'%d/%m/%Y %h:%i') as datainicio, DATE_FORMAT(datafinal,'%d/%m/%Y %h:%i') as datafinal FROM chamado WHERE id_chamado=$id");
+    $sql = $db->prepare("SELECT *, DATE_FORMAT(datainicio,'%d/%m/%Y %H:%i') as datainicio, DATE_FORMAT(datafinal,'%d/%m/%Y %H:%i') as datafinal FROM chamado WHERE id_chamado=$id");
     $sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);
     $empresa = $row['empresa'];
-    $sql2 = $conn->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
+    $sql2 = $db->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
     $sql2->execute();
     $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
 ?>

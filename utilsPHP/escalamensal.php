@@ -1,6 +1,8 @@
 <?php
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
+
     date_default_timezone_set('America/Sao_Paulo');
-    include '../include/dbconf.php';
     $mes = $_POST['mes'];
     $mesestenso = retornames($mes);
     $users = explode(",", $_POST['usuarios']);
@@ -10,7 +12,7 @@
     $dias = cal_days_in_month(CAL_GREGORIAN, $mes, $ano);
     $data1 = "2018-{$mes}-01";
     $data2 = "2018-{$mes}-{$dias}";
-    $query = $conn->prepare("select * from
+    $query = $db->prepare("select * from
         (select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) data from
         (select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
         (select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
@@ -60,13 +62,13 @@
 
 
     $sql = "SELECT * FROM escalasobreaviso WHERE  mes = '$mes'";
-    $query = $conn->prepare($sql);
+    $query = $db->prepare($sql);
     $query->execute();
     $result = $query->fetchall();
 
     if($result != null){
         $sql = "DELETE FROM escalasobreaviso WHERE mes = '$mes'";
-        $query = $conn->prepare($sql);
+        $query = $db->prepare($sql);
         $query->execute();
     }
 
@@ -76,7 +78,7 @@
         $inicioperiodo = $usuario['inicioperiodo'];
         $ordem = $usuario['ordem'];
         $sql = "INSERT INTO escalasobreaviso (mes, inicioperido, fimperiodo, ordem, usuario) VALUES ('$mes','$inicioperiodo','$fimperiodo','$ordem','$nome')";
-        $query = $conn->prepare($sql);
+        $query = $db->prepare($sql);
         $query->execute();
     }
 

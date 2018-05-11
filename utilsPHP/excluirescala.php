@@ -1,9 +1,10 @@
 <?php
 if(isset($_POST['mes'])){
-    include '../include/dbconf.php';
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
     $mes = $_POST['mes'];
     $sql = "DELETE FROM escalasobreaviso WHERE mes = '$mes'";
-    $query = $conn->prepare($sql);
+    $query = $db->prepare($sql);
     $query->execute();
     if($query->rowcount() > 0){
         echo 'success';

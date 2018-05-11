@@ -10,15 +10,16 @@
   </head>
 </html>
 <?php 
-include '../include/dbconf.php'; 
-$conn->exec('SET CHARACTER SET utf8');
+require_once '../include/Database.class.php';
+$db = Database::conexao();
+
 $empresa=$_POST['empresa'];
 $cnpj=$_POST['cnpj'];
 $situacao=$_POST['situacao'];
 $telefone=$_POST['telefone'];
 $celular=$_POST['celular'];
 $backup=$_POST['backup'];
-$sql = $conn->prepare("INSERT INTO empresa (nome, cnpj, situacao, telefone, celular, backup) VALUES ('$empresa','$cnpj','$situacao','$telefone','$celular','$backup')") or die(mysql_error());
+$sql = $db->prepare("INSERT INTO empresa (nome, cnpj, situacao, telefone, celular, backup) VALUES ('$empresa','$cnpj','$situacao','$telefone','$celular','$backup')") or die(mysql_error());
 $sql->execute();
 echo '<script> redireciona() </script>'
 ?>

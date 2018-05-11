@@ -1,14 +1,13 @@
 <?php
-include('../include/db.php');
-
-//get search term
+require_once '../include/Database.class.php';
+$db = Database::conexao();
 $searchTerm = $_GET['term'];
-
-//get matched data from skills table
-$query = $conn->query("SELECT * FROM empresa WHERE nome LIKE '%".$searchTerm."%'");
-while ($row = $query->fetch_assoc()) {
-    $data[] = $row['nome'];
+$query = $db->prepare("SELECT nome FROM empresa WHERE nome LIKE '%".$searchTerm."%'");
+$query->execute();
+$result = $query->fetchAll();
+if ($query->rowcount() > 0) {
+    foreach($result as $dado){
+        $data[] = $dado['nome'];
+    }
 }
-
-//return json data
 echo json_encode($data);

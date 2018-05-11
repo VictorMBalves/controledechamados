@@ -1,7 +1,7 @@
 <?php
 
-header("Content-Type: text/html; charset=UTF-8");
-include('../include/dbconf.php');
+require_once '../include/Database.class.php';
+$db = Database::conexao();
 
 if (isset($_POST['empresa'])){
   $empresa = $_POST['empresa'];
@@ -37,7 +37,7 @@ if (isset($_POST['emissor'])) {
     $emissor = $_POST['emissor'];
 }
 
-$sql = $conn->prepare("UPDATE empresa SET  nota_fiscal = '$nf', nota_fiscal_consumidor = '$nfc', conhecimento_trasporte = '$cte', manifesto_eletronico = '$mdf', nota_fiscal_servico = '$nfs', consulta_bloqueio = '$conbloq', cupom_fiscal_eletronico_sat = '$sat', emissor_documentos_fiscais_eletronicos = '$emissor', sistema = '$sistema', versao = '$versao' WHERE nome = '$empresa'")
+$sql = $db->prepare("UPDATE empresa SET  nota_fiscal = '$nf', nota_fiscal_consumidor = '$nfc', conhecimento_trasporte = '$cte', manifesto_eletronico = '$mdf', nota_fiscal_servico = '$nfs', consulta_bloqueio = '$conbloq', cupom_fiscal_eletronico_sat = '$sat', emissor_documentos_fiscais_eletronicos = '$emissor', sistema = '$sistema', versao = '$versao' WHERE nome = '$empresa'")
 or die(mysql_error());
 $sql->execute();
 

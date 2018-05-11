@@ -1,24 +1,23 @@
 <?php
-    include '../include/db.php';
-    function retorna($nome, $conn)
-    {
-        $sql = "SELECT `telefone`, `celular`,`backup`
+require_once '../include/Database.class.php';
+$db = Database::conexao();
+
+function retorna($nome, $db)
+{
+    $sql = "SELECT `telefone`, `celular`,`backup`
         FROM `empresa` WHERE `nome` = '{$nome}' ";
-
-        $query = $conn->query($sql);
-
-        $arr;
-        if ($query->num_rows) {
-            while ($dados = $query->fetch_object()) {
-                $arr['telefone'] = $dados->telefone;
-                $arr['celular'] = $dados->celular;
-                $arr['backup'] = $dados->backup;
-            }
-        }
-        return json_encode($arr);
+    $query = $db->prepare($sql);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
+    $arr = [];
+    if ($query->rowcount() > 0) {
+        $arr['telefone'] = $result['telefone'];
+        $arr['celular'] = $result['celular'];
+        $arr['backup'] = $result['backup'];
     }
+    return json_encode($arr);
+}
 
-    if (isset($_GET['empresa'])) {
-        echo retorna($_GET['empresa'], $conn);
-    }
-?>
+if (isset($_GET['empresa'])) {
+    echo retorna($_GET['empresa'], $db);
+}

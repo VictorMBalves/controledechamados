@@ -1,9 +1,11 @@
 <?php
-	include '../validacoes/verificaSession.php';
-	include '../include/dbconf.php';
-	$conn->exec('SET CHARACTER SET utf8');
+    include '../validacoes/verificaSession.php';
+    
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
+
 	$id=$_GET['id_chamadoespera'];
-	$sql = $conn->prepare("SELECT *, DATE_FORMAT(data,'%d/%m/%Y %h:%i') as data FROM chamadoespera WHERE id_chamadoespera=$id");
+	$sql = $db->prepare("SELECT *, DATE_FORMAT(data,'%d/%m/%Y %H:%i') as data FROM chamadoespera WHERE id_chamadoespera=$id");
 	$sql->execute();
 	$row = $sql->fetch(PDO::FETCH_ASSOC);
 ?>

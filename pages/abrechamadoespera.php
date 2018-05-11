@@ -1,13 +1,13 @@
 <?php
-	include '../include/dbconf.php';
 	include '../validacoes/verificaSession.php';
-	$conn->exec('SET CHARACTER SET utf8');
+	require_once '../include/Database.class.php';
+    $db = Database::conexao();
 	$id=$_GET['id_chamadoespera'];
-	$sql = $conn->prepare("SELECT * FROM chamadoespera WHERE id_chamadoespera=$id");
+	$sql = $db->prepare("SELECT * FROM chamadoespera WHERE id_chamadoespera=$id");
 	$sql->execute();
 	$row = $sql->fetch(PDO::FETCH_ASSOC);
 	$empresa = $row['empresa'];
-	$sql2 = $conn->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
+	$sql2 = $db->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
 	$sql2->execute();
 	$row2 = $sql2->fetch(PDO::FETCH_ASSOC);
 ?>

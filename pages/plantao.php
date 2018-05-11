@@ -15,7 +15,6 @@
 	<?php
 		/////////////////////
 		include '../validacoes/verificaSession.php';
-		include '../include/db.php';
 		include '../include/menu.php';
 		/////////////////////
 	?>
@@ -66,11 +65,11 @@
 
 			<?php 
 			if (array_key_exists('data', $_POST)) {
-			$data=$_POST['data'];
-			$data2=$_POST['data1'];
+				$data=$_POST['data'];
+				$data2=$_POST['data1'];
 			} else {
-			$data = date('Y-m').'-01';
-			$data2 = date('Y-m-t');
+				$data = date('Y-m').'-01';
+				$data2 = date('Y-m-t');
 			}
 			?>
 

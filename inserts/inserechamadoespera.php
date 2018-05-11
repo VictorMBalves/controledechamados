@@ -28,8 +28,9 @@ if (!isset($_SESSION['UsuarioID'])) {
   </head>
 </html>
 <?php 
-include '../include/dbconf.php'; 
-$conn->exec('SET CHARACTER SET utf8');
+require_once '../include/Database.class.php';
+$db = Database::conexao();
+
 $data = date("Y-m-d H:i:s");
 $status = "Aguardando Retorno";
 $empresa=$_POST['empresa'];
@@ -40,7 +41,7 @@ $enderecado = $_POST['enderecado'];
 $sistema = $_POST['sistema'];
 $versao = $_POST['versao'];
 $usuario=$_SESSION['UsuarioNome'];
-$sql = $conn->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao) 
+$sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao) 
 VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao')") or die(mysql_error());
 $sql->execute();
 if ($_SESSION['UsuarioNivel'] != 1) {

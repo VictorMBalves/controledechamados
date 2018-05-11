@@ -1,6 +1,7 @@
 <?php
 	include '../validacoes/verificaSession.php';
-	include '../include/dbconf.php';
+	require_once '../include/Database.class.php';
+    $db = Database::conexao();
 	$epr='';
 	$msg='';
 	if (isset($_GET['epr'])) {
@@ -8,17 +9,15 @@
 	}
 	if ($epr=='excluir') {
 		$id=$_GET['id_empresa'];
-		$query = $conn ->prepare("DELETE FROM empresa WHERE id_empresa=$id");
+		$query = $db ->prepare("DELETE FROM empresa WHERE id_empresa=$id");
 		$query->execute();
 		echo "<script>
 				alert('Cadastro deletado com sucesso!');
 				window.location.assign('empresa.php');
 			</script>";
 	}
-	include '../include/dbconf.php';
-	$conn->exec('SET CHARACTER SET utf8');
 	$id=$_GET['id_empresa'];
-	$sql = $conn->prepare("SELECT * FROM empresa WHERE id_empresa=$id");
+	$sql = $db->prepare("SELECT * FROM empresa WHERE id_empresa=$id");
 	$sql->execute();
 	$row = $sql->fetch(PDO::FETCH_ASSOC);
 ?>

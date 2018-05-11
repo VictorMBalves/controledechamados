@@ -57,6 +57,8 @@
 <!--  -->
 	<?php
 	include '../validacoes/verificaSession.php';
+	require_once '../include/Database.class.php';
+    $db = Database::conexao();
 	//CALL API DE FERIADOS
 	$ano = Date('Y');
 	$cidade = '4127700'; //TOLEDO-PR
@@ -77,12 +79,11 @@
 	$feriados = json_decode($result);
 
 	$verificadorData = date_format(date_create('2000-01-01'), 'd/m/Y');
-	include '../include/dbconf.php';
 	$data1 = $_POST['data1'];
 	$data2 = $_POST['data2'];
 	$usuario = $_SESSION['UsuarioNome'];
 
-	$query = $conn->prepare("select * from
+	$query = $db->prepare("select * from
 	(select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) data from
 	(select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,
 	(select 0 t1 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t1,
@@ -110,7 +111,7 @@
 			}
 		}
 
-		$query = $conn->prepare("SELECT id_plantao, empresa, contato, descsolucao, descproblema, data, horainicio, horafim FROM plantao where data = '$dataplantao' and usuario = '$usuario' ORDER BY data asc");
+		$query = $db->prepare("SELECT id_plantao, empresa, contato, descsolucao, descproblema, data, horainicio, horafim FROM plantao where data = '$dataplantao' and usuario = '$usuario' ORDER BY data asc");
 		$query->execute();
 		$plantoes = $query->fetchall();
 		foreach ($plantoes as $plantao) {
@@ -240,26 +241,28 @@
 	<th>Desc. Solução</th>
 	</tr>
 	<tbody>
-	<?php
-	include '../include/db.php';
+	<?php 
+
 	$sql = "SELECT id_plantao, empresa, contato, descsolucao, descproblema, data, horainicio, horafim FROM plantao where data BETWEEN '$data1' and '$data2' and usuario = '$usuario' ORDER BY data asc";
-	$query = $conn->query($sql);
-	while ($dados = $query->fetch_object()) {
+	$query = $db->prepare($sql);
+	$query->execute();
+	$resultado = $query->fetchAll(PDO::FETCH_ASSOC);
+	foreach ($resultado as $key => $dados) {
 		echo '<tr>';
-		echo '<td>' . $dados->id_plantao . '</td>';
+		echo '<td>' . $dados['id_plantao'] . '</td>';
 		echo '<td>';
-		echo formatarData($dados->data);
+		echo formatarData($dados['data']);
 		echo '</td>';
-		echo '<td>' . $dados->empresa . '</td>';
-		echo '<td>' . $dados->contato . '</td>';
+		echo '<td>' . $dados['empresa'] . '</td>';
+		echo '<td>' . $dados['contato'] . '</td>';
 		echo '<td>';
-		echo $dados->horainicio . ':00';
+		echo $dados['horainicio'] . ':00';
 		echo '</td>';
 		echo '<td>';
-		echo $dados->horafim . ':00';
+		echo $dados['horafim'] . ':00';
 		echo '</td>';
-		echo '<td>' . $dados->descproblema . '</td>';
-		echo '<td>' . $dados->descsolucao . '</td>';
+		echo '<td>' . $dados['descproblema'] . '</td>';
+		echo '<td>' . $dados['descsolucao']. '</td>';
 		echo '</tr>';
 	}
 	?>

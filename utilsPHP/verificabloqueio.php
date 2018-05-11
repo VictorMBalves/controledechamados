@@ -1,7 +1,4 @@
 <?php
-  header("Content-Type: text/html; charset=UTF-8");
-  include('../include/db.php');
-
   $bloqueio = $_GET['bloqueio'];
   if (!isset($bloqueio)) {
       echo '<div class="alert alert-danger" role="alert">

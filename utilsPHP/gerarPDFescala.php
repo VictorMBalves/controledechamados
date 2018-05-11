@@ -1,9 +1,10 @@
 <?php
     if(isset($_POST['mes'])){
+        require_once '../include/Database.class.php';
+        $db = Database::conexao();
         $mes = $_POST['mes'];
-        include '../include/dbconf.php';
         $sql = "SELECT * FROM escalasobreaviso WHERE mes = '$mes'";
-        $query = $conn->prepare($sql);
+        $query = $db->prepare($sql);
         $query->execute();
         $resultados = $query->fetchall();
 

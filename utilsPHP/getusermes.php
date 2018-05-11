@@ -1,8 +1,9 @@
 <?php
-    include '../include/dbconf.php';
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
     $mes = $_GET['mes'];
     $sql = "SELECT usuario FROM escalasobreaviso WHERE mes = '$mes' ORDER BY ordem";
-    $query = $conn->prepare($sql);
+    $query = $db->prepare($sql);
     $query->execute();
     $resultado = $query->fetchall();
 

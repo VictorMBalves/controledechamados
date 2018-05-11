@@ -1,12 +1,15 @@
 <?php
-    include '../include/dbconf.php'; 
+
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
+    
     if($_POST == null){
         $data = date('Y-m').'-01';
         $data2 = date('Y-m-t');
         $sql ="SELECT id_chamado,usuario, status, empresa, contato, telefone, DATE_FORMAT(datainicio,'%d/%m/%Y') as data FROM chamado WHERE date(datainicio) BETWEEN '$data' and '$data2' ORDER BY id_chamado DESC";
-        $query = $conn->prepare($sql);
+        $query = $db->prepare($sql);
         $query->execute();
-        $resultado = $query->fetchall();
+        $resultado = $query->fetchall(PDO::FETCH_ASSOC);
         echo json_encode($resultado);
     }else{
         $status = $_POST['status'];
@@ -40,9 +43,9 @@
         }
         $sql = " $query ORDER BY datainicio desc";
 
-        $query = $conn->prepare($sql);
+        $query = $db->prepare($sql);
         $query->execute();
-        $resultado = $query->fetchall();
+        $resultado = $query->fetchall(PDO::FETCH_ASSOC);
         echo json_encode($resultado);
     }
 ?>

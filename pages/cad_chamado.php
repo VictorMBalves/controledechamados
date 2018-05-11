@@ -1,6 +1,5 @@
 <!Doctype html>
 <html>
-
 	<head>
 		<title>Controle de Chamados</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,7 +9,6 @@
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 	</head>
-
 	<body>
 		<?php
 			include '../validacoes/verificaSession.php';
@@ -133,7 +131,6 @@
 		<script src="../assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			document.getElementById('verModulo').disabled = true;
-
 			function erro() {
 				alert('Acesso negado! Redirecinando a pagina principal.');
 				window.location.assign("chamadoespera.php");

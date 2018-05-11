@@ -34,11 +34,11 @@
 </html>
 <?php
         include '../validacoes/verificaSessionFinan.php';
-        include '../include/dbconf.php';
-        $conn->exec('SET CHARACTER SET utf8');
+        require_once '../include/Database.class.php';
+        $db = Database::conexao();
         $enderecado =$_SESSION['UsuarioNome'];
         $status="Aguardando Retorno";
-        $sql = $conn->prepare("SELECT COUNT(enderecado) FROM chamadoespera WHERE enderecado like '$enderecado' and status='$status' GROUP BY enderecado");
+        $sql = $db->prepare("SELECT COUNT(enderecado) FROM chamadoespera WHERE enderecado like '$enderecado' and status='$status' GROUP BY enderecado");
         $sql->execute();
         $result = $sql->fetchall();
         

@@ -3,11 +3,13 @@ if (!empty($_POST) and (empty($_POST['usuario']) or empty($_POST['senha']))) {
     echo 'fail';
     exit;
 }
-include '../include/dbconf.php';
+require_once '../include/Database.class.php';
+$db = Database::conexao();
+
 $usuario = ($_POST['usuario']);
 $senha = sha1(($_POST['senha']));
 
-$sql = $conn->prepare('SELECT id, nome, nivel, email FROM usuarios WHERE (usuario = :usuario ) AND (senha = :senha)  AND (ativo = 1) LIMIT 1');
+$sql = $db->prepare('SELECT id, nome, nivel, email FROM usuarios WHERE (usuario = :usuario ) AND (senha = :senha)  AND (ativo = 1) LIMIT 1');
 $sql->bindParam(':usuario', $usuario, PDO::PARAM_STR, 25);
 $sql->bindParam(':senha', $senha, PDO::PARAM_STR, 40);
 $sql->execute();

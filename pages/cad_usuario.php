@@ -26,7 +26,7 @@
 			<div class="tab-content">
 				<div id="home" class="tab-pane fade in active">
 					<br/>
-					<form class="form-horizontal" action="../inserts/insereusuario.php" method="POST">
+					<form class="form-horizontal" action="../inserts/insereusuario.php"  onsubmit="return validateForm()" method="POST">
 						<div class="form-group">
 							<label class="col-sm-1 control-label" for="nome">Nome:</label>
 							<div class="col-sm-10">
@@ -102,5 +102,13 @@
 		<script src="../datatables/rowReorder.min.js"></script>
 		<script src="../js/tabelas/usuarios.js"></script>
 		<script src="../js/links.js"></script>
+		<script>
+			function validateForm(){
+				div = $("#pValid");
+				if(div.hasClass('text-danger')){
+					return false;
+				}
+			}
+		</script>
 	</body>
 </html>

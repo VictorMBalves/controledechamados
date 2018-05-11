@@ -43,7 +43,8 @@
             </form>
             <br>
     <?php
-        include '../include/dbconf.php';
+        require_once '../include/Database.class.php';
+        $db = Database::conexao();
         if (array_key_exists('data', $_POST)) {
             $data = $_POST['data'];
             $data2 = $_POST['data1'];
@@ -51,10 +52,9 @@
             $data = time('Y-m-d');
             $data2 = time('Y-m-d');
         }
-        $conn->exec('SET CHARACTER SET utf8');
-        $query = $conn->prepare("SELECT DISTINCT chamado.usuario from chamado INNER JOIN usuarios us on chamado.usuario = us.nome where date(datainicio) BETWEEN '$data' and '$data2' group by date(datainicio), chamado.usuario ORDER BY usuario");
+        $query = $db->prepare("SELECT DISTINCT chamado.usuario from chamado INNER JOIN usuarios us on chamado.usuario = us.nome where date(datainicio) BETWEEN '$data' and '$data2' group by date(datainicio), chamado.usuario ORDER BY usuario");
         $query->execute();
-        $usuarios = $query->fetchall();
+        $usuarios = $query->fetchall(PDO::FETCH_ASSOC);
         if (array_key_exists('data', $_POST)) {
             $data = $_POST['data'];
             $data2 = $_POST['data1'];
@@ -71,18 +71,18 @@
             echo '</tr>';
             echo '</thead>';
             echo '<tbody>';
-            $query = $conn->prepare("SELECT DISTINCT date(datainicio) from chamado inner JOIN usuarios us ON us.nome = chamado.usuario where date(datainicio) BETWEEN '$data' and '$data2' group by date(datainicio), chamado.usuario ORDER BY date(datainicio)");
+            $query = $db->prepare("SELECT DISTINCT date(datainicio) from chamado inner JOIN usuarios us ON us.nome = chamado.usuario where date(datainicio) BETWEEN '$data' and '$data2' group by date(datainicio), chamado.usuario ORDER BY date(datainicio)");
             $query->execute();
-            $datas = $query->fetchall();
+            $datas = $query->fetchall(PDO::FETCH_ASSOC);
             foreach ($datas as $data) {
                 echo '<tr>';
                 $datainicio = date_create($data['date(datainicio)']);
                 $dataFormatada = date_format($datainicio, 'd/m/Y');
                 echo '<td>' . $dataFormatada . '</td>';
                 $datainicio = $data['date(datainicio)'];
-                $query = $conn->prepare("SELECT cha.usuario, count(datainicio) from chamado cha INNER JOIN usuarios us ON us.nome = cha.usuario where date(datainicio) = '$datainicio'  group by date(datainicio), usuario ORDER BY usuario");
+                $query = $db->prepare("SELECT cha.usuario, count(datainicio) from chamado cha INNER JOIN usuarios us ON us.nome = cha.usuario where date(datainicio) = '$datainicio'  group by date(datainicio), usuario ORDER BY usuario");
                 $query->execute();
-                $resultados = $query->fetchall();
+                $resultados = $query->fetchall(PDO::FETCH_ASSOC);
                 $atual = 0;
                 foreach ($usuarios as $usuario) {
                     if ($atual == sizeof($resultados) || $usuario['usuario'] == $resultados[$atual]['usuario']) {
