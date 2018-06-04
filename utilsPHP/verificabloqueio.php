@@ -10,7 +10,7 @@
                     <center>Empresa bloqueada</center>
                 </div>';
       } else{
-        echo '<div class="alert alert-success" role="alert">
+        echo '<div class="alert alert-info" role="alert">
                 <center>Novo chamado:</center>
             </div>';
       }
