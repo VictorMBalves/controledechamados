@@ -4,7 +4,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>  
             <div class="col-sm-10">      
-                <input name="empresa" type="text" id="skills" class="form-control" required="">
+                <input name="empresa" type="text" id="empresa" class="form-control" required="">
             </div>
         </div>
         <div class="form-group">               

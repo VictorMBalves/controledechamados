@@ -104,7 +104,7 @@
 		$dataplantao = $datas[$i]['data'];
 
 		foreach ($feriados as $feriado) {
-			if (formatarData($dataplantao) == $feriado->date && ($feriado->type_code == 1)) {
+			if (formatarData($dataplantao) == $feriado->date && ($feriado->type_code == 1 || $feriado->name == 'Corpus Christi')) {
 				$datas[$i]['descricao'] = $feriado->name;
 				$datas[$i]['isFeriado'] = true;
 				$datas[$i]['horas'] = $datas[$i]['isFeriado'] ? '14:00:00' : '05:27:00';

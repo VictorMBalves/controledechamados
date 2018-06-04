@@ -8,7 +8,7 @@ function erro(){
     window.location.assign("../pages/chamadoespera.php");
 }
 $(function() {
-    $( "#skills" ).autocomplete({
+    $( "#empresa" ).autocomplete({
         source: '../utilsPHP/search.php'
     });
 });
