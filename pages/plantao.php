@@ -75,7 +75,7 @@
 
 			<div id="menu2" class="tab-pane fade">
 				<br/>
-				<form class="navbar-form text-center" method="POST" action="sobreaviso.php">
+				<form class="navbar-form text-center" method="POST" action="../utilsPHP/gerarReportSobreaviso.php">
 				<fieldset>
 				<legend>Período:
 				</legend>
