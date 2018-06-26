@@ -47,9 +47,9 @@ var modalConfirm = function(callback){
                     data = data.trim();
                     if(data == "success"){
                         $("#avisos").load("avisos.php");
-                        alert("aviso salvo");
+                        notificationSuccess("Registro salvo", "Aviso salvo com sucesso");
                     }else{
-                        alert("Erro ao salvar");
+                        notificationSuccess("Ocorreu um erro ao salvar o registro:", data);
                     }
                 }
             });
@@ -67,9 +67,9 @@ var modalConfirm = function(callback){
                 data = data.trim();
                 if(data == "success"){
                     $("#avisos").load("avisos.php");
-                    alert("aviso excluído");
+                    notificationSuccess("Registro excluído", "Aviso excluído com sucesso");
                 }else{
-                    alert("Erro ao excluído");
+                    notificationSuccess("Ocorreu um erro ao excluir o registro:", data);
                 }
             }
         });
@@ -101,10 +101,10 @@ var modalConfirm = function(callback){
                 data = data.trim();
                 if(data == "success"){
                     $("#avisos").load("avisos.php");
-                    alert("aviso atualizado");
+                    notificationSuccess("Registro salvo", "Aviso atualizado com sucesso");
                     $("#modalAdc").modal('hide');
                 }else{
-                    alert("Erro ao salvar");
+                    notificationSuccess("Ocorreu um erro ao atualizar o registro:", data);
                 }
             }
         });

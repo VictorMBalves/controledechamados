@@ -65,16 +65,12 @@ function enviarDados(){
             data = data.trim();
             console.log(data);
             if(data == "success"){
-                $("#divMsg").removeClass(' alert-warning ');
-                $("#divMsg").addClass(' alert-success ');
-                $("#divMsg").html("<center>Chamado cadastrado com sucesso!</center>");
+                notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
                 setTimeout(function(){
                     window.location.assign("../pages/chamados.php");
                 }, 1000);
             }else{
-                $("#divMsg").removeClass(' alert-warning ');
-                $("#divMsg").addClass(' alert-danger ');
-                $("#divMsg").html("<center>Ocorreu um erro ao inserir chamado: "+data+"</center>");
+                notificationError('Ocorreu um erro ao salvar o registro: ', data);
                 $("#submit").removeClass( ' disabled ' );
                 $("#submit").html('Atender');
             }

@@ -16,6 +16,7 @@
 		<link rel="shortcut icon" href="../imagem/favicon.ico" />
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 	<body>
 		<?php include '../include/menu.php'; ?>
@@ -89,6 +90,7 @@
 		<br/>
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/apiConsulta.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

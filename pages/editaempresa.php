@@ -1,5 +1,5 @@
 <?php
-	include '../validacoes/verificaSession.php';
+	include '../validacoes/verificaSessionFinan.php';
 	require_once '../include/Database.class.php';
     $db = Database::conexao();
 	$epr='';

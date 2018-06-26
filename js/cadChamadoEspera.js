@@ -49,40 +49,49 @@ function validar(){
     return null;
 }
 function enviarDados(){
-$.ajax({
-    type: "POST",
-    url: "../inserts/inserechamadoespera.php",
-    data: carregaDados(),
-    success: function(data){
-        data = data.trim();
-        console.log(data);
-        if(data == "success"){
-            $("#div-msg").removeClass("alert-info");
-            $("#div-msg").addClass("alert-success");
-            $("#div-msg").html("<center>Chamado cadastrado com sucesso!</center>");
-            setTimeout(function(){
-                window.location.assign("../pages/home.php");
-            }, 1000);
-        }else if(data == "success1"){
-            $("#div-msg").removeClass(' alert-info ');
-            $("#div-msg").addClass(' alert-success ');
-            $("#div-msg").html("<center>Chamado cadastrado com sucesso!</center>");
-            setTimeout(function(){
-                window.location.assign("../pages/chamadoespera.php");
-            }, 1000);
-        }else{
-            $("#div-msg").removeClass(' alert-info ');
-            $("#div-msg").addClass(' alert-danger ');
-            $("#div-msg").html("<center>Ocorreu um erro ao inserir chamado: "+data+"</center>");
-            $("#submit").removeClass( ' disabled ' );
-            $("#submit").html('Salvar');
+    $.ajax({
+        type: "POST",
+        url: "../inserts/inserechamadoespera.php",
+        data: carregaDados(),
+        success: function(data){
+            data = data.trim();
+            console.log(data);
+            if(data == "success"){
+                notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
+                resetForm();
+                $("#submit").removeClass('disabled');
+                $("#submit").html('Salvar');
+            }else if(data == "success1"){
+                notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
+                resetForm();
+                $("#submit").removeClass('disabled');
+                $("#submit").html('Salvar');
+            }else{
+                notificationError('Ocorreu um erro ao salvar o registro: ', data);
+                $("#submit").removeClass( ' disabled ' );
+                $("#submit").html('Salvar');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('error: ' + textStatus + ': ' + errorThrown);
         }
-    },
-    error: function(jqXHR, textStatus, errorThrown){
-        alert('error: ' + textStatus + ': ' + errorThrown);
-    }
-});
+    });
 }
+
+function resetForm(){
+    empresa.val('');
+    contato.val('');
+    telefone.val('');
+    versao.val('');
+    descProblema.val('');
+    sistema.val('');
+    $('#infLoad').addClass('hidden');
+    $('#erroLoad').addClass('hidden');
+    $('#successLoad').addClass('hidden');
+    $('#alertLoad').addClass('hidden');
+    $('#resultado').html('<div class="alert alert-info" role="alert"><center>Novo chamado em espera:</center></div>');
+}
+
 empresa.focusout(function() {
     if(!isEmpty(empresa.val()))
         $(empresa.selector+"-div").removeClass("has-error");

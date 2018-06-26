@@ -1,7 +1,7 @@
 <?php 
 try
 {
-  include '../validacoes/verificaSession.php';
+  include '../validacoes/verificaSessionFinan.php';
   require_once '../include/Database.class.php';
   $db = Database::conexao();
   $data = date("Y-m-d H:i:s");

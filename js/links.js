@@ -106,3 +106,39 @@ function isEmpty(value){
       || (typeof value === 'object' && isEmptyObject(value))
     );
   }
+
+  function notificationWarning(title, message){
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+    }
+    toastr.warning(message, title);
+  }
+
+  function notificationSuccess(title, message){
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+    }
+    toastr.success(message, title);
+  }
+
+  function notificationError(title, message){
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+    }
+    toastr.error(message, title);
+  }
+
+  function notificationInfo(title, message){
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+    }
+    toastr.info(message, title);
+  }
+
+  function notificationErrorLogin(message){
+      toastr.options = {
+        "positionClass": "toast-top-center",
+        "preventDuplicates": "true",
+      }
+      toastr.error(message, "Erro");
+  }

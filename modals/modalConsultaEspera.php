@@ -115,14 +115,14 @@
                 {
                     data = data.trim();
                     if(data == "success"){
-                        $("#salvarHistorico").html("salvar");
-                        $("#resultadoHistorico").html('<div class="alert alert-success text-center" role="alert">Histórico adicionado com sucesso</div>');
+                        $("#salvarHistorico").html("Salvar");
+                        notificationSuccess('Registro salvo', 'Histórico de contato salvo com sucesso!');
                         setTimeout(function(){
                             $("#modalCon").modal('hide');
                         }, 1000);
                     }else{
-                        $("#salvarHistorico").html("salvar");
-                        $("#resultadoHistorico").html('<div class="alert alert-danger text-center" role="alert">Erro ao salvar histórico</div>');
+                        $("#salvarHistorico").html("Salvar");
+                        notificationError('Ocorreu um erro ao salvar o registro: ', data);
                     }
                 }
             });

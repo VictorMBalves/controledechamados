@@ -294,7 +294,14 @@ try {
     $html = ob_get_contents();
     ob_end_clean();
     $mpdf->SetTitle("Sobreaviso");
-    $mpdf->SetHeader('<img src="../imagem/favicon-0.png"> Controle de chamados');
+    $mpdf->SetHTMLFooter('
+            <table width="100%">
+                <tr>
+                    <td width="33%">{DATE j/m/Y}</td>
+                    <td width="33%" align="center">{PAGENO}/{nbpg}</td>
+                    <td width="33%" style="text-align: right;"><img src="../imagem/favicon-0.png"> Controle de chamados</td>
+                </tr>
+            </table>');
     $stylesheet = file_get_contents('../assets/css/bootstrap.min.css');
     $mpdf->WriteHTML($stylesheet, 1);
     $mpdf->WriteHTML($html, 2);
