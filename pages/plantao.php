@@ -10,6 +10,7 @@
     	<link href="../datatables/responsive.dataTables.min.css" rel="stylesheet">
     	<link href="../datatables/rowReorder.dataTables.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="../css/utils.css">
+		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 	<body>
 	<?php
@@ -85,7 +86,7 @@
 				<label style="padding-left:15px; padding-right:10px;" class="control-label">Até:
 				</label>
 				<input style="padding-right:15px;" type="date" value="<?php echo $data2;?>" name="data2" class="form-control">
-				<button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary"><i class="glyphicon glyphicon-print"></i> Gerar</button>
+				<button id="gerarSobreaviso" name="singlebutton" class="btn btn-group-lg btn-primary"><i class="glyphicon glyphicon-print"></i> Gerar</button>
 				</fieldset>
 				</form> 
 			</div>
@@ -110,7 +111,9 @@
 	<script src="../js/tabelas/plantao.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../js/apiConsulta.js"></script>
+	<script src="../assets/js/toastr.min.js"></script>
 	<script src="../js/links.js"></script>
+	<script src="../js/cadPlantao.js"></script>
 
 </body>
 </html>

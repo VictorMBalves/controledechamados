@@ -1,37 +1,7 @@
-<?php
-// A sessão precisa ser iniciada em cada página diferente
-if (!isset($_SESSION)) {
-    session_start();
-}
-// Verifica se não há a variável da sessão que identifica o usuário
-if (!isset($_SESSION['UsuarioID'])) {
-    // Destrói a sessão por segurança
-    session_destroy();
-    // Redireciona o visitante de volta pro login
-    header("Location: ../index.html");
-    exit;
-}
-?>
-<!DOCTYPE html>
-<html>
-  <head>
-    <script>
-      function redireciona(){
-        alert("Plantão Registrado!");
-        window.location.assign("../pages/plantao.php?#menu1");
-      }
-      function erro(){
-        alert("Erro ao registrar atendimento!");
-        window.location.assign("../pages/plantao.php");
-      }
-    
-    </script>
-  </head>
-</html>
 <?php 
 require_once '../include/Database.class.php';
+include '../validacoes/verificaSession.php';
 $db = Database::conexao();
-
 $data=$_POST['data'];
 $horai=$_POST['horainicio'];
 $horaf=$_POST['horafim'];
@@ -66,11 +36,17 @@ $sql ->bindParam(":data", $data, PDO::PARAM_STR, 500);
 $sql ->bindParam(":horai", $horai, PDO::PARAM_STR, 500);
 $sql ->bindParam(":horaf", $horaf, PDO::PARAM_STR, 500);
 $sql->execute();
-if ($sql->rowCount() > 0) {
-    echo '<script> redireciona() </script>';
-} else {
-    echo '<script> erro() </script>';
-}
+try
+  {
+    $sql->execute();
+    echo 'success';
+    exit;
+  }
+  catch (PDOException $e)
+  {
+    echo $e->getMessage();
+    exit;
+  }
 ?>
 </body>
 </html>

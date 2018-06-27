@@ -69,13 +69,13 @@
             </div>
             <div class="modal-body">
                 <form id="formAviso" class="form-horizontal">
-                    <div class="form-group">
+                    <div class="form-group" id="tituloAvisodiv">
                         <label for="titulo" class="control-label col-sm-2">Titulo</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="tituloAviso" name="tituloAviso">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="descricaoAvisodiv">
                         <label for="titulo" class="control-label col-sm-2">Descrição</label>
                         <div class="col-sm-10">
                             <textarea type="text" class="form-control" name="descricaoAviso" id="descricaoAviso" required></textarea>

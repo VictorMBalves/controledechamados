@@ -12,16 +12,18 @@ var modalConfirm = function(callback){
         i = 0;
 
        if(descricao == ""){
-        $("#descricaoAviso").addClass("error");
+        $("#descricaoAvisodiv").addClass("has-error");
+        notificationWarningOne("Preencha os campos obrigatórios!");
         i++;
        }else{
-        $("#descricaoAviso").removeClass("error");
+        $("#descricaoAvisodiv").removeClass("has-error");
        }
        if(titulo == ""){
-        $("#tituloAviso").addClass("error");
+        $("#tituloAvisodiv").addClass("has-error");
+        notificationWarningOne("Preencha os campos obrigatórios!");
         i++;
        }else{
-        $("#tituloAviso").removeClass("error");
+        $("#tituloAvisodiv").removeClass("has-error");
        }
        if(i<=0){
         callback(true);

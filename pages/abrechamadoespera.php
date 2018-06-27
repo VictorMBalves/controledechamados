@@ -6,6 +6,10 @@
 	$sql = $db->prepare("SELECT * FROM chamadoespera WHERE id_chamadoespera=$id");
 	$sql->execute();
 	$row = $sql->fetch(PDO::FETCH_ASSOC);
+	if($row['status'] == 'Finalizado'){
+		echo '<h1>Chamado Nº'.$id.' já encerrado<h1>';
+		return;
+	}
 	$empresa = $row['empresa'];
 	$sql2 = $db->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
 	$sql2->execute();

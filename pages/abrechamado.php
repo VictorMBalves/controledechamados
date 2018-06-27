@@ -8,7 +8,7 @@
 	$sql->execute();
 	$row = $sql->fetch(PDO::FETCH_ASSOC);
 	if($row['status'] == 'Finalizado'){
-		echo 'Não localizado';
+		echo '<h1>Chamado Nº'.$id.' já encerrado<h1>';
 		return;
 	}
 	$empresa = $row['empresa'];

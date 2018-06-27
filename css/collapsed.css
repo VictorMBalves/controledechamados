@@ -1,0 +1,24 @@
+.collapsed {
+    display: none; /* hide it for small displays */
+}
+@media (min-width: 992px) {
+    .collapsed {
+        display: block;
+        margin-right: -25%;
+    }
+}
+#row-main {
+    overflow-x: hidden; /*necessary to hide collapsed sidebar*/
+}
+#content {
+    -webkit-transition: width 0.3s ease;
+    -moz-transition: width 0.3s ease;
+    -o-transition: width 0.3s ease;
+    transition: width 0.3s ease;
+}
+#sidebar {
+    -webkit-transition: margin 0.3s ease;
+    -moz-transition: margin 0.3s ease;
+    -o-transition: margin 0.3s ease;
+    transition: margin 0.3s ease;
+}

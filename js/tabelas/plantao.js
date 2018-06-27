@@ -13,17 +13,6 @@ $(function() {
     });
 });
 
-function validarHorario(){
-    var startTime = formplantao.horainicio.value;
-    var endTime = formplantao.horafim.value;
-    var regExp = /(\d{1,2})\:(\d{1,2})\:(\d{1,2})/;
-    if(parseInt(endTime .replace(regExp, "$1$2$3")) < parseInt(startTime .replace(regExp, "$1$2$3"))){
-        alert("Horário de termino deve ser maior que o horário de inicio");
-        formplantao.horafim.focus();
-        return false;
-    }
-}
-
 function loadTable(){
     $.ajax({
         type: 'POST',

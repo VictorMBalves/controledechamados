@@ -17,6 +17,11 @@ $("#submit").click(function(){
 $("#cancel").click(function(){
     window.location.assign("../pages/home.php");
 })
+$("#showAtendente").click(function(){
+    $("#sidebar").toggleClass("collapsed");
+    $("#content").toggleClass("col-md-9 col-md-12");
+    $("#flecha").toggleClass("glyphicon-arrow-left glyphicon-arrow-right");
+})
 
 function validar(){ 
     erros = [];
@@ -45,6 +50,7 @@ function validar(){
                 $(erros[i]+"-div").addClass("has-error");
             }
         }
+        notificationWarningOne("Preencha os campos obrigatórios!");
     }
     return null;
 }

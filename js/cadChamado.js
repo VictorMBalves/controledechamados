@@ -50,6 +50,7 @@ function validar(){
                 $(erros[i]+"-div").addClass("has-error");
             }
         }
+        notificationWarningOne("Preencha os campos obrigatórios!");
     }
     return null;
 }
@@ -62,7 +63,7 @@ function enviarDados(){
         success: function(data){
             data = data.trim();
             if(data == "success"){
-                notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
+                notificationSuccessLink('Registro salvo', 'Chamado registrado com sucesso!', '../pages/chamados.php');
                 resetForm();
                 $("#submit").removeClass( ' disabled ' );
                 $("#submit").html('Salvar');

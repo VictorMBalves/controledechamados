@@ -51,6 +51,10 @@ function SomenteNumero(e) {
     }
 }
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+
 function validar() {
     var usuario = form1.usuario.value;
     var senha = form1.senha.value;
@@ -142,3 +146,28 @@ function isEmpty(value){
       }
       toastr.error(message, "Erro");
   }
+  
+  function notificationWarningOne(message){
+    toastr.options = {
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": "true",
+    }
+    toastr.warning(message, "Alerta");
+}
+
+function progressReport(message){
+    toastr.options = {
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": "true",
+      "progressBar": true,
+    }
+    toastr.info(message, "Gerando relatório:");
+}
+
+function notificationSuccessLink(title, message, link){
+    toastr.options = {
+        "positionClass": "toast-bottom-right",
+    }
+    toastr.success("<a href='"+link+"' target='_blank'>"+message+"</a>", title);
+  }
+

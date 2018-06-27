@@ -6,6 +6,10 @@
   $sql = $db->prepare("SELECT * FROM chamado WHERE id_chamado=$id");
   $sql->execute();
   $row = $sql->fetch(PDO::FETCH_ASSOC);
+  if($row['status'] == 'Finalizado'){
+		echo '<h1>Chamado Nº'.$id.' já encerrado<h1>';
+	return;
+  }
   $empresa = $row['empresa'];
   $sql2 = $db->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
   $sql2->execute();
@@ -28,7 +32,7 @@
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 		<?php include '../include/cabecalho.php';?>
 			<div class="alert alert-info" role="alert">
-				<center>Editar Chamado Nº:
+				<center>Editar Chamado Nº
 					<?php echo $id?>
 				</center>
 			</div>

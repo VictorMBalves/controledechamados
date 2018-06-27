@@ -50,6 +50,7 @@ function validar(){
                 $(erros[i]+"-div").addClass("has-error");
             }
         }
+        notificationWarningOne("Preencha os campos obrigatórios!");
     }
     return null;
 }

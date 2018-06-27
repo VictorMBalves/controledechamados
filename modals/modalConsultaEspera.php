@@ -103,6 +103,7 @@
 
            if(historico == ''){
                $("#divHistorico").addClass("has-error");
+               notificationWarningOne("Preencha os campos obrigatórios!");
                return;
            }else{
                 $("#salvarHistorico").html('<img src="../imagem/ajax-loader.gif">');
