@@ -11,12 +11,21 @@ $(document).ready(function() {
                 var txt = "";
                 if(len > 0){
                     for(var i=0;i<len;i++){
-                        if(data[i].name && data[i].version){
+                        if(data[i].name){
                             if(data[i].phone == null){
                                 data[i].phone = "Sem Telefone";
                             }
-
-                            txt += "<tr><td>"+data[i].name+"</td><td>"+ data[i].phone +"</td><td>"+data[i].version+"</td><td>"+data[i].system+"</td></tr>";
+                            if(data[i].version == null){
+                                data[i].version = "Sem dados de versão";
+                            }
+                            if(data[i].system == null){
+                                data[i].system = "Sem dados de sistema";
+                            }
+                            if(data[i].is_blocked) 
+                                txt += '<tr class="danger">';
+                            else
+                                txt += '<tr>';    
+                            txt += "<td>"+data[i].name+"</td><td>"+ data[i].phone +"</td><td>"+data[i].version+"</td><td>"+data[i].system+"</td></tr>";
                         }
                     }
                     if(txt != ""){

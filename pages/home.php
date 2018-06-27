@@ -10,6 +10,7 @@
     	<link href="../datatables/responsive.dataTables.min.css" rel="stylesheet">
     	<link href="../datatables/rowReorder.dataTables.min.css" rel="stylesheet">
 		<link href="../css/utils.css" rel="stylesheet">
+		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 	<body>
 		<div class="wrapper">
@@ -62,6 +63,9 @@
 			</div>
 		</div>
 
+		<div id="modalConsulta">
+		</div>
+
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -70,6 +74,7 @@
 		<script src="../datatables/datatables.min.js"></script>
 		<script src="../datatables/responsive.min.js"></script>
 		<script src="../datatables/rowReorder.min.js"></script>
+		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/tabelas/home.js"></script>
 	</body>

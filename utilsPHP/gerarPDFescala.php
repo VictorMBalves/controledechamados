@@ -1,9 +1,10 @@
 <?php
     if(isset($_POST['mes'])){
+        require_once '../include/Database.class.php';
+        $db = Database::conexao();
         $mes = $_POST['mes'];
-        include '../include/dbconf.php';
         $sql = "SELECT * FROM escalasobreaviso WHERE mes = '$mes'";
-        $query = $conn->prepare($sql);
+        $query = $db->prepare($sql);
         $query->execute();
         $resultados = $query->fetchall();
 
@@ -61,6 +62,7 @@
             $html = ob_get_contents();
             ob_end_clean();
             $mpdf->SetTitle("Escala_Mensal");
+            $mpdf->SetHeader('<img src="../imagem/favicon-0.png"> Controle de chamados');
             $stylesheet = file_get_contents('../css/escalamento.css');
             $mpdf->WriteHTML($stylesheet, 1);
             $mpdf->WriteHTML($html, 2);

@@ -14,7 +14,6 @@
 	<body>
 		<?php
 			include '../validacoes/verificaSession.php';
-			include '../include/db.php';
 			include '../include/menu.php';
 		?>
 			<div class="container" style="margin-top:60px; margin-bottom:50px;">
@@ -87,6 +86,10 @@
 					</div>
 
 				</div>
+
+				<div id="modalConsulta">
+				</div>
+				
 			</div>
 			<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 			<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

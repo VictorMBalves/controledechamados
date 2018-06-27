@@ -1,25 +1,21 @@
 <?php
-include('../include/db.php');
+require_once '../include/Database.class.php';
+$db = Database::conexao();
 //se a variavel da empresa estiver vazia retorna
 if (isset($_GET['empresa'])) {
-    echo retorna($_GET['empresa'], $conn);
+    echo retorna($_GET['empresa'], $db);
 }
 //Retorna os dados da empresa pela API de BLOQUEIO
-function retorna($nome, $conn)
+function retorna($nome, $db)
 {
     //pega o cnpj da empresa que foi solicitada
     $sql = "SELECT `cnpj` FROM `empresa` WHERE `nome` = '{$nome}' ";
 
-    $query = $conn->query($sql);
-
-    $arr;
-    if ($query->num_rows) {
-        while ($dados = $query->fetch_object()) {
-            $arr['cnpj'] = $dados->cnpj;
-        }
-    } 
+    $query = $db->prepare($sql);
+    $query->execute();
+    $result = $query->fetch(PDO::FETCH_ASSOC);
     
-    $cnpj = $arr['cnpj'];
+    $cnpj = $result['cnpj'];
     //Remove traços e pontos
     $cnpj = trim($cnpj);
     $cnpj = str_replace(".", "", $cnpj);
@@ -56,24 +52,23 @@ function retorna($nome, $conn)
     return $result;
 }
 
-  // //Armazena os dados de login pra solicitar o token pra API 
-    // $post = array(
-    //       'session[email]' => 'admin@germantech.com.br',
-    //       'session[password]' => 'q27pptz8'
-    //     );
-    // //URL de login da API
-    // $URL='http://api.gtech.site/users/sign_in';
-        
-    // $ch = curl_init();
-    // curl_setopt($ch, CURLOPT_URL, $URL);
-    // curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    // curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-    // curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-    // $result=curl_exec($ch);
-    // $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);//Se o status foi 200 deu tudo certo
-    // curl_close($ch);
-    // $dados = json_decode($result);
-    // //pega o token de autenticação     
-    // $token = $dados->auth_token;
-    // //pega o cnpj da empresa pra enviar junto com o token 
+//Armazena os dados de login pra solicitar o token pra API 
+// $post = array(
+//       'session[email]' => 'admin@germantech.com.br',
+//       'session[password]' => 'q27pptz8'
+//     );
+// //URL de login da API
+// $URL='http://api.gtech.site/users/sign_in';
+// $ch = curl_init();
+// curl_setopt($ch, CURLOPT_URL, $URL);
+// curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+// curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+// curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+// $result=curl_exec($ch);
+// $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);//Se o status foi 200 deu tudo certo
+// curl_close($ch);
+// $dados = json_decode($result);
+// //pega o token de autenticação     
+// $token = $dados->auth_token;
+// //pega o cnpj da empresa pra enviar junto com o token 

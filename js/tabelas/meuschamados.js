@@ -48,7 +48,7 @@ function buildTable(data){
                 txt +='<a href="../pages/abrechamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
                 txt +='</center></td>';
             }else{
-                txt +='<td><a href="../pages/consulta.php?id_chamado='+data[i].id_chamado+'"><button class="btn btn-info btn-sm btn-block" type="button">Consultar</button></a> </td>';
+                txt +='<td><button class="btn btn-info btn-sm btn-block" type="button" onclick="abrirVisualizacao('+data[i].id_chamado+')">Consultar</button></td>';
             }  
             txt +='</tr>';
         }
@@ -103,7 +103,7 @@ function buildTableDirecionados(data){
             txt+='<td>'+data[i].empresa+'</td>';
             txt+='<td>'+data[i].contato+'</td>';
             txt+='<td>'+data[i].telefone+'</td>';
-            txt+="<td><a href='../pages/consultaespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button'><i class='glyphicon glyphicon-search'></i></button></a> <a href='../pages/abrechamadoespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
+            txt+="<td><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button' onclick='abrirVisualizacaoEspera("+data[i].id_chamadoespera+")'><i class='glyphicon glyphicon-search'></i></button> <a href='../pages/abrechamadoespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
             txt+="</tr>";
         }
 
@@ -126,3 +126,17 @@ function buildTableDirecionados(data){
 $.extend( true, $.fn.dataTable.defaults, {
     "ordering": false
 } );
+
+function abrirVisualizacao(id){
+    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id);
+    setTimeout(function(){
+        $("#modalCon").modal('show');
+    }, 300);
+}
+
+function abrirVisualizacaoEspera(id){
+    $("#modalConsulta").load("../modals/modalConsultaEspera.php?id_chamadoespera="+id);
+    setTimeout(function(){
+        $("#modalCon").modal('show');
+    }, 300);
+}

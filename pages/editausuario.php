@@ -1,9 +1,9 @@
 <?php
 include '../validacoes/verificaSessionAdmin.php';
-include '../include/dbconf.php';
-$conn->exec('SET CHARACTER SET utf8');
+require_once '../include/Database.class.php';
+$db = Database::conexao();
 $id = $_GET['id'];
-$sql = $conn->prepare("SELECT * FROM usuarios WHERE id=$id");
+$sql = $db->prepare("SELECT * FROM usuarios WHERE id=$id");
 $sql->execute();
 $row = $sql->fetch(PDO::FETCH_ASSOC);
 $epr = "";
@@ -13,7 +13,7 @@ if (isset($_GET['epr'])) {
 }
 if ($epr == 'excluir') {
     $id = $_GET['id'];
-    $query = $conn->prepare("DELETE FROM usuarios WHERE id=$id");
+    $query = $db->prepare("DELETE FROM usuarios WHERE id=$id");
     $query->execute();
 	echo "<script>
 			alert('Cadastro deletado com sucesso!');

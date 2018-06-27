@@ -10,12 +10,12 @@
     	<link href="../datatables/responsive.dataTables.min.css" rel="stylesheet">
     	<link href="../datatables/rowReorder.dataTables.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="../css/utils.css">
+		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 	<body>
 	<?php
 		/////////////////////
 		include '../validacoes/verificaSession.php';
-		include '../include/db.php';
 		include '../include/menu.php';
 		/////////////////////
 	?>
@@ -66,17 +66,17 @@
 
 			<?php 
 			if (array_key_exists('data', $_POST)) {
-			$data=$_POST['data'];
-			$data2=$_POST['data1'];
+				$data=$_POST['data'];
+				$data2=$_POST['data1'];
 			} else {
-			$data = date('Y-m').'-01';
-			$data2 = date('Y-m-t');
+				$data = date('Y-m').'-01';
+				$data2 = date('Y-m-t');
 			}
 			?>
 
 			<div id="menu2" class="tab-pane fade">
 				<br/>
-				<form class="navbar-form text-center" method="POST" action="sobreaviso.php">
+				<form class="navbar-form text-center" method="POST" action="../utilsPHP/gerarReportSobreaviso.php">
 				<fieldset>
 				<legend>Período:
 				</legend>
@@ -86,7 +86,7 @@
 				<label style="padding-left:15px; padding-right:10px;" class="control-label">Até:
 				</label>
 				<input style="padding-right:15px;" type="date" value="<?php echo $data2;?>" name="data2" class="form-control">
-				<button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary"><i class="glyphicon glyphicon-print"></i> Gerar</button>
+				<button id="gerarSobreaviso" name="singlebutton" class="btn btn-group-lg btn-primary"><i class="glyphicon glyphicon-print"></i> Gerar</button>
 				</fieldset>
 				</form> 
 			</div>
@@ -94,6 +94,9 @@
 				<?php include 'escalamensalpage.php'?>
 			</div>
 		</div>
+	</div>
+
+	<div id="modalConsulta">
 	</div>
 
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -108,7 +111,9 @@
 	<script src="../js/tabelas/plantao.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../js/apiConsulta.js"></script>
+	<script src="../assets/js/toastr.min.js"></script>
 	<script src="../js/links.js"></script>
+	<script src="../js/cadPlantao.js"></script>
 
 </body>
 </html>

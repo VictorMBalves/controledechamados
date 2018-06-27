@@ -1,15 +1,24 @@
 <?php
-	include '../include/dbconf.php';
 	include '../validacoes/verificaSession.php';
-	$conn->exec('SET CHARACTER SET utf8');
+	require_once '../include/Database.class.php';
+    $db = Database::conexao();
 	$id=$_GET['id_chamadoespera'];
-	$sql = $conn->prepare("SELECT * FROM chamadoespera WHERE id_chamadoespera=$id");
+	$sql = $db->prepare("SELECT * FROM chamadoespera WHERE id_chamadoespera=$id");
 	$sql->execute();
 	$row = $sql->fetch(PDO::FETCH_ASSOC);
+	if($row['status'] == 'Finalizado'){
+		echo '<h1>Chamado Nº'.$id.' já encerrado<h1>';
+		return;
+	}
 	$empresa = $row['empresa'];
-	$sql2 = $conn->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
+	$sql2 = $db->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
 	$sql2->execute();
 	$row2 = $sql2->fetch(PDO::FETCH_ASSOC);
+
+	if($row['status'] == 'Finalizado'){
+		header("Location: home.php"); 
+		exit();
+	}
 ?>
 <!Doctype html>
 <html>
@@ -21,34 +30,35 @@
 		<link rel="shortcut icon" href="../imagem/favicon.ico" />
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 
 	<body>
 		<?php include '../include/menu.php' ?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php'?>
-			<div class="alert alert-warning" role="alert">
+			<div id="divMsg" class="alert alert-warning" role="alert">
 				<center>Atender chamado em espera Nº: <?php echo $id?> </center>
 			</div>
 			<br>
-			<form class="form-horizontal" action="../inserts/insere_chamado2.php" method="POST">
-				<input style="display:none;"  name='id_chamadoespera' value='<?php echo $id; ?>'/>
+			<div class="form-horizontal">
+				<input style="display:none;" id="id_chamado"  name='id_chamadoespera' value='<?php echo $id; ?>'/>
 				<div class="form-group">
 					<label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label> 
 					<div class="col-sm-10">
-						<input value='<?php echo $row['empresa'];?>'name="empresa" type="text" class="form-control readonly" readonly required="">
+						<input value='<?php echo $row['empresa'];?>'name="empresa" type="text" id="empresa" class="form-control readonly" readonly  >
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label" for="contato">Contato:</label>  
-					<div class="col-sm-10">
-						<input value='<?php echo $row['contato'];?>' name="contato" type="text" class="form-control label2" required="">
+					<div id="contato-div" class="col-sm-10">
+						<input value='<?php echo $row['contato'];?>' name="contato" type="text" id="contato" class="form-control"  >
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label" for="formacontato">Forma de contato:</label>  
-					<div class="col-sm-4">
-						<select name="formacontato" type="text" class="form-control forma" required="">
+					<div  id="forma_contato-div" class="col-sm-4">
+						<select name="formacontato" type="text" id="forma_contato" class="form-control"  >
 							<option></option>
 							<option value="Cliente ligou">Cliente ligou</option>
 							<option value="Ligado para o cliente">Ligado para o cliente</option>
@@ -58,29 +68,29 @@
 						</select>
 					</div>
 					<label class="col-md-2 control-label" for="telefone">Telefone</label>  
-					<div class="col-sm-4">
-						<input value='<?php echo $row['telefone'];?>' name="telefone" type="text" class="form-control label2" onkeypress="return SomenteNumero(event)" required="">
+					<div id="telefone-div" class="col-sm-4">
+						<input value='<?php echo $row['telefone'];?>' name="telefone" id="telefone" type="text" class="form-control" onkeypress="return SomenteNumero(event)"  >
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label" for="sistema">Sistema:</label>  
-					<div class="col-sm-4">
-						<input name="sistema" type="text" value='<?php echo $row['sistema'];?>' class="form-control" required="">
+					<div id="sistema-div" class="col-sm-4">
+						<input name="sistema" type="text" value='<?php echo $row['sistema'];?>' id="sistema" class="form-control"  >
 					</div>
 					<label class="col-md-2 control-label" for="versao">Versão:</label>  
-					<div class="col-sm-4">
-						<input name="versao" type="text" value='<?php echo $row['versao'];?>' class="form-control" required="">
+					<div id="versao-div" class="col-sm-4">
+						<input name="versao" type="text" value='<?php echo $row['versao'];?>' id="versao" class="form-control"  >
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label" for="backup">Backup:</label>  
-					<div class = "col-sm-4">
-						<select name="backup" class="form-control">
+					<div id="backup-div" class="col-sm-4">
+						<select name="backup" class="form-control" id="backup">
 							<?php 
 								if ($row2['backup'] == 0) {
-									echo "<option value='0'>Google drive não configurado</option>";
+									echo '<option value="0">Google drive não configurado</option>';
 								} else {
-									echo "<option value='1'>Google drive configurado</option>";
+									echo '<option value="1">Google drive configurado</option>';
 								}
 							?>
 							<option></option>
@@ -89,8 +99,8 @@
 						</select>
 					</div>
 					<label class="col-md-2 control-label" for="categoria">Categoria:</label>
-					<div class = "col-sm-4">
-						<select name="categoria" type="text" class="form-control" required="">
+					<div id="categoria-div" class="col-sm-4">
+						<select name="categoria" type="text" id="categoria" class="form-control"  >
 							<option></option>
 							<option value="Erro">Erro</option>
 							<option value="Duvida">Duvida</option>
@@ -102,37 +112,23 @@
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label" for="descproblema">Descrição do problema:</label> 
-						<div class="col-sm-10">
-							<textarea name="descproblema" type="text" class="form-control" required=""><?php echo $row['descproblema'];?></textarea>
+						<div id="descricao_proplema-div" class="col-sm-10">
+							<textarea name="descproblema" type="text" id="descricao_proplema" class="form-control"  ><?php echo $row['descproblema'];?></textarea>
 						</div>
 				</div>
 				<div class="col-md-12 text-center">
-					<button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Atender</button>
-					<button id="singlebutton" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning" onclick="cancelar()">Cancelar</button>
+					<button id="submit" class="btn btn-group-lg btn-primary">Atender</button>
+					<button id="cancel" class="btn btn-group-lg btn-warning">Cancelar</button>
 				</div>
-			</form>
+			</div>
 		</div>
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>         
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../js/links.js" ></script>
+		<script src="../js/atenderChamadoEspera.js"></script>
 		<script src="../assets/js/bootstrap.min.js"></script>
-		<script>
-			$(function () {
-				$("#skills").autocomplete({
-					source: '../utilsPHP/search.php'
-				});
-			});
-
-			function cancelar() {
-				window.location.assign("home.php");
-			}
-
-			function erro() {
-				alert('Acesso negado! Redirecinando a pagina principal.');
-				window.location.assign("chamadoespera.php");
-			}
-		</script>
 	</body>
 </html>

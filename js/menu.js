@@ -52,8 +52,8 @@ function validaLogin(){
                 }else if (data == 'successNivel1'){
                     window.location.href='pages/chamadoespera.php';
                 }else{
+                    notificationErrorLogin("Acesso negado");
                     $("#entrar").html("Entrar");
-                    $("#errorMsg").html('<div class="alert alert-danger text-center" role="alert">Acesso negado<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){

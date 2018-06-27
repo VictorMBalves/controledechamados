@@ -1,5 +1,4 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "phpcs.executablePath": "vendor/squizlabs/php_codesniffer/bin/phpcs",
     "files.autoSave": "afterDelay"
 }

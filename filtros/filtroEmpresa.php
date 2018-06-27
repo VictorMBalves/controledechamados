@@ -1,3 +1,10 @@
+<?php
+    require_once '../include/Database.class.php';
+    $db = Database::conexao();
+    $stmt = $db->prepare("SELECT DISTINCT versao FROM empresa");
+    $stmt->execute();
+    $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
+?>
 <form class="form-inline" id="filtros">
     <div class="form-group">
         <label for="palavra">Razão Social:</label>
@@ -35,11 +42,9 @@
         <select name="versao" class="form-control">
             <option></option>
             <?php  
-                $versao = "SELECT DISTINCT versao FROM empresa";
-                $rs = mysqli_query($conn, $versao);
-                while ($w = mysqli_fetch_assoc($rs)) {
-                    if($w['versao'] != null)
-                        echo '<option value='.$w['versao'].'>'.$w['versao'].'</option>';
+                foreach ($resultado as $row) {
+                    if($row['versao'] != null)
+                        echo '<option value='.$row['versao'].'>'.$row['versao'].'</option>';
                 }
             ?>
         </select>

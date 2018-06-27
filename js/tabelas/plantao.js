@@ -8,21 +8,10 @@ function erro(){
     window.location.assign("../pages/chamadoespera.php");
 }
 $(function() {
-    $( "#skills" ).autocomplete({
+    $( "#empresa" ).autocomplete({
         source: '../utilsPHP/search.php'
     });
 });
-
-function validarHorario(){
-    var startTime = formplantao.horainicio.value;
-    var endTime = formplantao.horafim.value;
-    var regExp = /(\d{1,2})\:(\d{1,2})\:(\d{1,2})/;
-    if(parseInt(endTime .replace(regExp, "$1$2$3")) < parseInt(startTime .replace(regExp, "$1$2$3"))){
-        alert("Horário de termino deve ser maior que o horário de inicio");
-        formplantao.horafim.focus();
-        return false;
-    }
-}
 
 function loadTable(){
     $.ajax({
@@ -53,7 +42,7 @@ function buildTable(data){
             txt+='<td>'+data[i].empresa+'</td>';
             txt+='<td>'+data[i].contato+'</td>';
             txt+='<td>'+data[i].telefone+'</td>';
-            txt+='<td><a href="../pages/consultaplantao.php?id_plantao='+data[i].id_plantao+'"><button class="btn btn-info btn-sm btn-block" type="button">Consultar</button></a> </td>';
+            txt+='<td><button class="btn btn-info btn-sm btn-block" type="button" onclick="abrirVisualizacao('+data[i].id_plantao+')">Consultar</button></td>';
             txt+="</tr>";
         }
 
@@ -76,3 +65,10 @@ function buildTable(data){
 $.extend( true, $.fn.dataTable.defaults, {
     "ordering": false
 } );
+
+function abrirVisualizacao(id){
+    $("#modalConsulta").load("../modals/modalConsultaPlantao.php?id_plantao="+id);
+    setTimeout(function(){
+        $("#modalCon").modal('show');
+    }, 300);
+}

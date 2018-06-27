@@ -46,7 +46,9 @@
 			<br>
 			<hr/>
 			<?php
-				include '../include/dbconf.php';
+				require_once '../include/Database.class.php';
+				$db = Database::conexao();
+
 				if (array_key_exists('data', $_POST)) {
 					$data = $_POST['data'];
 					$data2 = $_POST['data1'];
@@ -71,10 +73,10 @@
 					echo '</thead>';
 
 					echo '<tbody>';
-					$conn->exec('SET CHARACTER SET utf8');
-					$query = $conn->prepare("SELECT COUNT(empresa), empresa FROM chamado WHERE date(datainicio) BETWEEN '$data' and '$data2' GROUP BY empresa ORDER BY COUNT(empresa) DESC LIMIT $limite");
+					$query = $db->prepare("SELECT COUNT(empresa), empresa FROM chamado WHERE date(datainicio) BETWEEN '$data' and '$data2' GROUP BY empresa ORDER BY COUNT(empresa) DESC LIMIT $limite");
 					$query->execute();
-					foreach ($query as $row) {
+					$result = $query->fetchAll(PDO::FETCH_ASSOC);
+					foreach ($result as $row) {
 						echo '<tr>';
 						echo '<td >' . $row['COUNT(empresa)'] . '</td>';
 						echo '<td>' . $row['empresa'] . '</td>';

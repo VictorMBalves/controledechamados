@@ -12,7 +12,7 @@ function callApi(empresa) {
     var consultabloqueio = false;
     var cupomfiscaleletronicosat = false;
     var emissordocumentosfiscaiseletronicos = false;
-    var empresa = $('#skills').val();
+    var empresa = $('#empresa').val();
 
     versao.val('');
     sistema.val('');
@@ -90,7 +90,7 @@ function callApi(empresa) {
     var $celular;
     var $backup = $("input[name='backup']");
     var select = document.getElementById('backup');
-    var empresa = $('#skills').val();
+    var empresa = $('#empresa').val();
 
         $.getJSON(
         '../utilsPHP/gettelefone.php',

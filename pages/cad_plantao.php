@@ -1,22 +1,22 @@
 <?php $time = date("Y-m-d");?>
     <br/>
-    <form name="formplantao"class="form-horizontal" action="../inserts/insere_plantao2.php" method="POST">
+    <div name="formplantao" class="form-horizontal">
         <div class="form-group">
             <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>  
-            <div class="col-sm-10">      
-                <input name="empresa" type="text" id="skills" class="form-control" required="">
+            <div id="empresa-div" class="col-sm-10">      
+                <input name="empresa" type="text" id="empresa" class="form-control">
             </div>
         </div>
         <div class="form-group">               
             <label class="col-md-2 control-label" for="contato">Contato:</label>
-            <div class="col-sm-10">  
-                <input name="contato" type="text" class="form-control" required="">
+            <div id="contato-div" class="col-sm-10">  
+                <input name="contato" id="contato" type="text" class="form-control">
             </div>
         </div>
         <div class="form-group">                
             <label class="col-md-2 control-label" for="formacontato">Forma de contato:</label>  
-            <div class="col-sm-2">
-                <select name="formacontato" type="text" class="form-control" required="">
+            <div id="formacontato-div" class="col-sm-2">
+                <select name="formacontato" id="formacontato" class="form-control">
                     <option>
                     </option>
                     <option value="Cliente ligou">Cliente ligou
@@ -32,44 +32,44 @@
                 </select>
             </div>
             <label class="col-md-2 control-label" for="telefone">Telefone</label>  
-            <div class="col-sm-2">
-                <input name="telefone" type="text" class="form-control" required="">
+            <div id="telefone-div" class="col-sm-2">
+                <input name="telefone" id="telefone" type="text" class="form-control" >
             </div>
             <label class="col-md-2 control-label" for="versao">Versão:</label>
-            <div class="col-sm-2">
-                <input name="versao" type="text" class="form-control" required="">
+            <div id="versao-div" class="col-sm-2">
+                <input name="versao" id="versao" type="text" class="form-control">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label" for="data">Data:</label>  
-            <div class="col-sm-2">
-                <input name="data" type="date" value="<?php echo $time?>"class="form-control" required="">
+            <div id="data-div" class="col-sm-2">
+                <input name="data" id="data" type="date" value="<?php echo $time?> "class="form-control">
             </div>
             <label class="col-md-2 control-label" for="horainicio">Horario de ínicio:</label>  
-            <div class="col-sm-2">
-                <input name="horainicio" type="time" class="form-control" required="" onchange="validarHorario()">
+            <div id="horainicio-div" class="col-sm-2">
+                <input name="horainicio" id="horainicio" type="time" class="form-control"  onchange="validarHorario()">
             </div>
             <label class="col-md-2 control-label" for="horafim">Horario de término:</label>  
-            <div class="col-sm-2">
-                <input name="horafim" type="time" class="form-control" required="" onchange="validarHorario()">      
+            <div id="horafim-div" class="col-sm-2">
+                <input name="horafim" id="horafim" type="time" class="form-control"  onchange="validarHorario()">      
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label" for="sistema">Sistema:</label>
-            <div class="col-sm-2">
-                <input name="sistema" type="text" class="form-control" required="">
+            <div id="sistema-div" class="col-sm-2">
+                <input name="sistema" id="sistema" type="text" class="form-control" >
             </div>
             <label class="col-md-2 control-label" for="backup">Backup:</label>
-            <div class="col-sm-2">
-                <select id="backup" name="backup" type="text" class="form-control" required="">
+            <div id="backup-div" class="col-sm-2">
+                <select id="backup" name="backup" type="text" class="form-control" >
                     <option></option>
                     <option value="1">Google drive configurado</option>
                     <option value="0">Google drive não configurado</option>
                 </select>
             </div>
             <label class="col-md-2 control-label" for="categoria">Categoria:</label>  
-                <div class="col-sm-2">
-                    <select name="categoria" type="text" class="form-control" required="">
+                <div id="categoria-div" class="col-sm-2">
+                    <select name="categoria" id="categoria" type="text" class="form-control" >
                         <option></option>
                         <option value="Erro">Erro</option>
                         <option value="Duvida">Duvida</option>
@@ -81,19 +81,19 @@
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label" for="descproblema">Descrição do problema:</label>  
-            <div class="col-sm-10">
-                <textarea name="descproblema" type="text" class="form-control" required=""></textarea>
+            <div id="descproblema-div" class="col-sm-10">
+                <textarea name="descproblema" id="descproblema" type="text" class="form-control" ></textarea>
             </div>
         </div> 
         <div class="form-group">
             <label class="col-md-2 control-label" for="descsolucao">Descrição da solução:</label>  
-            <div class="col-sm-10">
-                <textarea name="descsolucao" type="text" class="form-control" required=""></textarea>      
+            <div id="descsolucao-div" class="col-sm-10">
+                <textarea name="descsolucao" id="descsolucao" type="text" class="form-control" ></textarea>      
             </div>
         </div>  
         <div class="col-md-12 text-center">
             <?php include "../utilsPHP/statusDados.php";?>
-            <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary" onclick="validarHorario()">Gravar</button>
-            <button id="singlebutton" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning">Cancelar</button>
+            <button id="submit" name="singlebutton" class="btn btn-group-lg btn-primary" onclick="validarHorario()">Gravar</button>
+            <button id="cancel" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning">Cancelar</button>
         </div>
-    </form>
+    </div>

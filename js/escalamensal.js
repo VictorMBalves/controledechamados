@@ -5,11 +5,6 @@
         });
         $( "#lista" ).disableSelection();
     });
-
-    function erro(){
-        alert('Acesso negado! Redirecinando a pagina principal.');
-        window.location.assign("../pages/chamadoespera.php");
-    }
     $(function() {
         $("#usuarios").autocomplete({
             source: '../utilsPHP/searchusers.php'
@@ -32,7 +27,7 @@
         var usuario = $("#usuarios").val();
         var hash = '"'+md5(usuario)+'"';
         if(usuario == "" || usuario == null){
-            alert("Nenhum usuário selecionado");
+            return notificationWarning("Alerta","Nenhum usuário selecionado");
             return;
         }else{
             $( "#lista" ).append("<a href='#' class='list-group-item' id="+hash+">"+usuario+"<button class='btn btn-xs glyphicon glyphicon-remove pull-right' onclick='remover("+hash+")'></button></a>");
@@ -45,6 +40,7 @@
     }
 
     $("#gerar").on("click", function(){
+        progressReport("Gerando relatório de escala mensal");
         var users = [];
         var mes = $("#mes").val();
         
@@ -55,7 +51,9 @@
         });
         
         if (users == undefined || users.length == 0) {
-            return alert("Nenhum usuário selecionado");
+            notificationWarning("Alerta","Nenhum usuário selecionado");
+            toastr.clear();
+            return;
         }
 
         var data = [];
@@ -66,7 +64,8 @@
             data:data,
             success: function(data){
                 if(data == 'null'){
-                    alert("Nenhum usuário salvo para escala mensal!");
+                    notificationWarning("Alerta","Nenhum usuário selecionado");
+                    toastr.clear();
                     return;
                 }
                 window.location = '../utilsPHP/downloadpdf.php';
@@ -85,7 +84,7 @@
         });
 
         if (users == undefined || users.length == 0) {
-            return alert("Nenhum usuário selecionado");
+            return notificationWarning("Alerta","Nenhum usuário selecionado");
         }
         
         var data = [];
@@ -98,7 +97,7 @@
             data: data,
             success: function(data){
                 getUsuarios();
-                alert("Escala salva com sucesso");
+                notificationSuccess("Registro cadastrado","Escala salva com sucesso");
             }
         });
     });
@@ -112,15 +111,15 @@
         data.push({name: 'mes', value: mes});
         $.ajax({
             type: "POST",
-            url: "excluirescala.php",
+            url: "../utilsPHP/excluirescala.php",
             data:data,
             success: function(data){
                 data = data.trim();
                 if(data == 'success'){
                     getUsuarios();
-                    alert("Escala excluída com sucesso!");
+                    notificationSuccess("Registro exluído","Escala excluída com sucesso!");
                 }else{
-                    alert("Erro ao excluir");
+                    notificationError("Erro ao excluir:", data);
                 }
             }
         });

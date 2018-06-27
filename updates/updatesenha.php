@@ -37,14 +37,13 @@ function redireciona(){
 </html>
 
 <?php 
-include '../include/dbconf.php';
-$conn->exec('SET CHARACTER SET utf8');
-
+require_once '../include/Database.class.php';
+$db = Database::conexao();
 
 $senha=$_POST['senha'];
 $idusuario=$_SESSION['UsuarioID'];
 
-$sql = $conn->prepare("UPDATE usuarios SET senha=sha1('$senha') WHERE id='$idusuario'")
+$sql = $db->prepare("UPDATE usuarios SET senha=sha1('$senha') WHERE id='$idusuario'")
 or die(mysql_error());
 $sql->execute();
    echo '<script> redireciona() </script>'

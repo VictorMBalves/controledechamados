@@ -75,7 +75,7 @@ function buildTable(data){
                 txt +='<a href="../pages/abrechamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
                 txt +='</center></td>';
             }else{
-                txt +='<td><a href="../pages/consulta.php?id_chamado='+data[i].id_chamado+'"><button class="btn btn-info btn-sm btn-block" type="button">Consultar</button></a> </td>';
+                txt +='<td><button class="btn btn-info btn-sm btn-block" type="button" onclick="abrirVisualizacao('+data[i].id_chamado+')">Consultar</button></td>';
             }  
             txt +='</tr>';
         }
@@ -94,4 +94,11 @@ function buildTable(data){
     }else{
         $('#loading').html('<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nenhum registro encontrado com os filtros informados</div>');
     }
+}
+
+function abrirVisualizacao(id){
+    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id);
+    setTimeout(function(){
+        $("#modalCon").modal('show');
+    }, 300);
 }
