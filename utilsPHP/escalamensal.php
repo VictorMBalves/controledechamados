@@ -73,6 +73,8 @@
     }
 
     foreach($usuarios as $usuario){
+        if(!isset($usuario['fimperiodo']) || !isset($usuario['inicioperiodo']))
+            continue;
         $nome = $usuario['nome'];
         $fimperiodo = $usuario['fimperiodo'];
         $inicioperiodo = $usuario['inicioperiodo'];
