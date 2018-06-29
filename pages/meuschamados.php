@@ -10,6 +10,7 @@
     	<link href="../datatables/responsive.dataTables.min.css" rel="stylesheet">
 		<link href="../datatables/rowReorder.dataTables.min.css" rel="stylesheet">
 		<link href="../css/utils.css" rel="stylesheet">
+		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 	<body>
 		<?php
@@ -28,7 +29,7 @@
 						<h2><?php echo $_SESSION['UsuarioNome']; ?>, gerencie seus chamados:</h2>
 					</div>
 					<div class="col-sm-4">
-						<a href="../pages/home.php" class="thumbnail teste">
+						<a href="../pages/home" class="thumbnail teste">
 							<img src="../imagem/logo.png" />
 						</a>
 					</div> 
@@ -100,6 +101,7 @@
 			<script src="../datatables/rowReorder.min.js"></script>
 			<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 			<script src="../js/tabelas/meuschamados.js"></script>
+			<script src="../assets/js/toastr.min.js"></script>
 			<script src="../js/links.js"></script>
 	</body>
 </html>

@@ -48,9 +48,9 @@ function validaLogin(){
             success: function(data){
                 data = data.trim();
 		        if(data == 'success'){
-			        window.location.href='pages/home.php';
+			        window.location.href='pages/home';
                 }else if (data == 'successNivel1'){
-                    window.location.href='pages/chamadoespera.php';
+                    window.location.href='pages/chamadoespera';
                 }else{
                     notificationErrorLogin("Acesso negado");
                     $("#entrar").html("Entrar");

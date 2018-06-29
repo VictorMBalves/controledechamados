@@ -12,11 +12,11 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Controle de Chamados</title>
+	<title>Controle de Chamados</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<link rel="shortcut icon" href="../imagem/favicon.ico" />
+		<link rel="shortcut icon" href="/chamados/imagem/favicon.ico" />
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 	</head>
@@ -26,7 +26,7 @@
 			<div class="alert alert-success" role="alert">
 				<center>Relatório de Nº de chamados por empresa:</center>
 			</div>
-			<form class="navbar-form text-center" method="POST" action="relatorioempre.php">
+			<form class="navbar-form text-center" method="POST" action="relatorioempre">
 				<fieldset>
 					<legend>Período:
 					</legend>

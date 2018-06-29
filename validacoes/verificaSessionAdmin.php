@@ -7,13 +7,13 @@ if (!isset($_SESSION)) {
 
 if (!isset($_SESSION['UsuarioID'])) {
     session_destroy();
-    header("Location: ../index.html");
+    header("Location: ../index");
     exit;
 }
 
 if($_SESSION['UsuarioNivel'] != 3) {
     session_destroy();
-    header("Location: ../pages/home.html");
+    header("Location: ../pages/home");
     exit;
 }
 

@@ -2,9 +2,6 @@ function erro(){
     alert('Acesso negado! Redirecinando a pagina principal.');
     window.location.assign("../pages/chamadoespera.php");
 }  
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-});
 
 $( document ).ready(function(){
     $("#loading").html('<img src="../imagem/loading.gif">');
@@ -44,8 +41,8 @@ function buildTable(data){
         
             if (data[i].status !="Finalizado") {
                 txt +='<td><center>';
-                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
-                txt +='<a href="../pages/abrechamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
+                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado/'+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
+                txt +='<a href="../pages/abrechamado/'+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
                 txt +='</center></td>';
             }else{
                 txt +='<td><button class="btn btn-info btn-sm btn-block" type="button" onclick="abrirVisualizacao('+data[i].id_chamado+')">Consultar</button></td>';
@@ -103,7 +100,7 @@ function buildTableDirecionados(data){
             txt+='<td>'+data[i].empresa+'</td>';
             txt+='<td>'+data[i].contato+'</td>';
             txt+='<td>'+data[i].telefone+'</td>';
-            txt+="<td><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button' onclick='abrirVisualizacaoEspera("+data[i].id_chamadoespera+")'><i class='glyphicon glyphicon-search'></i></button> <a href='../pages/abrechamadoespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
+            txt+="<td><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button' onclick='abrirVisualizacaoEspera("+data[i].id_chamadoespera+")'><i class='glyphicon glyphicon-search'></i></button> <a href='../pages/abrechamadoespera/"+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
             txt+="</tr>";
         }
 

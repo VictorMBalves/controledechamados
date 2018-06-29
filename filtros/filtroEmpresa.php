@@ -1,7 +1,7 @@
 <?php
     require_once '../include/Database.class.php';
     $db = Database::conexao();
-    $stmt = $db->prepare("SELECT DISTINCT versao FROM empresa");
+    $stmt = $db->prepare("SELECT DISTINCT versao FROM empresa ORDER BY versao DESC");
     $stmt->execute();
     $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
 ?>
@@ -52,6 +52,6 @@
     <div class="form-group">
         <button id="buscar" name="buscar" class="btn btn-group-lg btn-primary">Buscar</button>
         <button id="refresh" type="reset" class="btn btn-group-lg btn-success"><span class="glyphicon glyphicon-refresh"></span></button>
-        <button id="novo" type="button" class="btn btn-group-lg btn-success" onclick="cadastrar()">Nova</button>
+        <button id="novo" type="button" class="btn btn-group-lg btn-success">Nova</button>
     </div>
 </form>

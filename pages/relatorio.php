@@ -27,7 +27,7 @@
             <div class="alert alert-success" role="alert">
                 <center>Relatório de chamados:</center>
             </div>
-            <form class="navbar-form text-center" method="POST" action="relatorio.php">
+            <form class="navbar-form text-center" method="POST" action="relatorio">
                 <fieldset>
                     <legend>Período:</legend>
                     <label style="padding-left:15px; padding-right:10px;" class="control-label">De:

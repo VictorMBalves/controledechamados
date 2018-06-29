@@ -11,12 +11,12 @@ descproblema = $("#descproblema");
 erros = [];
 $("#submit").click(function(){
     $("#submit").addClass( ' disabled ' );
-    $("#submit").html('<img src="../imagem/ajax-loader.gif">');
+    $("#submit").html('<img src="/chamados/imagem/ajax-loader.gif">');
     validar();
     return null;
 })
 $("#cancel").click(function(){
-    window.location.assign("../pages/home.php");
+    window.location.assign("/chamados/pages/home");
 })
 
 function validar(){ 
@@ -58,14 +58,14 @@ function validar(){
 function enviarDados(){
     $.ajax({
         type: "POST",
-        url: "../updates/updatechamado.php",
+        url: "/chamados/updates/updatechamado.php",
         data: carregaDados(),
         success: function(data){
             data = data.trim();
             if(data == "success"){
                 notificationSuccess('Registro salvo', 'Chamado atualizado com sucesso!');
                 setTimeout(function(){
-                    window.location.assign("../pages/chamados.php");
+                    window.location.assign("/chamados/pages/chamados");
                 }, 1000);
             }else{
                 notificationError('Ocorreu um erro ao atualizar o registro: ', data);

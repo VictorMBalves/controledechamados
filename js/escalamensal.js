@@ -111,7 +111,7 @@
         data.push({name: 'mes', value: mes});
         $.ajax({
             type: "POST",
-            url: "../utilsPHP/excluirescala.php",
+            url: "../deletes/excluiEscala.php",
             data:data,
             success: function(data){
                 data = data.trim();

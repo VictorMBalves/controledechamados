@@ -2,21 +2,22 @@
   require_once '../include/Database.class.php';
   include '../validacoes/verificaSession.php';
   $db = Database::conexao();
+  if(isset($_POST['id_chamadoespera'])){
+    $idchamadoespera =$_POST['id_chamadoespera'];
+    $statusespera = "Finalizado";
 
-  $idchamadoespera =$_POST['id_chamadoespera'];
-  $statusespera = "Finalizado";
-
-  $sql = $db->prepare("UPDATE chamadoespera SET status= :s WHERE id_chamadoespera= :id ") or die(mysql_error());
-  $sql->bindParam(":s", $statusespera, PDO::PARAM_STR, 500);
-  $sql->bindParam(":id", $idchamadoespera, PDO::PARAM_INT);
-  try
-  {
-    $sql->execute();
-  } 
-  catch (PDOException $e)
-  {
-    echo $e->getMessage();
-    exit;
+    $sql = $db->prepare("UPDATE chamadoespera SET status= :s WHERE id_chamadoespera= :id ") or die(mysql_error());
+    $sql->bindParam(":s", $statusespera, PDO::PARAM_STR, 500);
+    $sql->bindParam(":id", $idchamadoespera, PDO::PARAM_INT);
+    try
+    {
+      $sql->execute();
+    } 
+    catch (PDOException $e)
+    {
+      echo $e->getMessage();
+      exit;
+    }
   }
   $datainicio = date("Y-m-d H:i:s");
   $status = "Aberto";

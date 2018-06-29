@@ -16,7 +16,7 @@ $("#submit").click(function(){
     return null;
 })
 $("#cancel").click(function(){
-    window.location.assign("../pages/home.php");
+    window.location.assign("../pages/home");
 })
 
 function validar(){ 
@@ -63,7 +63,7 @@ function enviarDados(){
         success: function(data){
             data = data.trim();
             if(data == "success"){
-                notificationSuccessLink('Registro salvo', 'Chamado registrado com sucesso!', '../pages/chamados.php');
+                notificationSuccessLink('Registro salvo', 'Chamado registrado com sucesso!', '/chamados/pages/chamados');
                 resetForm();
                 $("#submit").removeClass( ' disabled ' );
                 $("#submit").html('Salvar');

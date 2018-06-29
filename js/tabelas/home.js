@@ -5,11 +5,6 @@
         loadTable();
     });
 
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-      });
-
     function erro(){
         alert('Acesso negado! Redirecinando a pagina principal.');
          window.location.assign("../pages/chamadoespera.php");
@@ -86,7 +81,7 @@
                 txt+='<td>'+data[i].empresa+'</td>';
                 txt+='<td>'+data[i].contato+'</td>';
                 txt+='<td>'+data[i].telefone+'</td>';
-                txt+="<td><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button' onclick='abrirVisualizacao("+data[i].id_chamadoespera+")'><i class='glyphicon glyphicon-search'></i></button>&nbsp<a href='../pages/abrechamadoespera.php?id_chamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
+                txt+="<td><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button' onclick='abrirVisualizacao("+data[i].id_chamadoespera+")'><i class='glyphicon glyphicon-search'></i></button>&nbsp<a href='../pages/abrechamadoespera/"+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
                 txt+="</tr>";
             }
     

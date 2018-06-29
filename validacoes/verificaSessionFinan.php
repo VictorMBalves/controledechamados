@@ -5,7 +5,7 @@ if (!isset($_SESSION)) {
 }
 if (!isset($_SESSION['UsuarioID'])) {
     session_destroy();
-    header("Location: ../index.html");
+    header("Location: ../index");
     exit;
 }
 $email = md5($_SESSION['Email']);

@@ -16,7 +16,7 @@ if($resultado != null){
 }else{
     echo'<div class="alert alert-danger alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            Não há escala de sobreaviso para essa semana! <a href="plantao.php" class="alert-link"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="left" title="Adicionar Escala"></span></a>.
+            Não há escala de sobreaviso para essa semana! <a href="plantao" class="alert-link"><span class="glyphicon glyphicon-plus" data-toggle="tooltip" data-placement="left" title="Adicionar Escala"></span></a>.
     </div>';
 }
 ?>

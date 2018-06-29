@@ -23,7 +23,7 @@
 		<div id="tarefas"></div>
 		<div class="row">
 			<div class="col-xs-6 col-md-3">
-				<a href="home.php" class="thumbnail">
+				<a href="home" class="thumbnail">
 					<img src="../imagem/logo.png" >
 				</a>
 			</div>

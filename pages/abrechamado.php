@@ -23,10 +23,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
-		<link rel="shortcut icon" href="../imagem/favicon.ico" />
+		<link rel="shortcut icon" href="/chamados/imagem/favicon.ico" />
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-		<link href="../assets/css/toastr.css" rel="stylesheet"/>
+		<link href="/chamados/assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 
 	<body>
@@ -106,12 +106,12 @@
 		</div>
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>         
-		<script src="../js/links.js" ></script> 
-		<script src="../assets/js/toastr.min.js"></script>
+		<script src="/chamados/js/links.js" ></script> 
+		<script src="/chamados/assets/js/toastr.min.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<script src="../assets/js/bootstrap.min.js"></script>
-		<script src="../js/finalizaChamado.js" ></script> 
+		<script src="/chamados/assets/js/bootstrap.min.js"></script>
+		<script src="/chamados/js/finalizaChamado.js" ></script> 
 		<script>
 			function Erro(){
 				notificationError('Acesso restrito');

@@ -15,7 +15,7 @@ $("#submit").click(function(){
 })
 
 $("#cancel").click(function(){
-    window.location.assign("../pages/home.php");
+    window.location.assign("../pages/home");
 })
 $("#showAtendente").click(function(){
     $("#sidebar").toggleClass("collapsed");
@@ -157,7 +157,7 @@ setInterval(function () {
 
 function erro() {
     alert('Acesso negado! Redirecinando a pagina principal.');
-    window.location.assign("home.php");
+    window.location.assign("home");
 }
 $(function () {
     $("#empresa").autocomplete({

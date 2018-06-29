@@ -1,10 +1,4 @@
-function erro(){
-    alert('Acesso negado! Redirecinando a pagina principal.');
-    window.location.assign("../pages/chamadoespera.php");
-}
 $(function () {$('#skills').autocomplete({source: '../utilsPHP/search.php'});});
-$(function () {$('[data-toggle="popover"]').popover();});
-$(function () {$('[data-toggle="tooltip"]').tooltip();});
 
 $(document).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
@@ -32,7 +26,9 @@ $("#buscar").on("click", function(){
     });
     return false;
 });
-
+$("#novo").on("click", function(){
+    window.location.assign("/chamados/pages/cad_empresa");
+});
 $("#refresh").on("click", function(){
     $("#loading").html('<img src="../imagem/loading.gif">');
     $('#tabela').DataTable().destroy();
@@ -76,7 +72,7 @@ function buildTable(data){
             }else{
                 txt +="<td>"+data[i].versao+"</td>";
             }
-            txt +="<td><a style='margin-top:2px;' href='../pages/editaempresa.php?id_empresa="+data[i].id_empresa+"'><button data-toggle='tooltip' data-placement='left' title='Editar Cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
+            txt +="<td><a style='margin-top:2px;' href='../pages/editaempresa/"+data[i].id_empresa+"'><button data-toggle='tooltip' data-placement='left' title='Editar Cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
             txt +='</tr>';
         }
 

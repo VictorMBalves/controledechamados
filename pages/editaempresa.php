@@ -2,20 +2,6 @@
 	include '../validacoes/verificaSessionFinan.php';
 	require_once '../include/Database.class.php';
     $db = Database::conexao();
-	$epr='';
-	$msg='';
-	if (isset($_GET['epr'])) {
-		$epr=$_GET['epr'];
-	}
-	if ($epr=='excluir') {
-		$id=$_GET['id_empresa'];
-		$query = $db ->prepare("DELETE FROM empresa WHERE id_empresa=$id");
-		$query->execute();
-		echo "<script>
-				alert('Cadastro deletado com sucesso!');
-				window.location.assign('empresa.php');
-			</script>";
-	}
 	$id=$_GET['id_empresa'];
 	$sql = $db->prepare("SELECT * FROM empresa WHERE id_empresa=$id");
 	$sql->execute();
@@ -28,52 +14,56 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<link rel="shortcut icon" href="../imagem/favicon.ico" />
+		<link rel="shortcut icon" href="/chamados/imagem/favicon.ico" />
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<link href="/chamados/assets/css/toastr.css" rel="stylesheet"/>
+		<style>
+			input.uppercase {
+				text-transform: uppercase;
+			}
+		</style>
 	</head>
 	<body>
 		<?php include '../include/menu.php'; ?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php';?>
-			<div class="alert alert-success" role="alert">
+			<div class="alert alert-info" role="alert">
 				<center>Editar empresa ID:
 					<?php echo $id?>
 				</center>
 			</div>
 			<div class="text-right">
 				<div class="form-group">
-					<?php echo "<a href='editaempresa.php?id_empresa=".$row['id_empresa']."&epr=excluir'><button type='reset' class='btn btn-danger' data-toggle='tooltip' data-placement='left' title='Excluir cadastro!'><span class='glyphicon glyphicon-trash'></span></button></a>"; ?>
+					<button id="delete" type='reset' class='btn btn-danger' data-toggle='tooltip' data-placement='left' title='Excluir cadastro!'><span class='glyphicon glyphicon-trash'></span></button>
 				</div>
 			</div>
-			<form class="form-horizontal" action="../updates/updateempresa.php" method="POST">
-				<input style="display:none;" name='id_empresa' value='<?php echo $id; ?>' readonly/>
+			<div class="form-horizontal">
+				<input style="display:none;" id="id" name='id_empresa' value='<?php echo $id; ?>'/>
 				<div class="form-group">
 					<label class="col-md-2 control-label">Razão Social:</label>
-					<div class="col-sm-4">
-						<input value='<?php echo $row['nome'];?>' id="skills" name="empresa" type="text" class="form-control" required="">
+					<div id="empresa-div" class="col-sm-4">
+						<input value='<?php echo $row['nome'];?>' id="empresa" name="empresa" type="text" class="uppercase form-control">
 					</div>
 					<label class="col-md-2 control-label">CNPJ:</label>
-					<div class="col-sm-4">
-						<input value='<?php echo $row['cnpj'];?>' name="cnpj" data-mask="99.999.999/9999-99" type="text" class="form-control" required="">
+					<div id="cnpj-div" class="col-sm-4">
+						<input value='<?php echo $row['cnpj'];?>' id="cnpj" name="cnpj" data-mask="99.999.999/9999-99" type="text" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label">Telefone:</label>
-					<div class="col-sm-4">
-						<input value='<?php echo $row['telefone'];?>'name="telefone" data-mask="(99)9999-9999" type="text" class="form-control"
-							required="">
+					<div id="telefone-div" class="col-sm-4">
+						<input value='<?php echo $row['telefone'];?>' id="telefone" name="telefone" data-mask="(99)9999-9999" type="text" class="form-control">
 					</div>
 					<label class="col-md-2 control-label">Celular:</label>
-					<div class='col-sm-4'>
-						<input value='<?php echo $row['celular'];?>' name="celular" data-mask="(99)99999-9999" type="text" class="form-control"
-							required="">
+					<div id="celular-div" class='col-sm-4'>
+						<input value='<?php echo $row['celular'];?>' id="celular" name="celular" data-mask="(99)99999-9999" type="text" class="form-control">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-2 control-label">Situação:</label>
-					<div class="col-sm-4">
-						<select name="situacao" class="form-control label1">
+					<div id="situacao-div" class="col-sm-4">
+						<select name="situacao" id="situacao" class="form-control ">
 							<option>
 								<?php echo $row['situacao'];?>
 							</option>
@@ -88,8 +78,8 @@
 						</select>
 					</div>
 					<label class="col-md-2 control-label">Backup:</label>
-					<div class="col-sm-4">
-						<select name="backup" class="form-control label1 ">
+					<div id="backup-div" class="col-sm-4">
+						<select id="backup" name="backup" class="form-control  ">
 								<?php 
 									if ($row['backup'] == 0) {
 										echo'<option value="0">Google drive não configurado</option>';
@@ -129,35 +119,20 @@
 					<button id="verModulo" name="verModulos" class="btn btn-info" type="button" data-toggle="collapse" data-target="#abrirModulos"
 						aria-expanded="false" aria-controls="collapseExample" data-placement='left' title='Visualizar módulos'>
 						<icon class="glyphicon glyphicon-th-list"></icon>&nbspVisualizar módulos</button>
-					<button type="submit" id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Alterar</button>
-					<button type="reset" class="btn btn-group-lg btn-warning" onclick="cancelar2()">Cancelar</button>
+					<button type="submit" id="submit" name="singlebutton" class="btn btn-group-lg btn-primary">Alterar</button>
+					<button type="reset" id="cancel" class="btn btn-group-lg btn-warning">Cancelar</button>
 				</div>
-			</form>
+			</div>
 		</div>
 
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<script src="../js/links.js"></script>
-		<script src="../js/apiConsulta.js"></script>
+		<script src="/chamados/assets/js/toastr.min.js"></script>
+		<script src="/chamados/js/links.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<script src="../assets/js/bootstrap.min.js"></script>
-		<script>
-			function erro() {
-				alert('Acesso negado! Redirecinando a pagina principal.');
-				window.location.assign("chamadoespera.php");
-			}
-
-			function cancelar() {
-				window.location.assign("chamados.php");
-			}
-
-			$(function () {
-				$('[data-toggle="popover"]').popover()
-			});
-			$(function () {
-				$('[data-toggle="tooltip"]').tooltip()
-			});
-		</script>
+		<script src="/chamados/assets/js/bootstrap.min.js"></script>
+		<script src="/chamados/js/editaEmpresa.js"></script>
+		<script src="/chamados/js/apiConsulta.js"></script>
 	</body>
 </html>

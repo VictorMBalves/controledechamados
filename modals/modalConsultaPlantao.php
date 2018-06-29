@@ -19,7 +19,7 @@
                     <h4 class="modal-title">Consulta Plantão Nº <?php echo $id ?></h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" action="plantao.php" method="POST">
+                    <form class="form-horizontal">
                         <div class="form-group">
                             <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>
                             <div class="col-sm-10">

@@ -5,13 +5,13 @@
     }
     if (!isset($_SESSION['UsuarioID'])) {
         session_destroy();
-        header("Location: ../index.html");
+        header("Location: ../index");
         exit;
     }
 
     if ($_SESSION['UsuarioNivel'] == 1) {
         $email = md5($_SESSION['Email']);
-        header("Location: ../pages/chamadoespera.php");
+        header("Location: ../pages/chamadoespera");
         exit;
     }
     $email = md5($_SESSION['Email']);

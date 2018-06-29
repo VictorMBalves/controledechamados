@@ -9,10 +9,9 @@
 		<link rel="shortcut icon" href="../imagem/favicon.ico" />
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<link href="/chamados/assets/css/toastr.css" rel="stylesheet"/>
 	</head>
-
 	<body>
-
 	<?php
 		include '../validacoes/verificaSessionFinan.php';
 		include '../include/menu.php';
@@ -24,30 +23,30 @@
 				</center>
 			</div>
 			<br>
-			<form class="form-horizontal" action="../updates/updatesenha.php" method="POST">
+			<div class="form-horizontal">
 				<div class="form-group">
-					<label class="col-md-2 control-label" for="senha">Nova Senha:</label>
-					<div class="col-sm-8">
-						<input name="senha" type="password" class="form-control" required="" style="padding-bottom:15px;">
+					<label class="col-md-1 control-label" for="senha">Senha:</label>
+					<div id="senha-div" class="col-sm-4">
+						<input name="senha" id="senha" type="password" class="form-control">
 					</div>
-					<div class="col-sm-2">
-						<button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Alterar</button>
+					<label class="col-md-1 control-label" for="senha">Confirmar:</label>
+					<div id="senhaconfirm-div" class="col-sm-4">
+						<input name="senhaconfirm" id="senhaconfirm" type="password" class="form-control">
+					</div>
+					<div class="col-sm-1">
+						<button id="submit" name="singlebutton" class="btn btn-group-lg btn-primary form-control">Alterar</button>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../assets/js/bootstrap.min.js"></script>
-		<script>
-			function erro() {
-				alert('Acesso negado! Redirecinando a pagina principal.');
-				window.location.assign("chamadoespera.php");
-			}
-		</script>
+		<script src="../js/alterSenha.js"></script>
 	</body>
 
 </html>

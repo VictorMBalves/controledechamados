@@ -3,8 +3,6 @@ function erro(){
     window.location.assign("../pages/chamadoespera.php");
 }
 $(function () {$('#skills').autocomplete({source: '../utilsPHP/search.php'});});
-$(function () {$('[data-toggle="popover"]').popover();});
-$(function () {$('[data-toggle="tooltip"]').tooltip();});
 
 $(document).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
@@ -71,8 +69,8 @@ function buildTable(data){
         
             if (data[i].status !="Finalizado") {
                 txt +='<td><center>';
-                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
-                txt +='<a href="../pages/abrechamado.php?id_chamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
+                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado/'+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
+                txt +='<a href="../pages/abrechamado/'+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
                 txt +='</center></td>';
             }else{
                 txt +='<td><button class="btn btn-info btn-sm btn-block" type="button" onclick="abrirVisualizacao('+data[i].id_chamado+')">Consultar</button></td>';

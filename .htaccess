@@ -1,0 +1,30 @@
+#redirecionamento de erros
+ErrorDocument 404 /chamados/error/404.html
+ErrorDocument 400 /chamados/error/404.html
+ErrorDocument 401 /chamados/error/404.html
+ErrorDocument 403 /chamados/error/404.html
+ErrorDocument 500 /chamados/error/404.html
+#rotas
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^/?$ index.html [NC,L]
+  RewriteRule ^pages/home/?$ pages/home.php [NC,L]
+  RewriteRule ^pages/chamados/?$ pages/chamados.php [NC,L]
+  RewriteRule ^pages/plantao/?$ pages/plantao.php [NC,L]
+  RewriteRule ^pages/empresa/?$ pages/empresa.php [NC,L]
+  RewriteRule ^pages/meuschamados/?$ pages/meuschamados.php [NC,L]
+  RewriteRule ^pages/chamadoespera/?$ pages/chamadoespera.php [NC,L]
+  RewriteRule ^pages/cad_chamado/?$ pages/cad_chamado.php [NC,L]
+  RewriteRule ^pages/relatorio/?$ pages/relatorio.php [NC,L]
+  RewriteRule ^pages/relatorioempre/?$ pages/relatorioempre.php [NC,L]
+  RewriteRule ^pages/dadosempresasapi/?$ pages/dadosempresasapi.php [NC,L]
+  RewriteRule ^pages/cad_usuario/?$ pages/cad_usuario.php [NC,L]
+  RewriteRule ^pages/cad_empresa/?$ pages/cad_empresa.php [NC,L]
+  RewriteRule ^pages/alterasenha/?$ pages/alterasenha.php [NC,L]
+  RewriteRule ^utilsPHP/logout/?$ utilsPHP/logout.php [NC,L]
+  RewriteRule ^pages/abrechamado/([0-9]+)?$ pages/abrechamado.php?id_chamado=$1 [NC,L]
+  RewriteRule ^pages/editachamado/([0-9]+)?$ pages/editachamado.php?id_chamado=$1 [NC,L]
+  RewriteRule ^pages/abrechamadoespera/([0-9]+)?$ pages/abrechamadoespera.php?id_chamadoespera=$1 [NC,L]
+  RewriteRule ^pages/editausuario/([0-9]+)?$ pages/editausuario.php?id=$1 [NC,L]
+  RewriteRule ^pages/editaempresa/([0-9]+)?$ pages/editaempresa.php?id_empresa=$1 [NC,L]
+</IfModule>

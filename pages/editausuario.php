@@ -6,20 +6,6 @@ $id = $_GET['id'];
 $sql = $db->prepare("SELECT * FROM usuarios WHERE id=$id");
 $sql->execute();
 $row = $sql->fetch(PDO::FETCH_ASSOC);
-$epr = "";
-
-if (isset($_GET['epr'])) {
-    $epr = $_GET['epr'];
-}
-if ($epr == 'excluir') {
-    $id = $_GET['id'];
-    $query = $db->prepare("DELETE FROM usuarios WHERE id=$id");
-    $query->execute();
-	echo "<script>
-			alert('Cadastro deletado com sucesso!');
-			  window.location.assign('cad_usuario.php');
-		</script>";
-}
 ?>
 <!Doctype html>
 <html>
@@ -29,9 +15,10 @@ if ($epr == 'excluir') {
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<link rel="shortcut icon" href="imagem/favicon.ico" />
+		<link rel="shortcut icon" href="/chamados/imagem/favicon.ico" />
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<link href="/chamados/assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 
 	<body>
@@ -43,40 +30,45 @@ if ($epr == 'excluir') {
 			</div>
 			<div class="text-right">
 				<div class="form-group">
-					<?php echo "<a href='editausuario.php?id=".$row['id']."&epr=excluir'><button type='reset' class='btn btn-danger'data-toggle='tooltip' data-placement='left' title='Excluir cadastro!'><span class='glyphicon glyphicon-trash'></span></button></a>"; ?>
+					<button type='reset' id="delete" class='btn btn-danger'data-toggle='tooltip' data-placement='left' title='Excluir cadastro!'><span class='glyphicon glyphicon-trash'></span></button>
 				</div>
 			</div>
-			<form class="form-horizontal" action="../updates/updateusuario.php" method="POST">
-				<input style="display:none;" name='id' value='<?php echo $id; ?>' readonly/>
-				<div class="form-group">
+			<div class="form-horizontal">
+				<input style="display:none;" id="id" name='id' value='<?php echo $id; ?>' readonly/>
+				<div id="nome-div" class="form-group">
 					<label class="col-md-2 control-label" for="nome">Nome:</label>
 					<div class="col-sm-10">
-						<input name="nome" type="text" class="form-control label1" value="<?php echo $row['nome']?>" required="">
+						<input id="nome" name="nome" type="text" class="form-control label1" value="<?php echo $row['nome']?>">
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-2 control-label" for="usuario" id="usuario">Login:</label>
+				<div id="usuario-div" class="form-group">
+					<label class="col-md-2 control-label" for="usuario">Login:</label>
 					<div class="col-sm-10">
-						<input name="usuario" type="text" class="form-control" value="<?php echo $row['usuario']?>" required="">
-						<div id="resultado"></div>
+						<input name="usuario" id="usuario" type="text" class="form-control" value="<?php echo $row['usuario']?>">
 					</div>
 				</div>
-				<div class="form-group">
+				<div id="email-div" class="form-group">
 					<label class="col-md-2 control-label" for="usuario">E-mail</label>
 					<div class="col-sm-10">
-						<input name="email" type="email" class="form-control label1" value="<?php echo $row['email']?>" required="">
+						<input name="email" id="email" type="email" class="form-control label1" value="<?php echo $row['email']?>">
 					</div>
 				</div>
-				<div class="form-group">
+				<div id="senha-div" class="form-group">
 					<label class="col-md-2 control-label" for="senha">Senha:</label>
 					<div class="col-sm-10">
-						<input name="senha" type="password" class="form-control" required="">
+						<input name="senha" type="password" id="senha" class="form-control" >
 					</div>
 				</div>
-				<div class="form-group">
+				<div id="senhaconfirm-div" class="form-group">
+					<label class="col-sm-2 control-label" for="senha">Confir. Senha:</label>
+					<div class="col-sm-10">
+						<input name="senhaconfirm" id="senhaconfirm" type="password" class="form-control label1" >
+					</div>
+				</div>
+				<div id="nivel-div" class="form-group">
 					<label class="col-md-2 control-label empresa">Nivel</label>
 					<div class="col-sm-10">
-						<select name="nivel" class="form-control label1" required="">
+						<select name="nivel" id="nivel" class="form-control label1" >
 							<option value="3">Suporte Avançado
 							</option>
 							<option value="2">Help-Desk
@@ -87,33 +79,18 @@ if ($epr == 'excluir') {
 					</div>
 				</div>
 				<div class="col-md-12 text-center">
-					<button type="submit" id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary">Cadastrar</button>
-					<button type="reset" class="btn btn-group-lg btn-warning" onclick="cancelar4()">Cancelar</button>
+					<button type="submit" id="submit" name="singlebutton" class="btn btn-group-lg btn-primary">Cadastrar</button>
+					<button type="reset" id="cancel" class="btn btn-group-lg btn-warning" onclick="cancelar4()">Cancelar</button>
 				</div>
-			</form>
+			</div>
 		</div>
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<script src="../js/links.js"></script>
+		<script src="/chamados/assets/js/toastr.min.js"></script>
+		<script src="/chamados/js/links.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<script src="../assets/js/bootstrap.min.js"></script>
-		<script>
-			function erro() {
-				alert('Acesso negado! Redirecinando a pagina principal.');
-				window.location.assign("home.php");
-			}
-
-			function cancelar() {
-				window.location.assign("chamados.php");
-			}
-
-			$(function () {
-				$('[data-toggle="popover"]').popover()
-			})
-			$(function () {
-				$('[data-toggle="tooltip"]').tooltip()
-			})
-		</script>
+		<script src="/chamados/assets/js/bootstrap.min.js"></script>
+		<script src="/chamados/js/editaUsuario.js"></script>
 	</body>
 </html>
