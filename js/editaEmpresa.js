@@ -11,12 +11,12 @@ components = [
    
    $("#submit").click(function(){
        $("#submit").addClass( ' disabled ' );
-       $("#submit").html('<img src="/chamados/imagem/ajax-loader.gif">');
+       $("#submit").html('<img src="../imagem/ajax-loader.gif">');
        validar(components);
        return null;
    })
    $("#cancel").click(function(){
-       window.location.assign("/chamados/pages/empresa");
+       window.location.assign("../pages/empresa");
    })
    function validar(components){
        erros = [];
@@ -42,14 +42,14 @@ components = [
    function enviarDados(){
        $.ajax({
            type: "POST",
-           url: "/chamados/updates/updateempresa.php",
+           url: "../updates/updateempresa.php",
            data: carregaDados(),
            success: function(data){
                data = data.trim();
                if(data == "success"){
                    notificationSuccess('Registro salvo', 'Empresa registrada com sucesso!');
                    setTimeout(function(){
-                       window.location.assign("/chamados/pages/empresa");
+                       window.location.assign("../pages/empresa");
                    }, 1000);
                }else{
                    notificationError('Ocorreu um erro ao salvar o registro: ', data);
@@ -101,14 +101,14 @@ $("#delete").click(function(){
     dados.push({name: 'id', value: id.val()});
     $.ajax({
         type: "POST",
-        url: "/chamados/deletes/excluiEmpresa.php",
+        url: "../deletes/excluiEmpresa.php",
         data: dados,
         success: function(data){
             data = data.trim();
             if(data == "success"){
                 notificationSuccess('Registro excluído', 'Empresa excluída com sucesso!');
                 setTimeout(function(){
-                    window.location.assign("/chamados/pages/empresa");
+                    window.location.assign("../pages/empresa");
                 }, 1000);
             }else{
                 notificationError('Ocorreu um erro ao excluir o registro: ', data);

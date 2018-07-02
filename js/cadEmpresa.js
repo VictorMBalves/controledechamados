@@ -15,7 +15,7 @@ $("#submit").click(function(){
     return null;
 })
 $("#cancel").click(function(){
-    window.location.assign("/chamados/pages/empresa");
+    window.location.assign("../pages/empresa");
 })
 function validar(components){
     erros = [];
@@ -48,7 +48,7 @@ function enviarDados(){
             if(data == "success"){
                 notificationSuccess('Registro salvo', 'Empresa registrada com sucesso!');
                 setTimeout(function(){
-                    window.location.assign("/chamados/pages/empresa");
+                    window.location.assign("../pages/empresa");
                 }, 1000);
             }else{
                 notificationError('Ocorreu um erro ao salvar o registro: ', data);

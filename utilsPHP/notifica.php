@@ -47,7 +47,7 @@
                 echo '<div class="alert alert-info alert-dismissible" role="alert">';
                 // echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
                 echo '<div class="text-center">';
-                echo '<a href="/chamados/pages/meuschamados" class="link"><i class="glyphicon glyphicon-bell bells"></i>&nbsp<strong>'.$_SESSION["UsuarioNome"].'</strong>, há <strong>'.$row["COUNT(enderecado)"].'</strong>';
+                echo '<a href="../pages/meuschamados" class="link"><i class="glyphicon glyphicon-bell bells"></i>&nbsp<strong>'.$_SESSION["UsuarioNome"].'</strong>, há <strong>'.$row["COUNT(enderecado)"].'</strong>';
                 if ($row["COUNT(enderecado)"] > 1) {
                     echo ' notificações';
                 } else {

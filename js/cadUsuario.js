@@ -146,7 +146,7 @@ function ValidateEmail() {
 function validaLogin(){
     $.ajax({
         type: "GET",
-        url: "/chamados/utilsPHP/verificausuario.php?usuario=" + usuario.val(),
+        url: "../utilsPHP/verificausuario.php?usuario=" + usuario.val(),
         success: function(data){
             if(data == 'valido'){
                 enviarDados();

@@ -27,7 +27,7 @@ $("#buscar").on("click", function(){
     return false;
 });
 $("#novo").on("click", function(){
-    window.location.assign("/chamados/pages/cad_empresa");
+    window.location.assign("../pages/cad_empresa");
 });
 $("#refresh").on("click", function(){
     $("#loading").html('<img src="../imagem/loading.gif">');
@@ -72,7 +72,7 @@ function buildTable(data){
             }else{
                 txt +="<td>"+data[i].versao+"</td>";
             }
-            txt +="<td><a style='margin-top:2px;' href='../pages/editaempresa/"+data[i].id_empresa+"'><button data-toggle='tooltip' data-placement='left' title='Editar Cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
+            txt +="<td><a style='margin-top:2px;' href='../pages/editaempresa="+data[i].id_empresa+"'><button data-toggle='tooltip' data-placement='left' title='Editar Cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
             txt +='</tr>';
         }
 

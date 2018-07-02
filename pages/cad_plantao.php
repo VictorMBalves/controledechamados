@@ -1,6 +1,6 @@
 <?php $time = date("Y-m-d");?>
     <br/>
-    <div name="formplantao" class="form-horizontal">
+    <div class="form-horizontal">
         <div class="form-group">
             <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>  
             <div id="empresa-div" class="col-sm-10">      
@@ -93,7 +93,7 @@
         </div>  
         <div class="col-md-12 text-center">
             <?php include "../utilsPHP/statusDados.php";?>
-            <button id="submit" name="singlebutton" class="btn btn-group-lg btn-primary" onclick="validarHorario()">Gravar</button>
+            <button id="submit" name="singlebutton" class="btn btn-group-lg btn-primary">Salvar</button>
             <button id="cancel" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning">Cancelar</button>
         </div>
     </div>

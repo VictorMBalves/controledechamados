@@ -12,7 +12,7 @@ $(function () {
 })
 
 function atualizarTarefas() {
-    var url = "/chamados/utilsPHP/notifica.php";
+    var url = "../utilsPHP/notifica.php";
     jQuery("#tarefas").load(url);
 }
 setTimeout("atualizarTarefas()", 100);

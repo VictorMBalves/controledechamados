@@ -1,15 +1,15 @@
 $(document).ready(function() {
-    $("#loading").html('<img src="/chamados/imagem/loading.gif">');
+    $("#loading").html('<img src="../imagem/loading.gif">');
     loadTable();
 });
 
 function erro() {
     alert('Acesso negado! Redirecinando a pagina principal.');
-    window.location.assign("/chamados/pages/home");
+    window.location.assign("../pages/home");
 }
 
 function cancelar() {
-    window.location.assign("/chamados/pages/chamados");
+    window.location.assign("../pages/chamados");
 }
 
 function loadTable(){
@@ -37,7 +37,7 @@ function buildTable(data){
             txt+='<td>'+data[i].nome+'</td>';
             txt+='<td>'+data[i].usuario+'</td>';
             txt+='<td>'+data[i].email+'</td>';
-            txt+="<td><a style='margin-top:2px;' href='../pages/editausuario/"+data[i].id+"'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
+            txt+="<td><a style='margin-top:2px;' href='../pages/editausuario="+data[i].id+"'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
             txt+="</tr>";
         }
 

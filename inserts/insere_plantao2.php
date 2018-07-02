@@ -35,7 +35,6 @@ $sql ->bindParam(":descsolucao", $descsolucao, PDO::PARAM_STR, 500);
 $sql ->bindParam(":data", $data, PDO::PARAM_STR, 500);
 $sql ->bindParam(":horai", $horai, PDO::PARAM_STR, 500);
 $sql ->bindParam(":horaf", $horaf, PDO::PARAM_STR, 500);
-$sql->execute();
 try
   {
     $sql->execute();

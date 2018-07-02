@@ -100,7 +100,7 @@ function buildTableDirecionados(data){
             txt+='<td>'+data[i].empresa+'</td>';
             txt+='<td>'+data[i].contato+'</td>';
             txt+='<td>'+data[i].telefone+'</td>';
-            txt+="<td><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button' onclick='abrirVisualizacaoEspera("+data[i].id_chamadoespera+")'><i class='glyphicon glyphicon-search'></i></button> <a href='../pages/abrechamadoespera/"+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
+            txt+="<td><button data-toggle='tooltip' data-placement='left' title='Visualizar' class='btn btn-info bttt' type='button' onclick='abrirVisualizacaoEspera("+data[i].id_chamadoespera+")'><i class='glyphicon glyphicon-search'></i></button> <a href='../pages/abrechamadoespera="+data[i].id_chamadoespera+"'><button data-toggle='tooltip' data-placement='right' title='Atender' class='btn btn-success bttt' type='button'><i class='glyphicon glyphicon-share-alt'></i></button></a></td>";
             txt+="</tr>";
         }
 

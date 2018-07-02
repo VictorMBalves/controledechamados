@@ -69,8 +69,8 @@ function buildTable(data){
         
             if (data[i].status !="Finalizado") {
                 txt +='<td><center>';
-                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado/'+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
-                txt +='<a href="../pages/abrechamado/'+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
+                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
+                txt +='<a href="../pages/abrechamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
                 txt +='</center></td>';
             }else{
                 txt +='<td><button class="btn btn-info btn-sm btn-block" type="button" onclick="abrirVisualizacao('+data[i].id_chamado+')">Consultar</button></td>';

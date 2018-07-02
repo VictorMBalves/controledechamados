@@ -34,6 +34,11 @@ function validar(components){
             erros.push(components[i].selector);
     }
     if(isEmpty(erros)){
+        if(!validarHorario()){
+            $("#submit").removeClass("disabled");
+            $("#submit").html("Salvar");
+            return;
+        }
         enviarDados();
     }else{
         $("#submit").removeClass("disabled");
@@ -172,4 +177,5 @@ function validarHorario(){
         horafim.focus();
         return false;
     }
+    return true;
 }

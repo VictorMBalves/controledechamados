@@ -12,10 +12,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="/chamados/pages/home"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome</a>
+                    <a href="../pages/home"><span class="glyphicon glyphicon-home"></span>&nbsp&nbspHome</a>
                 </li>
                 <li>
-                    <a href="/chamados/pages/empresa"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbspClientes</a>
+                    <a href="../pages/empresa"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbspClientes</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav">
@@ -27,17 +27,17 @@
                         <?php 
                             if($_SESSION['UsuarioNivel'] != 1) {
                                 echo '<li>
-                                        <a href="/chamados/pages/chamados">Atendimentos</a>
+                                        <a href="../pages/chamados">Atendimentos</a>
                                     </li>
                                     <li role="separator" class="divider"></li>
                                     <li>
-                                        <a href="/chamados/pages/cad_chamado">Novo Chamado</a>
+                                        <a href="../pages/cad_chamado">Novo Chamado</a>
                                     </li>
                                     <li role="separator" class="divider"></li>';
                                 }
                             ?>
                         <li>
-                            <a href="/chamados/pages/chamadoespera">Novo Chamado Em Espera</a>
+                            <a href="../pages/chamadoespera">Novo Chamado Em Espera</a>
                         </li>
                     </ul>
                 </li>
@@ -47,7 +47,7 @@
                     if($_SESSION['UsuarioNivel'] != 1) { 
                         echo'
                             <li>
-                                <a href="/chamados/pages/plantao"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
+                                <a href="../pages/plantao"><span class="glyphicon glyphicon-plus"></span>&nbsp&nbspPlantão</a>
                             </li>
                                 <ul class="nav navbar-nav" style="padding-left:15px;">
                                     <li class="dropdown">
@@ -56,15 +56,15 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="/chamados/pages/relatorio">Chamados por atendente</a>
+                                                <a href="../pages/relatorio">Chamados por atendente</a>
                                             </li>
                                             <li role="separator" class="divider"></li>
                                             <li>
-                                                <a href="/chamados/pages/relatorioempre">Empresas Solicitantes </a>
+                                                <a href="../pages/relatorioempre">Empresas Solicitantes </a>
                                             </li>
                                             <li role="separator" class="divider"></li>
                                             <li>
-                                                <a href="/chamados/pages/dadosempresasapi">Dados empresas API </a>
+                                                <a href="../pages/dadosempresasapi">Dados empresas API </a>
                                             </li>
                                             <li role="separator" class="divider"></li>
                                         </ul>
@@ -79,7 +79,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a style="padding-left:10px;" href="/chamados/pages/meuschamados"><?php echo "<img src='https://www.gravatar.com/avatar/$email' width='25px'>";?>
+                                <a style="padding-left:10px;" href="../pages/meuschamados"><?php echo "<img src='https://www.gravatar.com/avatar/$email' width='25px'>";?>
                                     <?php echo $_SESSION['UsuarioNome']; ?> 
                                     <span class="sr-only">(current)</span>
                                 </a>
@@ -89,17 +89,17 @@
                                 if($_SESSION['UsuarioNivel'] == 3){
                                     echo ' <li role="separator" class="divider"></li>         
                                             <li>
-                                                <a href="/chamados/pages/cad_usuario">Cadastrar usuário</a>
+                                                <a href="../pages/cad_usuario">Cadastrar usuário</a>
                                             </li>';
                                 }
                             ?>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a href="/chamados/pages/alterasenha">Alterar senha</a>
+                                <a href="../pages/alterasenha">Alterar senha</a>
                             </li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a href="/chamados/utilsPHP/logout">Sair</a>
+                                <a href="../utilsPHP/logout">Sair</a>
                             </li>
                             <li role="separator" class="divider"></li>
                             <li>

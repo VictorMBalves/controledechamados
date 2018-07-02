@@ -7,7 +7,7 @@ if (!isset($_SESSION)) {
 
 if (!isset($_SESSION['UsuarioID'])) {
     session_destroy();
-    header("Location: ../index");
+    header("Location: ../");
     exit;
 }
 

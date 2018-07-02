@@ -63,7 +63,7 @@ function enviarDados(){
         success: function(data){
             data = data.trim();
             if(data == "success"){
-                notificationSuccessLink('Registro salvo', 'Chamado registrado com sucesso!', '/chamados/pages/chamados');
+                notificationSuccessLink('Registro salvo', 'Chamado registrado com sucesso!', '../pages/chamados');
                 resetForm();
                 $("#submit").removeClass( ' disabled ' );
                 $("#submit").html('Salvar');

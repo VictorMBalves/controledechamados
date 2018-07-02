@@ -12,7 +12,7 @@ erros = [];
 
 $("#submit").click(function(){
     $("#submit").addClass( ' disabled ' );
-    $("#submit").html('<img src="/chamados/imagem/ajax-loader.gif">');
+    $("#submit").html('<img src="../imagem/ajax-loader.gif">');
     validar(components);
     return null;
 })
@@ -53,14 +53,14 @@ function validar(components){
 function enviarDados(){
     $.ajax({
         type: "POST",
-        url: "/chamados/updates/updateusuario.php",
+        url: "../updates/updateusuario.php",
         data: carregaDados(),
         success: function(data){
             data = data.trim();
             if(data == "success"){
                 notificationSuccess('Registro salvo', 'Usuário cadastrado com sucesso!');
                 setTimeout(function(){
-                    window.location.assign("/chamados/pages/cad_usuario");
+                    window.location.assign("../pages/cad_usuario");
                 }, 1000);
             }else{
                 notificationError('Ocorreu um erro ao salvar o registro: ', data);
@@ -155,14 +155,14 @@ $("#delete").click(function(){
     dados.push({name: 'id', value: id.val()});
     $.ajax({
         type: "POST",
-        url: "/chamados/deletes/excluiUsuario.php",
+        url: "../deletes/excluiUsuario.php",
         data: dados,
         success: function(data){
             data = data.trim();
             if(data == "success"){
                 notificationSuccess('Registro excluído', 'Usuário excluído com sucesso!');
                 setTimeout(function(){
-                    window.location.assign("/chamados/pages/cad_usuario");
+                    window.location.assign("../pages/cad_usuario");
                 }, 1000);
             }else{
                 notificationError('Ocorreu um erro ao excluir o registro: ', data);
