@@ -1,0 +1,135 @@
+$(document).ready(function() {
+    $("#loading").html('<img src="../imagem/loading.gif">');
+    loadTable();
+}); 
+
+
+$("#versao").keypress(function (e) {
+    if (e.which < 46 || e.which > 57)
+        return false;
+});
+
+$("#buscar").on("click", function(){
+    $("#loading").html('<img src="../imagem/loading.gif">');
+    versao = $('#versao').val();
+    regex = /[0-9]{1,2}([.][0-9]{1,2})/;
+    if(!regex.test(versao)){
+        $("#loading").html('');
+        notificationWarningOne("Formato de versão invalida");
+        return;
+    }
+    var data = [];
+    data.push({name: 'versao', value: versao});
+
+    $.ajax({
+        type: 'POST',
+        url: '../utilsPHP/callEmpresasInertes.php',
+        data: data,
+        dataType:"json",
+        success: function(data){ 
+            $('#tabela').DataTable().destroy();
+            $('#tbody').empty();
+            if(data){
+                buildTable(data);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('error: ' + textStatus + ': ' + errorThrown);
+        }
+    });
+    return false;
+});
+
+$("#refresh").on("click", function(){
+    $("#versao").val("");
+    $("#loading").html('<img src="../imagem/loading.gif">');
+    $('#tabela').DataTable().destroy();
+    $('#tbody').empty();
+    loadTable();
+    return false;
+});
+
+function loadTable(){
+    $.ajax({
+        type: 'POST',
+        url: '../utilsPHP/callEmpresasInertes.php',
+        dataType:"json",
+        success: function(data){ 
+            if(data){
+                buildTable(data);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('error: ' + textStatus + ': ' + errorThrown);
+        }
+    });
+}
+
+function buildTable(data){
+    var len = data.length;
+    var txt = "";
+    var semFone = 0;
+    var situacao = $("#situacao").val();
+    if(len > 0){
+        for(var i=0;i<len;i++){
+
+            if($("#ignorePhoneNull").is(':checked')){
+                if(data[i].phone == "Sem Telefone"){
+                    semFone++;
+                    continue;
+                }
+            }
+            if(situacao != "todas"){
+                if(situacao == "Bloqueada" && !data[i].is_blocked){
+                    continue;
+                }if(situacao == "Sem acessar" && data[i].is_blocked){
+                    continue;
+                }
+            }
+            if(data[i].name){
+                if(data[i].version == null){
+                    data[i].version = "Sem dados de versão";
+                }
+                if(data[i].system == null){
+                    data[i].system = "Sem dados de sistema";
+                }
+                txt += '<tr>';    
+                txt += "<td>"+data[i].name+"</td>";
+
+                if(data[i].is_blocked)
+                    txt += "<td>Bloqueada</td>"
+                else
+                    txt += "<td>Sem acessar</td>"
+                
+                txt += "<td>"+data[i].phone+"</td>";
+                txt += "<td>"+data[i].version+"</td>";
+                txt += "<td>"+data[i].system+"</td>";
+                txt += "</tr>";
+            }
+        }
+        if(semFone > 0){
+            $("#resultadobusca").html("<p class='text-warning'><small>"+semFone+" empresas ignoradas</small></p>")
+        }else{
+            $("#resultadobusca").html("")
+        }
+        if(txt != ""){
+            $("#loading").html('');
+            $("#tabela").append(txt);
+            $('#tabela').DataTable({
+                pageLength: 10,
+                "ordering": true,
+                dom: "<'row'<'col-md-6'l><'col-md-6'Bf>>" +
+                "<'row'<'col-md-6'><'col-md-6'>>" +
+                "<'row'<'col-md-12't>><'row'<'col-md-12'ip>>",
+                buttons: [
+                    {extend: 'pdf', title: 'Relatório empresas inertes'}
+                ],
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
+                }
+            });
+        }else{
+            $('#loading').html('<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nenhum registro encontrado com os filtros informados</div>');
+        }
+    }
+}
