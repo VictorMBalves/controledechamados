@@ -1,4 +1,9 @@
 
+    $( document ).ready(function() {
+        var date = new Date().toISOString().substr(5, 2);
+        $("#mes").val(date).change();
+    });
+    
     $( function() {
         $( "#lista" ).sortable({
         placeholder: "ui-state-highlight"

@@ -67,6 +67,10 @@
                                                 <a href="../pages/dadosempresasapi">Dados empresas API </a>
                                             </li>
                                             <li role="separator" class="divider"></li>
+                                            <li>
+                                                <a href="../pages/empresasinertes">Dados empresas inertes API </a>
+                                            </li>
+                                            <li role="separator" class="divider"></li>
                                         </ul>
                                     </li>
                                 </ul>';

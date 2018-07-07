@@ -16,7 +16,7 @@ class Database
         $db_host = "localhost";
         $db_nome = "chamados";
         $db_usuario = "root";
-        $db_senha = "d8hj0ptr";
+        $db_senha = "ledZeppelin";
         $db_driver = "mysql";
         $sistema_titulo = "Controle de chamados";
         $sistema_email = "victormatheusbotassoli@gmail.com";
