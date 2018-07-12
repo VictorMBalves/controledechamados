@@ -41,7 +41,7 @@
 				<div class="form-group">
 					<label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>
 					<div id="empresa-div" class="col-sm-10">
-						<input value='<?php echo $row['empresa'];?>' id="empresa" name="empresa" type="text" class="form-control">
+						<input value='<?php echo $row['empresa'];?>' id="empresa" name="empresa" type="text" class="form-control disabled" disabled>
 					</div>
 				</div>
 				<div class="form-group">

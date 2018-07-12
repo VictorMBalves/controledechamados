@@ -21,7 +21,7 @@ class ConsultacURL
 
          //manda o token no header
          $headers = [
-             'Authorization:'.$token.'',
+             'Authorization:'.$token,
              'Accept:application/vnd.germantech.v2'
          ];
  

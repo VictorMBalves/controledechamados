@@ -1,4 +1,5 @@
 <?php
+include '../validacoes/verificaSession.php';
     if(isset($_POST['mes'])){
         require_once '../include/Database.class.php';
         $db = Database::conexao();
@@ -70,6 +71,7 @@
             $dire = '../tmp/';
             $filename = 'escalamensal.pdf';
             $mpdf->Output($dire.$filename, 'F');
+            $_SESSION['reportName'] = $filename;
         } catch (Exception $e) {
             echo $e;
         }

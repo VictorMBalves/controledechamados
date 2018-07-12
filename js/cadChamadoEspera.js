@@ -27,8 +27,6 @@ function validar(){
     erros = [];
     if(isEmpty(empresa.val()))
         erros.push(empresa.selector);
-    // if(isEmpty(enderecado.val())) Endereçado não é obrigatório
-    //     erros.push(enderecado.selector);
     if(isEmpty(contato.val()))
         erros.push(contato.selector);
     if(isEmpty(telefone.val()))

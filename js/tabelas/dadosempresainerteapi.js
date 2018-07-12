@@ -69,6 +69,7 @@ function buildTable(data){
     var len = data.length;
     var txt = "";
     var semFone = 0;
+    var posicao = 1;
     var situacao = $("#situacao").val();
     if(len > 0){
         for(var i=0;i<len;i++){
@@ -94,16 +95,23 @@ function buildTable(data){
                     data[i].system = "Sem dados de sistema";
                 }
                 txt += '<tr>';    
+                txt += "<td>"+ (posicao++) +"</td>";
                 txt += "<td>"+data[i].name+"</td>";
+                txt += "<td>"+data[i].city+"</td>";
+                txt += "<td>"+data[i].state+"</td>";
 
                 if(data[i].is_blocked)
                     txt += "<td>Bloqueada</td>"
                 else
                     txt += "<td>Sem acessar</td>"
-                
+                txt += "<td>"+data[i].responsible+"</td>";
                 txt += "<td>"+data[i].phone+"</td>";
+                txt += "<td>"+data[i].phone2+"</td>";
+                txt += "<td>"+data[i].celular+"</td>";
                 txt += "<td>"+data[i].version+"</td>";
                 txt += "<td>"+data[i].system+"</td>";
+                txt += "<td>"+data[i].payment+"</td>";
+                txt += "<td>"+data[i].count_days_dont_access+"</td>";
                 txt += "</tr>";
             }
         }
@@ -118,12 +126,6 @@ function buildTable(data){
             $('#tabela').DataTable({
                 pageLength: 10,
                 "ordering": true,
-                dom: "<'row'<'col-md-6'l><'col-md-6'Bf>>" +
-                "<'row'<'col-md-6'><'col-md-6'>>" +
-                "<'row'<'col-md-12't>><'row'<'col-md-12'ip>>",
-                buttons: [
-                    {extend: 'pdf', title: 'Relatório empresas inertes'}
-                ],
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
                 }

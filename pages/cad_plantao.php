@@ -43,7 +43,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="data">Data:</label>  
             <div id="data-div" class="col-sm-2">
-                <input name="data" id="data" type="date" value="<?php echo $time?> "class="form-control">
+                <input type="date" name="data" id="data" value="<?php echo $time?>"class="form-control">
             </div>
             <label class="col-md-2 control-label" for="horainicio">Horario de ínicio:</label>  
             <div id="horainicio-div" class="col-sm-2">
