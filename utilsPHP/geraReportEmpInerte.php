@@ -3,6 +3,7 @@ include '../validacoes/verificaSession.php';
 require_once '../include/ConsultacURL.class.php';
 require_once '../include/Database.class.php';
 require_once '../vendor/autoload.php';
+try{
 $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L']);
 $db = Database::conexao();
 $curl = new ConsultacURL();
@@ -188,6 +189,9 @@ foreach ($resultados as $key => $resultado){
     echo '</div>';
     $i++;
 }
+}catch(Exception $e){
+    die("Error: " . $e->getMessage());
+}
 try {
     $html = ob_get_contents();
     ob_end_clean();
@@ -207,8 +211,10 @@ try {
     $filename = 'Empresas inertes.pdf';
     $mpdf->Output($dire.$filename, 'F');
     $_SESSION['reportName'] = $filename;
+    echo 'success';
+    exit;
 } catch (Exception $e) {
-    echo $e;
+    die("Error: " . $e->getMessage());
 }
 
 function blankWhenNull($param){
@@ -241,3 +247,4 @@ function getGroup(){
             return 'name';
     }
 }
+?>

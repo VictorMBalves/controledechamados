@@ -62,10 +62,10 @@ $("#modal-salvar").click(function(){
                 toastr.clear();
                 return;
             }
-            window.location = '../utilsPHP/downloadpdf.php';
             bloqueiaCampos()
             $("#modal-salvar").html('Gerar')
             $("#modalReport").modal('hide')
+            window.location = '../utilsPHP/downloadpdf.php';
         },error: function(data){
             notificationWarning("Alerta","Erro ao gerar relatório");
             bloqueiaCampos()
