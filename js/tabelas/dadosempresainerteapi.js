@@ -83,7 +83,7 @@ function buildTable(data){
             if(situacao != "todas"){
                 if(situacao == "Bloqueada" && !data[i].is_blocked){
                     continue;
-                }if(situacao == "Sem acessar" && data[i].is_blocked){
+                }if(situacao == "Ativo" && data[i].is_blocked){
                     continue;
                 }
             }
@@ -102,8 +102,11 @@ function buildTable(data){
 
                 if(data[i].is_blocked)
                     txt += "<td>Bloqueada</td>"
+                else if(data[i].test_system)
+                    txt += "<td>Em teste</td>"
                 else
-                    txt += "<td>Sem acessar</td>"
+                    txt += "<td>Ativo</td>"
+
                 txt += "<td>"+data[i].responsible+"</td>";
                 txt += "<td>"+data[i].phone+"</td>";
                 txt += "<td>"+data[i].phone2+"</td>";

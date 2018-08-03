@@ -37,7 +37,11 @@ foreach ($resultados as $resultado){
     if(!$resultado->is_blocked && !$resultado->active){
         $resultado->situacao = 'desistente';
     }
+    if($resultado->test_system){
+        $resultado->situacao = 'teste';
+    }
 }
+
 foreach ($resultados as $key => $resultado){
     if (!in_array($resultado->situacao, $situacoes)) { 
         unset($resultados[$key]);

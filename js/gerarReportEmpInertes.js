@@ -12,18 +12,19 @@ $("#modal-retornar").on("click", function(){
 $('#todos').click(function() {
     $("#ativo").prop( 'checked', $("#todos").is( ":checked" ) )
     $("#bloqueado").prop( 'checked', $("#todos").is( ":checked" ) )
+    $("#teste").prop( 'checked', $("#todos").is( ":checked" ) )
     // $("#desistente").prop( 'checked', $("#todos").is( ":checked" ) )
 });
 
 $( "input[type=checkbox]" ).click(function() {
-    if($("#ativo").is( ":checked" ) && $("#bloqueado").is( ":checked" ))// && $("#desistente").is( ":checked" ))
+    if($("#ativo").is( ":checked" ) && $("#bloqueado").is( ":checked" ) && $("#teste").is( ":checked" ))// && $("#desistente").is( ":checked" ))
         $("#todos").prop( 'checked', true )
     else
         $("#todos").prop( 'checked', false )
 });
 
 $("#modal-salvar").click(function(){
-    if(!$("#ativo").is( ":checked" ) && !$("#bloqueado").is( ":checked" )){// && !$("#desistente").is( ":checked" )){
+    if(!$("#ativo").is( ":checked" ) && !$("#bloqueado").is( ":checked" ) && $("#teste").is( ":checked" )){// && !$("#desistente").is( ":checked" )){
         notificationWarningOne("Informe pelo menos uma situação");
         return;
     }
@@ -40,7 +41,9 @@ $("#modal-salvar").click(function(){
     if($("#ativo").is( ":checked" ))
         situacao = 'ativo,';
     if($("#bloqueado").is( ":checked" ))
-        situacao != null ? situacao += 'bloqueado' : situacao = 'bloqueado';
+        situacao != null ? situacao += 'bloqueado,' : situacao = 'bloqueado,';
+    if($("#teste").is( ":checked" ))
+        situacao != null ? situacao += 'teste' : situacao = 'teste';
     // if($("#desistente").is( ":checked" ))
     //     situacao += 'desistente';
     bloqueiaCampos()

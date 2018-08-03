@@ -77,7 +77,7 @@
                         <select id="situacao" type="text" class="form-control">
                             <option>Todas</option>
                             <option>Bloqueada</option>
-                            <option>Sem acessar</option>
+                            <option>Ativo</option>
                         </select>
                 </div>
                 <div class="form-group">
@@ -167,6 +167,13 @@
                                     <div class="material-switch pull-right">
                                         <input id="bloqueado" name="bloqueado" type="checkbox"/>
                                         <label for="bloqueado" class="label-info"></label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    Teste
+                                    <div class="material-switch pull-right">
+                                        <input id="teste" name="teste" type="checkbox"/>
+                                        <label for="teste" class="label-info"></label>
                                     </div>
                                 </li>
                                 <!-- <li class="list-group-item">
