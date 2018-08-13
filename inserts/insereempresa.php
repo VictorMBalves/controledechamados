@@ -1,6 +1,6 @@
 <?php
   require_once '../include/Database.class.php';
-  include '../validacoes/verificaSession.php';
+  include '../validacoes/verificaSessionFinan.php';
   $db = Database::conexao();
 
   $empresa=$_POST['empresa'];

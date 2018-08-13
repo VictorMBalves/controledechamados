@@ -29,10 +29,6 @@
                                 echo '<li>
                                         <a href="../pages/chamados">Atendimentos</a>
                                     </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <a href="../pages/cad_chamado">Novo Chamado</a>
-                                    </li>
                                     <li role="separator" class="divider"></li>';
                                 }
                             ?>

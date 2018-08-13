@@ -31,16 +31,18 @@
   $descproblema=str_replace("'","''",$_POST['descproblema']);
   $usuario=$_SESSION['UsuarioNome'];
   $backup=$_POST['backup'];
-  $sql = $db->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
-  try
-  {
-    $sql->execute();
+  if(isset($backup)){
+    $sql = $db->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
+    try
+    {
+      $sql->execute();
 
-  } 
-  catch (PDOException $e)
-  {
-    echo $e->getMessage();
-    exit;
+    } 
+    catch (PDOException $e)
+    {
+      echo $e->getMessage();
+      exit;
+    }
   }
   $sql = $db->prepare("UPDATE usuarios set disponivel=1 where nome = '$usuario'") or die(mysql_error());
   try
@@ -62,7 +64,7 @@
   $sql->bindParam(":cont", $contato, PDO::PARAM_STR, 500);
   $sql->bindParam(":tel", $telefone, PDO::PARAM_STR, 500);
   $sql->bindParam(":sis", $sistema, PDO::PARAM_STR, 500);
-  $sql ->bindParam(":versao", $versao, PDO::PARAM_STR, 500);
+  $sql->bindParam(":versao", $versao, PDO::PARAM_STR, 500);
   $sql->bindParam(":for", $formacontato, PDO::PARAM_STR, 500);
   $sql->bindParam(":cat", $categoria, PDO::PARAM_STR, 500);
   $sql->bindParam(":des", $descproblema, PDO::PARAM_STR, 500);
@@ -70,7 +72,15 @@
   try
   {
     $sql->execute();
-    echo 'success';
+
+    $sql = $db->prepare("SELECT id_chamado FROM chamado ORDER BY id_chamado DESC LIMIT 1");
+    $sql->execute();
+    $row = $sql->fetch(PDO::FETCH_ASSOC);
+
+    $resultado->status = 'success';
+    $resultado->idChamado = $row['id_chamado'];
+
+    echo json_encode($resultado);
     exit;
   } 
   catch (PDOException $e)

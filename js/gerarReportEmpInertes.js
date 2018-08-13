@@ -24,7 +24,7 @@ $( "input[type=checkbox]" ).click(function() {
 });
 
 $("#modal-salvar").click(function(){
-    if(!$("#ativo").is( ":checked" ) && !$("#bloqueado").is( ":checked" ) && $("#teste").is( ":checked" )){// && !$("#desistente").is( ":checked" )){
+    if(!$("#ativo").is( ":checked" ) && !$("#bloqueado").is( ":checked" ) && !$("#teste").is( ":checked" )){// && !$("#desistente").is( ":checked" )){
         notificationWarningOne("Informe pelo menos uma situação");
         return;
     }

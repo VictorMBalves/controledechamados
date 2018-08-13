@@ -3,13 +3,13 @@
 	<head>
 		<title>Controle de chamados</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="../css/utils.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 		<link rel="shortcut icon" href="../imagem/favicon.ico" />
 		<link href="../datatables/datatables.min.css" rel="stylesheet">
     	<link href="../datatables/responsive.dataTables.min.css" rel="stylesheet">
     	<link href="../datatables/rowReorder.dataTables.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="../css/utils.css">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 	<body>

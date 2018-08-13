@@ -63,9 +63,8 @@ function enviarDados(){
         url: "../inserts/insere_chamado2.php",
         data: carregaDados(),
         success: function(data){
-            data = data.trim();
-            console.log(data);
-            if(data == "success"){
+            data = JSON.parse(data);
+            if(data.status == "success"){
                 notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
                 setTimeout(function(){
                     window.location.assign("../pages/chamados");

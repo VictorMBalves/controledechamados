@@ -1,18 +1,23 @@
-empresa = $("#empresa");
-contato = $("#contato");
-forma_contato = $("#formaContato");
-versao = $("#versao");
-telefone = $("#telefone");
-sistema = $("#sistema");
-backup = $("#backup");
-categoria = $("#categoria");
-descproblema = $("#descproblema");
+
+components= [
+    id = $("#id_chamado"),
+    empresa = $("#empresa"),
+    contato = $("#contato"),
+    forma_contato = $("#formaContato"),
+    versao = $("#versao"),
+    telefone = $("#telefone"),
+    sistema = $("#sistema"),
+    backup = $("#backup"),
+    categoria = $("#categoria"),
+    descproblema = $("#descproblema"),
+    descsolucao = $("#descsolucao"),
+]
 erros = [];
 
 $("#submit").click(function(){
     $("#submit").addClass( ' disabled ' );
     $("#submit").html('<img src="../imagem/ajax-loader.gif">');
-    validar();
+    validar(components);
     return null;
 })
 
@@ -20,32 +25,18 @@ $("#cancel").click(function(){
     window.location.assign("../pages/home");
 })
 
-function validar(){ 
+
+function validar(components){
     erros = [];
-    if(isEmpty(empresa.val()))
-        erros.push(empresa.selector);
-    if(isEmpty(contato.val()))
-        erros.push(contato.selector);
-    if(isEmpty(forma_contato.val()))
-        erros.push(forma_contato.selector);
-    if(isEmpty(telefone.val()))
-        erros.push(telefone.selector);
-    if(isEmpty(versao.val()))
-        erros.push(versao.selector);
-    if(isEmpty(sistema.val()))
-        erros.push(sistema.selector);
-    if(isEmpty(descproblema.val()))
-        erros.push(descproblema.selector);
-    if(isEmpty(backup.val()))
-        erros.push(backup.selector);
-    if(isEmpty(categoria.val()))
-        erros.push(categoria.selector);
-            
+    for(i = 0; i < components.length; i++){
+        if(isEmpty(components[i].val()))
+            erros.push(components[i].selector);
+    }
     if(isEmpty(erros)){
         enviarDados();
     }else{
         $("#submit").removeClass("disabled");
-        $("#submit").html("Salvar");
+        $("#submit").html("Finalizar");
         for(i = 0; i < erros.length; i++){
             if(!$(erros[i]).hasClass("vazio")){
                 $(erros[i]+"-div").addClass("has-error");
@@ -59,15 +50,15 @@ function validar(){
 function enviarDados(){
     $.ajax({
         type: "POST",
-        url: "../inserts/insere_chamado2.php",
+        url: "../utilsPHP/altera_chamado.php",
         data: carregaDados(),
         success: function(data){
             data = data.trim();
             if(data == "success"){
-                notificationSuccessLink('Registro salvo', 'Chamado registrado com sucesso!', '../pages/chamados');
-                resetForm();
-                $("#submit").removeClass( ' disabled ' );
-                $("#submit").html('Salvar');
+                notificationSuccess('Registro salvo', 'Chamado finalizado com sucesso!');
+                setTimeout(function(){
+                    window.location.assign("../pages/chamados");
+                }, 1000);
             }else{
                 notificationError('Ocorreu um erro ao salvar o registro: ', data);
                 $("#submit").removeClass( ' disabled ' );
@@ -82,6 +73,7 @@ function enviarDados(){
 
 function carregaDados(){
     var data = [];
+    data.push({name: 'id_chamado', value: id.val()});
     data.push({name: 'empresa', value: empresa.val()});
     data.push({name: 'contato', value: contato.val()});
     data.push({name: 'telefone', value: telefone.val()});
@@ -89,27 +81,12 @@ function carregaDados(){
     data.push({name: 'formacontato', value: forma_contato.val()});
     data.push({name: 'categoria', value: categoria.val()});
     data.push({name: 'descproblema', value: descproblema.val()});
+    data.push({name: 'descsolucao', value: descsolucao.val()});
     data.push({name: 'backup', value: backup.val()});
     data.push({name: 'sistema', value: sistema.val()});
     return data;
 }
 
-function resetForm(){
-    empresa.val('');
-    contato.val('');
-    telefone.val('');
-    versao.val('');
-    forma_contato.val('');
-    categoria.val('');
-    descproblema.val('');
-    backup.val('');
-    sistema.val('');
-    $('#infLoad').addClass('hidden');
-    $('#erroLoad').addClass('hidden');
-    $('#successLoad').addClass('hidden');
-    $('#alertLoad').addClass('hidden');
-    $('#resultado').html('<div class="alert alert-info" role="alert"><center>Novo chamado:</center></div>');
-}
 contato.focusout(function() {
     if(!isEmpty(contato.val()))
     $(contato.selector+"-div").removeClass("has-error");
@@ -141,4 +118,8 @@ categoria.focusout(function() {
 descproblema.focusout(function() {
     if(!isEmpty(descproblema.val()))
     $(descproblema.selector+"-div").removeClass("has-error");
+});
+descsolucao.focusout(function() {
+    if(!isEmpty(descsolucao.val()))
+    $(descsolucao.selector+"-div").removeClass("has-error");
 });

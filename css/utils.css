@@ -96,3 +96,59 @@
   .link:hover{
   color:#5bc0de;
   }
+  *{padding:0;margin:0;}
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	top:60px;
+	right:40px;
+	background-color:#333;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+  box-shadow: 2px 2px 3px #999;
+  -webkit-z-index: 200;
+  -moz-z-index: 200;
+  -ms-z-index: 200;
+  -o-z-index: 200;
+  z-index: 200;
+}
+
+.my-float{
+	margin-top:22px;
+}
+
+.rotate{
+  -moz-transition: all 1s ease;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.rotate.down{
+  -ms-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  color:#FFF;
+}
+/* 
+a:link {
+  color: white;
+} */
+
+/* visited link */
+/* a:visited {
+  color: white;
+} */
+
+/* mouse over link */
+/* a:hover {
+  color: white;
+} */
+
+/* selected link */
+a:active {
+  color: white;
+}

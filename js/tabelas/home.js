@@ -3,6 +3,7 @@
         loadResponsavelSemana();
         $("#loading").html('<img src="../imagem/loading.gif">');
         loadTable();
+        $.Shortcuts.start();
     });
 
     function erro(){
@@ -115,4 +116,6 @@
         }, 300);
     }
 
-    
+    $("#adcChamado").hover(function(){
+        $(".rotate").toggleClass("down"); 
+    });

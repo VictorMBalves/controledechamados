@@ -2,14 +2,16 @@
 <html>
 	<head>
 		<title>Controle de chamados</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+		<link href="../css/utils.css" rel="stylesheet">
 		<link rel="shortcut icon" href="../imagem/favicon.ico" />
+		<link rel="stylesheet" href="../assets/css/jquery-ui.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 		<link href="../datatables/datatables.min.css" rel="stylesheet">
     	<link href="../datatables/responsive.dataTables.min.css" rel="stylesheet">
     	<link href="../datatables/rowReorder.dataTables.min.css" rel="stylesheet">
-		<link href="../css/utils.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 	</head>
 	<body>
@@ -31,8 +33,11 @@
 							<div class="col-xs-2 col-sm-2">
 								<?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail' alt='Usuario' width='100'>"; ?>
 							</div>
-							<div class="col-sm-8">
+							<div class="col-sm-6">
 								<h2>Bem-vindo, <?php echo $_SESSION['UsuarioNome']; ?></h2>
+							</div>
+							<div class="col-sm-4">
+								<a id="adcChamado" class="float" data-toggle="tooltip" data-placement="left" title="Adicionar chamado (Alt + C)"><i class="glyphicon glyphicon-earphone my-float rotate"></i></a>
 							</div>					
 						</div>
 					</div>
@@ -65,17 +70,40 @@
 
 		<div id="modalConsulta">
 		</div>
+		<div id="modalCadastro">
+		</div>
 
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="../assets/js/bootstrap.min.js"></script>
+		<script src="../assets/js/jquery.shortcuts.js"></script>
+		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../datatables/datatables.min.js"></script>
 		<script src="../datatables/responsive.min.js"></script>
 		<script src="../datatables/rowReorder.min.js"></script>
-		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/tabelas/home.js"></script>
+		<script>
+			$("#adcChamado").click(function(){
+				openModal()
+			});
+
+			$.Shortcuts.add({
+				type: 'down',
+				mask: 'Alt+C',
+				handler: function() {
+					openModal();
+				}
+			});
+
+			function openModal(){
+				$("#modalCadastro").load("../modals/modalCadChamado.php");
+					setTimeout(function(){
+						$("#modalCad").modal('show');
+					}, 100);
+			}
+		</script>
 	</body>
 </html>

@@ -138,11 +138,6 @@
 				alert('Acesso negado! Redirecinando a pagina principal.');
 				window.location.assign("chamadoespera.php");
 			}
-			$(function () {
-				$("#empresa").autocomplete({
-					source: '../utilsPHP/search.php'
-				});
-			});
 		</script>
 	</body>
 </html>

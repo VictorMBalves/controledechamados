@@ -1,5 +1,5 @@
 <?php
-    include '../validacoes/verificaSessionAdmin.php';
+    include '../validacoes/verificaSessionFinan.php';
     require_once '../include/Database.class.php';
     $db = Database::conexao();
     $id = $_POST['id'];

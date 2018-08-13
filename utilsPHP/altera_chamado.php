@@ -6,22 +6,43 @@
   $id=$_POST['id_chamado'];
   $datafinal = date("Y-m-d H:i:s");
   $status = "Finalizado";
-  $descsolucao=str_replace("'","''",$_POST['descsolucao']);
-  $usuario=$_SESSION['UsuarioNome'];
-  $sql = $db->prepare("UPDATE chamado SET status= :status, descsolucao= :descs, datafinal= :data WHERE id_chamado=:id") or die(mysql_error());
-  $sql ->bindParam(":status", $status, PDO::PARAM_STR, 500);
-  $sql ->bindParam(":descs", $descsolucao, PDO::PARAM_STR, 500);
-  $sql ->bindParam(":data", $datafinal, PDO::PARAM_STR, 500);
-  $sql ->bindParam(":id", $id, PDO::PARAM_STR, 500);
-  try
-  {
-    $sql->execute();
-  }catch (PDOException $e)
-  {
-    echo $e->getMessage();
-    exit;
-  }
+  $descsolucao = str_replace("'","''",$_POST['descsolucao']);
+  $usuario = $_SESSION['UsuarioNome'];
+  $contato = $_POST['contato'];
+  $telefone = $_POST['telefone'];
+  $sistema = $_POST['sistema'];
+  $versao = $_POST['versao'];
+  $formacontato = $_POST['formacontato'];
+  $categoria = $_POST['categoria'];
+  $descproblema = str_replace("'","''",$_POST['descproblema']);
+  $backup = $_POST['backup'];
 
+  if(!isset($descproblema) || $descproblema == ""){
+    $sql = $db->prepare("UPDATE chamado SET status= :status, descsolucao= :descs, datafinal= :data WHERE id_chamado=:id") or die(mysql_error());
+    $sql ->bindParam(":status", $status, PDO::PARAM_STR, 500);
+    $sql ->bindParam(":descs", $descsolucao, PDO::PARAM_STR, 500);
+    $sql ->bindParam(":data", $datafinal, PDO::PARAM_STR, 500);
+    $sql ->bindParam(":id", $id, PDO::PARAM_STR, 500);
+    try
+    {
+      $sql->execute();
+    }catch (PDOException $e)
+    {
+      echo $e->getMessage();
+      exit;
+    }
+  }else{
+    $sql = $db->prepare("UPDATE chamado SET status='$status', descsolucao='$descsolucao', contato='$contato', telefone='$telefone', sistema='$sistema', formacontato='$formacontato', descproblema='$descproblema', categoria='$categoria', versao='$versao', datafinal= '$datafinal'  WHERE id_chamado='$id'")or die(mysql_error());
+    try
+    {
+      $sql->execute();
+    }catch (PDOException $e)
+    {
+      echo $e->getMessage();
+      exit;
+    }
+  }
+  
   $sql = $db->prepare("SELECT usuario FROM chamado WHERE id_chamado = '$id'");
   try
   {

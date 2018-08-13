@@ -7,9 +7,7 @@ function SomenteNumero(e) {
     }
 }
 
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-})
+$(function () {$('[data-toggle="tooltip"]').tooltip()})
 
 function atualizarTarefas() {
     var url = "../utilsPHP/notifica.php";
