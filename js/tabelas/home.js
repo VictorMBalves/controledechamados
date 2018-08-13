@@ -119,3 +119,23 @@
     $("#adcChamado").hover(function(){
         $(".rotate").toggleClass("down"); 
     });
+
+    $("#adcChamado").click(function(){
+        openModal()
+    });
+
+    $.Shortcuts.add({
+        type: 'down',
+        mask: 'Alt+C',
+        handler: function() {
+           if(!($("#modalCad").data('bs.modal') || {}).isShown)
+                openModal();
+        }
+    });
+
+    function openModal(){
+        $("#modalCadastro").load("../modals/modalCadChamado.php");
+            setTimeout(function(){
+                $("#modalCad").modal('show');
+            }, 100);
+    }

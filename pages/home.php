@@ -85,25 +85,5 @@
 		<script src="../datatables/rowReorder.min.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/tabelas/home.js"></script>
-		<script>
-			$("#adcChamado").click(function(){
-				openModal()
-			});
-
-			$.Shortcuts.add({
-				type: 'down',
-				mask: 'Alt+C',
-				handler: function() {
-					openModal();
-				}
-			});
-
-			function openModal(){
-				$("#modalCadastro").load("../modals/modalCadChamado.php");
-					setTimeout(function(){
-						$("#modalCad").modal('show');
-					}, 100);
-			}
-		</script>
 	</body>
 </html>
