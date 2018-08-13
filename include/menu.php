@@ -103,7 +103,7 @@
                             </li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a href="#">versão 1.1.1</a>
+                                <a href="#">versão 1.2.0</a>
                             </li>
                             <li role="separator" class="divider"></li>
                         </ul>
