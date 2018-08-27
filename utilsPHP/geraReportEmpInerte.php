@@ -48,7 +48,7 @@ foreach ($resultados as $key => $resultado){
     }
 }
 $resultados = array_values(array_filter($resultados));
-ini_set("pcre.backtrack_limit", "5000000");
+ini_set("pcre.backtrack_limit", "50000000");
 ob_start();
 echo '<div class="row">';
 echo    '<div class="text-center">';

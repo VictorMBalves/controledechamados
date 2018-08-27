@@ -7,7 +7,12 @@
 	$id=$_GET['id_chamadoespera'];
 	$sql = $db->prepare("SELECT *, DATE_FORMAT(data,'%d/%m/%Y %H:%i') as data FROM chamadoespera WHERE id_chamadoespera=$id");
 	$sql->execute();
-	$row = $sql->fetch(PDO::FETCH_ASSOC);
+    $row = $sql->fetch(PDO::FETCH_ASSOC);
+
+    $sql= "SELECT id, id_chamadoespera, DATE_FORMAT(dataregistro,'%d/%m/%Y %H:%i') as data, usuario, descricaohistorico, emailusuario FROM historicochamado WHERE id_chamadoespera=$id ORDER BY dataregistro DESC";
+    $query = $db->prepare($sql);
+    $query->execute();
+    $historicos = $query->fetchall(PDO::FETCH_ASSOC);
 ?>
 <div class="modal" tabindex="-1" role="dialog" id="modalCon">
         <div class="modal-dialog modal-lg" role="document">
@@ -64,13 +69,21 @@
                             </div>
                         </div>
                             <?php 
-                                if (!(is_null($row['historico']))) {
-                                    echo '<div class="form-group">
-                                                <label class="col-md-2 control-label" for="descproblema">Histórico de contato:</label> 
-                                            <div class="col-sm-10">
-                                                <textarea name="historico" class="form-control label1 disabled" disabled>'.$row['historico'].'</textarea> 
-                                            </div>
-                                        </div>';
+                                if (!empty($historicos)) {
+                                    echo '<label class="col-md-2 control-label" for="descproblema">Histórico de contato:</label> 
+                                            <div class="form-group well" style="max-height: 150px; overflow: auto;">';
+                                            foreach ($historicos as $historico) {
+                                                echo '<div class="panel panel-default">';
+                                                echo '<div class="panel-heading">';
+                                                echo '<span><img src="https://www.gravatar.com/avatar/'.md5($historico['emailusuario']).'" width="25px"></span> '.$historico['usuario'];
+                                                echo '<div class="panel-title pull-right"><small><i><span class="glyphicon glyphicon-time"></span> '.$historico['data'].'</i></small></div>';
+                                                echo '</div>';
+                                                echo '<div class="panel-body">';
+                                                echo $historico['descricaohistorico'];
+                                                echo '</div>';
+                                                echo '</div>';
+                                            }
+                                    echo'</div>';
                                 }
                             ?>
                         <div class="collapse" id="abrirHistorico">
@@ -98,12 +111,14 @@
     </div>
     <script>
         $("#salvarHistorico").on("click", function () {
+           $("#salvarHistorico").addClass(" disabled ");
            id = $("#idChamado").val();
            historico = $("#historico").val();
 
            if(historico == ''){
                $("#divHistorico").addClass("has-error");
                notificationWarningOne("Preencha os campos obrigatórios!");
+               $("#salvarHistorico").removeClass(" disabled ");
                return;
            }else{
                 $("#salvarHistorico").html('<img src="../imagem/ajax-loader.gif">');
