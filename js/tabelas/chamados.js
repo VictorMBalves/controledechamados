@@ -66,15 +66,16 @@ function buildTable(data){
                 txt +='<td><div class="circle" data-toggle="tooltip" data-placement="left" title="Status: Finalizado"></div></td>';
             }
             txt +="<td>"+ data[i].data +"</td><td>"+data[i].usuario+"</td><td>"+data[i].id_chamado+"</td><td>"+data[i].empresa+"</td><td>"+data[i].contato+"</td><td>"+data[i].telefone+"</td>";
-        
-            if (data[i].status !="Finalizado") {
-                txt +='<td><center>';
+            
+            txt +='<td><center>';
+            if(data[i].status != "Finalizado"){
                 txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
-                txt +='<a href="../pages/abrechamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
-                txt +='</center></td>';
-            }else{
-                txt +='<td><button class="btn btn-info btn-sm btn-block" type="button" onclick="abrirVisualizacao('+data[i].id_chamado+')">Consultar</button></td>';
-            }  
+                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/abrechamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
+            }
+            txt +='<button class="btn btn-info" type="button" onclick="abrirVisualizacao('+data[i].id_chamado+')"><span class="glyphicon glyphicon-search"></span></button>';
+            txt +='</center></td>';
+        
+            
             txt +='</tr>';
         }
 

@@ -112,6 +112,7 @@
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../js/apiConsulta.js"></script>
 	<script src="../assets/js/toastr.min.js"></script>
+	<script src="../assets/js/date.js"></script>
 	<script src="../js/links.js"></script>
 	<script src="../js/cadPlantao.js"></script>
 

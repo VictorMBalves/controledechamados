@@ -20,7 +20,7 @@
 				include '../validacoes/verificaSession.php';
 				include '../include/menu.php';
 			?>
-			<div class="content">
+			<div class="content col-lg-12">
 				<div class="col-md-4 sidebar-outer">
 					<div id="plantao"></div><!--Responsavel pelo plantão -->
 					<div id="usuarios"></div><!--Usuários disponiveis -->
@@ -67,7 +67,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div id="modalConsulta">
 		</div>
 		<div id="modalCadastro">
@@ -77,12 +76,14 @@
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../datatables/datatables.min.js"></script>
 		<script src="../datatables/responsive.min.js"></script>
 		<script src="../datatables/rowReorder.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/tabelas/home.js"></script>
 	</body>

@@ -33,7 +33,6 @@
         var hash = '"'+md5(usuario)+'"';
         if(usuario == "" || usuario == null){
             return notificationWarning("Alerta","Nenhum usuário selecionado");
-            return;
         }else{
             $( "#lista" ).append("<a href='#' class='list-group-item' id="+hash+">"+usuario+"<button class='btn btn-xs glyphicon glyphicon-remove pull-right' onclick='remover("+hash+")'></button></a>");
             $("#usuarios").val("");

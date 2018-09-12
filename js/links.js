@@ -115,3 +115,57 @@ function notificationSuccessLink(title, message, link){
     }
     toastr.error(message, title);
   }
+
+  $(document).ready(function() {
+    consultaChamadosEspera();
+  }); 
+
+  setInterval(function(){
+    consultaChamadosEspera();
+  }, 50000);
+
+  function consultaChamadosEspera(){
+    $.ajax({
+        type: 'POST',
+        url: '../consultaTabelas/tabelahome.php',
+        dataType:"json",
+        success: function(data){ 
+            if(data){
+              find_notification(data);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('error: ' + textStatus + ': ' + errorThrown);
+        }
+    });
+}
+
+
+function find_notification(dataTable){
+  for(var i = 0; i < dataTable.length; i++){
+      var dataAtual10 = new Date().add({minutes: -10});
+      var dataChamado = new Date(dataTable[i].databanco);
+      
+      if(dataChamado.between(dataAtual10, new Date()))
+          continue;
+
+      if (Notification.permission !== "granted")
+          Notification.requestPermission();
+      else {  
+          notificaUsuario(dataTable[i]);
+      }
+  }
+}
+
+function notificaUsuario(chamado){
+  var notificacao =  new Notification("Chamado em espera!", {
+      icon: '../imagem/favicon-3.png',
+      body: "Há um chamado para empresa "+chamado.empresa+" em espera com mais de 10 minutos sem resposta",
+      });
+
+      notificacao.onclick = function () {
+          url = "../pages/abrechamadoespera="+chamado.id_chamadoespera;
+          window.open(url,
+          '_blank' );      
+      };
+  }

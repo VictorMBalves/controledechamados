@@ -106,6 +106,7 @@
 							<option value="Duvida">Duvida</option>
 							<option value="Atualização sistema">Atualização sistema</option>
 							<option value="Sugestão de melhoria">Sugestão de melhoria</option>
+							<option value="Retorno">Retorno</option>
 							<option value="Outros">Outros</option>
 						</select>
 					</div>
@@ -127,6 +128,7 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js" ></script>
 		<script src="../js/atenderChamadoEspera.js"></script>
 		<script src="../assets/js/bootstrap.min.js"></script>

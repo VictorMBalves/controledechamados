@@ -31,7 +31,11 @@ if (empty($resultado)) {
         echo 'successNivel1';
         exit;
     }
-
+    if(isset($_SESSION['page_request'])){
+        echo $_SESSION['page_request'];
+        unset($_SESSION['page_request']);
+        exit;
+    }
     echo 'success';
     exit;
 }

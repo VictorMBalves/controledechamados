@@ -37,7 +37,7 @@
 						<th>Empresa</th>
 						<th>Contato</th>
 						<th>Telefone</th>
-						<th width="100"><center><img src="../imagem/acao.png"></center></th>
+						<th width="130"><center><img src="../imagem/acao.png"></center></th>
 					</tr>
 				<tbody id ="tbody">
 				</tbody> 
@@ -57,6 +57,7 @@
 		<script src="../datatables/responsive.min.js"></script>
 		<script src="../datatables/rowReorder.min.js"></script>
 		<script src="../js/tabelas/chamados.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 	</body>
 </html>

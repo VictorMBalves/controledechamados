@@ -135,6 +135,7 @@
 							</option>
 							<option value="Sugestão de melhoria">Sugestão de melhoria
 							</option>
+							<option value="Retorno">Retorno</option>
 							<option value="Outros">Outros
 							</option>
 						</select>
@@ -158,6 +159,7 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/editaChamado.js"></script>
 	</body>

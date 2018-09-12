@@ -73,13 +73,21 @@ function buildTable(data){
     var situacao = $("#situacao").val();
     if(len > 0){
         for(var i=0;i<len;i++){
-
+            if(data[i].count_days_dont_access == null){
+                data[i].count_days_dont_access = 0;
+            }
             if($("#ignorePhoneNull").is(':checked')){
                 if(data[i].phone == "Sem Telefone"){
                     semFone++;
                     continue;
                 }
             }
+            if($("#ignoreBlocked").is(':checked')){
+                if(data[i].is_blocked){
+                    continue;
+                }
+            }
+
             if(situacao != "todas"){
                 if(situacao == "Bloqueada" && !data[i].is_blocked){
                     continue;
@@ -114,7 +122,7 @@ function buildTable(data){
                 txt += "<td>"+data[i].version+"</td>";
                 txt += "<td>"+data[i].system+"</td>";
                 txt += "<td>"+data[i].payment+"</td>";
-                txt += "<td>"+data[i].count_days_dont_access+"</td>";
+                txt += "<td>"+Number(data[i].count_days_dont_access)+"</td>";
                 txt += "</tr>";
             }
         }
@@ -128,10 +136,14 @@ function buildTable(data){
             $("#tabela").append(txt);
             $('#tabela').DataTable({
                 pageLength: 10,
+                dom: '<"html5buttons"B>lTfgitp',
                 "ordering": true,
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
-                }
+                },
+                buttons: [
+                    {extend: 'excel', title: 'Clientes German Tech'},
+                ]
             });
         }else{
             $('#loading').html('<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nenhum registro encontrado com os filtros informados</div>');

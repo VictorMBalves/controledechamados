@@ -102,6 +102,7 @@
 			<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 			<script src="../js/tabelas/meuschamados.js"></script>
 			<script src="../assets/js/toastr.min.js"></script>
+			<script src="../assets/js/date.js"></script>
 			<script src="../js/links.js"></script>
 	</body>
 </html>

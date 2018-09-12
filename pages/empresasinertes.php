@@ -85,12 +85,17 @@
                         <input id="versao" type="text" name="versao" class="form-control" placeholder="Ex: 4.40.0">
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" id="ignorePhoneNull" data-toggle="tooltip" data-placement="top" title="Ignorar empresas sem telefone">
+                    <label for="ignoreBlocked" class="control-label">Ignorar empresas bloqueadas</label>
+                    <input type="checkbox" class="form-control" id="ignoreBlocked" data-toggle="tooltip" data-placement="top" title="Ignorar empresas bloqueadas">
+                </div>
+                <div class="form-group">
+                    <label for="ignorePhoneNull" class="control-label">Ignorar empresas sem telefone</label>
+                    <input type="checkbox" class="form-control" id="ignorePhoneNull" data-toggle="tooltip" data-placement="top" title="Ignorar empresas sem telefone">
                 </div>
                 <div class="form-group">
                     <button id="buscar" name="buscar" class="btn btn-group-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Busca na API conforme a versão informada">Buscar</button>
                     <button id="refresh" type="reset" class="btn btn-group-lg btn-success" data-toggle="tooltip" data-placement="top" title="Recria a tabela com os filtros informados"><span class="glyphicon glyphicon-refresh"></span></button>
-                    <button id="gerarReport" type="reset" class="btn btn-group-lg btn-success" data-toggle="tooltip" data-placement="top" title="Gera relatório detalhado">Gerar relatório</button>
+                    <!-- <button id="gerarReport" type="reset" class="btn btn-group-lg btn-success" data-toggle="tooltip" data-placement="top" title="Gera relatório detalhado">Gerar relatório</button> -->
                 </div>
             </div> 
             <div id="resultadobusca"></div>
@@ -201,7 +206,7 @@
                         <div class="col-sm-8">
                             <select id="ordenacao" type="text" name="ordenacao" class="form-control">
                                 <option value="alfabetica">Alfabética</option>
-                                <!-- <option value="dias">Dias DESC</option> -->
+                                <option value="dias">Dias DESC</option>
                                 <option value="mensalidade">Mensalidade DESC</option>
                             </select>
                         </div>
@@ -222,6 +227,7 @@
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script src="../assets/js/toastr.min.js"></script>
         <script src="../assets/js/jquery.maskedinput.min.js"></script>
+        <script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

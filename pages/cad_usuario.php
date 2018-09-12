@@ -108,6 +108,7 @@
 		<script src="../datatables/rowReorder.min.js"></script>
 		<script src="../js/tabelas/usuarios.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/cadUsuario.js"></script>
 	</body>

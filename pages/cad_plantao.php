@@ -75,6 +75,7 @@
                         <option value="Duvida">Duvida</option>
                         <option value="Atualização sistema">Atualização sistema</option>
                         <option value="Sugestão de melhoria">Sugestão de melhoria</option>
+                        <option value="Retorno">Retorno</option>
                         <option value="Outros">Outros</option>
                     </select>
                 </div>
