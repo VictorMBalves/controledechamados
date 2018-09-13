@@ -59,7 +59,6 @@ function enviarDados(){
         data: carregaDados(),
         success: function(data){
             data = data.trim();
-            console.log(data);
             if(data == "success"){
                 notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
                 resetForm();

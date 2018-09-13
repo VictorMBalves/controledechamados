@@ -145,7 +145,11 @@ function find_notification(dataTable){
   for(var i = 0; i < dataTable.length; i++){
       var dataAtual10 = new Date().add({minutes: -10});
       var dataChamado = new Date(dataTable[i].databanco);
-      
+      var notification = dataTable[i].notification == 1 ? true : false;
+
+      if(!notification)
+        continue;
+
       if(dataChamado.between(dataAtual10, new Date()))
           continue;
 

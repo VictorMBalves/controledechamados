@@ -69,7 +69,6 @@ function callApi(empresa) {
                     $('#modulos').html(mod);
                     },
                     error: function(jqXhr, textStatus, errorThrown){
-                    console.log(errorThrown);
                 }
                 });
                 if(data.version == null || data.system == null){

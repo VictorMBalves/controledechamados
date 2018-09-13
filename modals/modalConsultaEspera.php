@@ -20,6 +20,22 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Consulta Chamado em espera Nº <?php echo $id ?></h4>
+                        <?php
+                            if($_SESSION['UsuarioNivel'] == 3){
+                                echo '
+                                    <div class="col-sm-12 text-right">';
+                                    if($row['notification'])
+                                        echo '<input type="checkbox" name="notification" id="notification" checked data-toggle="tooltip" data-placement="top" title="Habilitar notificações">';
+                                    else
+                                        echo '<input type="checkbox" name="notification" id="notification" data-toggle="tooltip" data-placement="top" title="Habilitar notificações">';
+                                   
+                                     echo '<label for="notification modal-title">Habilitar notificações</label>';
+                                echo'</div>
+                                    <br/>
+                                ';
+                            }
+                        ?>
+                       
                 </div>
                 <div class="modal-body">
                     <div id="resultadoHistorico">
@@ -148,4 +164,28 @@
             });
            }
         });
+        
+        $("#notification").on("click", function (){
+            id = $("#idChamado").val();
+            $.ajax({
+                type: "POST",
+                url: "../updates/updateconsulta.php",
+                data:{id:id,
+                      notification:$("#notification").is( ":checked" )},
+                success: function(data)
+                {
+                    data = data.trim();
+                    if(data == "success"){
+                        notificationSuccess('Registro salvo', 'Notificação salva com sucesso');
+                        setTimeout(function(){
+                            $("#modalCon").modal('hide');
+                        }, 1000);
+                    }else{
+                        $("#salvarHistorico").html("Salvar");
+                        notificationError('Ocorreu um erro ao salvar o registro: ', data);
+                    }
+                }
+            });
+        });
+
     </script>
