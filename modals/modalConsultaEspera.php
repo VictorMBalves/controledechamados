@@ -29,7 +29,7 @@
                                     else
                                         echo '<input type="checkbox" name="notification" id="notification" data-toggle="tooltip" data-placement="top" title="Habilitar notificações">';
                                    
-                                     echo '<label for="notification modal-title">Habilitar notificações</label>';
+                                     echo '<label for="notification">Habilitar notificações</label>';
                                 echo'</div>
                                     <br/>
                                 ';
@@ -119,7 +119,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="col-md-12 text-center">
-                        <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#abrirHistorico" aria-expanded="false" aria-controls="collapseExample" data-placement='left' title='Adicionar histórico de contato!'>Adcionar Histórico de contato</button>
+                        <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#abrirHistorico" aria-expanded="false" aria-controls="collapseExample" data-placement='left' title='Adicionar histórico de contato!'>Adicionar Histórico de contato</button>
                     </div>
                 </div>
             </div>

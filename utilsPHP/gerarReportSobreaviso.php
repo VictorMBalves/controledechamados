@@ -2,6 +2,7 @@
 include '../validacoes/verificaSession.php';
 require_once '../vendor/autoload.php';
 require_once '../include/Database.class.php';
+
 $db = Database::conexao();       
 $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8', 'format' => 'A4-L']);
 
@@ -18,14 +19,15 @@ $url = 'https://api.calendario.com.br/?json=true&ano=' . $ano . '&ibge=' . $cida
 //manda o token no header
 
 $ch = curl_init();
-//envia a URL como parâmetro para o cURL;
+
 curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_TIMEOUT, 30); //timeout after 30 seconds
+curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
-//curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
 $result = curl_exec($ch);
-$status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE); //get status code
+
+$status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 $feriados = json_decode($result);
 

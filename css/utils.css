@@ -152,3 +152,11 @@ a:link {
 a:active {
   color: white;
 }
+
+.cabecalhoAviso{
+  background-color:#222;
+  color:white; 
+  padding:5px; 
+  border-top-right-radius:2px; 
+  border-top-left-radius:2px;
+}
