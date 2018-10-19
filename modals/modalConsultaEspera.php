@@ -23,16 +23,16 @@
                         <?php
                             if($_SESSION['UsuarioNivel'] == 3){
                                 echo '
+                                    <script>colorNotification('.$row['notification'].')</script>
                                     <div class="col-sm-12 text-right">';
                                     if($row['notification'])
-                                        echo '<input type="checkbox" name="notification" id="notification" checked data-toggle="tooltip" data-placement="top" title="Habilitar notificações">';
+                                        echo '<input type="checkbox" name="notification" id="notification" style="display:none;" checked>';
                                     else
-                                        echo '<input type="checkbox" name="notification" id="notification" data-toggle="tooltip" data-placement="top" title="Habilitar notificações">';
+                                        echo '<input type="checkbox" name="notification" id="notification" style="display:none;" >';
                                    
-                                     echo '<label for="notification">Habilitar notificações</label>';
+                                     echo '<label id="labelNotification" for="notification" data-toggle="tooltip" data-placement="top" title="Habilitar/Desabilitar notificações"><i class="glyphicon glyphicon-bell icon"></i></label>';
                                 echo'</div>
-                                    <br/>
-                                ';
+                                    <br/>';
                             }
                         ?>
                        
@@ -167,6 +167,7 @@
         
         $("#notification").on("click", function (){
             id = $("#idChamado").val();
+            colorNotification($("#notification").is( ":checked" ));
             $.ajax({
                 type: "POST",
                 url: "../updates/updateconsulta.php",
@@ -179,7 +180,7 @@
                         notificationSuccess('Registro salvo', 'Notificação salva com sucesso');
                         setTimeout(function(){
                             $("#modalCon").modal('hide');
-                        }, 1000);
+                        }, 2000);
                     }else{
                         $("#salvarHistorico").html("Salvar");
                         notificationError('Ocorreu um erro ao salvar o registro: ', data);
@@ -187,5 +188,4 @@
                 }
             });
         });
-
     </script>

@@ -105,6 +105,7 @@ function buildTable(data){
                 txt += '<tr>';    
                 txt += "<td>"+ (posicao++) +"</td>";
                 txt += "<td>"+data[i].name+"</td>";
+                txt += "<td>"+data[i].cnpj+"</td>";
                 txt += "<td>"+data[i].city+"</td>";
                 txt += "<td>"+data[i].state+"</td>";
 

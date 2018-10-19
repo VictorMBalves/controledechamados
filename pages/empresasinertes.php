@@ -90,7 +90,7 @@
                 </div>
                 <div class="form-group">
                     <label for="ignorePhoneNull" class="control-label">Ignorar empresas sem telefone</label>
-                    <input type="checkbox" class="form-control" id="ignorePhoneNull" data-toggle="tooltip" data-placement="top" title="Ignorar empresas sem telefone">
+                    <input type="checkbox" class="form-control" id="ignorePhoneNull">
                 </div>
                 <div class="form-group">
                     <button id="buscar" name="buscar" class="btn btn-group-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Busca na API conforme a versão informada">Buscar</button>
@@ -108,6 +108,7 @@
                         <tr>
                             <th>Nº</th>
                             <th>Empresa</th>
+                            <th>CNPJ</th>
                             <th>Cidade</th>
                             <th>Estado</th>
                             <th>Situação</th>

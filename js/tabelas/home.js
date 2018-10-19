@@ -139,3 +139,10 @@
                 $("#modalCad").modal('show');
             }, 100);
     }
+
+    function colorNotification(showBlue){
+        if(showBlue)
+            $("#labelNotification").addClass(' brand-info ');
+        else
+            $("#labelNotification").removeClass(' brand-info ');
+    }    

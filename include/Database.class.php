@@ -13,7 +13,7 @@ class Database
 
     private function __construct()
     {
-        $db_host = "localhost";
+        $db_host = "127.0.0.1";
         $db_nome = "chamados";
         $db_usuario = "root";
         $db_senha = "ledZeppelin";

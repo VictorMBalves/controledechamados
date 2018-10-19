@@ -37,8 +37,8 @@
 		<?php include '../include/menu.php' ?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php'?>
-			<div id="divMsg" class="alert alert-warning" role="alert">
-				<center>Atender chamado em espera Nº: <?php echo $id?> </center>
+			<div id="divMsg" class="alert alert-warning text-center" role="alert">
+				Atender chamado em espera Nº: <?php echo $id?>
 			</div>
 			<br>
 			<div class="form-horizontal">
