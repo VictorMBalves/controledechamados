@@ -10,6 +10,13 @@ $data = date("Y-m-d H:i:s");
 $usuario=$_SESSION['UsuarioNome'];
 $email = $_SESSION['Email'];
 
+$sql = $db->prepare("SELECT status FROM chamadoespera WHERE id_chamadoespera='$id'");
+$sql->execute();
+$status = $sql->fetch(PDO::FETCH_ASSOC);
+if($status['status'] == "Finalizado"){
+	echo 'Chamado finalizado';
+	exit;
+}
 
 if(isset($_POST['notification'])){
 	$notification = $_POST['notification'];

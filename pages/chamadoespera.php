@@ -25,8 +25,8 @@
 			
 			<?php include '../include/cabecalho.php'?>
 			<div id="resultado">
-				<div id="div-msg" class="alert alert-info" role="alert">
-					<center>Novo chamado em espera:</center>
+				<div id="div-msg" class="alert alert-info text-center" role="alert">
+					Novo chamado em espera:
 				</div>
 			</div>
 			<div class="text-right">

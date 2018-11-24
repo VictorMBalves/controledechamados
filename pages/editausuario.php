@@ -25,8 +25,8 @@ $row = $sql->fetch(PDO::FETCH_ASSOC);
 		<?php include '../include/menu.php'; ?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 	  		<?php include '../include/cabecalho.php'; ?>
-			<div class="alert alert-success" role="alert">
-				<center>Editar cadastro de usuário:</center>
+			<div class="alert alert-success text-center" role="alert">
+				Editar cadastro de usuário:
 			</div>
 			<div class="text-right">
 				<div class="form-group">

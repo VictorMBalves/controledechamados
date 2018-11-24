@@ -92,7 +92,7 @@ function resetForm(){
     $('#erroLoad').addClass('hidden');
     $('#successLoad').addClass('hidden');
     $('#alertLoad').addClass('hidden');
-    $('#resultado').html('<div class="alert alert-info" role="alert"><center>Novo chamado em espera:</center></div>');
+    $('#resultado').html('<div class="alert alert-info text-center" role="alert">Novo chamado em espera:</div>');
 }
 
 empresa.focusout(function() {

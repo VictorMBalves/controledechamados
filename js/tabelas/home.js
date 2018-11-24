@@ -137,7 +137,7 @@
         $("#modalCadastro").load("../modals/modalCadChamado.php");
             setTimeout(function(){
                 $("#modalCad").modal('show');
-            }, 100);
+            }, 200);
     }
 
     function colorNotification(showBlue){

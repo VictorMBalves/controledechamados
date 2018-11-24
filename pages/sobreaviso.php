@@ -347,7 +347,7 @@ echo $resultadoTotal;
 				<tr>
 					<td>
 						<center>
-							<div class="assin">
+							<div class="assin ">
 								<hr style="border-color:black;" />
 								<center>
 									<h3>

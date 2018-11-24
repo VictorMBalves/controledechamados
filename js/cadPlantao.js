@@ -113,7 +113,7 @@ function resetForm(){
     $('#erroLoad').addClass('hidden');
     $('#successLoad').addClass('hidden');
     $('#alertLoad').addClass('hidden');
-    $('#resultado').html('<div class="alert alert-info" role="alert"><center>Novo chamado:</center></div>');
+    $('#resultado').html('<div class="alert alert-info text-center" role="alert">Novo chamado:</div>');
 }
 contato.focusout(function() {
     if(!isEmpty(contato.val()))

@@ -30,6 +30,7 @@ ErrorDocument 500 /pages/error/404.html
   RewriteRule ^vendor/?$ pages/home.php [NC,L]
   RewriteRule ^pages/home/?$ pages/home.php [NC,L]
   RewriteRule ^pages/chamados/?$ pages/chamados.php [NC,L]
+  RewriteRule ^pages/dashboard/?$ pages/dashBoard.php [NC,L]
   RewriteRule ^pages/plantao/?$ pages/plantao.php [NC,L]
   RewriteRule ^pages/empresa/?$ pages/empresa.php [NC,L]
   RewriteRule ^pages/meuschamados/?$ pages/meuschamados.php [NC,L]

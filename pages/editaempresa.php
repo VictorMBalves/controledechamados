@@ -28,10 +28,8 @@
 		<?php include '../include/menu.php'; ?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php';?>
-			<div class="alert alert-info" role="alert">
-				<center>Editar empresa ID:
-					<?php echo $id?>
-				</center>
+			<div class="alert alert-info text-center" role="alert">
+				Editar empresa ID:<?php echo $id?>
 			</div>
 			<div class="text-right">
 				<div class="form-group">

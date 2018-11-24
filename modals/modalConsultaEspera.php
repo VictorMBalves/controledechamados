@@ -9,6 +9,11 @@
 	$sql->execute();
     $row = $sql->fetch(PDO::FETCH_ASSOC);
 
+    if($row['status'] == "Finalizado"){
+        echo '<script type="text/javascript"> notificationError("Ocorreu um erro ao visualizar o registro: ", "Chamado finalizado");</script>';
+        exit;
+    }
+
     $sql= "SELECT id, id_chamadoespera, DATE_FORMAT(dataregistro,'%d/%m/%Y %H:%i') as data, usuario, descricaohistorico, emailusuario FROM historicochamado WHERE id_chamadoespera=$id ORDER BY dataregistro DESC";
     $query = $db->prepare($sql);
     $query->execute();
@@ -158,6 +163,7 @@
                         }, 1000);
                     }else{
                         $("#salvarHistorico").html("Salvar");
+                        $("#salvarHistorico").removeClass(" disabled ");
                         notificationError('Ocorreu um erro ao salvar o registro: ', data);
                     }
                 }

@@ -20,10 +20,8 @@
 			<div class="container" style="margin-top:60px; margin-bottom:50px;">
 				<div id="tarefas"></div>
 				<div class="row">
-					<div class="col-sm-2">
-						<center>
-							<?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail' alt='Cinque Terre' width='100'>";?>
-						</center>
+					<div class="col-sm-2 text-center">
+						<?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail' alt='Cinque Terre' width='100'>";?>
 					</div>
 					<div class="col-sm-6">
 						<h2><?php echo $_SESSION['UsuarioNome']; ?>, gerencie seus chamados:</h2>
@@ -56,7 +54,7 @@
 									<th>Empresa</th>
 									<th>Contato</th>
 									<th>Telefone</th>
-									<th width="100"><center><img src="../imagem/acao.png"></center></th>
+									<th width="100" class="text-center"><img src="../imagem/acao.png"></th>
 								</tr>
 							</thead>
 							<tbody id ="tbodydirecionados">
@@ -77,7 +75,7 @@
 									<th>Empresa</th>
 									<th>Contato</th>
 									<th>Telefone</th>
-									<th width="100"><center><img src="../imagem/acao.png"></center></th>
+									<th width="100" class="text-center"><img src="../imagem/acao.png"></th>
 								</tr>
 							</thead>
 							<tbody id ="tbody">

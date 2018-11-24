@@ -5,7 +5,7 @@ $db = Database::conexao();
 
 $sql = $db->prepare("SELECT nome, email, disponivel FROM usuarios WHERE nivel = 2");
 $sql->execute();
-$result = $sql->fetchall();
+$result = $sql->fetchall(PDO::FETCH_ASSOC);
 echo '<ul class="list-group">';
 echo '<li style="background-color:#222; color:white;" class="list-group-item">';
     echo 'Lista de Atendentes';

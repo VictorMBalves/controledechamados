@@ -88,7 +88,7 @@
 								<th>Nome</th>
 								<th>Login</th>
 								<th>Email</th>
-								<th width="100"><center><img src="../imagem/acao.png"></center></th>
+								<th width="100" class="text-center"><img src="../imagem/acao.png"></th>
 							</tr>
 						</thead>
 						<tbody id ="tbody">

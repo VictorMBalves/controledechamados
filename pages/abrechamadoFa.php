@@ -29,8 +29,8 @@
 		<?php include '../include/menu.php'?>
 		<div class="container" style="margin-top:60px; margin-bottom:10px;">
 			<?php include '../include/cabecalho.php'?>
-			<div class="alert alert-info" role="alert">
-				<center>Finalizar Chamado Nº: <?php echo $id?></center>
+			<div class="alert alert-info text-center" role="alert">
+				Finalizar Chamado Nº: <?php echo $id?>
 			</div>
 			<div class="form-horizontal">
 				<input style="display:none;" id='id_chamado' name='id_chamado' value='<?php echo $id; ?>'/>

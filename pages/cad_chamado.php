@@ -18,8 +18,8 @@
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 		<?php include '../include/cabecalho.php'; ?>
 			<div id="resultado">
-				<div id="div-msg" class="alert alert-info" role="alert">
-					<center>Novo chamado:</center>
+				<div id="div-msg" class="alert alert-info text-center" role="alert">
+					Novo chamado:
 				</div>
 			</div>
 			<div class="form-horizontal">

@@ -15,15 +15,6 @@
   $sql2 = $db->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
   $sql2->execute();
   $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
-
-  $permissaoSelect = new Permissao($db);
-  $permissao = $permissaoSelect->load_by_id(1);
-  if($permissao->permitirLancarCadastro)
-	  echo "Pode lançar";
-	else
-  		echo "Não pode lançar";
-  return;
-
 ?>
 <!Doctype html>
 <html>

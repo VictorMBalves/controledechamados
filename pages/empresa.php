@@ -17,8 +17,8 @@
 	?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php';?>
-			<div class="alert alert-warning" role="alert">
-				<center>Clientes</center>
+			<div class="alert alert-warning text-center" role="alert">
+				Clientes
 			</div>
 			<div class="text-center">
 				<?php include '../filtros/filtroEmpresa.php';?> 
@@ -35,7 +35,7 @@
 						<th>CNPJ</th>
 						<th>Sistema</th>
 						<th>Versão</th>
-						<th><center><img src="../imagem/acao.png"></center></th>
+						<th class="text-center"><img src="../imagem/acao.png"></th>
 					</tr>
 				</thead>
 				<tbody id ="tbody">

@@ -22,8 +22,8 @@
 		?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php';?>
-			<div class="alert alert-success" role="alert">
-				<center>Cadastrar nova empresa:</center>
+			<div class="alert alert-success text-center" role="alert">
+				Cadastrar nova empresa:
 			</div>
 			<div class="form-horizontal">
 				<div class="text-center">

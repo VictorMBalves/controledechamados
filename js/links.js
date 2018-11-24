@@ -125,6 +125,9 @@ function notificationSuccessLink(title, message, link){
   }, 50000);
 
   function consultaChamadosEspera(){
+    if(window.location.pathname === '/chamados/' || window.location.pathname === '/')
+        return;
+
     $.ajax({
         type: 'POST',
         url: '../consultaTabelas/tabelahome.php',

@@ -18,9 +18,8 @@
 	?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php' ?>
-			<div class="alert alert-success" role="alert">
-				<center>Alterar senha:
-				</center>
+			<div class="alert alert-success text-center" role="alert">
+				Alterar senha:
 			</div>
 			<br>
 			<div class="form-horizontal">
