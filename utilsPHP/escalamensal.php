@@ -10,8 +10,8 @@
     $ano = date('Y');
     // $gerarPDF = true;
     $dias = cal_days_in_month(CAL_GREGORIAN, $mes, $ano);
-    $data1 = "2018-{$mes}-01";
-    $data2 = "2018-{$mes}-{$dias}";
+    $data1 = "{$ano}-{$mes}-01";
+    $data2 = "{$ano}-{$mes}-{$dias}";
     $query = $db->prepare("select * from
         (select adddate('1970-01-01',t4*10000 + t3*1000 + t2*100 + t1*10 + t0) data from
         (select 0 t0 union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t0,

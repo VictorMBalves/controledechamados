@@ -67,6 +67,10 @@
                                                 <a href="../pages/relatorioempre">Empresas solicitantes </a>
                                             </li>
                                             <li role="separator" class="divider"></li>
+                                            <li>
+                                            <a href="../pages/dashBoard">Gráficos (Beta) </a>
+                                            </li>
+                                            <li role="separator" class="divider"></li>
                                         </ul>
                                     </li>
                                 </ul>';

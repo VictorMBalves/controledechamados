@@ -16,7 +16,7 @@ class Database
         $db_host = "127.0.0.1";
         $db_nome = "chamados";
         $db_usuario = "root";
-        $db_senha = "12345";
+        $db_senha = "d8hj0ptr";
         $db_driver = "mysql";
         $sistema_titulo = "Controle de chamados";
         $sistema_email = "victormatheusbotassoli@gmail.com";
