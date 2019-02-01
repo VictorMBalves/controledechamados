@@ -40,14 +40,20 @@ try
 
  
   if ($sql->execute()) {
-    echo 'success';
+    echo '{
+            message: "success"
+            }';
     exit;
   } else {
-    echo 'error';
+    echo '{
+            message: "error"
+        }';
     exit;
   }
 }catch (PDOException $e){
-  echo $e;
+  echo '{
+    message: "error:"'.$e.'
+    }';
   exit;
 }
 ?>
