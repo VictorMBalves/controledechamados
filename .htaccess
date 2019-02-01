@@ -1,3 +1,19 @@
+######################
+## Handling Options for the CORS
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [L,R=204]
+
+###################
+## Add custom headers
+
+Header set X-Content-Type-Options "nosniff"
+Header set X-XSS-Protection "1; mode=block"
+    # Always set these headers for CORS.
+Header always set Access-Control-Max-Age 1728000
+Header always set Access-Control-Allow-Origin: "*"
+Header always set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+Header always set Access-Control-Allow-Headers: "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,C$
+Header always set Access-Control-Allow-Credentials true
 #redirecionamento de erros
 ErrorDocument 404 /pages/error/404.html
 ErrorDocument 400 /pages/error/400.html
@@ -50,4 +66,5 @@ ErrorDocument 500 /pages/error/404.html
   RewriteRule ^pages/abrechamadoespera=([0-9]+)?$ pages/abrechamadoespera.php?id_chamadoespera=$1 [NC,L]
   RewriteRule ^pages/editausuario=([0-9]+)?$ pages/editausuario.php?id=$1 [NC,L]
   RewriteRule ^pages/editaempresa=([0-9]+)?$ pages/editaempresa.php?id_empresa=$1 [NC,L]
+  RewriteRule ^pages/dashexception/?$ pages/dashException.php [NC,L]
 </IfModule>

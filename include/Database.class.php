@@ -12,8 +12,8 @@ class Database
     protected static $db;
 
     private function __construct()
-    {
-        $db_host = "127.0.0.1";
+    {   
+        $db_host = "192.168.25.241";
         $db_nome = "chamados";
         $db_usuario = "root";
         $db_senha = "d8hj0ptr";

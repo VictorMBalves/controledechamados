@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Controle de chamados</a>
+            <a class="navbar-brand" href="../pages/home">Controle de chamados</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -17,8 +17,6 @@
                 <li>
                     <a href="../pages/empresa"><span class="glyphicon glyphicon-folder-open"></span>&nbsp&nbspClientes</a>
                 </li>
-            </ul>
-            <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list"></span>&nbsp&nbspChamados 
                         <span class="caret"></span>
@@ -36,6 +34,10 @@
                             <a href="../pages/chamadoespera">Novo Chamado Em Espera</a>
                         </li>
                     </ul>
+                </li>
+            <!-- <ul class="nav navbar-nav"> -->
+                <li>
+                    <a href="../pages/dashException"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp&nbspRegistro de erros</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -69,6 +71,10 @@
                                             <li role="separator" class="divider"></li>
                                             <li>
                                             <a href="../pages/dashBoard">Gráficos (Beta) </a>
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                            <a href="#" id="registroAtividadeEcf">Registro de atividades ECF </a>
                                             </li>
                                             <li role="separator" class="divider"></li>
                                         </ul>

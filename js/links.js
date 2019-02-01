@@ -175,4 +175,13 @@ function notificaUsuario(chamado){
           window.open(url,
           '_blank' );      
       };
-  }
+}
+
+$("#registroAtividadeEcf").click(function(){
+    $.get("../modals/modalRegistroAtividades.php", function(data){
+        $( "body" ).append(data);
+    });
+    setTimeout(function(){
+        $("#modalCad").modal('show');
+    }, 300);
+})
