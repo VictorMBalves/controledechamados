@@ -41,18 +41,18 @@ try
  
   if ($sql->execute()) {
     echo '{
-            message: "success"
-            }';
+        "message": "success"
+      }';
     exit;
   } else {
     echo '{
-            message: "error"
+        "message": "error"
         }';
     exit;
   }
 }catch (PDOException $e){
   echo '{
-    message: "error:"'.$e.'
+    "message": "error:"'.$e.'
     }';
   exit;
 }
