@@ -8,7 +8,7 @@ RewriteRule ^(.*)$ $1 [L,R=204]
 
 Header set X-Content-Type-Options "nosniff"
 Header set X-XSS-Protection "1; mode=block"
-    # Always set these headers for CORS.
+# Always set these headers for CORS.
 Header always set Access-Control-Max-Age 1728000
 Header always set Access-Control-Allow-Origin: "*"
 Header always set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
