@@ -38,11 +38,11 @@ foreach ($result as $row) {
         $result = $sql->fetch(PDO::FETCH_ASSOC);
         echo '<li class="list-group-item" style="padding:5px;"><img src="https://www.gravatar.com/avatar/' . md5($row['email']) . '" width="25px"> ';
         echo $usuario;
-        if(usuarioOnline($usuario, $arrayUser)){
+        if(usuarioOnline($usuario, $arrayUser) || $row['disponivel']){
             echo '<span style="background-color:#5cb85c;" class="badge">Online</span>';
-            if ($row['disponivel']) {
+            if($row['disponivel']){
                 echo '<em style="color:#d9534f;"> - ';if($result['numeroChamados'] == 1){echo $result['numeroChamados']. " chamado";  }else{echo $result['numeroChamados']. " chamados";} echo ' em atendimento </em>';
-            } 
+            }
         }else{
             echo '<span style="background-color:#d9534f;" class="badge">offline</span>';
         }
@@ -58,7 +58,7 @@ function usuarioOnline($needle='', $haystack=array()){
         if ($item->UsuarioNome===$needle) {
             $lastLogin = date($item->lastLogin);
             $dataAtual = date("Y-m-d H:i:s");
-            $intervalo = strtotime('-5 minutes');
+            $intervalo = strtotime('-30 minutes');
             $intervalo = date('Y-m-d H:i:s', $intervalo);
             
             if($lastLogin <= $dataAtual && $lastLogin >= $intervalo){
