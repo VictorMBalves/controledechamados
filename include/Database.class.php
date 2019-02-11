@@ -12,11 +12,11 @@ class Database
     protected static $db;
 
     private function __construct()
-    {
-        $db_host = "localhost";
+    {   
+        $db_host = "192.168.25.241";
         $db_nome = "chamados";
         $db_usuario = "root";
-        $db_senha = "ledZeppelin";
+        $db_senha = "d8hj0ptr";
         $db_driver = "mysql";
         $sistema_titulo = "Controle de chamados";
         $sistema_email = "victormatheusbotassoli@gmail.com";

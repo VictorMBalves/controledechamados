@@ -8,5 +8,6 @@ if (!isset($_SESSION['UsuarioID'])) {
     header("Location: ../");
     exit;
 }
-$email = md5($_SESSION['Email']);
+    $_SESSION['lastLogin'] = date("Y-m-d H:i:s");
+    $email = md5($_SESSION['Email']);
 ?>

@@ -1,13 +1,14 @@
 <?php
   include '../validacoes/verificaSession.php';
   require_once '../include/Database.class.php';
+  require_once '../include/Permissao.class.php';
   $db = Database::conexao();
   $id=$_GET['id_chamado'];
   $sql = $db->prepare("SELECT * FROM chamado WHERE id_chamado=$id");
   $sql->execute();
   $row = $sql->fetch(PDO::FETCH_ASSOC);
   if($row['status'] == 'Finalizado'){
-		echo '<h1>Chamado Nº'.$id.' já encerrado<h1>';
+		echo "<h1>Chamado Nº{$id} já encerrado<h1>";
 	return;
   }
   $empresa = $row['empresa'];
@@ -31,10 +32,8 @@
 		<?php  include '../include/menu.php';?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 		<?php include '../include/cabecalho.php';?>
-			<div class="alert alert-info" role="alert">
-				<center>Editar Chamado Nº
-					<?php echo $id?>
-				</center>
+			<div class="alert alert-info text-center" role="alert">
+				Editar Chamado Nº <?php echo $id?>
 			</div>
 			<div class="form-horizontal">
 				<input style="display:none;" name="id_chamado" id="id_chamado" value="<?php echo $id; ?>"/>
@@ -135,6 +134,7 @@
 							</option>
 							<option value="Sugestão de melhoria">Sugestão de melhoria
 							</option>
+							<option value="Retorno">Retorno</option>
 							<option value="Outros">Outros
 							</option>
 						</select>
@@ -158,6 +158,7 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/editaChamado.js"></script>
 	</body>

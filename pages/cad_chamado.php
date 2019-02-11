@@ -18,8 +18,8 @@
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 		<?php include '../include/cabecalho.php'; ?>
 			<div id="resultado">
-				<div id="div-msg" class="alert alert-info" role="alert">
-					<center>Novo chamado:</center>
+				<div id="div-msg" class="alert alert-info text-center" role="alert">
+					Novo chamado:
 				</div>
 			</div>
 			<div class="form-horizontal">
@@ -93,6 +93,7 @@
 							</option>
 							<option value="Sugestão de melhoria">Sugestão de melhoria
 							</option>
+							<option value="Retorno">Retorno</option>
 							<option value="Outros">Outros
 							</option>
 						</select>
@@ -128,6 +129,7 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/apiConsulta.js"></script>
 		<script src="../assets/js/bootstrap.min.js"></script>

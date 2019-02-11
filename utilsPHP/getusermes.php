@@ -2,7 +2,7 @@
     require_once '../include/Database.class.php';
     $db = Database::conexao();
     $mes = $_GET['mes'];
-    $sql = "SELECT usuario FROM escalasobreaviso WHERE mes = '$mes' ORDER BY ordem";
+    $sql = "SELECT usuario FROM escalasobreaviso WHERE mes = '$mes' AND YEAR(inicioperido) = YEAR(CURDATE()) ORDER BY ordem";
     $query = $db->prepare($sql);
     $query->execute();
     $resultado = $query->fetchall();

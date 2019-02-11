@@ -16,6 +16,6 @@ if($_SESSION['UsuarioNivel'] != 3) {
     header("Location: ../pages/home");
     exit;
 }
-
+$_SESSION['lastLogin'] = date("Y-m-d H:i:s");
 $email = md5($_SESSION['Email']);
 ?>

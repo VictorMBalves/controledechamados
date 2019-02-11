@@ -12,6 +12,7 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js" ></script>
 		<style>
 		/*table, tr, td, th{
@@ -346,7 +347,7 @@ echo $resultadoTotal;
 				<tr>
 					<td>
 						<center>
-							<div class="assin">
+							<div class="assin ">
 								<hr style="border-color:black;" />
 								<center>
 									<h3>

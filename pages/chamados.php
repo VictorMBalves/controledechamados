@@ -18,8 +18,8 @@
 		?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php'?>
-			<div class="alert alert-warning" role="alert">
-				<center>Chamados</center>
+			<div class="alert alert-warning text-center" role="alert">
+				Chamados
 			</div>
 			<div class="text-center">
 				<?php include '../filtros/filtroChamados.php';?> 
@@ -37,7 +37,7 @@
 						<th>Empresa</th>
 						<th>Contato</th>
 						<th>Telefone</th>
-						<th width="100"><center><img src="../imagem/acao.png"></center></th>
+						<th width="130" class="text-center"><img src="../imagem/acao.png"></th>
 					</tr>
 				<tbody id ="tbody">
 				</tbody> 
@@ -57,6 +57,7 @@
 		<script src="../datatables/responsive.min.js"></script>
 		<script src="../datatables/rowReorder.min.js"></script>
 		<script src="../js/tabelas/chamados.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 	</body>
 </html>

@@ -25,8 +25,6 @@ foreach ($resultados as $resultado){
 }
 echo json_encode($resultados);
 
-
-
 function getPhoneBD($nomeEmpresa, $db, $tipo)
  {
     $sql = "SELECT `telefone`, `celular` FROM `empresa` WHERE `nome` = '{$nomeEmpresa}' ";

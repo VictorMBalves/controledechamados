@@ -4,7 +4,7 @@
         session_start();
     }
     if (!isset($_SESSION['UsuarioID'])) {
-        session_destroy();
+        $_SESSION['page_request'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; 
         header("Location: ../");
         exit;
     }
@@ -14,5 +14,6 @@
         header("Location: ../pages/chamadoespera");
         exit;
     }
+    $_SESSION['lastLogin'] = date("Y-m-d H:i:s");
     $email = md5($_SESSION['Email']);
 ?>

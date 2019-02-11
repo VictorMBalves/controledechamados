@@ -66,10 +66,9 @@ function callApi(empresa) {
                     versao:data.version    
                     },
                     success: function(mod) {
-                    $('#modulos').html(mod);
+                        $('#modulos').html(mod);
                     },
                     error: function(jqXhr, textStatus, errorThrown){
-                    console.log(errorThrown);
                 }
                 });
                 if(data.version == null || data.system == null){
@@ -116,7 +115,6 @@ $(document).ready(function(){$("input[name='empresa']").blur(function(){
     $("#erroLoad").addClass("hidden");
     $("#infoLoad").removeClass("hidden");
     callApi();
-    callBanco();
     });
 });
 $(document).ready(function(){$("button[name='verModulos']").click(function(){

@@ -13,6 +13,7 @@
     	<link href="../datatables/responsive.dataTables.min.css" rel="stylesheet">
     	<link href="../datatables/rowReorder.dataTables.min.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -20,7 +21,7 @@
 				include '../validacoes/verificaSession.php';
 				include '../include/menu.php';
 			?>
-			<div class="content">
+			<div class="content col-lg-12">
 				<div class="col-md-4 sidebar-outer">
 					<div id="plantao"></div><!--Responsavel pelo plantão -->
 					<div id="usuarios"></div><!--Usuários disponiveis -->
@@ -42,8 +43,8 @@
 						</div>
 					</div>
 					<br>
-					<div class="alert alert-warning" role="alert">
-						<center>Chamados aguardando retorno:</center>
+					<div class="alert alert-warning text-center" role="alert">
+						Chamados aguardando retorno:
 					</div>
 					<div class="row">
 						<hr/>
@@ -58,7 +59,7 @@
 								<th>Empresa</th>
 								<th>Contato</th>
 								<th>Telefone</th>
-								<th width="100"><center><img src="../imagem/acao.png"></center></th>
+								<th width="100" class="text-center"><img src="../imagem/acao.png"></th>
 							</tr>
 						<tbody id ="tbody">
 						</tbody> 
@@ -67,22 +68,24 @@
 				</div>
 			</div>
 		</div>
-
 		<div id="modalConsulta">
 		</div>
 		<div id="modalCadastro">
 		</div>
 
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../assets/js/bootstrap.min.js"></script>
 		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../datatables/datatables.min.js"></script>
 		<script src="../datatables/responsive.min.js"></script>
 		<script src="../datatables/rowReorder.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/tabelas/home.js"></script>
 	</body>

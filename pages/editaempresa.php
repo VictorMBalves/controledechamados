@@ -28,10 +28,8 @@
 		<?php include '../include/menu.php'; ?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php';?>
-			<div class="alert alert-info" role="alert">
-				<center>Editar empresa ID:
-					<?php echo $id?>
-				</center>
+			<div class="alert alert-info text-center" role="alert">
+				Editar empresa ID:<?php echo $id?>
 			</div>
 			<div class="text-right">
 				<div class="form-group">
@@ -128,6 +126,7 @@
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

@@ -1,0 +1,26 @@
+#repository: git@github.com:germantech/chamados.git 
+ 
+repository: https://victormbalves:V1i5c0t7o9r8@github.com/germantech/chamados.git
+platforms:
+    development:
+        default_branch: master-dev
+        max_releases: 3
+        servers:
+            dev:
+                host: 192.168.33.10
+                user: vagrant
+                ssh_key: /machine/private_key
+                path: /var/www/html/testechamados
+                port: 22
+    production:
+        default_branch: master-dev
+        max_releases: 3
+        servers:
+            prod:
+                host: chamados.gtech.site
+                user: root
+                password: d8hj0ptr
+                path: /var/www/html/chamadosteste
+
+pre_deploy:
+    - "php -v"

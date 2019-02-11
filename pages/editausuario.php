@@ -25,8 +25,8 @@ $row = $sql->fetch(PDO::FETCH_ASSOC);
 		<?php include '../include/menu.php'; ?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 	  		<?php include '../include/cabecalho.php'; ?>
-			<div class="alert alert-success" role="alert">
-				<center>Editar cadastro de usuário:</center>
+			<div class="alert alert-success text-center" role="alert">
+				Editar cadastro de usuário:
 			</div>
 			<div class="text-right">
 				<div class="form-group">
@@ -87,6 +87,7 @@ $row = $sql->fetch(PDO::FETCH_ASSOC);
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

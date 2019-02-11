@@ -25,8 +25,8 @@
 			
 			<?php include '../include/cabecalho.php'?>
 			<div id="resultado">
-				<div id="div-msg" class="alert alert-info" role="alert">
-					<center>Novo chamado em espera:</center>
+				<div id="div-msg" class="alert alert-info text-center" role="alert">
+					Novo chamado em espera:
 				</div>
 			</div>
 			<div class="text-right">
@@ -101,6 +101,7 @@
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/apiConsulta.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

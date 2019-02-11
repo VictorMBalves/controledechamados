@@ -13,11 +13,13 @@ if(isset($_POST['situacao'])){
 }
 $order = getOrder();
 $group = getGroup();
+
 if(isset($_POST['versao'])){
     $versao = str_replace(".","",$_POST['versao']);
 }else{
     $versao="4350";
 }
+
 $url = "api.gtech.site/companies?q[version_int_lt]=".$versao."&q[active_eq]=true&q[sorts]=".$group.".asc,".$order;//&q[cont_days_access_eq]=5
 $resultados =& json_decode($curl->connection($url));
 
@@ -48,7 +50,7 @@ foreach ($resultados as $key => $resultado){
     }
 }
 $resultados = array_values(array_filter($resultados));
-ini_set("pcre.backtrack_limit", "5000000");
+ini_set("pcre.backtrack_limit", "50000000");
 ob_start();
 echo '<div class="row">';
 echo    '<div class="text-center">';

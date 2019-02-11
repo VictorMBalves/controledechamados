@@ -26,12 +26,17 @@ if (empty($resultado)) {
     $_SESSION['UsuarioNome'] = $resultado['nome'];
     $_SESSION['UsuarioNivel'] = $resultado['nivel'];
     $_SESSION['Email'] = $resultado['email'];
+    $_SESSION['lastLogin'] = date("Y-m-d H:i:s");
     // Redireciona o visitante
     if($_SESSION['UsuarioNivel'] == 1){
         echo 'successNivel1';
         exit;
     }
-
+    if(isset($_SESSION['page_request'])){
+        echo $_SESSION['page_request'];
+        unset($_SESSION['page_request']);
+        exit;
+    }
     echo 'success';
     exit;
 }

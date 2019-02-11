@@ -12,6 +12,7 @@
     </script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js">
     </script>         
+    <script src="../assets/js/date.js"></script>
     <script src="../js/links.js" >
     </script>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">

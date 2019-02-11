@@ -29,8 +29,8 @@
 		<?php include '../include/menu.php'?>
 		<div class="container" style="margin-top:60px; margin-bottom:10px;">
 			<?php include '../include/cabecalho.php'?>
-			<div class="alert alert-info" role="alert">
-				<center>Finalizar Chamado Nº: <?php echo $id?></center>
+			<div class="alert alert-info text-center" role="alert">
+				Finalizar Chamado Nº: <?php echo $id?>
 			</div>
 			<div class="form-horizontal">
 				<input style="display:none;" id='id_chamado' name='id_chamado' value='<?php echo $id; ?>'/>
@@ -104,6 +104,7 @@
 							</option>
 							<option value="Sugestão de melhoria">Sugestão de melhoria
 							</option>
+							<option value="Retorno">Retorno</option>
 							<option value="Outros">Outros
 							</option>
 						</select>
@@ -128,7 +129,8 @@
 			</div>
 		</div>
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>         
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="../assets/js/date.js"></script>      
 		<script src="../js/links.js" ></script> 
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>

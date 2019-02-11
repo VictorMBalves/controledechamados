@@ -88,7 +88,7 @@
 								<th>Nome</th>
 								<th>Login</th>
 								<th>Email</th>
-								<th width="100"><center><img src="../imagem/acao.png"></center></th>
+								<th width="100" class="text-center"><img src="../imagem/acao.png"></th>
 							</tr>
 						</thead>
 						<tbody id ="tbody">
@@ -108,6 +108,7 @@
 		<script src="../datatables/rowReorder.min.js"></script>
 		<script src="../js/tabelas/usuarios.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/cadUsuario.js"></script>
 	</body>

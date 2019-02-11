@@ -22,8 +22,8 @@
 		?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php';?>
-			<div class="alert alert-success" role="alert">
-				<center>Cadastrar nova empresa:</center>
+			<div class="alert alert-success text-center" role="alert">
+				Cadastrar nova empresa:
 			</div>
 			<div class="form-horizontal">
 				<div class="text-center">
@@ -79,6 +79,7 @@
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

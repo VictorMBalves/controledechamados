@@ -17,8 +17,8 @@
 	?>
 		<div class="container" style="margin-top:60px; margin-bottom:50px;">
 			<?php include '../include/cabecalho.php';?>
-			<div class="alert alert-warning" role="alert">
-				<center>Clientes</center>
+			<div class="alert alert-warning text-center" role="alert">
+				Clientes
 			</div>
 			<div class="text-center">
 				<?php include '../filtros/filtroEmpresa.php';?> 
@@ -35,7 +35,7 @@
 						<th>CNPJ</th>
 						<th>Sistema</th>
 						<th>Versão</th>
-						<th><center><img src="../imagem/acao.png"></center></th>
+						<th class="text-center"><img src="../imagem/acao.png"></th>
 					</tr>
 				</thead>
 				<tbody id ="tbody">
@@ -52,6 +52,7 @@
 		<script src="../datatables/rowReorder.min.js"></script>
 		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="../js/tabelas/empresas.js"></script>
+		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>
 	</body>
 </html>

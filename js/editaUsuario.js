@@ -27,7 +27,6 @@ function validar(components){
         if(isEmpty(components[i].val()))
             erros.push(components[i].selector);
     }
-    console.log(erros)
     if(isEmpty(erros)){
         if(!validarSenha()){
             resetSubmit();
