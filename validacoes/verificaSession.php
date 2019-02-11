@@ -14,5 +14,6 @@
         header("Location: ../pages/chamadoespera");
         exit;
     }
+    $_SESSION['lastLogin'] = date("Y-m-d H:i:s");
     $email = md5($_SESSION['Email']);
 ?>
