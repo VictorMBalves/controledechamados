@@ -9,23 +9,15 @@ foreach($sessionNames as $sessionName) {
         array_push($arrayUser, json_decode(replace_session($sessionName)));
     }
 }
+if(empty($arrayUser)){
+    echo "<h2>Nenhum usuário conectado :/</h2>";
+    return;
+}
 
-print_r($arrayUser);
-
-//foreach($arrayUser as $userSession){
-  //  $lastLogin = date($userSession->lastLogin);
-   // $dataAtual = date("Y-m-d H:i:s");
-   // $intervalo = strtotime('-5 minutes');
-   // $intervalo = date('Y-m-d H:i:s', $intervalo);
-    //if($lastLogin <= $dataAtual && $lastLogin >= $intervalo){
-       // echo $userSession->UsuarioNome.' Online';
-    //}else {
-        // $command = 'rm -rf '.$userSession->sessionPath;
-        // $output = shell_exec($command);
-       // echo '<pre>'.$userSession->UsuarioNome.' Offline</pre>';
-        
-    //}
-//}
+echo "<h2>Usuários conectados:</h2><br/>";
+foreach($arrayUser as $userSession){
+    var_dump($userSession);
+}
 
 function replace_session($sessionName){
     $string_session = file_get_contents(session_save_path()."/".$sessionName);

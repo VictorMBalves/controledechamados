@@ -36,10 +36,10 @@
 								<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center vcenter">
 									<?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail' alt='Usuario' width='100'>"; ?>
 								</div>
-								<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 vcenter">
+								<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 vcenter">
 									<h2>Bem-vindo, <?php echo $_SESSION['UsuarioNome']; ?></h2>
 								</div>
-								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 vcenter">
+								<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
 									<a id="adcChamado" class="float" data-toggle="tooltip" data-placement="left" title="Adicionar chamado (Alt + C)"><i class="glyphicon glyphicon-earphone my-float rotate"></i></a>
 								</div>					
 							</div>

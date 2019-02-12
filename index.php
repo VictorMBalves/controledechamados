@@ -1,3 +1,12 @@
+<?php
+	if(isset($_COOKIE['sessionID']) && $_COOKIE['sessionID'] != ''){
+		session_id($_COOKIE['sessionID']);
+		session_start();
+		header("Location: pages/home");
+		exit();
+	}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head> 

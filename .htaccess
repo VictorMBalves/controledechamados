@@ -23,7 +23,7 @@ ErrorDocument 500 /pages/error/404.html
 #rotas
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteRule ^/?$ index.html [NC,L]
+  RewriteRule ^/?$ index.php [NC,L]
   RewriteRule ^include/?$ pages/home.php [NC,L]
   RewriteRule ^assets/?$ pages/home.php [NC,L]
   RewriteRule ^consultaTabelas/?$ pages/home.php [NC,L]

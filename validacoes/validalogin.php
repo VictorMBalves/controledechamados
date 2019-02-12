@@ -28,12 +28,12 @@ if (empty($resultado)) {
         }
     }
 
-    foreach($arrayUser as $userSession){
-        if($userSession->UsuarioNome == $resultado['nome'] && $userSession->UsuarioID == $resultado['id']){
-            $command = 'rm -rf '.$userSession->sessionPath;
-            $output = shell_exec($command);       
-        }
-    }
+    // foreach($arrayUser as $userSession){
+    //     if($userSession->UsuarioNome == $resultado['nome'] && $userSession->UsuarioID == $resultado['id']){
+    //         $command = 'rm -rf '.$userSession->sessionPath;
+    //         $output = shell_exec($command);       
+    //     }
+    // }
 
     if (!isset($_SESSION)) {
         session_start();
@@ -44,16 +44,13 @@ if (empty($resultado)) {
     $_SESSION['UsuarioNivel'] = $resultado['nivel'];
     $_SESSION['Email'] = $resultado['email'];
     $_SESSION['lastLogin'] = date("Y-m-d H:i:s");
+    setcookie("sessionID", session_id(), time() + (86400 * 30), "/");
     // Redireciona o visitante
     if($_SESSION['UsuarioNivel'] == 1){
         echo 'successNivel1';
         exit;
     }
-    if(isset($_SESSION['page_request'])){
-        echo $_SESSION['page_request'];
-        unset($_SESSION['page_request']);
-        exit;
-    }
+
     echo 'success';
     exit;
 }
