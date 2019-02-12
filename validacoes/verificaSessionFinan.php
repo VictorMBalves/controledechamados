@@ -12,7 +12,7 @@
     }
 
     if (!isset($_SESSION['UsuarioID'])) {
-        session_destroy();
+        setcookie("sessionID", session_id(), time() - 360,'/');
         header("Location: ../");
         exit;
     }
