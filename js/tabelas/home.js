@@ -146,3 +146,9 @@
         else
             $("#labelNotification").removeClass(' brand-info ');
     }    
+
+    $("#showAtendente").click(function(){
+        $("#sidebar").toggleClass("collapsedLeft");
+        $("#content").toggleClass("col-md-12 col-md-8");
+        $("#flecha").toggleClass("glyphicon-arrow-left glyphicon-arrow-right");
+    })

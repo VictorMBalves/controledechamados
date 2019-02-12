@@ -1,12 +1,23 @@
-.collapsed {
+.collapsedRight {
     display: none; /* hide it for small displays */
 }
 @media (min-width: 992px) {
-    .collapsed {
+    .collapsedRight {
         display: block;
         margin-right: -25%;
     }
 }
+
+.collapsedLeft {
+    display: none; /* hide it for small displays */
+}
+@media (min-width: 992px) {
+    .collapsedLeft {
+        display: block;
+        margin-left: -40%;
+    }
+}
+
 #row-main {
     overflow-x: hidden; /*necessary to hide collapsed sidebar*/
 }
@@ -21,4 +32,10 @@
     -moz-transition: margin 0.3s ease;
     -o-transition: margin 0.3s ease;
     transition: margin 0.3s ease;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }

@@ -38,9 +38,9 @@ foreach ($result as $row) {
         $result = $sql->fetch(PDO::FETCH_ASSOC);
         echo '<li class="list-group-item" style="padding:5px;"><img src="https://www.gravatar.com/avatar/' . md5($row['email']) . '" width="25px"> ';
         echo $usuario;
-        if(usuarioOnline($usuario, $arrayUser) || $row['disponivel']){
+        if(usuarioOnline($usuario, $arrayUser)){
             echo '<span style="background-color:#5cb85c;" class="badge">Online</span>';
-            if($row['disponivel']){
+            if($result['numeroChamados'] != 0){
                 echo '<em style="color:#d9534f;"> - ';if($result['numeroChamados'] == 1){echo $result['numeroChamados']. " chamado";  }else{echo $result['numeroChamados']. " chamados";} echo ' em atendimento </em>';
             }
         }else{

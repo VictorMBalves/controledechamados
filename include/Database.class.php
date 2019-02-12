@@ -13,10 +13,12 @@ class Database
 
     private function __construct()
     {   
-        $db_host = "192.168.25.241";
+        //$db_host = "192.168.25.241";
+        $db_host = "192.168.33.10";
         $db_nome = "chamados";
         $db_usuario = "root";
-        $db_senha = "d8hj0ptr";
+        //$db_senha = "d8hj0ptr";
+        $db_senha = "12345";
         $db_driver = "mysql";
         $sistema_titulo = "Controle de chamados";
         $sistema_email = "victormatheusbotassoli@gmail.com";

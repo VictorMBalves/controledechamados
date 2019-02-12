@@ -15,11 +15,11 @@ foreach($arrayUser as $userSession){
     $intervalo = date('Y-m-d H:i:s', $intervalo);
     
     if($lastLogin <= $dataAtual && $lastLogin >= $intervalo){
-        echo $userSession->UsuarioNome.' Ativo';
+        echo $userSession->UsuarioNome.' Online';
     }else {
-        $command = 'rm -rf '.$userSession->sessionPath;
-        $output = shell_exec($command);
-        echo "<pre>Deletado</pre>";
+        // $command = 'rm -rf '.$userSession->sessionPath;
+        // $output = shell_exec($command);
+        echo $userSession->UsuarioNome.' <pre>Offline</pre>';
         
     }
 }

@@ -91,7 +91,7 @@
 					</div>
 				</div>
 				<!--Fim formulario-->
-				<div class="col-md-3 collapsed" id="sidebar">
+				<div class="col-md-3 collapsedRight" id="sidebar">
 					<div id="usuarios"></div>
 				</div>
 			</div>
