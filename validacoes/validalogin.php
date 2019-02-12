@@ -18,6 +18,23 @@ if (empty($resultado)) {
     echo "fail";
     exit;
 } else {
+    $allSessions = [];
+    $sessionNames = scandir(session_save_path());
+    $arrayUser = [];
+
+    foreach($sessionNames as $sessionName) {
+        if(strpos($sessionName,".") === false) {
+            array_push($arrayUser, json_decode(replace_session($sessionName)));
+        }
+    }
+
+    foreach($arrayUser as $userSession){
+        if($userSession->UsuarioNome == $resultado['nome'] && $userSession->UsuarioID == $resultado['id']){
+            $command = 'rm -rf '.$userSession->sessionPath;
+            $output = shell_exec($command);       
+        }
+    }
+
     if (!isset($_SESSION)) {
         session_start();
     }
@@ -40,4 +57,14 @@ if (empty($resultado)) {
     echo 'success';
     exit;
 }
+
+function replace_session($sessionName){
+    $string_session = file_get_contents(session_save_path()."/".$sessionName);
+    $string_session = preg_replace('/(\|\w:\d{1,}:)/', '":', $string_session);
+    $string_session = str_replace('";', '","', $string_session);
+    $string_session = '{"'.$string_session.'sessionPath":"'.session_save_path()."/".$sessionName.'"}';
+    $string_session = preg_replace('/(\,"\})/', '}', $string_session);
+    return $string_session;
+}
+
 ?>
