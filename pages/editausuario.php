@@ -69,11 +69,23 @@ $row = $sql->fetch(PDO::FETCH_ASSOC);
 					<label class="col-md-2 control-label empresa">Nivel</label>
 					<div class="col-sm-10">
 						<select name="nivel" id="nivel" class="form-control label1" >
+							<?php echo '<option class="success" value="'.$row['nivel'].'">';
+									if($row['nivel'] == 1)
+										echo 'Financeiro';
+									else if($row['nivel'] == 2)
+										echo 'Help-Desk';
+									else if($row['nivel'] == 3)
+										echo 'Suporte Avançado';
+									else
+										echo 'Acompanhamento';
+								echo'</option>'?>
 							<option value="3">Suporte Avançado
 							</option>
 							<option value="2">Help-Desk
 							</option>
 							<option value="1">Financeiro
+							</option>
+							<option value="4">Acompanhamento
 							</option>
 						</select>
 					</div>

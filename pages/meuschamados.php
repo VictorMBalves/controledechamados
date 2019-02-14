@@ -11,6 +11,7 @@
 		<link href="../datatables/rowReorder.dataTables.min.css" rel="stylesheet">
 		<link href="../css/utils.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
+		<link href="../assets/css/style.css" rel="stylesheet"/>
 	</head>
 	<body>
 		<?php
@@ -21,7 +22,7 @@
 				<div id="tarefas"></div>
 				<div class="row">
 					<div class="col-sm-2 text-center">
-						<?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail' alt='Cinque Terre' width='100'>";?>
+						<?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-avatar img-thumbnail' alt='Cinque Terre' width='100'>";?>
 					</div>
 					<div class="col-sm-6">
 						<h2><?php echo $_SESSION['UsuarioNome']; ?>, gerencie seus chamados:</h2>

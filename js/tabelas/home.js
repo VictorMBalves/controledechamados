@@ -4,6 +4,7 @@
         $("#loading").html('<img src="../imagem/loading.gif">');
         loadTable();
         $.Shortcuts.start();
+        $(function () {$('[data-toggle="tooltip"]').tooltip()})
     });
 
     function erro(){

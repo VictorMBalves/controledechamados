@@ -68,6 +68,8 @@
 									</option>
 									<option value="1">Financeiro
 									</option>
+									<option value="4">Acompanhamento
+									</option>
 								</select>
 							</div>
 						</div>

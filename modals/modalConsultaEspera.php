@@ -96,7 +96,7 @@
                                             foreach ($historicos as $historico) {
                                                 echo '<div class="panel panel-default">';
                                                 echo '<div class="panel-heading">';
-                                                echo '<span><img src="https://www.gravatar.com/avatar/'.md5($historico['emailusuario']).'" width="25px"></span> '.$historico['usuario'];
+                                                echo '<span><img class="img-avatar" src="https://www.gravatar.com/avatar/'.md5($historico['emailusuario']).'" width="25px"></span> '.$historico['usuario'];
                                                 echo '<div class="panel-title pull-right"><small><i><span class="glyphicon glyphicon-time"></span> '.$historico['data'].'</i></small></div>';
                                                 echo '</div>';
                                                 echo '<div class="panel-body">';

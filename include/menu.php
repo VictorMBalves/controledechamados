@@ -89,7 +89,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a style="padding-left:10px;" href="../pages/meuschamados"><?php echo "<img src='https://www.gravatar.com/avatar/$email' width='25px'>";?>
+                                <a style="padding-left:10px;" href="../pages/meuschamados"><?php echo "<img style='max-width: 100%;height: auto;border-radius: 50em;'src='https://www.gravatar.com/avatar/$email' width='25px'>";?>
                                     <?php echo $_SESSION['UsuarioNome']; ?> 
                                     <span class="sr-only">(current)</span>
                                 </a>

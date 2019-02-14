@@ -15,6 +15,7 @@
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 		<link href="../css/collapsed.css" rel="stylesheet"/>
+		<link href="../assets/css/style.css" rel="stylesheet"/>
 	</head>
 	<body>
 		<div class="wrapper">
@@ -34,7 +35,7 @@
 						<div class="row ">
 							<div class="col-md-12">
 								<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center vcenter">
-									<?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail' alt='Usuario' width='100'>"; ?>
+									<?php echo "<img src='https://www.gravatar.com/avatar/$email' class='img-thumbnail img-avatar' alt='Usuario' width='100'>"; ?>
 								</div>
 								<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 vcenter">
 									<h2>Bem-vindo, <?php echo $_SESSION['UsuarioNome']; ?></h2>

@@ -1,0 +1,164 @@
+.avatar {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+.avatar .avatar-status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #fff;
+  border-radius: 50em;
+}
+
+.avatar > img {
+  vertical-align: initial;
+}
+
+.img-avatar, .avatar.nav-link > img {
+  height: 35px;
+  margin: 0 0px;
+}
+
+.img-avatar, .avatar > img,
+.img-circle {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50em;
+}
+
+.avatar-sm .avatar-status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #fff;
+  border-radius: 50em;
+}
+
+.avatar-xs .avatar-status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #fff;
+  border-radius: 50em;
+}
+
+.avatar-lg .avatar-status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #fff;
+  border-radius: 50em;
+}
+
+.badge-primary {
+  color: #fff;
+  background-color: #20a8d8;
+}
+
+a.badge-primary:hover, a.badge-primary:focus {
+  color: #fff;
+  background-color: #1985ac;
+}
+
+.badge-secondary {
+  color: #23282c;
+  background-color: #c8ced3;
+}
+
+a.badge-secondary:hover, a.badge-secondary:focus {
+  color: #23282c;
+  background-color: #acb5bc;
+}
+
+.badge-success {
+  color: #fff;
+  background-color: #4dbd74;
+}
+
+a.badge-success:hover, a.badge-success:focus {
+  color: #fff;
+  background-color: #3a9d5d;
+}
+
+.badge-info {
+  color: #23282c;
+  background-color: #63c2de;
+}
+
+a.badge-info:hover, a.badge-info:focus {
+  color: #23282c;
+  background-color: #39b2d5;
+}
+
+.badge-warning {
+  color: #23282c;
+  background-color: #ffc107;
+}
+
+a.badge-warning:hover, a.badge-warning:focus {
+  color: #23282c;
+  background-color: #d39e00;
+}
+
+.badge-danger {
+  color: #fff;
+  background-color: #f86c6b;
+}
+
+a.badge-danger:hover, a.badge-danger:focus {
+  color: #fff;
+  background-color: #f63c3a;
+}
+
+.badge-light {
+  color: #23282c;
+  background-color: #f0f3f5;
+}
+
+a.badge-light:hover, a.badge-light:focus {
+  color: #23282c;
+  background-color: #d1dbe1;
+}
+
+.badge-dark {
+  color: #fff;
+  background-color: #2f353a;
+}
+
+a.badge-dark:hover, a.badge-dark:focus {
+  color: #fff;
+  background-color: #181b1e;
+}
+
+.app-header .nav-item .nav-link > .img-avatar, .app-header .nav-item .avatar.nav-link > img {
+  height: 35px;
+  margin: 0 10px;
+}
+
+.tableHead{
+  background-color:#222; 
+  color:white;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
