@@ -35,6 +35,14 @@
                         </li>
                     </ul>
                 </li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> 
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" width="200">
+                        <div id="usuarios"></div><!--Usuários disponiveis -->
+                    </ul>
+                </li>
             <!-- <ul class="nav navbar-nav"> -->
                 <li>
                     <a href="../pages/dashException"><span class="glyphicon glyphicon-warning-sign"></span>&nbsp&nbspRegistro de erros</a>

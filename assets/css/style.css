@@ -162,3 +162,18 @@ a.badge-dark:hover, a.badge-dark:focus {
   vertical-align: middle;
   float: none;
 }
+
+.feedback {
+  background-color : #101010;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border-color: #4e4d4d;
+  z-index: 1040;
+}
+
+#mybutton {
+  position: fixed;
+  bottom: -4px;
+  left: 10px;
+}

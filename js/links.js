@@ -1,3 +1,9 @@
+$(document).ready(function() {
+  consultaChamadosEspera();
+  loadResponsavelSemana();
+}); 
+
+
 function SomenteNumero(e) {
     var tecla = (window.event) ? event.keyCode : e.which;
     if ((tecla >= 46 && tecla < 58)) return true;
@@ -116,10 +122,6 @@ function notificationSuccessLink(title, message, link){
     toastr.error(message, title);
   }
 
-  $(document).ready(function() {
-    consultaChamadosEspera();
-  }); 
-
   setInterval(function(){
     consultaChamadosEspera();
   }, 50000);
@@ -185,3 +187,13 @@ $("#registroAtividadeEcf").click(function(){
         $("#modalCad").modal('show');
     }, 300);
 })
+
+function loadResponsavelSemana(){
+  $.ajax({
+      type: "POST",
+      url: "../utilsPHP/responsavelsemana.php",
+      success:function(data){
+          $("#plantao").html(data);
+      }
+  });
+}

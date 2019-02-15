@@ -35,10 +35,22 @@ if(isset($_POST['notification'])){
 	}
 }
 
+if(isset($_POST['dataagendamento'])){
+	$dataAgendamento = date($_POST['dataagendamento']);
+	$sql = $db->prepare("UPDATE chamadoespera SET dataagendamento = '$dataAgendamento' WHERE id_chamadoespera='$id'") or die(mysql_error());
+	if($sql->execute()){
+		echo 'success';
+		exit;
+	}else{
+		echo 'error';
+		exit;
+	}
+}
+
 
 $sql = $db->prepare("INSERT INTO historicochamado (id_chamadoespera, usuario, descricaohistorico, emailusuario) VALUES ('$id', '$usuario', '$historico','$email')") or die(mysql_error());
 if($sql->execute()){
-	$sql = $db->prepare("UPDATE chamadoespera SET  status='$status', data='$data' WHERE id_chamadoespera='$id'") or die(mysql_error());
+	$sql = $db->prepare("UPDATE chamadoespera SET  status='Entrado em contato', data='$data' WHERE id_chamadoespera='$id'") or die(mysql_error());
 	if($sql->execute()){
 		echo 'success';
 		exit;

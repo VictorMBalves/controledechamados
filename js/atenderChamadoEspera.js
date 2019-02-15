@@ -50,7 +50,7 @@ function validar(){
         $("#submit").html("Atender");
         for(i = 0; i < erros.length; i++){
             if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]+"-div").addClass("has-error");
+                $(erros[i]).addClass("is-invalid");
             }
         }
         notificationWarningOne("Preencha os campos obrigatórios!");
@@ -83,35 +83,35 @@ function enviarDados(){
 
 contato.focusout(function() {
     if(!isEmpty(contato.val()))
-    $(contato.selector+"-div").removeClass("has-error");
+    $(contato.selector).removeClass("is-invalid");
 });
 formaContato.focusout(function() {
     if(!isEmpty(formaContato.val()))
-    $(formaContato.selector+"-div").removeClass("has-error");
+    $(formaContato.selector).removeClass("is-invalid");
 });
 telefone.focusout(function() {
     if(!isEmpty(telefone.val()))
-    $(telefone.selector+"-div").removeClass("has-error");
+    $(telefone.selector).removeClass("is-invalid");
 });
 sistema.focusout(function() {
     if(!isEmpty(sistema.val()))
-    $(sistema.selector+"-div").removeClass("has-error");
+    $(sistema.selector).removeClass("is-invalid");
 });
 versao.focusout(function() {
     if(!isEmpty(versao.val()))
-    $(versao.selector+"-div").removeClass("has-error");
+    $(versao.selector).removeClass("is-invalid");
 });
 backup.focusout(function() {
     if(!isEmpty(backup.val()))
-    $(backup.selector+"-div").removeClass("has-error");
+    $(backup.selector).removeClass("is-invalid");
 });
 categoria.focusout(function() {
     if(!isEmpty(categoria.val()))
-    $(categoria.selector+"-div").removeClass("has-error");
+    $(categoria.selector).removeClass("is-invalid");
 });
 descProblema.focusout(function() {
     if(!isEmpty(descProblema.val()))
-    $(descProblema.selector+"-div").removeClass("has-error");
+    $(descProblema.selector).removeClass("is-invalid");
 });
 
 function carregaDados(){

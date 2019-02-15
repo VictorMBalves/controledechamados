@@ -1,6 +1,5 @@
     $( document ).ready(function() {
         loadAvisos();
-        loadResponsavelSemana();
         $("#loading").html('<img src="../imagem/loading.gif">');
         loadTable();
         $.Shortcuts.start();
@@ -35,16 +34,6 @@
         });
     }
     
-    function loadResponsavelSemana(){
-        $.ajax({
-            type: "POST",
-            url: "../utilsPHP/responsavelsemana.php",
-            success:function(data){
-                $("#plantao").html(data);
-            }
-        });
-    }
-
     function loadTable(){
         $.ajax({
             type: 'POST',
@@ -114,7 +103,14 @@
         $("#modalConsulta").load("../modals/modalConsultaEspera.php?id_chamadoespera="+id);
         setTimeout(function(){
             $("#modalCon").modal('show');
-        }, 300);
+        }, 400);
+    }
+
+    function abrirAgendamento(id){
+        $("#modalAgendamento").load("../modals/modalAgendamento.php?id_chamadoespera="+id);
+        setTimeout(function(){
+            $("#modalAgenda").modal('show');
+        }, 400);
     }
 
     $("#adcChamado").hover(function(){
