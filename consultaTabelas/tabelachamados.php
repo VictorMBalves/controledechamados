@@ -15,7 +15,9 @@
         $status = $_POST['status'];
         $palavra = $_POST['palavra'];
         $usuario = $_POST['usuario'];
-        $data = $_POST['data'];
+        $datainicio = $_POST['datainicio'];
+        $datafim = $_POST['datafinal'];
+
         $query = "SELECT id_chamado, usuario, status, empresa, contato, telefone, DATE_FORMAT(datainicio,'%d/%m/%Y') as data  FROM chamado ";
         if ($status != null) {
             $query = " $query WHERE status LIKE '$status' ";
@@ -34,11 +36,11 @@
                 $query = " $query WHERE usuario LIKE '$usuario' ";
             }
         }
-        if ($data != null) {
+        if ($datainicio != null) {
             if ($status != null || $palavra != null || $usuario != null) {
-                $query = " $query AND datainicio LIKE '%".$data."%' ";
+                $query = " $query AND date(datainicio) BETWEEN '".$datainicio."' AND '".$datafim."'";
             } else {
-                $query = " $query WHERE datainicio LIKE '%".$data."%'  ";
+                $query = " $query WHERE date(datainicio) BETWEEN '".$datainicio."' AND '".$datafim."'";
             }
         }
         $sql = " $query ORDER BY datainicio desc";

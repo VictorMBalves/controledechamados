@@ -61,18 +61,18 @@ function buildTable(data){
         for(var i=0;i<len;i++){
             txt +="<tr>";
             if(data[i].status !="Finalizado"){
-                txt +='<td><div class="circle2" data-toggle="tooltip" data-placement="left" title="Status: Aberto"></div></td>';
+                txt +='<td><span class="badge badge-warning" data-toggle="tooltip" data-placement="left" title="Status: Aberto"></div> Aberto</td>';
             }else{
-                txt +='<td><div class="circle" data-toggle="tooltip" data-placement="left" title="Status: Finalizado"></div></td>';
+                txt +='<td><span class="badge badge-success" data-toggle="tooltip" data-placement="left" title="Status: Finalizado"></div> Finalizado</td>';
             }
             txt +="<td>"+ data[i].data +"</td><td>"+data[i].usuario+"</td><td>"+data[i].id_chamado+"</td><td>"+data[i].empresa+"</td><td>"+data[i].contato+"</td><td>"+data[i].telefone+"</td>";
             
             txt +='<td class="text-center">';
             if(data[i].status != "Finalizado"){
-                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Editar chamado" class="btn btn-warning" type="button"><span class="glyphicon glyphicon-pencil"></span></button></a>';
-                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/abrechamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="left" title="Finalizar chamado" class="btn btn-success" type="button"><span class="glyphicon glyphicon-ok"></span></button></a>';
+                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/editachamado='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="top" title="Editar chamado" class="btn btn-warning" type="button"><i class="fas fa-pencil-alt"></i></button></a>';
+                txt +='<a style="margin-top:2px; margin-right:5px;" href="../pages/abrechamadofa='+data[i].id_chamado+'"><button data-toggle="tooltip" data-placement="top" title="Finalizar chamado" class="btn btn-success" type="button"><i class="far fa-check-circle"></i></button></a>';
             }
-            txt +='<button class="btn btn-info" type="button" onclick="abrirVisualizacao('+data[i].id_chamado+')"><span class="glyphicon glyphicon-search"></span></button>';
+            txt +='<button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Consulta chamado" type="button" onclick="abrirVisualizacao('+data[i].id_chamado+')"><i class="fas fa-search"></i></button>';
             txt +='</td>';
         
             
@@ -87,7 +87,10 @@ function buildTable(data){
                 responsive: isCelular(),
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
-                }
+                },
+                "initComplete": function(settings, json) {
+                    $('[data-toggle="tooltip"]').tooltip()
+                  }
             });
         }
     }else{

@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 align-middle text-danger">
-                                        <small style="padding-top:30px;" data-toggle="tooltip" data-placement="bottom" title="Tempo decorrido">
+                                        <small data-toggle="tooltip" data-placement="bottom" title="Tempo decorrido">
                                             <i class="far fa-clock"></i>&nbsp';
                                                 echo formatDateDiff(date_create($chamado['databanco']));
                                     echo '</small>

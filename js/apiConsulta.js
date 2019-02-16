@@ -17,7 +17,7 @@ function callApi(empresa) {
     var consultabloqueio = false;
     var cupomfiscaleletronicosat = false;
     var emissordocumentosfiscaiseletronicos = false;
-    var empresa = empresa.value;
+    var empresa = empresa;
 
     versao.val('');
     sistema.val('');
@@ -114,14 +114,15 @@ function callApi(empresa) {
         }); 
 }
 
-$(document).ready(function(){$("input[name='empresa']").blur(function(){
+$("#empresa").blur(function(){
+    debugger;
     $("#alertLoad").addClass("hidden");
     $("#successLoad").addClass("hidden");
     $("#erroLoad").addClass("hidden");
     $("#infoLoad").removeClass("hidden");
     callApi();
-    });
 });
+
 $(document).ready(function(){$("button[name='verModulos']").click(function(){
     callApi(this);
     });

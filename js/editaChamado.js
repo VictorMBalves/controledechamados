@@ -47,7 +47,7 @@ function validar(){
         $("#submit").html("Salvar");
         for(i = 0; i < erros.length; i++){
             if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]+"-div").addClass("has-error");
+                $(erros[i]).addClass("is-invalid");
             }
         }
         notificationWarningOne("Preencha os campos obrigatórios!");
@@ -96,39 +96,39 @@ function carregaDados(){
 
 contato.focusout(function() {
     if(!isEmpty(contato.val()))
-    $(contato.selector+"-div").removeClass("has-error");
+    $(contato.selector).removeClass("is-invalid");
 });
 empresa.focusout(function() {
     if(!isEmpty(empresa.val()))
-    $(empresa.selector+"-div").removeClass("has-error");
+    $(empresa.selector).removeClass("is-invalid");
 });
 forma_contato.focusout(function() {
     if(!isEmpty(forma_contato.val()))
-    $(forma_contato.selector+"-div").removeClass("has-error");
+    $(forma_contato.selector).removeClass("is-invalid");
 });
 telefone.focusout(function() {
     if(!isEmpty(telefone.val()))
-    $(telefone.selector+"-div").removeClass("has-error");
+    $(telefone.selector).removeClass("is-invalid");
 });
 sistema.focusout(function() {
     if(!isEmpty(sistema.val()))
-    $(sistema.selector+"-div").removeClass("has-error");
+    $(sistema.selector).removeClass("is-invalid");
 });
 versao.focusout(function() {
     if(!isEmpty(versao.val()))
-    $(versao.selector+"-div").removeClass("has-error");
+    $(versao.selector).removeClass("is-invalid");
 });
 backup.focusout(function() {
     if(!isEmpty(backup.val()))
-    $(backup.selector+"-div").removeClass("has-error");
+    $(backup.selector).removeClass("is-invalid");
 });
 categoria.focusout(function() {
     if(!isEmpty(categoria.val()))
-    $(categoria.selector+"-div").removeClass("has-error");
+    $(categoria.selector).removeClass("is-invalid");
 });
 descproblema.focusout(function() {
     if(!isEmpty(descproblema.val()))
-    $(descproblema.selector+"-div").removeClass("has-error");
+    $(descproblema.selector).removeClass("is-invalid");
 });
 
 

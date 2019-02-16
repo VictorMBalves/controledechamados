@@ -43,9 +43,9 @@
                         </div>
                         <div class="card-footer">
                             <div class="row">
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                    <div data-toggle="tooltip" data-placement="left" title="Atendente responsável '.$chamado['usuario'].'">
-                                        <img class="img-profile rounded-circle" src="https://www.gravatar.com/avatar/'.md5($chamado['email']).'" width="25px" >
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                                    <div >
+                                        <img style="width:2.5rem;height:2.5rem;"class="img-profile rounded-circle" src="https://www.gravatar.com/avatar/'.md5($chamado['email']).'" data-toggle="tooltip" data-placement="left" title="Atendente responsável '.$chamado['usuario'].'">
                                     </div>';
                             echo '</div>
                                 </div>

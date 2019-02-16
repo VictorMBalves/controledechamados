@@ -15,6 +15,7 @@
   <link href="../assets/css/jquery-ui.css" rel="stylesheet">
   <link href="../assets/css/toastr.css" rel="stylesheet"/>
   <link href="../assets/css/animate.css" rel="stylesheet"/>
+	<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -116,7 +117,7 @@
   <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
   <!-- Custom scripts for all pages-->
   <script src="../assets/js/sb-admin-2.min.js"></script>
-
+  <script src="../assets/js/jquery.flexdatalist.js"></script>	
   <!-- Page level plugins -->
 	<!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
 	<script src="../assets/js/jquery.shortcuts.js"></script>

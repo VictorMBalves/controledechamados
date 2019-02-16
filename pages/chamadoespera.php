@@ -29,6 +29,7 @@
 	<!--Toastr notification-->
 	<link href="../assets/css/toastr.css" rel="stylesheet" />
 	<link href="../assets/css/animate.css" rel="stylesheet" />
+	<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -67,7 +68,7 @@
 								<div class="row"> 
 									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 										<label for="empresa-espera">Empresa solicitante:</label>
-										<input id="empresa-espera" onblur="callApi(this)" name="empresa-espera" type="text" class="form-control">
+										<input id="empresa-espera" onblur="callApi(this)" name="empresa-espera" type="text" class="form-control flexdatalist">
 									</div>
 									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 										<label for="enderecado">Atribuir para:</label>
@@ -149,7 +150,7 @@
 		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 		<!-- Custom scripts for all pages-->
 		<script src="../assets/js/sb-admin-2.min.js"></script>
-
+		<script src="../assets/js/jquery.flexdatalist.js"></script>										
 		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>

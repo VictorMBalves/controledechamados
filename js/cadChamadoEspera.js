@@ -156,8 +156,18 @@ function erro() {
     alert('Acesso negado! Redirecinando a pagina principal.');
     window.location.assign("home");
 }
+
 $(function () {
-    $("#empresa-espera").autocomplete({
-        source: '../utilsPHP/search.php'
+    $.getJSON('../utilsPHP/search.php').done(function(response){
+        $('#empresa-espera').flexdatalist({
+            minLength: 1,
+            searchIn: 'nome',
+            data: response,
+        });
+    });
+
+    $('#empresa-espera').on('select:flexdatalist', function(ev, result){
+        console.log(result)
+        callApi(result.nome);
     });
 });

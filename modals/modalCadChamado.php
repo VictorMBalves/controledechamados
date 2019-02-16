@@ -9,7 +9,7 @@
                 <form  action="#" method="POST">
                     <div class="form-group">
                         <label for="empresa">Empresa solicitante:</label>
-                        <input name="empresa" type="text" id="empresa" onblur="callApi(this)" class="form-control">
+                        <input name="empresa" type="text" id="empresa" class="form-control flexdatalist">
                     </div>
                     <div class="form-group">
                         <label for="contato">Contato:</label>
@@ -46,11 +46,19 @@
         </div>
     </div>
 </div>
+<script src="../js/apiConsulta.js"></script>
 <script>
     $(function () {
-        $("#empresa").autocomplete({
-            source: '../utilsPHP/search.php',
-            autoFocus: true
+        $.getJSON('../utilsPHP/search.php').done(function(response){
+            $('#empresa').flexdatalist({
+                minLength: 1,
+                searchIn: 'nome',
+                data: response,
+            });
+        });
+
+        $('#empresa').on('select:flexdatalist', function(ev, result){
+            callApi(result.nome);
         });
     });
 
@@ -125,4 +133,3 @@
         return data;
     }
 </script>
-<script src="../js/apiConsulta.js"></script>
