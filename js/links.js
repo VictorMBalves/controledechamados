@@ -1,8 +1,29 @@
 $(document).ready(function() {
   consultaChamadosEspera();
   loadResponsavelSemana();
+  $.Shortcuts.start();
 }); 
 
+
+$.Shortcuts.add({
+    type: 'down',
+    mask: 'Alt+C',
+    handler: function() {
+       if(!($("#modalCad").data('bs.modal') || {}).isShown)
+            openModal();
+    }
+});
+
+$("#adcChamado").click(function(){
+    openModal()
+});
+
+function openModal(){
+    $("#modalCadastro").load("../modals/modalCadChamado.php");
+        setTimeout(function(){
+            $("#modalCad").modal('show');
+        }, 300);
+}
 
 function SomenteNumero(e) {
     var tecla = (window.event) ? event.keyCode : e.which;

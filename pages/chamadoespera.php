@@ -5,108 +5,157 @@
 	$sql = $db->prepare('SELECT nome, nivel, disponivel FROM usuarios');
 	$sql->execute();
 	$result = $sql->fetchall(PDO::FETCH_ASSOC);
-?> 
+?>
 <!Doctype html>
 <html>
-	<head>
-		<title>Controle de Chamados</title>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-		<link rel="shortcut icon" href="../imagem/favicon.ico" />
-		<link href="../css/collapsed.css" rel="stylesheet"/>
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-		<link href="../assets/css/toastr.css" rel="stylesheet"/>
-	</head>
-	<body>
-		<?php include '../include/menu.php'; ?>
-		<div class="container" style="margin-top:60px; margin-bottom:50px;">
-			
-			<?php include '../include/cabecalho.php'?>
-			<div id="resultado">
-				<div id="div-msg" class="alert alert-info text-center" role="alert">
-					Novo chamado em espera:
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Controle de chamados German Tech">
+	<meta name="author" content="Victor Alves">
+	<link rel="shortcut icon" href="../imagem/favicon.ico" />
+	<title>Chamados</title>
+
+	<!-- Custom fonts for this template-->
+	<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	 rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+	<link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+	<link href="../assets/css/jquery-ui.css" rel="stylesheet">
+	<!--Toastr notification-->
+	<link href="../assets/css/toastr.css" rel="stylesheet" />
+	<link href="../assets/css/animate.css" rel="stylesheet" />
+</head>
+
+<body>
+
+	<body id="page-top">
+		<!-- Page Wrapper -->
+		<div id="wrapper">
+
+			<!-- Sidebar -->
+			<?php 
+				include '../validacoes/verificaSession.php'; 
+				include '../include/sidebar.php';
+			?>
+			<!-- End of Sidebar -->
+
+			<!-- Content Wrapper -->
+			<div id="content-wrapper" class="d-flex flex-column">
+
+				<!-- Main Content -->
+				<div id="content">
+
+					<!-- Topbar -->
+					<?php include '../include/topbar.php';?>
+					<!-- End of Topbar -->
+
+					<!-- Begin Page Content -->
+					<div class="container-fluid">
+
+						<!-- Page Heading -->
+						<div class="d-sm-flex align-items-center justify-content-between mb-4">
+							<h1 class="h3 mb-0 text-gray-800">Chamado em espera</h1>
+							<div id="plantao"></div>
+						</div>
+						<div  class="card">
+							<div class="card-body animated fadeInRight" style="background-color:#f4f4f4;">
+								<div class="row"> 
+									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+										<label for="empresa-espera">Empresa solicitante:</label>
+										<input id="empresa-espera" onblur="callApi(this)" name="empresa-espera" type="text" class="form-control">
+									</div>
+									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+										<label for="enderecado">Atribuir para:</label>
+										<select id="enderecado" name="enderecado" type="text" class="form-control">
+											<option value=""></option>
+											<?php 
+												foreach ($result as $row) {
+													if ($row["nivel"] != 1) {
+														echo '<option>'.$row['nome'].'</option>';
+													}
+												}
+											?>
+										</select>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+										<label for="contato">Contato:</label>
+										<input name="contato" id="contato" type="text" class="form-control">
+									</div>
+									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+										<label class="col-md-2 control-label" for="telefone">Telefone:</label>
+										<input name="telefone" type="text" id="telefone" class="form-control" onkeypress="return SomenteNumero(event)">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+										<label for="versao">Versão</label>
+										<input id="versao" name="versao" type="text" class="form-control">
+									</div>
+									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+									<label class="col-md-2 control-label" for="sistema">Sistema:</label>
+										<input id="sistema" name="sistema" type="text" class="form-control">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label" for="descproblema">Descrição do problema:</label>
+									<textarea name="descproblema" id="desc_problema" class="form-control"></textarea>
+								</div>
+								<!-- Button -->
+								<div class="col-md-12 text-center">
+									<?php include "../utilsPHP/statusDados.php";?>
+									<button id="submit" class="btn btn-group-lg btn-primary">Salvar</button>
+									<button id="cancel" class="btn btn-group-lg btn-warning">Cancelar</button>
+								</div>
+							</div>
+							</div>
+					
+					</div>
+					<!-- /.container-fluid -->
+
 				</div>
+				<!-- End of Main Content -->
+
+				<!-- Footer -->
+				<?php include '../include/footer.php';?>
+				<!-- End of Footer -->
+
 			</div>
-			<div class="text-right">
-				<button id="showAtendente" class="btn btn-group-lg btn-primary" data-toggle="tooltip" data-placement="left" title="Exibir atendentes disponiveis"><i id="flecha" class="glyphicon glyphicon-arrow-left"></i><i class="glyphicon glyphicon-user"></i></button>
-			</div>
-				<hr/>
-			<div class="row" id="row-main">
-				<!--Inicio formulario-->
-				<div class="form-horizontal col-md-12" id="content">
-					<div class="form-group">
-						<label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>
-						<div id="empresa-div" class="col-sm-10">
-							<input id="empresa" name="empresa" type="text" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label" for="enderecado">Atribuir para:</label>
-						<div id="enderecado-div" class="col-sm-10">
-							<select id="enderecado" name="enderecado" type="text" class="form-control">
-								<option value=""></option>
-								<?php 
-									foreach ($result as $row) {
-										if ($row["nivel"] != 1) {
-											echo '<option>'.$row['nome'].'</option>';
-										}
-									}
-								?>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label" for="contato">Contato:</label>
-						<div id="contato-div" class="col-sm-4">
-							<input name="contato" id="contato" type="text" class="form-control">
-						</div>
-						<label class="col-md-2 control-label" for="telefone">Telefone:</label>
-						<div id="telefone-div" class="col-sm-4">
-							<input name="telefone" type="text" id="telefone" class="form-control" onkeypress="return SomenteNumero(event)">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label" for="versao">Versão</label>
-						<div id="versao-div" class="col-sm-4">
-							<input id="versao" name="versao" type="text" class="form-control">
-						</div>
-						<label class="col-md-2 control-label" for="sistema">Sistema:</label>
-						<div id="sistema-div" class="col-sm-4">
-							<input id="sistema" name="sistema" type="text" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label" for="descproblema">Descrição do problema:</label>
-						<div id="desc_problema-div" class="col-sm-10">
-							<textarea name="descproblema" id="desc_problema" class="form-control"></textarea>
-						</div>
-					</div>
-					<!-- Button -->
-					<div class="col-md-12 text-center">
-						<?php include "../utilsPHP/statusDados.php";?>
-						<button id="submit" class="btn btn-group-lg btn-primary">Salvar</button>
-						<button id="cancel" class="btn btn-group-lg btn-warning">Cancelar</button>
-					</div>
-				</div>
-				<!--Fim formulario-->
-				<div class="col-md-3 collapsedRight" id="sidebar">
-					<div id="usuarios"></div>
-				</div>
-			</div>
+			<!-- End of Content Wrapper -->
+
 		</div>
-		<br/>
-		<br/>
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<!-- End of Page Wrapper -->
+
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top">
+			<i class="fas fa-angle-up"></i>
+		</a>
+
+		<div id="modalCadastro">
+		</div>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<!-- <script src="../assets/js/jquery-1.8.3.min.js"></script>
+		<script src="../assets/js/jquery-ui-1.9.2.custom.min.js"></script> -->
+		<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<!-- Core plugin JavaScript-->
+		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+		<!-- Custom scripts for all pages-->
+		<script src="../assets/js/sb-admin-2.min.js"></script>
+
+		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>
-		<script src="../js/links.js"></script>
 		<script src="../js/apiConsulta.js"></script>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<script src="../assets/js/bootstrap.min.js"></script>
+		<script src="../js/links.js"></script>
 		<script src="../js/cadChamadoEspera.js"></script>
 	</body>
+
 </html>

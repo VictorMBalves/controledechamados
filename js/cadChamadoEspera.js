@@ -1,4 +1,4 @@
-empresa = $("#empresa");
+empresa = $("#empresa-espera");
 enderecado = $("#enderecado");
 contato = $("#contato");
 telefone = $("#telefone");
@@ -45,7 +45,7 @@ function validar(){
         $("#submit").html("Salvar");
         for(i = 0; i < erros.length; i++){
             if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]+"-div").addClass("has-error");
+                $(erros[i]).addClass("is-invalid");
             }
         }
         notificationWarningOne("Preencha os campos obrigatórios!");
@@ -97,31 +97,31 @@ function resetForm(){
 
 empresa.focusout(function() {
     if(!isEmpty(empresa.val()))
-        $(empresa.selector+"-div").removeClass("has-error");
+        $(empresa.selector).removeClass("is-invalid");
 });
 enderecado.focusout(function() {
     if(!isEmpty(enderecado.val()))
-        $(enderecado.selector+"-div").removeClass("has-error");
+        $(enderecado.selector).removeClass("is-invalid");
 });
 contato.focusout(function() {
     if(!isEmpty(contato.val()))
-        $(contato.selector+"-div").removeClass("has-error");
+        $(contato.selector).removeClass("is-invalid");
 });
 telefone.focusout(function() {
     if(!isEmpty(telefone.val()))
-        $(telefone.selector+"-div").removeClass("has-error");
+        $(telefone.selector).removeClass("is-invalid");
 });
 versao.focusout(function() {
     if(!isEmpty(versao.val()))
-        $(versao.selector+"-div").removeClass("has-error");
+        $(versao.selector).removeClass("is-invalid");
 });
 sistema.focusout(function() {
     if(!isEmpty(sistema.val()))
-        $(sistema.selector+"-div").removeClass("has-error");
+        $(sistema.selector).removeClass("is-invalid");
 });
 descProblema.focusout(function() {
     if(!isEmpty(descProblema.val()))
-        $(descProblema.selector+"-div").removeClass("has-error");
+        $(descProblema.selector).removeClass("is-invalid");
 });
 
 function carregaDados(){
@@ -157,7 +157,7 @@ function erro() {
     window.location.assign("home");
 }
 $(function () {
-    $("#empresa").autocomplete({
+    $("#empresa-espera").autocomplete({
         source: '../utilsPHP/search.php'
     });
 });

@@ -2878,3 +2878,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     -webkit-animation-name: rollOut;
     animation-name: rollOut;
 }
+
+.hidden{
+    display: none;
+}
+
+.ui-autocomplete { position: absolute; cursor: default;z-index:30 !important;}  

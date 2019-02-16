@@ -65,6 +65,10 @@
                 if(data == "success"){
                     $(this).html("Salvar");
                     notificationSuccess('Registro salvo', 'Agendamento salvo com sucesso!');
+                    chamadoandamento();
+                    chamadosatrasados();
+                    chamadospendentes();
+                    chamadoagendados();
                     setTimeout(function(){
                         $("#modalAgenda").modal('hide');
                     }, 1000);

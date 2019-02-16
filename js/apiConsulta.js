@@ -1,5 +1,10 @@
 
-function callApi(empresa) {         
+function callApi(empresa) {       
+    $("#erroLoad").addClass("hidden")
+    $("#infoLoad").addClass("hidden");
+    $("#alertLoad").addClass("hidden");
+    $("#successLoad").addClass("hidden");
+    $("#infoLoad").removeClass("hidden");
     var telefone = $("input[name='telefone']");
     var versao = $("input[name='versao']");
     var sistema = $("input[name='sistema']");
@@ -12,7 +17,7 @@ function callApi(empresa) {
     var consultabloqueio = false;
     var cupomfiscaleletronicosat = false;
     var emissordocumentosfiscaiseletronicos = false;
-    var empresa = $('#empresa').val();
+    var empresa = empresa.value;
 
     versao.val('');
     sistema.val('');
@@ -118,11 +123,11 @@ $(document).ready(function(){$("input[name='empresa']").blur(function(){
     });
 });
 $(document).ready(function(){$("button[name='verModulos']").click(function(){
-    callApi();
+    callApi(this);
     });
 });
 $(document).ready(function(){$("input[name='cnpj']").blur(function(){
-    callApi();
+    callApi(this);
     });
 });
 

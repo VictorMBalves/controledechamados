@@ -154,10 +154,10 @@
                     if(data == "success"){
                         $("#salvarHistorico").html("Salvar");
                         notificationSuccess('Registro salvo', 'Histórico de contato salvo com sucesso!');
-                        $("#loading").html('<img src="../imagem/loading.gif">');
-                        $('#tabela').DataTable().destroy();
-                        $('#tbody').empty();
-                        loadTable();
+                        chamadoandamento();
+                        chamadosatrasados();
+                        chamadospendentes();
+                        chamadoagendados();
                         setTimeout(function(){
                             $("#modalCon").modal('hide');
                         }, 1000);

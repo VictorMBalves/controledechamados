@@ -37,7 +37,7 @@ if(isset($_POST['notification'])){
 
 if(isset($_POST['dataagendamento'])){
 	$dataAgendamento = date($_POST['dataagendamento']);
-	$sql = $db->prepare("UPDATE chamadoespera SET dataagendamento = '$dataAgendamento' WHERE id_chamadoespera='$id'") or die(mysql_error());
+	$sql = $db->prepare("UPDATE chamadoespera SET dataagendamento = '$dataAgendamento', status='Entrado em contato' WHERE id_chamadoespera='$id'") or die(mysql_error());
 	if($sql->execute()){
 		echo 'success';
 		exit;

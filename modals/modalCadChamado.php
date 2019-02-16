@@ -2,40 +2,34 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Cadastro Chamado</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" action="#" method="POST">
+                <form  action="#" method="POST">
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Empresa solicitante:</label>
-                        <div id="empresa-div" class="col-sm-10">
-                            <input name="empresa" type="text" id="empresa" class="form-control">
-                        </div>
+                        <label for="empresa">Empresa solicitante:</label>
+                        <input name="empresa" type="text" id="empresa" onblur="callApi(this)" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="contato">Contato:</label>
-                        <div id="contato-div" class="col-sm-10">
-                            <input id="contato" name="contato" type="text" class="form-control" required/>
-                        </div>
+                        <label for="contato">Contato:</label>
+                        <input id="contato" name="contato" type="text" class="form-control" required/>
                     </div>
         
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="cep">Telefone:</label>
-                        <div id="telefone-div" class="col-sm-10">
-                            <input name="telefone" id="telefone" type="text" class="form-control" onkeypress="return SomenteNumero(event)">
-                        </div>
+                        <label for="cep">Telefone:</label>
+                        <input name="telefone" id="telefone" type="text" class="form-control" onkeypress="return SomenteNumero(event)">
                     </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label" for="versao">Versão:</label>
-                        <div id="versao-div" class="col-sm-4">
+                    <div class="row">
+                        <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="versao">Versão:</label>
                             <input id="versao" name="versao" type="text" class="form-control disabled" disabled>
                         </div>
-                        <label class="col-md-2 control-label" for="sistema">Sistema:</label>
-                        <div id="sistema-div" class="col-sm-4">
+                        <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="sistema">Sistema:</label>
                             <input id="sistema" name="sistema" type="text" class="form-control disabled" disabled>
                         </div>
-				    </div>
+                    </div>
                 </form>
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
@@ -55,7 +49,8 @@
 <script>
     $(function () {
         $("#empresa").autocomplete({
-            source: '../utilsPHP/search.php'
+            source: '../utilsPHP/search.php',
+            autoFocus: true
         });
     });
 
@@ -86,7 +81,7 @@
             $("#cadastrar").html("Cadastrar");
             for(i = 0; i < erros.length; i++){
                 if(!$(erros[i]).hasClass("vazio")){
-                    $(erros[i]+"-div").addClass("has-error");
+                    $(erros[i]).addClass("is-invalid");
                 }
             }
             notificationWarningOne("Preencha os campos obrigatórios!");
