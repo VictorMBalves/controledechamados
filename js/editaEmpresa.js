@@ -1,11 +1,17 @@
+
+$(document).ready(function(){
+    $('#telefoneEdit').mask('(99) 9999-9999');
+    $('#cnpjEdit').mask('99.999.999/9999-99');
+    $('#celularEdit').mask('(99) 9999-99999');
+})
 components = [
     id = $("#id"),
-    empresa = $("#empresa"),
-    cnpj = $("#cnpj"),
-    telefone = $("#telefone"),
-    celular = $("#celular"),
-    backup = $("#backup"),
-    situacao = $("#situacao"),
+    empresa = $("#empresaEdit"),
+    cnpj = $("#cnpjEdit"),
+    telefone = $("#telefoneEdit"),
+    celular = $("#celularEdit"),
+    backup = $("#backupEdit"),
+    situacao = $("#situacaoEdit"),
    ];
    erros = [];
    
@@ -31,7 +37,7 @@ components = [
            $("#submit").html("Salvar");
            for(i = 0; i < erros.length; i++){
                if(!$(erros[i]).hasClass("vazio")){
-                   $(erros[i]+"-div").addClass("has-error");
+                   $(erros[i]).addClass("is-invalid");
                }
            }
            notificationWarningOne("Preencha os campos obrigatórios!");
@@ -77,23 +83,23 @@ components = [
    
    empresa.focusout(function() {
        if(!isEmpty(empresa.val()))
-       $(empresa.selector+"-div").removeClass("has-error");
+       $(empresa.selector).removeClass("is-invalid");
    });
    cnpj.focusout(function() {
        if(!isEmpty(cnpj.val()))
-       $(cnpj.selector+"-div").removeClass("has-error");
+       $(cnpj.selector).removeClass("is-invalid");
    });
    telefone.focusout(function() {
        if(!isEmpty(telefone.val()))
-       $(telefone.selector+"-div").removeClass("has-error");
+       $(telefone.selector).removeClass("is-invalid");
    });
    situacao.focusout(function() {
        if(!isEmpty(situacao.val()))
-       $(situacao.selector+"-div").removeClass("has-error");
+       $(situacao.selector).removeClass("is-invalid");
    });
    backup.focusout(function() {
        if(!isEmpty(backup.val()))
-       $(backup.selector+"-div").removeClass("has-error");
+       $(backup.selector).removeClass("is-invalid");
    });
 
 $("#delete").click(function(){

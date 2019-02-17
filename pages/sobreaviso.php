@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="utf-8">
+		<title>Chamados</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Controle de chamados German Tech">
+		<meta name="author" content="Victor Alves">
 		<link rel="shortcut icon" href="../imagem/favicon.ico" />
-		<title>Controle de Chamados German Tech</title>
-		<link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-		<script src='../js/jquery.min.js'></script>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="../js/bootstrap.min.js"></script>
-		<script src="../assets/js/date.js"></script>
-		<script src="../js/links.js" ></script>
+		<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+		<link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 		<style>
 		/*table, tr, td, th{
 		border:1px solid black;
@@ -363,5 +360,11 @@ echo $resultadoTotal;
 	</div>
 </footer>
 </body>
-
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+		<script src="../assets/js/sb-admin-2.min.js"></script>
+		<script src="../assets/js/date.js"></script>
+		<script src="../js/links.js"></script>
 </html>

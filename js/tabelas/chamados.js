@@ -2,7 +2,17 @@ function erro(){
     alert('Acesso negado! Redirecinando a pagina principal.');
     window.location.assign("../pages/chamadoespera.php");
 }
-$(function () {$('#skills').autocomplete({source: '../utilsPHP/search.php'});});
+$(function () {
+    $.getJSON('../utilsPHP/search.php').done(function(response){
+        $('#empresafiltro').flexdatalist({
+            minLength: 1,
+            searchIn: 'nome',
+            data: response,
+            noResultsText: 'Sem resultados para "{keyword}" <a href="../pages/cad_empresa?term={keyword}">Cadastrar!</a>',
+        })
+    });
+});
+
 
 $(document).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');

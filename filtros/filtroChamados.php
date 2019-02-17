@@ -10,7 +10,7 @@
     <div class="row">
         <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
             <label for="palavra">Empresa Solicitante:</label>
-                <input name="palavra" type="text" class="form-control" placeholder="Empresa" id="skills">
+                <input name="palavra" type="text" class="form-control flexdatalist" placeholder="Empresa" id="empresafiltro" >
         </div>
         <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
             <label for="status">Status:</label>

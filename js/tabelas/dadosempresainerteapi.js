@@ -137,14 +137,13 @@ function buildTable(data){
             $("#tabela").append(txt);
             $('#tabela').DataTable({
                 pageLength: 10,
-                dom: '<"html5buttons"B>lTfgitp',
-                "ordering": true,
+                responsive: isCelular(),
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
                 },
-                buttons: [
-                    {extend: 'excel', title: 'Clientes German Tech'},
-                ]
+                "initComplete": function(settings, json) {
+                    $('[data-toggle="tooltip"]').tooltip()
+                  }
             });
         }else{
             $('#loading').html('<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nenhum registro encontrado com os filtros informados</div>');

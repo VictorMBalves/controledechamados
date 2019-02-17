@@ -1,5 +1,13 @@
-$(function () {$('#skills').autocomplete({source: '../utilsPHP/search.php'});});
-
+$(function () {
+    $.getJSON('../utilsPHP/search.php').done(function(response){
+        $('#empresafiltro').flexdatalist({
+            minLength: 1,
+            searchIn: 'nome',
+            data: response,
+            noResultsText: 'Sem resultados para "{keyword}" <a href="../pages/cad_empresa?term={keyword}">Cadastrar!</a>',
+        })
+    });
+});
 $(document).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
     loadTable();
@@ -26,9 +34,11 @@ $("#buscar").on("click", function(){
     });
     return false;
 });
+
 $("#novo").on("click", function(){
     window.location.assign("../pages/cad_empresa");
 });
+
 $("#refresh").on("click", function(){
     $("#loading").html('<img src="../imagem/loading.gif">');
     $('#tabela').DataTable().destroy();
@@ -43,7 +53,6 @@ function loadTable(){
         url: '../consultaTabelas/tabelaempresas.php',
         dataType:"json",
         success: function(data){ 
-            
             if(data){
                 buildTable(data);
             }
@@ -53,6 +62,7 @@ function loadTable(){
         }
     });
 }
+
 function buildTable(data){
     var len = data.length;
     var txt = "";
@@ -72,7 +82,7 @@ function buildTable(data){
             }else{
                 txt +="<td>"+data[i].versao+"</td>";
             }
-            txt +="<td><a style='margin-top:2px;' href='../pages/editaempresa="+data[i].id_empresa+"'><button data-toggle='tooltip' data-placement='left' title='Editar Cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
+            txt +="<td><a style='margin-top:2px;' href='../pages/editaempresa="+data[i].id_empresa+"'><button data-toggle='tooltip' data-placement='left' title='Editar Cadastro' class='btn btn-warning btn-sm btn-block' type='button'><i class='fas fa-pencil-alt'></i></button></a></td>";
             txt +='</tr>';
         }
 
@@ -84,7 +94,10 @@ function buildTable(data){
                 responsive: isCelular(),
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
-                }
+                },
+                "initComplete": function(settings, json) {
+                    $('[data-toggle="tooltip"]').tooltip()
+                  }
             });
         }
     }else{

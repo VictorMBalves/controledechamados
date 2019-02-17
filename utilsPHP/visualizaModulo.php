@@ -41,78 +41,50 @@ $sql = $db->prepare("UPDATE empresa SET  nota_fiscal = '$nf', nota_fiscal_consum
 or die(mysql_error());
 $sql->execute();
 
-echo '<div class="list-group">';
-  if($emissor == 'true'){
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-ok">&nbsp</span>Emissor de Documento Fiscal Eletrônico</a>';
-    echo '</div>';
-  }else{
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item disabled"><span class="glyphicon glyphicon-remove">&nbsp</span>Emissor de Documento Fiscal Eletrônico</a>';
-    echo '</div>';
-  }
-  if($nf == 'true'){
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-ok">&nbsp</span>Nota Fiscal Eletrônica</a>';
-    echo '</div>';
-  }else{
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item disabled"><span class="glyphicon glyphicon-remove">&nbsp</span>Nota Fiscal Eletrônica</a>';
-    echo '</div>';
-  }
-  if($nfc == 'true'){
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-ok">&nbsp</span>Nota Fiscal Consumidor</a>';
-    echo '</div>';
-  }else{
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item disabled"><span class="glyphicon glyphicon-remove">&nbsp</span>Nota Fiscal Consumidor</a>';
-    echo '</div>';
-  }
-  if($cte == 'true'){
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-ok">&nbsp</span>Conhecimento de Transporte</a>';
-    echo '</div>';
-  }else{
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item disabled"><span class="glyphicon glyphicon-remove">&nbsp</span>Conhecimento de Transporte</a>';
-    echo '</div>';
-  }
-  if($mdf == 'true'){
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-ok">&nbsp</span>Manifesto Eletrônico</a>';
-    echo '</div>';
-  }else{
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item disabled"><span class="glyphicon glyphicon-remove">&nbsp</span>Manifesto Eletrônico</a>';
-    echo '</div>';
-  }
-  if($nfs == 'true'){
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-ok">&nbsp</span>Nota Fiscal Serviço</a>';
-    echo '</div>';
-  }else{
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item disabled"><span class="glyphicon glyphicon-remove">&nbsp</span>Nota Fiscal Serviço</a>';
-    echo '</div>';
-  }
-  if($sat == 'true'){
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-ok">&nbsp</span>Cupom Fiscal Eletrônico - SAT</a>';
-    echo '</div>';
-  }else{
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item disabled"><span class="glyphicon glyphicon-remove">&nbsp</span>Cupom Fiscal Eletrônico - SAT</a>';
-    echo '</div>';
-  }
-  if($conbloq == 'true'){
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item list-group-item-info"><span class="glyphicon glyphicon-ok">&nbsp</span>Consulta/Bloqueio</a>';
-    echo '</div>';
-  }else{
-    echo '<div class="col-md-6">';
-    echo '<a class="list-group-item disabled"><span class="glyphicon glyphicon-remove">&nbsp</span>Consulta/Bloqueio</a>';
-    echo '</div>';
-  }
+echo '<div class="row text-center">';
+  echo'<div class="list-group col-12 col-sm-12 col-md-6 col-lg-6">';
+      if($emissor == 'true'){
+        echo '<a class="list-group-item list-group-item-info">Emissor de Documento Fiscal Eletrônico</a>';
+      }else{
+        echo '<a class="list-group-item list-group-item-action disabled"><i class="fas fa-times"></i>&nbspEmissor de Documento Fiscal Eletrônico</a>';
+      }
+      if($nf == 'true'){
+        echo '<a class="list-group-item list-group-item-info"><i class="fas fa-check"></i>&nbspNota Fiscal Eletrônica</a>';
+      }else{
+        echo '<a class="list-group-item list-group-item-action disabled"><i class="fas fa-times"></i>&nbspNota Fiscal Eletrônica</a>';
+      }
+      if($nfc == 'true'){
+        echo '<a class="list-group-item list-group-item-info"><i class="fas fa-check"></i>&nbspNota Fiscal Consumidor</a>';
+      }else{
+        echo '<a class="list-group-item list-group-item-action disabled"><i class="fas fa-times"></i>&nbspNota Fiscal Consumidor</a>';
+      }
+    if($cte == 'true'){
+      echo '<a class="list-group-item list-group-item-info"><i class="fas fa-check"></i>&nbspConhecimento de Transporte</a>';
+    }else{
+      echo '<a class="list-group-item list-group-item-action disabled"><i class="fas fa-times"></i>&nbspConhecimento de Transporte</a>';
+    }
+    echo'</div>';
+    echo'<div class="list-group col-12 col-sm-12 col-md-6 col-lg-6">';
+      if($mdf == 'true'){
+        echo '<a class="list-group-item list-group-item-info"><i class="fas fa-check"></i>&nbspManifesto Eletrônico</a>';
+      }else{
+        echo '<a class="list-group-item list-group-item-action disabled"><i class="fas fa-times"></i>&nbspManifesto Eletrônico</a>';
+      }
+      if($nfs == 'true'){
+        echo '<a class="list-group-item list-group-item-info"><i class="fas fa-check"></i>&nbspNota Fiscal Serviço</a>';
+      }else{
+        echo '<a class="list-group-item list-group-item-action disabled"><i class="fas fa-times"></i>&nbspNota Fiscal Serviço</a>';
+      }
+      if($sat == 'true'){
+        echo '<a class="list-group-item list-group-item-info"><i class="fas fa-check"></i>&nbspCupom Fiscal Eletrônico - SAT</a>';
+      }else{
+        echo '<a class="list-group-item list-group-item-action disabled"><i class="fas fa-times"></i>&nbspCupom Fiscal Eletrônico - SAT</a>';
+      }
+      if($conbloq == 'true'){
+        echo '<a class="list-group-item list-group-item-info"><i class="fas fa-check"></i>&nbspConsulta/Bloqueio</a>';
+      }else{
+        echo '<a class="list-group-item list-group-item-action disabled"><i class="fas fa-times"></i>&nbspConsulta/Bloqueio</a>';
+      }
+  echo'</div>';
 echo '</div>';
 ?>

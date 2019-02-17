@@ -2,8 +2,8 @@ $("#gerarSobreaviso").click(function(){
     progressReport("Gerando relatório de sobreaviso");
 })
 components = [
- empresa = $("#empresa"),
- contato = $("#contato"),
+ empresa = $("#empresaCad"),
+ contato = $("#contatoCad"),
  forma_contato = $("#formacontato"),
  telefone = $("#telefone"),
  versao = $("#versao"),
@@ -18,16 +18,16 @@ components = [
 ];
 erros = [];
 
-$("#submit").click(function(){
-    $("#submit").addClass( ' disabled ' );
-    $("#submit").html('<img src="../imagem/ajax-loader.gif">');
-    validar(components);
+$("#salvarPlantao").click(function(){
+    $("#salvarPlantao").addClass( ' disabled ' );
+    $("#salvarPlantao").html('<img src="../imagem/ajax-loader.gif">');
+    validarPlantao(components);
     return null;
 })
 $("#cancel").click(function(){
     resetForm();
 })
-function validar(components){
+function validarPlantao(components){
     erros = [];
     for(i = 0; i < components.length; i++){
         if(isEmpty(components[i].val()))
@@ -35,17 +35,17 @@ function validar(components){
     }
     if(isEmpty(erros)){
         if(!validarHorario()){
-            $("#submit").removeClass("disabled");
-            $("#submit").html("Salvar");
+            $("#salvarPlantao").removeClass("disabled");
+            $("#salvarPlantao").html("Salvar");
             return;
         }
-        enviarDados();
+        enviarDadosPlantao();
     }else{
-        $("#submit").removeClass("disabled");
-        $("#submit").html("Salvar");
+        $("#salvarPlantao").removeClass("disabled");
+        $("#salvarPlantao").html("Salvar");
         for(i = 0; i < erros.length; i++){
             if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]+"-div").addClass("has-error");
+                $(erros[i]).addClass("is-invalid");
             }
         }
         notificationWarningOne("Preencha os campos obrigatórios!");
@@ -53,7 +53,7 @@ function validar(components){
     return null;
 }
 
-function enviarDados(){
+function enviarDadosPlantao(){
     $.ajax({
         type: "POST",
         url: "../inserts/insere_plantao2.php",
@@ -63,12 +63,12 @@ function enviarDados(){
             if(data == "success"){
                 notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
                 resetForm();
-                $("#submit").removeClass( ' disabled ' );
-                $("#submit").html('Salvar');
+                $("#salvarPlantao").removeClass( ' disabled ' );
+                $("#salvarPlantao").html('Salvar');
             }else{
                 notificationError('Ocorreu um erro ao salvar o registro: ', data);
-                $("#submit").removeClass( ' disabled ' );
-                $("#submit").html('Salvar');
+                $("#salvarPlantao").removeClass( ' disabled ' );
+                $("#salvarPlantao").html('Salvar');
             }
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -113,59 +113,58 @@ function resetForm(){
     $('#erroLoad').addClass('hidden');
     $('#successLoad').addClass('hidden');
     $('#alertLoad').addClass('hidden');
-    $('#resultado').html('<div class="alert alert-info text-center" role="alert">Novo chamado:</div>');
 }
 contato.focusout(function() {
     if(!isEmpty(contato.val()))
-    $(contato.selector+"-div").removeClass("has-error");
+    $(contato.selector).removeClass("is-invalid");
 });
 empresa.focusout(function() {
     if(!isEmpty(empresa.val()))
-    $(empresa.selector+"-div").removeClass("has-error");
+    $(empresa.selector).removeClass("is-invalid");
 });
 forma_contato.focusout(function() {
     if(!isEmpty(forma_contato.val()))
-    $(forma_contato.selector+"-div").removeClass("has-error");
+    $(forma_contato.selector).removeClass("is-invalid");
 });
 telefone.focusout(function() {
     if(!isEmpty(telefone.val()))
-    $(telefone.selector+"-div").removeClass("has-error");
+    $(telefone.selector).removeClass("is-invalid");
 });
 sistema.focusout(function() {
     if(!isEmpty(sistema.val()))
-    $(sistema.selector+"-div").removeClass("has-error");
+    $(sistema.selector).removeClass("is-invalid");
 });
 versao.focusout(function() {
     if(!isEmpty(versao.val()))
-    $(versao.selector+"-div").removeClass("has-error");
+    $(versao.selector).removeClass("is-invalid");
 });
 backup.focusout(function() {
     if(!isEmpty(backup.val()))
-    $(backup.selector+"-div").removeClass("has-error");
+    $(backup.selector).removeClass("is-invalid");
 });
 categoria.focusout(function() {
     if(!isEmpty(categoria.val()))
-    $(categoria.selector+"-div").removeClass("has-error");
+    $(categoria.selector).removeClass("is-invalid");
 });
 descproblema.focusout(function() {
     if(!isEmpty(descproblema.val()))
-    $(descproblema.selector+"-div").removeClass("has-error");
+    $(descproblema.selector).removeClass("is-invalid");
 });
 horafim.focusout(function() {
     if(!isEmpty(horafim.val()))
-    $(horafim.selector+"-div").removeClass("has-error");
+    $(horafim.selector).removeClass("is-invalid");
 });
 horainicio.focusout(function() {
     if(!isEmpty(horainicio.val()))
-    $(horainicio.selector+"-div").removeClass("has-error");
+    $(horainicio.selector).removeClass("is-invalid");
 });
 dataPlantao.focusout(function() {
     if(!isEmpty(dataPlantao.val()))
-    $(dataPlantao.selector+"-div").removeClass("has-error");
+    $(dataPlantao.selector).removeClass("is-invalid");
 });
 descsolucao.focusout(function() {
     if(!isEmpty(descsolucao.val()))
-    $(descsolucao.selector+"-div").removeClass("has-error");
+    $(descsolucao.selector).removeClass("is-invalid");
 });
 
 function validarHorario(){

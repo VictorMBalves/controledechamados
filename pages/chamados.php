@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta charset="utf-8">
+		<meta charset="utf-8">
 		<title>Chamados</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,6 +17,7 @@
 		<link href="../assets/css/jquery-ui.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
+		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
 	<body id="page-top">
 		<!-- Page Wrapper -->
@@ -47,12 +48,12 @@
 					<h1 class="h3 mb-0 text-gray-800">Chamados</h1>
 					<div id="plantao"></div>
 				</div>
-				<div  class="card" style="margin:15px;padding:5px;">
+				<div  class="card" style="margin:15px;padding:5px; background-color:#f4f4f4;">
 					<div class="card-header" style="border-bottom:none;"data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
 						Filtros	
 					</div>
 					<div class="collapse" id="collapseExample">
-						<div class="card-body animated fadeInRight" style="background-color:#f4f4f4;">
+						<div class="card-body animated fadeInRight">
 							<?php include '../filtros/filtroChamados.php';?> 
 						</div>
 					</div>
@@ -105,17 +106,10 @@
 		</div>
 		
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<!-- <script src="../assets/js/jquery-1.8.3.min.js"></script> -->
-		<!-- <script src="../assets/js/jquery-ui-1.9.2.custom.min.js"></script> -->
-		<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- Core plugin JavaScript-->
 		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-		<!-- Custom scripts for all pages-->
 		<script src="../assets/js/sb-admin-2.min.js"></script>
-		<!-- Page level plugins -->
-		<!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
 		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>
@@ -124,6 +118,7 @@
 		<script src="../datatables/dataTables.bootstrap4.min.js"></script>
 		<script src="../datatables/responsive.min.js"></script>
 		<script src="../datatables/rowReorder.min.js"></script>
+		<script src="../assets/js/jquery.flexdatalist.js"></script>	
 		<script src="../js/tabelas/chamados.js"></script>
 	</body>
 </html>

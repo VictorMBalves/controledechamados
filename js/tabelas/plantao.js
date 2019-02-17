@@ -7,9 +7,16 @@ function erro(){
     alert('Acesso negado! Redirecinando a pagina principal.');
     window.location.assign("../pages/chamadoespera.php");
 }
-$(function() {
-    $( "#empresa" ).autocomplete({
-        source: '../utilsPHP/search.php'
+$(function () {
+    $.getJSON('../utilsPHP/search.php').done(function(response){
+        $('#empresaCad').flexdatalist({
+            minLength: 1,
+            searchIn: 'nome',
+            data: response,
+            noResultsText: 'Sem resultados para "{keyword}" <a href="../pages/cad_empresa?term={keyword}">Cadastrar!</a>',
+        }).on('select:flexdatalist', function(ev, result){
+            callApi(result.nome);
+        });;
     });
 });
 
@@ -35,7 +42,7 @@ function buildTable(data){
     if(len > 0){
         for(var i=0;i<len;i++){
             txt+='<tr>';
-            txt+='<td><div class="circle" data-toggle="tooltip" data-placement="left" title="Status: Finalizado"></div></td>';
+            txt+='<td><span class="badge badge-info" data-toggle="tooltip" data-placement="left" title="Status: Finalizado">Finalizado</span></td>';
             txt+='<td>'+data[i].data+'</td>';
             txt+='<td>'+data[i].usuario+'</td>';
             txt+='<td>'+data[i].id_plantao+'</td>';
@@ -54,6 +61,9 @@ function buildTable(data){
                 responsive: isCelular(),
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
+                },
+                "initComplete": function(settings, json) {
+                    $('[data-toggle="tooltip"]').tooltip()
                 }
             });
         }

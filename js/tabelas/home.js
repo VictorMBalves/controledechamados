@@ -82,6 +82,13 @@
         }, 400);
     }
 
+    function abrirVisualizacaoChamado(id){
+        $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id);
+        setTimeout(function(){
+            $("#modalCon").modal('show');
+        }, 300);
+    }
+
     function abrirAgendamento(id){
         $("#modalAgendamento").load("../modals/modalAgendamento.php?id_chamadoespera="+id);
         setTimeout(function(){
@@ -101,3 +108,14 @@
         $("#content").toggleClass("col-md-12 col-md-8");
         $("#flecha").toggleClass("glyphicon-arrow-left glyphicon-arrow-right");
     })
+    //Busca na pagina home
+    $(function() {
+        $(document).ready(function(){
+            $("#keyword").on("keyup", function() {
+              var value = $(this).val().toLowerCase();
+              $("#chamados .for-search").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+            });
+          });
+    });

@@ -45,11 +45,21 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Home</h1>
+            <form class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+              <div class="input-group">
+                  <input type="text" name="keyword" id="keyword" class="form-control bg-light border-0 small" placeholder="Buscar por..." aria-label="Search" aria-describedby="basic-addon2">
+                  <!-- <div class="input-group-append">
+                  <button class="btn btn-primary" type="button">
+                      <i class="fas fa-search fa-sm"></i>
+                  </button>
+                  </div> -->
+              </div>
+            </form>
            	<div id="plantao"></div>
           </div>
 
 			<!-- Content Row -->
-			<div class="row animated fadeInRight">
+			<div id="chamados" class="row animated fadeInRight">
 				<!--Chamados pendentes-->
 				<div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
 					<div id="pendentes"></div>
@@ -123,6 +133,7 @@
 	<script src="../assets/js/jquery.shortcuts.js"></script>
 	<script src="../assets/js/toastr.min.js"></script>
   <script src="../assets/js/date.js"></script>
+  <script src="../assets/js/jcfilter.min.js"></script>
 	<script src="../js/links.js"></script>
 	<script src="../js/tabelas/home.js"></script>
 </body>

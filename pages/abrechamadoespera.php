@@ -71,8 +71,8 @@
             <h1 class="h3 mb-0 text-gray-800">Atender chamado em espera Nº <?php echo $id;?> </h1>
            	<div id="plantao"></div>
           </div>
-		  <div  class="card">
-			<div class="card-body animated fadeInRight" style="background-color:#f4f4f4;">
+		  <div  class="card" style="background-color:#f4f4f4;">
+			<div class="card-body animated fadeInRight">
 					<input style="display:none;" id="id_chamado"  name='id_chamadoespera' value='<?php echo $id; ?>'/>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">

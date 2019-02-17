@@ -33,7 +33,7 @@ function buildTable(data){
     var txt = "";
     if(len > 0){ 
         for(var i=0;i<len;i++){
-            color = data[i].task_created ? "active" : "danger";
+            color = data[i].task_created ? "table-light" : "table-danger";
             txt +="<tr id="+i+" class="+color+" onclick='loadForm("+JSON.stringify(data[i])+")'>";
             txt+='<td>'+data[i].name+'</td>';
             txt+='<td>'+(data[i].reason == "ATUALIZACAO" ? "Atualização" : data[i].reason)+'</td>';

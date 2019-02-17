@@ -1,10 +1,15 @@
+$(document).ready(function(){
+    $('#telefoneCad').mask('(99) 9999-9999');
+    $('#cnpjCad').mask('99.999.999/9999-99');
+    $('#celularCad').mask('(99) 9999-99999');
+})
 components = [
- empresa = $("#empresa"),
- cnpj = $("#cnpj"),
- telefone = $("#telefone"),
- celular = $("#celular"),
- backup = $("#backup"),
- situacao = $("#situacao"),
+ empresa = $("#empresaCad"),
+ cnpj = $("#cnpjCad"),
+ telefone = $("#telefoneCad"),
+ celular = $("#celularCad"),
+ backup = $("#backupCad"),
+ situacao = $("#situacaoCad"),
 ];
 erros = [];
 
@@ -29,8 +34,9 @@ function validar(components){
         $("#submit").removeClass("disabled");
         $("#submit").html("Salvar");
         for(i = 0; i < erros.length; i++){
+            console.log(erros)
             if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]+"-div").addClass("has-error");
+                $(erros[i]).addClass("is-invalid");
             }
         }
         notificationWarningOne("Preencha os campos obrigatórios!");
@@ -75,22 +81,22 @@ function carregaDados(){
 
 empresa.focusout(function() {
     if(!isEmpty(empresa.val()))
-    $(empresa.selector+"-div").removeClass("has-error");
+    $(empresa.selector).removeClass("is-invalid");
 });
 cnpj.focusout(function() {
     if(!isEmpty(cnpj.val()))
-    $(cnpj.selector+"-div").removeClass("has-error");
+    $(cnpj.selector).removeClass("is-invalid");
 });
 telefone.focusout(function() {
     if(!isEmpty(telefone.val()))
-    $(telefone.selector+"-div").removeClass("has-error");
+    $(telefone.selector).removeClass("is-invalid");
 });
 situacao.focusout(function() {
     if(!isEmpty(situacao.val()))
-    $(situacao.selector+"-div").removeClass("has-error");
+    $(situacao.selector).removeClass("is-invalid");
 });
 backup.focusout(function() {
     if(!isEmpty(backup.val()))
-    $(backup.selector+"-div").removeClass("has-error");
+    $(backup.selector).removeClass("is-invalid");
 });
 

@@ -30,6 +30,7 @@
 		<!--Toastr notification-->
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
+		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
 
 	<body>
@@ -63,24 +64,24 @@
             <h1 class="h3 mb-0 text-gray-800">Finalizar chamado Nº <?php echo $id;?> </h1>
            	<div id="plantao"></div>
           </div>
-		  <div  class="card">
-			<div class="card-body animated fadeInRight" style="background-color:#f4f4f4;">
+		  <div  class="card" style="background-color:#f4f4f4;">
+			<div class="card-body animated fadeInRight">
 				<div class="form-horizontal">
 					<input style="display:none;" name="id_chamado" id="id_chamado" value="<?php echo $id; ?>"/>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-							<label for="empresa">Empresa solicitante:</label>
-							<input value='<?php echo $row['empresa'];?>' id="empresa" name="empresa" type="text" class="form-control disabled" disabled>
+							<label for="empresafin">Empresa solicitante:</label>
+							<input value='<?php echo $row['empresa'];?>' id="empresafin" name="empresafin" type="text" class="form-control disabled" disabled>
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-							<label for="contato">Contato:</label>
-							<input value='<?php echo $row['contato'];?>' id="contato" name="contato" type="text" class="form-control">
+							<label for="contatofin">Contato:</label>
+							<input value='<?php echo $row['contato'];?>' id="contatofin" name="contatofin" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-							<label for="formacontato">Forma de contato:</label>
-							<select name="formacontato" type="text" id="formaContato" class="form-control">
+							<label for="formacontatofin">Forma de contato:</label>
+							<select name="formacontatofin" type="text" id="formaContatofin" class="form-control">
 								<option>
 									<?php echo $row['formacontato'];?>
 								</option>
@@ -98,19 +99,19 @@
 							</select>
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-							<label for="telefone">Telefone</label>
-							<input value='<?php echo $row['telefone'];?>' id="telefone" data-mask="(999)9999-9999" name="telefone" type="text" class="form-control label2"
+							<label for="telefonefin">Telefone</label>
+							<input value='<?php echo $row['telefone'];?>' id="telefonefin" data-mask="(999)9999-9999" name="telefonefin" type="text" class="form-control label2"
 								onkeypress="return SomenteNumero(event)" required="">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-							<label for="versao">Versão:</label>
-							<input type="text" id="versao" name="versao" class="form-control" required="" value="<?php echo $row['versao'] ?>">
+							<label for="versaofin">Versão:</label>
+							<input type="text" id="versaofin" name="versaofin" class="form-control" required="" value="<?php echo $row['versao'] ?>">
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-							<label for="sistema">Sistema:</label>
-							<select name="sistema" type="text" id="sistema" class="form-control" required="">
+							<label for="sistemafin">Sistema:</label>
+							<select name="sistemafin" type="text" id="sistemafin" class="form-control" required="">
 								<option>
 									<?php echo $row['sistema'];?>
 								</option>
@@ -130,8 +131,8 @@
 					</div>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-						<label for="backup">Backup:</label>
-							<select id="backup" name="backup" class="form-control" required="">
+						<label for="backupfin">Backup:</label>
+							<select id="backupfin" name="backupfin" class="form-control" required="">
 									<?php 
 										if ($row2['backup'] == 0) {
 											echo "<option value='0'>Google drive não configurado</option>";
@@ -148,8 +149,8 @@
 							</select>
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-						<label for="categoria">Categoria:</label>
-							<select name="categoria" id="categoria" type="text" class="form-control forma" required="">
+						<label for="categoriafin">Categoria:</label>
+							<select name="categoriafin" id="categoriafin" type="text" class="form-control forma" required="">
 								<option>
 									<?php echo $row['categoria'];?>
 								</option>
@@ -169,16 +170,16 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="descproblema">Descrição do problema:</label>
-						<textarea name="descproblema" id="descproblema" type="text" class="form-control label1" required=""><?php echo $row['descproblema'];?></textarea>
+						<label for="descproblemafin">Descrição do problema:</label>
+						<textarea name="descproblemafin" id="descproblemafin" type="text" class="form-control label1" required=""><?php echo $row['descproblema'];?></textarea>
 					</div>
 					<div class="form-group">
-					<label for="descsolucao">Solução:</label>  
-						<textarea name="descsolucao" id="descsolucao" type="text" class="form-control"></textarea>
+					<label for="descsolucaofin">Solução:</label>  
+						<textarea name="descsolucaofin" id="descsolucaofin" type="text" class="form-control"></textarea>
 					</div>
 					<div class="text-center">
-						<button id="submit" name="singlebutton" class="btn btn-group-lg btn-primary">Finalizar</button>
-						<button id="cancel" type="reset" name="singlebutton" class="btn btn-group-lg btn-warning">Cancelar</button>
+						<button id="finalizar" name="finalizar" class="btn btn-group-lg btn-primary">Finalizar</button>
+						<button id="cancel" type="reset" name="cancelar" class="btn btn-group-lg btn-warning">Cancelar</button>
 					</div>
 				</div>
 			</div>
@@ -198,26 +199,28 @@
 
   </div>
   <!-- End of Page Wrapper -->
-
-		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
-		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
-		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- Core plugin JavaScript-->
-		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-		<!-- Custom scripts for all pages-->
-		<script src="../assets/js/sb-admin-2.min.js"></script>
-		<!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
-		<script src="../assets/js/jquery.shortcuts.js"></script>
-		<script src="../assets/js/toastr.min.js"></script>
-		<script src="../assets/js/date.js"></script>
-		<script src="../js/links.js"></script>
-		<script src="../js/finalizaChamadoFa.js" ></script> 
-		<script>
-			function Erro(){
-				notificationError('Acesso restrito');
-			}
-		</script>
+  	<div id="modalCadastro">
+	</div>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
+	<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="../assets/js/sb-admin-2.min.js"></script>
+	<script src="../assets/js/jquery.flexdatalist.js"></script>	
+	<!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
+	<script src="../assets/js/jquery.shortcuts.js"></script>
+	<script src="../assets/js/toastr.min.js"></script>
+	<script src="../assets/js/date.js"></script>
+	<script src="../js/links.js"></script>
+	<script src="../js/finalizaChamadoFa.js" ></script> 
+	<script>
+		function Erro(){
+			notificationError('Acesso restrito');
+		}
+	</script>
 	</body>
 </html>

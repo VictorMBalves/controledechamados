@@ -34,7 +34,7 @@
         if(usuario == "" || usuario == null){
             return notificationWarning("Alerta","Nenhum usuário selecionado");
         }else{
-            $( "#lista" ).append("<a href='#' class='list-group-item' id="+hash+">"+usuario+"<button class='btn btn-xs glyphicon glyphicon-remove pull-right' onclick='remover("+hash+")'></button></a>");
+            $( "#lista" ).append("<a href='#' class='list-group-item' id="+hash+">"+usuario+"<button class='btn btn-xs float-right' onclick='remover("+hash+")'><i class='fas fa-times'></i></button></a>");
             $("#usuarios").val("");
         }
     }
@@ -145,7 +145,7 @@
                 jQuery.each(json, function(i, val) {
                     usuario = val;
                     var hash = '"'+hex_md5(usuario)+'"';
-                    $( "#lista" ).append("<a href='#' class='list-group-item' id="+hash+">"+usuario+"<button class='btn btn-xs glyphicon glyphicon-remove pull-right' onclick='remover("+hash+")'></button></a>");
+                    $( "#lista" ).append("<a href='#' class='list-group-item' id="+hash+">"+usuario+"<button class='btn btn-xs float-right' onclick='remover("+hash+")'><i class='fas fa-times'></i></button></a>");
                 });
             }
         }); 

@@ -15,96 +15,72 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Consulta Plantão Nº <?php echo $id ?></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <form>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="empresa">Empresa solicitante:</label>
-                            <div class="col-sm-10">
-                                <input value='<?php echo $row['empresa'];?>' name="empresa" type="text" disabled class="form-control disabled">
-                            </div>
+                            <label for="empresa">Empresa solicitante:</label>
+                            <input value='<?php echo $row['empresa'];?>' name="empresa" type="text" disabled class="form-control disabled">
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="contato">Contato:</label>
-                            <div class="col-sm-4">
+                        <div class="row">
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="contato">Contato:</label>
                                 <input value='<?php echo $row['contato'];?>' id="nome" name="contato" type="text" disabled class="form-control disabled">
                             </div>
-                            <label class="col-md-2 control-label">Forma de contato:</label>
-                            <div class="col-sm-4">
-                                <select name="formacontato" class="form-control disabled" disabled>
-                                    <option>
-                                        <?php echo $row['formacontato'];?>
-                                    </option>
-                                </select>
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                <label for="formacontato">Forma de contato:</label>
+                                <input value="<?php echo $row['formacontato'];?>" type="text" name="formacontato" class="form-control disabled" disabled>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="telefone">Telefone:</label>
-                            <div class="col-sm-4">
+                        <div class="row">
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="telefone">Telefone:</label>
                                 <input value='<?php echo $row['telefone'];?>' disabled name="telefone" type="text" class="form-control disabled">
                             </div>
-                            <label class="col-md-2 control-label" for="sistema">Sistema:</label>
-                            <div class="col-sm-4">
-                                <select name="sistema" class="form-control disabled" disabled>
-                                    <option>
-                                        <?php  echo $row['sistema'];?>
-                                    </option>
-                                </select>
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="sistema">Sistema:</label>
+                                <input type="text" value="<?php  echo $row['sistema'];?>" name="sistema" class="form-control disabled" disabled>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label" for="backup">backup:</label>
-                            <div class="col-sm-4">
-                                <select id="backup" disabled name="backup" class="form-control disabled">
-                                    <option>
-                                        <?php 
+                        <div class="row">
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="backup">backup:</label>
+                                <input type="text" value="<?php 
                                             if ($row2['backup'] == 0) {
                                                 echo "Google drive não configurado";
                                             } else {
                                                 echo "Google drive configurado";
                                             }
-                                        ?>
-                                    </option>
-                                </select>
+                                        ?>" id="backup" disabled name="backup" class="form-control disabled">
                             </div>
-                            <label class="col-md-2 control-label">Categoria:</label>
-                            <div class="col-sm-4">
-                                <select name="categoria" disabled class="form-control disabled">
-                                    <option value="Manager">
-                                        <?php  echo $row['categoria'];?>
-                                    </option>
-                                </select>
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <label for="categoria">Categoria:</label>
+                                <input type="text" value="<?php  echo $row['categoria'];?>" name="categoria" disabled class="form-control disabled">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                <label for="datainicio">Data inicio: </label>
+                                <input class="form-control disabled" name="datainicio" disabled value='<?php echo $row['data'].' '.$row['horainicio'];?>'>
+                            </div>
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                <label for="datafim">Data término:</label>
+                                <input class="form-control forma disabled" name="datafim" disabled value='<?php echo $row['data'].' '.$row['horafim'];?>'>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Data inicio: </label>
-                            <div class="col-sm-4">
-                                <input class="form-control disabled" disabled value='<?php echo $row['data'].' '.$row['horainicio'];?>'>
-                            </div>
-                            <label class="col-md-2 control-label">Data término:</label>
-                            <div class="col-sm-4">
-                                <input class="form-control forma disabled" disabled value='<?php echo $row['data'].' '.$row['horafim'];?>'>
-                            </div>
+                            <label for="responsavel">Responsável:</label>
+                            <input class="form-control disabled" name="responsavel" disabled value='<?php echo $row['usuario']?>'>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Responsavel:</label>
-                            <div class="col-sm-10">
-                                <input class="form-control disabled" disabled value='<?php echo $row['usuario']?>'>
-                            </div>
+                            <label for="descproblema">Descrição do problema:</label>
+                            <textarea name="descproblema" class="form-control disabled" disabled><?php echo $row['descproblema'];?></textarea>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Descrição do problema:</label>
-                            <div class="col-sm-10">
-                                <textarea name="descproblema" class="form-control disabled" disabled><?php echo $row['descproblema'];?></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label ">Solução:</label>
-                            <div class="col-sm-10">
-                                <textarea name="descsolucao" class="form-control label1 disabled" disabled><?php echo $row['descsolucao'];?></textarea>
-                            </div>
+                            <label for="descsolucao">Solução:</label>
+                            <textarea name="descsolucao" class="form-control disabled" disabled><?php echo $row['descsolucao'];?></textarea>
                         </div>
                     </form>
                 </div>

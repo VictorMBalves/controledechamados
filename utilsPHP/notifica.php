@@ -1,67 +1,42 @@
-<!DOCTYPE html>
-<html> 
-   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
-    <link rel="shortcut icon" href="imagem/favicon.ico" />
-    <title>Controle de Chamados</title>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js">
-    </script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
-    </script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js">
-    </script>
-    <style>
-    .link{
-        color:#5bc0de;
-     
-}
-    .link:hover{
-        color:#5bc0de;
-    }
-    .bells{
-      animation: blinker 1s linear infinite;
-}
 
-@keyframes blinker {  
-  50% { opacity: 0; }
-}
-
-   </style>
-</head>
-</html>
 <?php
-        include '../validacoes/verificaSessionFinan.php';
-        require_once '../include/Database.class.php';
-        $db = Database::conexao();
+        if(!isset($db)){
+            require_once '../include/Database.class.php';
+             $db = Database::conexao();
+        }
         $enderecado =$_SESSION['UsuarioNome'];
         $status="Aguardando Retorno";
-        $sql = $db->prepare("SELECT COUNT(enderecado) FROM chamadoespera WHERE enderecado like '$enderecado' and status='$status' GROUP BY enderecado");
-        $sql->execute();
-        $result = $sql->fetchall();
-        
-        foreach ($result as $row) {
-            if ($row > 1) {
-                echo '<div class="alert alert-info alert-dismissible" role="alert">';
-                // echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
-                echo '<div class="text-center">';
-                echo '<a href="../pages/meuschamados" class="link"><i class="glyphicon glyphicon-bell bells"></i>&nbsp<strong>'.$_SESSION["UsuarioNome"].'</strong>, há <strong>'.$row["COUNT(enderecado)"].'</strong>';
-                if ($row["COUNT(enderecado)"] > 1) {
-                    echo ' notificações';
-                } else {
-                    echo ' notificação';
-                }
-                if ($row["COUNT(enderecado)"] > 1) {
-                    echo ' direcionadas';
-                } else {
-                    echo ' direcionada';
-                }
-                echo ' para você!</a>';
-                echo '</div>';
-                echo '</div>';
-            }
-        }
- ?>       
+        $sqlNotificacoes = $db->prepare("SELECT id_chamadoespera, empresa, DATE_FORMAT(data,'%d/%m/%Y %H:%i') as data FROM chamadoespera WHERE enderecado like '$enderecado' and status='$status'");
+        $sqlNotificacoes->execute();
+        $notificacoes = $sqlNotificacoes->fetchall(PDO::FETCH_ASSOC);
 
+        echo '<li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                    <span class="badge badge-danger badge-counter">';if(sizeof($notificacoes) != 0){echo sizeof($notificacoes);}
+                echo'</span>
+                </a>
+                <!-- Dropdown - Alerts -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                    Notificações
+                </h6>';
+        
+        foreach ($notificacoes as $notificacao) {
+                echo ' <a class="dropdown-item d-flex align-items-center" href="../pages/abrechamadoespera='.$notificacao['id_chamadoespera'].'">';
+                    echo '<div class="mr-3">';
+                        echo '<div class="icon-circle bg-primary">';    
+                            echo '<i class="fas fa-phone text-white"></i>';
+                        echo'</div>';
+                    echo '</div>';
+                     echo '<div>';
+                    echo '<div class="small text-gray-500">'.$notificacao['data'].'</div>';
+                    echo '<span class="font-weight-bold">Chamado endereçado '.$notificacao['empresa'].'</span>';
+                    echo '</div>';
+                echo '</a>';
+        }
+        echo '<a class="dropdown-item text-center small text-gray-500" href="../pages/meuschamados">Ver todas</a>
+        </div>
+        </li>';
+    ?>       

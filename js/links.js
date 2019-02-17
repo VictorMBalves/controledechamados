@@ -36,12 +36,6 @@ function SomenteNumero(e) {
 
 $(function () {$('[data-toggle="tooltip"]').tooltip()})
 
-function atualizarTarefas() {
-    var url = "../utilsPHP/notifica.php";
-    jQuery("#tarefas").load(url);
-}
-setTimeout("atualizarTarefas()", 100);
-
 function isCelular(){
     return ($( window ).width() <= 720);
 }
@@ -205,7 +199,9 @@ $("#registroAtividadeEcf").click(function(){
         $( "body" ).append(data);
     });
     setTimeout(function(){
-        $("#modalCad").modal('show');
+        $("#dtInicial").removeClass(' is-invalid ')
+        $("#dtFinal").removeClass(' is-invalid ')
+        $("#modalRegistroAtividadeEcf").modal('show');
     }, 300);
 })
 

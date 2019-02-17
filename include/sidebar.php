@@ -68,10 +68,10 @@ if($_SESSION['UsuarioNivel'] != 1) {
             <h6 class="collapse-header">Usuário:</h6>
             <a class="collapse-item" href="../pages/relatorio">Chamados por atendente</a>
             <h6 class="collapse-header">Empresas:</h6>
-            <a class="collapse-item" href="utilities-border.html">Dados emp. API</a>
-            <a class="collapse-item" href="utilities-animation.html">Dados emp. inertes API</a>
-            <a class="collapse-item" href="utilities-other.html">Empresas solicitantes</a>
-            <a class="collapse-item" href="utilities-other.html">Registro de atividades ECF</a>
+            <a class="collapse-item" href="dadosempresasapi">Dados emp. API</a>
+            <a class="collapse-item" href="empresasinertes">Dados emp. inertes API</a>
+            <a class="collapse-item" href="relatorioempre">Empresas solicitantes</a>
+            <a class="collapse-item" href="#" id="registroAtividadeEcf">Registro de atividades ECF</a>
           </div>
         </div>
       </li>';

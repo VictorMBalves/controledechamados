@@ -2,7 +2,7 @@
     require_once '../include/Database.class.php';
     $db = Database::conexao();
     
-    $sql = "SELECT id_chamadoespera, status, empresa,  data as databanco,  notification, descproblema, DATE_FORMAT(dataagendamento,'%d/%m/%Y %H:%i') as dataagendamento , dataagendamento as dataAgend FROM chamadoespera WHERE status <> 'Finalizado' AND dataagendamento IS NOT NULL ORDER BY status, data DESC";
+    $sql = "SELECT id_chamadoespera, status, empresa,  data as databanco,  notification, descproblema, DATE_FORMAT(dataagendamento,'%d/%m/%Y %H:%i') as dataagendamento , dataagendamento as dataAgend FROM chamadoespera WHERE status <> 'Finalizado' AND dataagendamento IS NOT NULL ORDER BY dataagendamento ASC";
     $query = $db->prepare($sql);
     $query->execute();
     $resultados = $query->fetchall(PDO::FETCH_ASSOC);
@@ -25,7 +25,7 @@
 
     foreach($resultados as $chamado){
             echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">';
-                echo '<div class="card border-left-info shadow h-100 py-2">';
+                echo '<div class="card for-search border-left-info shadow h-100 py-2">';
                    echo '<div class="card-header" onclick="abrirVisualizacao('.$chamado['id_chamadoespera'].')" style="cursor: pointer;">';
                         echo'<div class="row no-gutters align-items-center text-uppercase">';
                                 echo $chamado['empresa'];

@@ -1,4 +1,8 @@
-empresa = $("#empresa-espera");
+$(document).ready(function() {
+ 
+}); 
+  
+empresa = $("#empresaEspera");
 enderecado = $("#enderecado");
 contato = $("#contato");
 telefone = $("#telefone");
@@ -159,15 +163,13 @@ function erro() {
 
 $(function () {
     $.getJSON('../utilsPHP/search.php').done(function(response){
-        $('#empresa-espera').flexdatalist({
+        $('#empresaEspera').flexdatalist({
             minLength: 1,
             searchIn: 'nome',
             data: response,
-        });
-    });
-
-    $('#empresa-espera').on('select:flexdatalist', function(ev, result){
-        console.log(result)
-        callApi(result.nome);
+            noResultsText: 'Sem resultados para "{keyword}" <a href="../pages/cad_empresa?term={keyword}">Cadastrar!</a>',
+        }).on('select:flexdatalist', function(ev, result){
+            callApi(result.nome);
+        });;
     });
 });

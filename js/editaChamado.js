@@ -1,17 +1,18 @@
 id = $("#id_chamado");
-empresa = $("#empresa");
-contato = $("#contato");
-forma_contato = $("#formaContato");
-versao = $("#versao");
-telefone = $("#telefone");
-sistema = $("#sistema");
-backup = $("#backup");
-categoria = $("#categoria");
-descproblema = $("#descproblema");
+debugger
+empresa = $("#empresaEdit");
+contato = $("#contatoEdit");
+forma_contato = $("#formaContatoEdit");
+versao = $("#versaoEdit");
+telefone = $("#telefoneEdit");
+sistema = $("#sistemaEdit");
+backup = $("#backupEdit");
+categoria = $("#categoriaEdit");
+descproblema = $("#descproblemaEdit");
 erros = [];
-$("#submit").click(function(){
-    $("#submit").addClass( ' disabled ' );
-    $("#submit").html('<img src="../imagem/ajax-loader.gif">');
+$("#alterar").click(function(){
+    $("#alterar").addClass( ' disabled ' );
+    $("#alterar").html('<img src="../imagem/ajax-loader.gif">');
     validar();
     return null;
 })
@@ -43,8 +44,8 @@ function validar(){
     if(isEmpty(erros)){
         enviarDados();
     }else{
-        $("#submit").removeClass("disabled");
-        $("#submit").html("Salvar");
+        $("#alterar").removeClass("disabled");
+        $("#alterar").html("Salvar");
         for(i = 0; i < erros.length; i++){
             if(!$(erros[i]).hasClass("vazio")){
                 $(erros[i]).addClass("is-invalid");

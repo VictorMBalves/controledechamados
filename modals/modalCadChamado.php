@@ -54,11 +54,10 @@
                 minLength: 1,
                 searchIn: 'nome',
                 data: response,
+                noResultsText: 'Sem resultados para "{keyword}" <a href="../pages/cad_empresa?term={keyword}">Cadastrar!</a>',
+            }).on('select:flexdatalist', function(ev, result){
+                callApi(result.nome);
             });
-        });
-
-        $('#empresa').on('select:flexdatalist', function(ev, result){
-            callApi(result.nome);
         });
     });
 
@@ -72,21 +71,22 @@
         ];
 		$("#cadastrar").addClass( ' disabled ' );
         $("#cadastrar").html('<img src="../imagem/ajax-loader.gif">');
-        validar(components);
+        validarCadastroChamado(components);
         return null;
     });
     
-    function validar(components){
+    function validarCadastroChamado(components){
         erros = [];
         for(i = 0; i < components.length; i++){
             if(isEmpty(components[i].val()))
                 erros.push(components[i].selector);
         }
         if(isEmpty(erros)){
-            enviarDados();
+            enviarDadosCadastroChamado();
         }else{
             $("#cadastrar").removeClass("disabled");
             $("#cadastrar").html("Cadastrar");
+            console.log(erros)
             for(i = 0; i < erros.length; i++){
                 if(!$(erros[i]).hasClass("vazio")){
                     $(erros[i]).addClass("is-invalid");
@@ -97,11 +97,11 @@
         return null;
     }
 
-    function enviarDados(){
+    function enviarDadosCadastroChamado(){
         $.ajax({
             type: "POST",
             url: "../inserts/insere_chamado2.php",
-            data: carregaDados(),
+            data: carregaDadosCadastroChamado(),
             success: function(data){
                 data = JSON.parse(data);
                 if(data.status == "success"){
@@ -123,7 +123,7 @@
         });
     }
 
-    function carregaDados(){
+    function carregaDadosCadastroChamado(){
         var data = [];
         data.push({name: 'empresa', value: empresa.val()});
         data.push({name: 'contato', value: contato.val()});

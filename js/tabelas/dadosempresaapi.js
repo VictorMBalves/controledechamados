@@ -31,22 +31,16 @@ $(document).ready(function() {
                     if(txt != ""){
                         $("#loading").html('');
                         $("#myTable").append(txt);
-                        var table = $('#myTable').DataTable(
+                        $('#myTable').DataTable(
                             {
-                            pageLength: 10,
-                            rowReorder: {
-                                selector: 'td:nth-child(2)'
-                            },
-                            responsive: true,
-                            dom: '<"html5buttons"B>lTfgitp',
-                            "ordering": true,
-                            buttons: [
-                                {extend: 'excel', title: 'Clientes German Tech'},
-                                {extend: 'pdf', title: 'Clientes German Tech'}
-                            ],
-                            "language": {
-                                "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
-                            }
+                                pageLength: 10,
+                                responsive: isCelular(),
+                                "language": {
+                                    "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
+                                },
+                                "initComplete": function(settings, json) {
+                                    $('[data-toggle="tooltip"]').tooltip()
+                                  }
                         }
                         );
                     }

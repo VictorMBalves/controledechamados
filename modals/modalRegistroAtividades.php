@@ -1,35 +1,29 @@
-<div class="modal" tabindex="-1" role="dialog" id="modalCad">
+<div class="modal" tabindex="-1" role="dialog" id="modalRegistroAtividadeEcf">
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Registro de atividades ECF</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal" action="#" method="POST">
+                <form action="#" method="POST">
                     <div class="form-group">
-                        <label class="col-md-2 control-label" for="dtInicial">Data Inicial:</label>
-                        <div id="dtInicial-div" class="col-sm-4">
-                            <input id="dtInicial" name="dtInicial" type="date" class="form-control">
-                        </div>
-                        <label class="col-md-2 control-label" for="dtFinal">Data Final:</label>
-                        <div id="dtFinal-div" class="col-sm-4">
-                            <input id="dtFinal" name="dtFinal" type="date" class="form-control">
-                        </div>
+                        <label for="dtInicial">Data Inicial:</label>
+                        <input id="dtInicial" name="dtInicial" type="date" class="form-control">
 				    </div>
                     <div class="form-group">
-                        <div class="checkbox">
-                            <label class="col-md-4 control-label">
-                                <input type="checkbox" id="agruparSituacao"> Agrupar por situação
-                            </label>
-                        </div>
+                        <label for="dtFinal">Data Final:</label>
+                        <input id="dtFinal" name="dtFinal" type="date" class="form-control">
+                    </div>
+                    <div class="form-group text-center">
+                        <input type="checkbox" class="form-check-input" id="agruparSituacao"> Agrupar por situação
+                        <label class="form-check-label">
+                        </label>
 				    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <div class="col-md-12 text-center">
-                    <button id="gerar" name="gerar" class="btn btn-group-lg btn-success">Gerar</button>
-                </div>
+            <div class="modal-footer text-center">
+                <button id="gerar" name="gerar" class="btn btn-group-lg btn-success">Gerar</button>
             </div>
         </div>
     </div>
@@ -61,7 +55,7 @@
             $("#gerar").html("gerar");
             for(i = 0; i < erros.length; i++){
                 if(!$(erros[i]).hasClass("vazio")){
-                    $(erros[i]+"-div").addClass("has-error");
+                    $(erros[i]).addClass("is-invalid");
                 }
             }
             notificationWarningOne("Preencha os campos obrigatórios!");
@@ -90,12 +84,12 @@
                     link.click();
 
                     document.body.removeChild(link);
-                    $("#modalCad").modal('hide');
+                    $("#modalRegistroAtividadeEcf").modal('hide');
                     $("#gerar").removeClass( ' disabled ' );
                     $("#gerar").html('Gerar');
                     return false;
                 }
-                $("#modalCad").modal('hide');
+                $("#modalRegistroAtividadeEcf").modal('hide');
                 $("#gerar").removeClass( ' disabled ' );
                 $("#gerar").html('Gerar');
                 notificationErrorLogin("Erro ao gerar relatório "+request.response);

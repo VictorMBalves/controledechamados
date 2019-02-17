@@ -1,5 +1,6 @@
 
 function callApi(empresa) {       
+    var empresa = empresa;
     $("#erroLoad").addClass("hidden")
     $("#infoLoad").addClass("hidden");
     $("#alertLoad").addClass("hidden");
@@ -17,7 +18,6 @@ function callApi(empresa) {
     var consultabloqueio = false;
     var cupomfiscaleletronicosat = false;
     var emissordocumentosfiscaiseletronicos = false;
-    var empresa = empresa;
 
     versao.val('');
     sistema.val('');
@@ -28,6 +28,10 @@ function callApi(empresa) {
             }
         )
         .done(function(data) {
+                if(isEmpty(data)){
+                    notificationWarning("Empresa não localizada")
+                    return;
+                }
                 bloqueado = data.is_blocked;
                 if(data.phone == null){
                     callBanco(empresa);
@@ -84,6 +88,10 @@ function callApi(empresa) {
                     $("#successLoad").removeClass("hidden");
                 }
         }).error(function(data){
+                if(document.getElementById('verModulo') != null){
+                    document.getElementById('verModulo').disabled = false;
+                    $('#modulos').html(data);
+                }
                 $("#infoLoad").addClass("hidden");
                 $("#erroLoad").removeClass("hidden");
                 callBanco(empresa);
@@ -114,17 +122,8 @@ function callApi(empresa) {
         }); 
 }
 
-$("#empresa").blur(function(){
-    debugger;
-    $("#alertLoad").addClass("hidden");
-    $("#successLoad").addClass("hidden");
-    $("#erroLoad").addClass("hidden");
-    $("#infoLoad").removeClass("hidden");
-    callApi();
-});
-
 $(document).ready(function(){$("button[name='verModulos']").click(function(){
-    callApi(this);
+    callApi($("#empresaEdit").val());
     });
 });
 $(document).ready(function(){$("input[name='cnpj']").blur(function(){

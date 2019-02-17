@@ -1,22 +1,22 @@
 
 components= [
     id = $("#id_chamado"),
-    empresa = $("#empresa"),
-    contato = $("#contato"),
-    forma_contato = $("#formaContato"),
-    versao = $("#versao"),
-    telefone = $("#telefone"),
-    sistema = $("#sistema"),
-    backup = $("#backup"),
-    categoria = $("#categoria"),
-    descproblema = $("#descproblema"),
-    descsolucao = $("#descsolucao"),
+    empresa = $("#empresafin"),
+    contato = $("#contatofin"),
+    forma_contato = $("#formaContatofin"),
+    versao = $("#versaofin"),
+    telefone = $("#telefonefin"),
+    sistema = $("#sistemafin"),
+    backup = $("#backupfin"),
+    categoria = $("#categoriafin"),
+    descproblema = $("#descproblemafin"),
+    descsolucao = $("#descsolucaofin"),
 ]
 erros = [];
 
-$("#submit").click(function(){
-    $("#submit").addClass( ' disabled ' );
-    $("#submit").html('<img src="../imagem/ajax-loader.gif">');
+$("#finalizar").click(function(){
+    $(this).addClass( ' disabled ' );
+    $(this).html('<img src="../imagem/ajax-loader.gif">');
     validar(components);
     return null;
 })
@@ -35,8 +35,8 @@ function validar(components){
     if(isEmpty(erros)){
         enviarDados();
     }else{
-        $("#submit").removeClass("disabled");
-        $("#submit").html("Finalizar");
+        $("#finalizar").removeClass("disabled");
+        $("#finalizar").html("Finalizar");
         for(i = 0; i < erros.length; i++){
             if(!$(erros[i]).hasClass("vazio")){
                 $(erros[i]).addClass("is-invalid");
@@ -61,8 +61,8 @@ function enviarDados(){
                 }, 1000);
             }else{
                 notificationError('Ocorreu um erro ao salvar o registro: ', data);
-                $("#submit").removeClass( ' disabled ' );
-                $("#submit").html('Salvar');
+                $("#finalizar").removeClass( ' disabled ' );
+                $("#finalizar").html('Salvar');
             }
         },
         error: function(jqXHR, textStatus, errorThrown){
