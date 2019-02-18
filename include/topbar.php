@@ -112,6 +112,11 @@
             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
             Meus chamados
         </a>
+        <a class="dropdown-item" href="../pages/alterasenha">
+            <i class="fas fa-unlock fa-sm fa-fw mr-2 text-gray-400"></i>
+            Alterar Senha
+        </a>
+        <i class=""></i>
         <?php if($_SESSION['UsuarioNivel'] == 3) { 
             echo '<a class="dropdown-item" href="../pages/cad_usuario">
                     <i class="fas fa-users fa-sm fa-fw mr-2 text-gray-400"></i>

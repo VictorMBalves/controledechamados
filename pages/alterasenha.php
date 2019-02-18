@@ -1,51 +1,105 @@
 <!Doctype html>
 <html>
-
 	<head>
-		<title>Controle de Chamados</title>
+		<meta charset="utf-8">
+		<title>Chamados</title>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Controle de chamados German Tech">
+		<meta name="author" content="Victor Alves">
 		<link rel="shortcut icon" href="../imagem/favicon.ico" />
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+		<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+		<link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+		<link href="../assets/css/jquery-ui.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
+		<link href="../assets/css/animate.css" rel="stylesheet"/>
+		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
-	<body>
-	<?php
-		include '../validacoes/verificaSessionFinan.php';
-		include '../include/menu.php';
-	?>
-		<div class="container" style="margin-top:60px; margin-bottom:50px;">
-			<?php include '../include/cabecalho.php' ?>
-			<div class="alert alert-success text-center" role="alert">
-				Alterar senha:
-			</div>
-			<br>
-			<div class="form-horizontal">
-				<div class="form-group">
-					<label class="col-md-1 control-label" for="senha">Senha:</label>
-					<div id="senha-div" class="col-sm-4">
-						<input name="senha" id="senha" type="password" class="form-control">
+	<body id="page-top">
+		<!-- Page Wrapper -->
+		<div id="wrapper">
+
+			<!-- Sidebar -->
+			<?php 
+				include '../validacoes/verificaSession.php'; 
+				include '../include/sidebar.php';
+			?>
+			<!-- End of Sidebar -->
+
+			<!-- Content Wrapper -->
+			<div id="content-wrapper" class="d-flex flex-column">
+
+				<!-- Main Content -->
+				<div id="content">
+
+					<!-- Topbar -->
+					<?php include '../include/topbar.php';?>
+					<!-- End of Topbar -->
+
+					<!-- Begin Page Content -->
+					<div class="container-fluid">
+
+						<!-- Page Heading -->
+						<div class="d-sm-flex align-items-center justify-content-between mb-4">
+							<h1 class="h3 mb-0 text-gray-800">Perfil</h1>
+							<div id="plantao"></div>
+						</div>
+						<div  class="card" style="background-color:#f4f4f4;">
+							<div class="card-body animated fadeInRight">
+								<div class="row">
+									<div class="col-12 col-4 col-sm-4 col-md-4 col-lg-4">
+										<div class="col-12 text-center">
+											<img class="img-profile rounded-circle" src="<?php echo 'https://www.gravatar.com/avatar/'.$email.'?s=150'?>" style="border:1px solid withe;" ><br/>
+										</div>
+										<div class="col-12 text-center">
+											<span class="mr-2 d-none d-lg-inline text-gray-600 small"><h3><?php echo $_SESSION['UsuarioNome']?></h3></span>
+										</div>
+									</div>
+									<div class="col-12 col-8 col-sm-8 col-md-8 col-lg-8">
+										<div class="form-group">
+											<label for="nome">Nome</label>
+											<input name="nome" id="nome" type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					
 					</div>
-					<label class="col-md-1 control-label" for="senha">Confirmar:</label>
-					<div id="senhaconfirm-div" class="col-sm-4">
-						<input name="senhaconfirm" id="senhaconfirm" type="password" class="form-control">
-					</div>
-					<div class="col-sm-1">
-						<button id="submit" name="singlebutton" class="btn btn-group-lg btn-primary form-control">Alterar</button>
-					</div>
+					<!-- /.container-fluid -->
+
 				</div>
+				<!-- End of Main Content -->
+
+				<!-- Footer -->
+				<?php include '../include/footer.php';?>
+				<!-- End of Footer -->
+
 			</div>
+			<!-- End of Content Wrapper -->
+
 		</div>
-		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<!-- End of Page Wrapper -->
+
+		<!-- Scroll to Top Button-->
+		<a class="scroll-to-top rounded" href="#page-top">
+			<i class="fas fa-angle-up"></i>
+		</a>
+
+		<div id="modalCadastro">
+		</div>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+		<script src="../assets/js/sb-admin-2.min.js"></script>
+		<script src="../assets/js/jquery.flexdatalist.js"></script>	
+		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>
-		<script src="../js/links.js"></script>
-		<script src="../assets/js/bootstrap.min.js"></script>
+		<script src="../js/links.js"></script>					
+		<script src="../js/apiConsulta.js"></script>
 		<script src="../js/alterSenha.js"></script>
 	</body>
 

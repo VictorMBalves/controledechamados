@@ -63,7 +63,7 @@
         chamadosatrasados();
         chamadospendentes();
         chamadoagendados();
-    }, 60000);
+    }, 30000);
 
     function loadAvisos(){
         $.ajax({

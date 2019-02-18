@@ -9,25 +9,22 @@
 <!Doctype html>
 <html>
 
-<head>
-<meta charset="utf-8">
-  <title>Chamados</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Controle de chamados German Tech">
-  <meta name="author" content="Victor Alves">
-  <link rel="shortcut icon" href="../imagem/favicon.ico" />
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-  <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
-  <link href="../assets/css/jquery-ui.css" rel="stylesheet">
-  <link href="../assets/css/toastr.css" rel="stylesheet"/>
-  <link href="../assets/css/animate.css" rel="stylesheet"/>
-  <link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
-</head>
-
-<body>
-
+	<head>
+		<meta charset="utf-8">
+		<title>Chamados</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Controle de chamados German Tech">
+		<meta name="author" content="Victor Alves">
+		<link rel="shortcut icon" href="../imagem/favicon.ico" />
+		<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+		<link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+		<link href="../assets/css/jquery-ui.css" rel="stylesheet">
+		<link href="../assets/css/toastr.css" rel="stylesheet"/>
+		<link href="../assets/css/animate.css" rel="stylesheet"/>
+		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
+	</head>
 	<body id="page-top">
 		<!-- Page Wrapper -->
 		<div id="wrapper">
@@ -133,18 +130,11 @@
 		<div id="modalCadastro">
 		</div>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<!-- <script src="../assets/js/jquery-1.8.3.min.js"></script> -->
-		<!-- <script src="../assets/js/jquery-ui-1.9.2.custom.min.js"></script> -->
-		<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- Core plugin JavaScript-->
 		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-		<!-- Custom scripts for all pages-->
 		<script src="../assets/js/sb-admin-2.min.js"></script>
 		<script src="../assets/js/jquery.flexdatalist.js"></script>	
-		<!-- Page level plugins -->
-		<!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
 		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>
