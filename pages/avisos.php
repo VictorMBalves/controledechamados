@@ -1,58 +1,68 @@
 <!-- Parte de cima do painel de avisos -->
-<div class="col-sm-12 cabecalhoAviso">
-    <div class="row" style="height:35px;">
-        <div class="col-sm-10 col-xs-10" style="padding-top:6px;">Avisos</div>
-            <div class="col-sm-2 col-xs-2 text-center">
+<div class="card" style="background-color:#d4ddf7;">
+    <div class="card-header" style="background-color:#d4ddf7;">
+        <div class="row">
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+                <h1 class="h3 mb-0 text-gray-800" >Avisos</h1>
+            </div>
+            <div class="col-4 col-sm-4 col-xs-4 text-right">
                 <?php
                     session_start(); 
                     if($_SESSION['UsuarioNivel'] == 3){
-                        echo'<a type="button" href="#" class="btn plus" id="adc">
-                                <i class="fas fa-plus-circle"></i>
+                        echo'<a href="#" id="adc" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Adicionar novo aviso">
+                                <i class="fas fa-plus"></i>
                             </a>';
                     }
                 ?>
             </div> 
         </div>
     </div>
-</div>
+    <div class="card-body">
+  
+        <!-- Container de panels dos avisos -->
+        <div class="card-columns">
+            <?php
+                require_once '../include/Database.class.php';
+                $db = Database::conexao();
+                $sql = $db->prepare("SELECT * FROM avisos ORDER BY data DESC");
+                $sql->execute();
+                $avisos = $sql->fetchall(PDO::FETCH_ASSOC);
 
-<!-- Container de panels dos avisos -->
-<div class="col-sm-12" style="max-height: 300px; overflow: auto;">
-    <br>
-    <?php
-        require_once '../include/Database.class.php';
-        $db = Database::conexao();
-        $sql = $db->prepare("SELECT * FROM avisos ORDER BY data DESC");
-        $sql->execute();
-        $avisos = $sql->fetchall(PDO::FETCH_ASSOC);
-
-        foreach($avisos as $aviso){
-            echo'<div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-sm-8 col-xs-8">
-                                <h3 class="panel-title"><strong>'.$aviso['titulo'].'</strong></h3>
-                            </div>';
-                            if($_SESSION['UsuarioNivel'] == 3){
-                                echo '
-                                <div class="col-sm-4 col-xs-4 text-right">
-                                    <a type="button" class="btn btn-default btn-xs" onclick="editarAviso('.$aviso['id'].')">
-                                        <i class="glyphicon glyphicon-pencil"></i>
-                                    </a>
-                                    <a type="button" class="btn btn-default btn-xs" onclick="excluirAviso('.$aviso['id'].')">
-                                        <i class="fas fa-times-circle"></i>
-                                    </a>
-                                </div>';
-                            }
-                        echo' 
-                        </div>
-                    </div>
-                    <div class="panel-body">';
-                        echo $aviso['descricao'].
-                    '</div>
-                </div>';
-        }
-    ?>
+                foreach($avisos as $aviso){
+                    echo'<div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+                                        <h6 class="panel-title"><strong>'.$aviso['titulo'].'</strong></h6>
+                                    </div>';
+                                    if($_SESSION['UsuarioNivel'] == 3){
+                                        echo '
+                                        <div class="col-2 col-sm-2 col-md-2 col-lg-2 text-right" style="padding:0px;">
+                                            <a class="btn btn-default btn-circle" onclick="editarAviso('.$aviso['id'].')">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-2 col-sm-2 col-md-2 col-lg-2 text-left" style="padding:0px;">
+                                            <a class="btn btn-default btn-circle" onclick="excluirAviso('.$aviso['id'].')">
+                                                <i class="fas fa-times-circle"></i>
+                                            </a>
+                                        </div>
+                                    ';
+                                    }
+                    echo' 
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <blockquote class="blockquote mb-0">';
+                                    echo $aviso['descricao'].
+                            '   </blockquote>
+                            </div>
+                        </div>';
+                
+                }
+            ?>
+        </div>
+    </div>
 </div>
 
 <!-- Modal de avisos-->
@@ -60,24 +70,20 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title">Avisos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title">Avisos</h5>
             </div>
             <div class="modal-body">
                 <form id="formAviso" class="form-horizontal">
                     <div class="form-group" id="tituloAvisodiv">
-                        <label for="titulo" class="control-label col-sm-2">Titulo</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="tituloAviso" name="tituloAviso">
-                        </div>
+                        <label for="titulo" >Titulo</label>
+                        <input type="text" class="form-control" id="tituloAviso" name="tituloAviso">
                     </div>
                     <div class="form-group" id="descricaoAvisodiv">
-                        <label for="titulo" class="control-label col-sm-2">Descrição</label>
-                        <div class="col-sm-10">
-                            <textarea type="text" class="form-control" name="descricaoAviso" id="descricaoAviso" required></textarea>
-                        </div>
+                        <label for="titulo">Descrição</label>
+                        <textarea type="text" class="form-control" name="descricaoAviso" id="descricaoAviso" required></textarea>
                     </div>
                 </form>
             </div>

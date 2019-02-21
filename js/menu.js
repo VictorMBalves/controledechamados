@@ -51,6 +51,8 @@ function validaLogin(){
 			        window.location.href='pages/home';
                 }else if (data == 'successNivel1'){
                     window.location.href='pages/chamadoespera';
+                }else if (data == 'successNivel3'){
+                    window.location.href='pages/dashBoard';
                 }else if (data == 'fail'){
                     notificationErrorLogin("Acesso negado");
                     $("#entrar").html("Entrar");

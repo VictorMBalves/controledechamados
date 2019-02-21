@@ -14,6 +14,7 @@
   $descproblema=str_replace("'","''",$_POST['descproblema']);
   $usuario=$_SESSION['UsuarioNome'];
   $backup=$_POST['backup'];
+  $usuario_id = $_SESSION['UsuarioID'];
   $sql = $db->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
   try
   {
@@ -24,7 +25,7 @@
     echo $e->getMessage();
     exit;
   }
-  $sql = $db->prepare("UPDATE usuarios set disponivel=1 where nome = '$usuario'") or die(mysql_error());
+  $sql = $db->prepare("UPDATE usuarios set disponivel=1 where id = '$usuario_id'") or die(mysql_error());
   try
   {
     $sql->execute();
@@ -34,8 +35,8 @@
     echo $e->getMessage();
     exit;
   }
-  $sql = $db->prepare("INSERT INTO chamado (usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, datainicio) 
-  VALUES (:usuario, :status, :empresa, :contato, :telefone, :sistema, :versao, :formacontato, :categoria, :descproblema, :datainicio)") or die(mysql_error());
+  $sql = $db->prepare("INSERT INTO chamado (usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, datainicio, usuario_id) 
+  VALUES (:usuario, :status, :empresa, :contato, :telefone, :sistema, :versao, :formacontato, :categoria, :descproblema, :datainicio, :usuario_id)") or die(mysql_error());
   $sql ->bindParam(":usuario", $usuario, PDO::PARAM_STR, 500);
   $sql ->bindParam(":status", $status, PDO::PARAM_STR, 500);
   $sql ->bindParam(":empresa", $empresa, PDO::PARAM_STR, 500);
@@ -47,6 +48,7 @@
   $sql ->bindParam(":categoria", $categoria, PDO::PARAM_STR, 500);
   $sql ->bindParam(":descproblema", $descproblema, PDO::PARAM_STR, 500);
   $sql ->bindParam(":datainicio", $datainicio, PDO::PARAM_STR, 500);
+  $sql ->bindParam(":usuario_id", $usuario_id, PDO::PARAM_STR, 500);
   try
   {
     $sql->execute();

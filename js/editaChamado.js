@@ -1,5 +1,4 @@
 id = $("#id_chamado");
-debugger
 empresa = $("#empresaEdit");
 contato = $("#contatoEdit");
 forma_contato = $("#formaContatoEdit");

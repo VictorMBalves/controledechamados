@@ -14,6 +14,7 @@
 		<link href="../assets/css/jquery-ui.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
 	<body id="page-top">
@@ -59,7 +60,18 @@
 									<div class="col-12 col-8 col-sm-8 col-md-8 col-lg-8">
 										<div class="form-group">
 											<label for="nome">Nome</label>
-											<input name="nome" id="nome" type="text" class="form-control">
+											<input name="nome" id="nome" type="text" value="<?php echo $_SESSION['UsuarioNome']?>" class="form-control">
+										</div>
+										<div class="form-group">
+											<label for="senha">Senha</label>
+											<input name="senha" id="senha" type="password" class="form-control">
+										</div>
+										<div class="form-group">
+											<label for="senhaconfirm">Senha confirmação</label>
+											<input name="senhaconfirm" id="senhaconfirm" type="password" class="form-control">
+										</div>
+										<div class="form-group text-center">
+											<button id="submit" name="singlebutton" class="btn btn-group-lg btn-primary">Alterar</button>
 										</div>
 									</div>
 								</div>

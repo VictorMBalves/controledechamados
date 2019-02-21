@@ -38,6 +38,7 @@
 		<!--Toastr notification-->
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
 	</head>
 
 	<body>
@@ -68,7 +69,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Atender chamado em espera Nº <?php echo $id;?> </h1>
+            <h1 class="h3 mb-0 text-gray-800">Aguarde, finalizando chamado em espera Nº <?php echo $id;?>.... </h1>
            	<div id="plantao"></div>
           </div>
 		  <div  class="card" style="background-color:#f4f4f4;">
@@ -76,18 +77,18 @@
 					<input style="display:none;" id="id_chamado"  name='id_chamadoespera' value='<?php echo $id; ?>'/>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-							<label for="empresa">Empresa solicitante:</label> 
-							<input value='<?php echo $row['empresa'];?>'name="empresa" type="text" id="empresa" class="form-control readonly" readonly  >
+							<label for="empresaCad">Empresa solicitante:</label> 
+							<input value='<?php echo $row['empresa'];?>'name="empresaCad" type="text" id="empresaCad" class="form-control readonly" readonly  >
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="contato">Contato:</label>  
-							<input value='<?php echo $row['contato'];?>' name="contato" type="text" id="contato" class="form-control"  >
+							<input value='<?php echo $row['contato'];?>' name="contato" type="text" id="contato" class="form-control readonly" readonly  >
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="formacontato">Forma de contato:</label>
-							<select name="formacontato" type="text" id="forma_contato" class="form-control"  >
+							<select name="formacontato" type="text" id="forma_contato" class="form-control readonly" readonly   >
 								<option></option>
 								<option value="Cliente ligou">Cliente ligou</option>
 								<option value="Ligado para o cliente">Ligado para o cliente</option>
@@ -98,23 +99,23 @@
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="telefone">Telefone</label>  
-							<input value='<?php echo $row['telefone'];?>' name="telefone" id="telefone" type="text" class="form-control" onkeypress="return SomenteNumero(event)"  >
+							<input value='<?php echo $row['telefone'];?>' name="telefone" id="telefone" type="text" class="form-control readonly" readonly  onkeypress="return SomenteNumero(event)"  >
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="sistema">Sistema:</label>  
-							<input name="sistema" type="text" value='<?php echo $row['sistema'];?>' id="sistema" class="form-control"  >
+							<input name="sistema" type="text" value='<?php echo $row['sistema'];?>' id="sistema" class="form-control readonly" readonly   >
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="versao">Versão:</label>  
-							<input name="versao" type="text" value='<?php echo $row['versao'];?>' id="versao" class="form-control"  >
+							<input name="versao" type="text" value='<?php echo $row['versao'];?>' id="versao" class="form-control readonly" readonly   >
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="backup">Backup:</label>  
-							<select name="backup" class="form-control" id="backup">
+							<select name="backup" class="form-control readonly" readonly  id="backup">
 								<?php 
 									if ($row2['backup'] == 0) {
 										echo '<option value="0">Google drive não configurado</option>';
@@ -129,7 +130,7 @@
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="categoria">Categoria:</label>
-							<select name="categoria" type="text" id="categoria" class="form-control"  >
+							<select name="categoria" type="text" id="categoria" class="form-control readonly" readonly >
 								<option></option>
 								<option value="Erro">Erro</option>
 								<option value="Duvida">Duvida</option>
@@ -142,7 +143,7 @@
 					</div>
 					<div class="form-group">
 						<label for="descproblema">Descrição do problema:</label> 
-						<textarea name="descproblema" type="text" id="descricao_proplema" class="form-control"  ><?php echo $row['descproblema'];?></textarea>
+						<textarea name="descproblema" type="text" id="descricao_proplema" class="form-control readonly" readonly><?php echo $row['descproblema'];?></textarea>
 					</div>
 					<div class="form-group text-center">
 						<button id="submit" class="btn btn-group-lg btn-primary">Atender</button>
@@ -164,19 +165,16 @@
     </div>
     <!-- End of Content Wrapper -->
 
-  </div>
-  <!-- End of Page Wrapper -->
-
+		</div>
+		<!-- End of Page Wrapper -->
+		<div id="modalCadastro">
+		</div>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-		<!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
 		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<!-- Core plugin JavaScript-->
 		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-		<!-- Custom scripts for all pages-->
 		<script src="../assets/js/sb-admin-2.min.js"></script>
-		<!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
+		<script src="../assets/js/jquery.flexdatalist.js"></script>	
 		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>

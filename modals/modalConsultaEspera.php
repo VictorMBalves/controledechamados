@@ -14,7 +14,7 @@
         exit;
     }
 
-    $sql= "SELECT id, id_chamadoespera, DATE_FORMAT(dataregistro,'%d/%m/%Y %H:%i') as data, usuario, descricaohistorico, emailusuario FROM historicochamado WHERE id_chamadoespera=$id ORDER BY dataregistro DESC";
+    $sql= "SELECT his.id as id, his.id_chamadoespera as id_chamadoespera, DATE_FORMAT(his.dataregistro,'%d/%m/%Y %H:%i') as data, his.descricaohistorico as descricaohistorico, usu.email as emailusuario, usu.nome as usuario FROM historicochamado his INNER JOIN usuarios usu ON usu.id = his.usuario_id  WHERE his.id_chamadoespera = $id  ORDER BY his.dataregistro DESC";
     $query = $db->prepare($sql);
     $query->execute();
     $historicos = $query->fetchall(PDO::FETCH_ASSOC);
@@ -23,25 +23,27 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                        <h4 class="modal-title">Consulta Chamado em espera Nº <?php echo $id ?></h4>
+                        <div class="col-sm-9">
+                            <h4 class="modal-title">Consulta Chamado em espera Nº <?php echo $id ?></h4>
+                        </div>
+                        <?php
+                            if($_SESSION['UsuarioNivel'] == 3){
+                                echo '
+                                    <script>colorNotification('.$row['notification'].')</script>
+                                    <div class="col-sm-2 align-self-end text-right">';
+                                    if($row['notification'])
+                                        echo '<input type="checkbox" name="notification" id="notification" style="display:none;" checked>';
+                                    else
+                                        echo '<input type="checkbox" name="notification" id="notification" style="display:none;" >';
+                                   
+                                     echo '<label id="labelNotification" for="notification" data-toggle="tooltip" data-placement="top" title="Habilitar/Desabilitar notificações"><i class="fas fa-bell"></i></label>';
+                                echo'</div>
+                                    <br/>';
+                            }
+                        ?>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
-                        <?php
-                            // if($_SESSION['UsuarioNivel'] == 3){
-                            //     echo '
-                            //         <script>colorNotification('.$row['notification'].')</script>
-                            //         <div class="col-sm-12 text-right">';
-                            //         if($row['notification'])
-                            //             echo '<input type="checkbox" name="notification" id="notification" style="display:none;" checked>';
-                            //         else
-                            //             echo '<input type="checkbox" name="notification" id="notification" style="display:none;" >';
-                                   
-                            //          echo '<label id="labelNotification" for="notification" data-toggle="tooltip" data-placement="top" title="Habilitar/Desabilitar notificações"><i class="glyphicon glyphicon-bell icon"></i></label>';
-                            //     echo'</div>
-                            //         <br/>';
-                            // }
-                        ?>
                        
                 </div>
                 <div class="modal-body">
@@ -154,6 +156,14 @@
                     if(data == "success"){
                         $("#salvarHistorico").html("Salvar");
                         notificationSuccess('Registro salvo', 'Histórico de contato salvo com sucesso!');
+                        pagina = location.href.split('/').pop();
+                        pagina = pagina.split("#")
+                        if(pagina == "" || pagina.indexOf("home")){
+                            chamadoandamento();
+                            chamadosatrasados();
+                            chamadospendentes();
+                            chamadoagendados();
+                        }
                         setTimeout(function(){
                             $("#modalCon").modal('hide');
                         }, 1000);

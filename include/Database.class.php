@@ -14,7 +14,7 @@ class Database
     private function __construct()
     {   
         //$db_host = "192.168.33.10";
-        $db_host = "remotocopel.gtech.site";
+        $db_host = "192.168.25.241";
         $db_nome = "chamados_teste";
         $db_usuario = "root";
         $db_senha = "d8hj0ptr";

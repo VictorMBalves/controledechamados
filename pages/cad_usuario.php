@@ -17,6 +17,7 @@
 		<link href="../assets/css/jquery-ui.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
+		<link href="../assets/css/style.css" rel="stylesheet"/>
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
 	<body id="page-top">
@@ -45,53 +46,46 @@
 
 						<!-- Page Heading -->
 						<div class="d-sm-flex align-items-center justify-content-between mb-4">
-							<h1 class="h3 mb-0 text-gray-800"><?php echo $_SESSION['UsuarioNome']?>, gerencie seus chamados</h1>
+							<h1 class="h3 mb-0 text-gray-800"> Usuários</h1>
 							<div id="plantao"></div>
 						</div>
 						<div class="row">
 							<div class="col-md-12">
 								<ul class="nav nav-tabs">
-									<li class="active"><a data-toggle="tab" href="#home" class="link"><i class="glyphicon glyphicon-edit"></i>&nbsp&nbspNovo usuário</a></li>
-									<li><a data-toggle="tab" href="#home1" class="link"><i class="glyphicon glyphicon-list"></i>&nbsp&nbspLista de usuários</a></li>
+									<li class="nav-item">
+										<a class="nav-link active" id="addusuario-tab" data-toggle="tab" href="#addusuario" role="tab" aria-controls="addusuario" aria-selected="true"><i class="fas fa-user-plus"></i>&nbsp&nbspNovo usuário</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" id="usuariosList-tab" data-toggle="tab" href="#usuariosList" role="tab" aria-controls="usuariosList" aria-selected="false"><i class="fas fa-users"></i>&nbsp&nbspLista de usuários</a>
+									</li>
 								</ul>
 
-								<div class="tab-content">
-									<div id="home" class="tab-pane fade in active">
-										<br/>
-										<div class="form-horizontal">
-											<div id="nome-div" class="form-group">
-												<label class="col-sm-2 control-label" for="nome">Nome:</label>
-												<div class="col-sm-10">
+								<div id="tabsJustifiedContent" class="tab-content card" style="margin-bottom:15px;">
+									<div class="tab-pane fade show active card-body animated fadeInRight" id="addusuario" role="tabpanel" aria-labelledby="addusuario-tab">
+										<div class="container">
+											<div class="form-horizontal">
+												<div class="form-group">
+													<label for="nome">Nome:</label>
 													<input name="nome" id="nome" type="text" class="form-control" required="">
 												</div>
-											</div>
-											<div id="usuario-div" class="form-group">
-												<label class="col-sm-2 control-label" for="usuario">Login:</label>
-												<div class="col-sm-10">
+												<div class="form-group">
+													<label for="usuario">Login:</label>
 													<input name="usuario" type="text" id="usuario" class="form-control" required="">
 												</div>
-											</div>
-											<div id="email-div" class="form-group">
-												<label class="col-sm-2 control-label" for="email">E-mail</label>
-												<div class="col-sm-10">
+												<div class="form-group">
+													<label for="email">E-mail</label>
 													<input name="email" id="email" type="email" class="form-control" required="">
 												</div>
-											</div>
-											<div id="senha-div" class="form-group">
-												<label class="col-sm-2 control-label" for="senha">Senha:</label>
-												<div class="col-sm-10">
+												<div class="form-group">
+													<label for="senha">Senha:</label>
 													<input name="senha" id="senha" type="password" class="form-control label1" required="">
 												</div>
-											</div>
-											<div id="senhaconfirm-div" class="form-group">
-												<label class="col-sm-2 control-label" for="senha">Confir. Senha:</label>
-												<div class="col-sm-10">
+												<div class="form-group">
+													<label for="senha">Confir. Senha:</label>
 													<input name="senhaconfirm" id="senhaconfirm" type="password" class="form-control label1" required="">
 												</div>
-											</div>
-											<div id="nivel-div" class="form-group">
-												<label class="col-sm-2 control-label" for="nivel">Nivel</label>
-												<div class="col-sm-10">
+												<div  class="form-group">
+													<label for="nivel">Nivel</label>
 													<select name="nivel" id="nivel" class="form-control" required="">
 														<option value="3">Suporte Avançado
 														</option>
@@ -103,31 +97,41 @@
 														</option>
 													</select>
 												</div>
-											</div>
-											<!-- Button -->
-											<div class="col-md-12 text-center">
-												<button type="submit" id="submit" name="singlebutton" class="btn btn-group-lg btn-primary">Cadastrar</button>
-												<button type="reset" id="cancel" class="btn btn-group-lg btn-warning">Cancelar</button>
+												<div  class="form-group">
+													<label for="">Enviar notificação por e-mail</label>
+													<select name="enviarEmail" id="enviarEmail" class="form-control" required="">
+														<option value="1">Sim
+														</option>
+														<option value="0">Não
+														</option>
+													</select>
+												</div>
+												<!-- Button -->
+												<div class="col-md-12 text-center">
+													<button type="submit" id="submit" name="singlebutton" class="btn btn-group-lg btn-primary">Cadastrar</button>
+													<button type="reset" id="cancel" class="btn btn-group-lg btn-warning">Cancelar</button>
+												</div>
 											</div>
 										</div>
 									</div>
 
-									<div id="home1" class="tab-pane fade">
-										<br/>
-										<table id="tabela" class="table table-responsive table-hover">
-											<thead>
-												<tr>
-													<th>ID</th>
-													<th>Nome</th>
-													<th>Login</th>
-													<th>Email</th>
-													<th width="100" class="text-center"><img src="../imagem/acao.png"></th>
-												</tr>
-											</thead>
-											<tbody id ="tbody">
-											</tbody> 
-										</table>
-										<div class="col-sm-12 text-center" id="loading"></div>
+									<div class="tab-pane fade animated fadeInRight" id="usuariosList" role="tabpanel" aria-labelledby="usuariosList-tab">
+										<div class="container-fluid" style="padding: .75rem;width:100%;">
+											<table id="tabela" class="table table-responsive table-hover" style="width:100%;">
+												<thead>
+													<tr>
+														<th>ID</th>
+														<th>Nome</th>
+														<th>Login</th>
+														<th style="width:100%;">Email</th>
+														<th width="100" class="text-center"><img src="../imagem/acao.png"></th>
+													</tr>
+												</thead>
+												<tbody id ="tbody">
+												</tbody> 
+											</table>
+											<div class="col-sm-12 text-center" id="loading"></div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -170,5 +174,6 @@
 		<script src="../datatables/rowReorder.min.js"></script>
 		<script src="../assets/js/jquery.flexdatalist.js"></script>
 		<script src="../js/cadUsuario.js"></script>
+		<script src="../js/tabelas/usuarios.js"></script>
 	</body>
 </html>

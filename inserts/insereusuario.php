@@ -9,10 +9,11 @@
   $senha=$_POST['senha'];
   $email=$_POST['email'];
   $nivel=$_POST['nivel'];
+  $enviarEmail=$_POST['enviarEmail'];
   $ativo= "1";
   $data= date("Y-m-d H:i:s");
-  $sql = $db->prepare("INSERT INTO usuarios (nome, usuario, senha, email, nivel, ativo, cadastro) 
-  VALUES ('$nome','$usuario',SHA1('$senha'),'$email','$nivel','$ativo','$data')") or die(mysql_error());
+  $sql = $db->prepare("INSERT INTO usuarios (nome, usuario, senha, email, nivel, ativo, cadastro, enviarEmail) 
+  VALUES ('$nome','$usuario',SHA1('$senha'),'$email','$nivel','$ativo','$data','$enviarEmail')") or die(mysql_error());
   try
   {
     $sql->execute();

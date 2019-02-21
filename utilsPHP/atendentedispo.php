@@ -1,16 +1,21 @@
 <?php
 require_once '../include/Database.class.php';
 $db = Database::conexao();
-
 $sql = $db->prepare("SELECT nome, email, disponivel FROM usuarios WHERE nivel = 2");
 $sql->execute();
 $result = $sql->fetchall(PDO::FETCH_ASSOC);
-echo '<table class="table table-responsive">';
-echo '<thead class="thead-light">';
-echo '<th class="tableHead" colspan="2">';
-    echo 'Lista de Atendentes';
-echo '</th>';
-echo '</thead>';
+//HEADER
+// echo'<div class="bg-gradient-info">';
+    // echo '<li class="nav-item ">';
+    //     echo '<a class="nav-link" href="#">';
+    //         echo '<i class="fas fa-fw fa-users"></i>';
+    //             echo '<span>Help-desk</span>';
+    //     echo '</a>';
+    //     echo '<hr class="sidebar-divider d-none d-md-block">';
+    // echo '</li>';
+    echo '<div class="sidebar-heading">Help-desk</div>';
+//HEADER
+
 $allSessions = [];
 $sessionNames = scandir(session_save_path());
 $arrayUser = [];
@@ -20,26 +25,34 @@ foreach($sessionNames as $sessionName) {
         array_push($arrayUser, json_decode(replace_session($sessionName)));
     }
 }
-echo '<tbody>';
+
 foreach ($result as $row) {
     if ($row > 1) {
+        
         $usuario = $row['nome'];
         $sql = $db->prepare("SELECT count(id_chamado) as numeroChamados FROM chamado WHERE usuario = '$usuario' AND status = 'Aberto'");
         $sql->execute();
         $result = $sql->fetch(PDO::FETCH_ASSOC);
-        echo'<tr style="padding: 3px !important;">';
-        echo '<td class="text-center" width="60" style="padding: 3px !important;">
-                <div class="avatar vcenter">
-                    <img class="img-avatar" src="https://www.gravatar.com/avatar/' . md5($row['email']) . ' alt="'.$row['email'].'">';
-                    echo usuarioOnline($usuario, $arrayUser, $result['numeroChamados']);
+
+        echo'<li class="nav-item">';
+            echo '<a class="nav-link " href="#">';
+                echo '<div class="container" style="padding:0;">';
+                echo '<div class="row">';
+                    echo '<div class="col-12 col-sm-3 col-md-3 col-lg-3 userImage text-center" style="padding-right:none;">';
+                        echo '<div class="avatar vcenter" style="margin-top:5px;">';
+                            echo '<img class="img-avatar" src="https://www.gravatar.com/avatar/' . md5($row['email']) . ' alt="'.$row['email'].'">';
+                                echo usuarioStatus($usuario, $arrayUser, $result['numeroChamados']);
+                        echo '</div>
+                        </div>
+                    </div>
+                </a>
+            </li>';
     }
-    echo'</tr>';
 }
-echo '</tbody>';
-echo '</table>';
 
+// echo '</div>';
 
-function usuarioOnline($needle='', $haystack=array(), $numChamado){
+function usuarioStatus($needle='', $haystack=array(), $numChamado){
     foreach ($haystack as $item) {
         if ($item->UsuarioNome===$needle) {
             $lastLogin = date($item->lastLogin);
@@ -50,33 +63,36 @@ function usuarioOnline($needle='', $haystack=array(), $numChamado){
             $intervalo45 = date('Y-m-d H:i:s', $intervalo45);
             
             if($lastLogin <= $dataAtual && $lastLogin >= $intervalo){
-                $result = '<span class="avatar-status badge-success" ></span></div></td>';
-                $result .= '<td style="padding: 3px !important;">';
-                $result .=  ''.$needle.'</br>';
+                $result = '<span class="avatar-status badge-success" ></span></div></div>';
+                $result .= '<div class="col-12 col-sm-9 col-md-9 col-lg-9 userName d-none d-sm-block"><div><span>';
+                $result .=  ''.$needle.'</span></div>';
                 if($numChamado != 0){
-                    $result .= '<small><em style="color:#d9534f;">';
+                    $result .= '<span class="text-danger" ><small><em>';
                     if($numChamado == "1"){
                          $result .= $numChamado. " chamado";  
                     }else{
                         $result .= $numChamado. " chamados";
                     } 
-                        $result .= ' em atendimento </em></small>';
+                        $result .= ' em atendimento </em></small></span>';
+                }else{
+                    $result .= '<span class="text-success" ><small><em>Online</em><span>';
                 }
-                return $result."</td>";
+                return $result;
             }else if($lastLogin <= $dataAtual && $lastLogin >= $intervalo45){
-                $result = '<span class="avatar-status badge-warning" data-toggle="tooltip" data-placement="left" title="Ausente"></span></div></td>';
-                $result .= '<td style="padding: 3px !important;">';
-                $result .= ''.$needle.'</br>';
-                $result .= '<small><em style="color:#ffc107;"><span class="glyphicon glyphicon-time"></span>&nbsp'.formatDateDiff(date_create($lastLogin), date_create(date("Y-m-d H:i:s"))).'</em></small>';
-                return $result."</td>";
+                $result = '<span class="avatar-status badge-warning"></span></div></div>';
+                $result .= '<div class="col-12 col-sm-9 col-md-9 col-lg-9 userName d-none d-sm-block"><div><span>';
+                $result .=  ''.$needle.'</span></div>';
+                $result .= '<span class="text-warning"><small><em><i class="far fa-clock"></i>&nbsp'.formatDateDiff(date_create($lastLogin), date_create(date("Y-m-d H:i:s"))).'</em></small></span>';
+                return $result;
             }
             
         }
     }
-    $result = '<span class="avatar-status badge-danger" data-toggle="tooltip" data-placement="left" title="Offline"></span></div></td>';
-    $result .= '<td style="padding: 3px !important;">';
-    $result .=  ''.$needle.'</br>';
-    return $result."</td>";
+    $result = '<span class="avatar-status badge-danger" data-toggle="tooltip" data-placement="left" title="Offline"></span></div></div>';
+    $result .= '<div class="col-12 col-sm-9 col-md-9 col-lg-9 userName d-none d-sm-block"><div><span>';
+    $result .=  ''.$needle.'</span></div>';
+    $result .= '<span class="text-danger" ><small><em>Offline</em><span>';
+    return $result;
 }
 
 function replace_session($sessionName){

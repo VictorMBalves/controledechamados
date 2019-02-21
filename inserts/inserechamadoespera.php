@@ -14,8 +14,9 @@ try
   $sistema = $_POST['sistema'];
   $versao = $_POST['versao'];
   $usuario=$_SESSION['UsuarioNome'];
-  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao) 
-  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao')") or die(mysql_error());
+  $usuario_id = $_SESSION['UsuarioID'];
+  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id) 
+  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', '$usuario_id')") or die(mysql_error());
 
   $sql->execute();
   if ($_SESSION['UsuarioNivel'] != 1) {

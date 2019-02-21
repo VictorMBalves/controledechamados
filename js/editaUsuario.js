@@ -41,7 +41,7 @@ function validar(components){
         resetSubmit();
         for(i = 0; i < erros.length; i++){
             if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]+"-div").addClass("has-error");
+                $(erros[i]).addClass("is-invalid");
             }
         }
         notificationWarningOne("Preencha os campos obrigatórios!");
@@ -81,6 +81,7 @@ function carregaDados(){
     data.push({name: 'senha', value: senha.val()});
     data.push({name: 'nivel', value: nivel.val()});
     data.push({name: 'senhaConfirm', value: senhaConfirm.val()});
+    data.push({name: 'enviarEmail', value: $("#enviarEmail").val()});
     return data;
 }
 
@@ -91,37 +92,37 @@ function resetForm(){
     senha.val('');
     nivel.val('');
     senhaConfirm.val('');
-    $(nome.selector+"-div").removeClass("has-error");
-    $(usuario.selector+"-div").removeClass("has-error");
-    $(email.selector+"-div").removeClass("has-error");
-    $(senha.selector+"-div").removeClass("has-error");
-    $(senhaConfirm.selector+"-div").removeClass("has-error");
-    $(nivel.selector+"-div").removeClass("has-error");
+    $(nome.selector).removeClass("is-invalid");
+    $(usuario.selector).removeClass("is-invalid");
+    $(email.selector).removeClass("is-invalid");
+    $(senha.selector).removeClass("is-invalid");
+    $(senhaConfirm.selector).removeClass("is-invalid");
+    $(nivel.selector).removeClass("is-invalid");
 }
 nome.focusout(function() {
     if(!isEmpty(nome.val()))
-    $(nome.selector+"-div").removeClass("has-error");
+    $(nome.selector).removeClass("is-invalid");
 });
 usuario.focusout(function() {
     if(!isEmpty(usuario.val()))
-    $(usuario.selector+"-div").removeClass("has-error");
+    $(usuario.selector).removeClass("is-invalid");
 });
 email.focusout(function() {
     if(!isEmpty(email.val()))
-    $(email.selector+"-div").removeClass("has-error");
+    $(email.selector).removeClass("is-invalid");
 });
 senha.focusout(function() {
     if(!isEmpty(senha.val()))
-    $(senha.selector+"-div").removeClass("has-error");
+    $(senha.selector).removeClass("is-invalid");
 });
 senhaConfirm.focusout(function() {
     if(!isEmpty(senhaConfirm.val()))
-    $(senhaConfirm.selector+"-div").removeClass("has-error");
+    $(senhaConfirm.selector).removeClass("is-invalid");
     validarSenha();
 });
 nivel.focusout(function() {
     if(!isEmpty(nivel.val()))
-    $(nivel.selector+"-div").removeClass("has-error");
+    $(nivel.selector).removeClass("is-invalid");
 });
 
 function validarSenha(){

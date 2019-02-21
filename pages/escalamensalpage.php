@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label for="titulo" class="control-label col-sm-2">Usuário</label>
                     <div class=" input-group col-sm-10">
-                        <input type="text" class="form-control" id="usuarios" placeholder="Usuário ..." aria-describedby="adc">
+                        <input type="text" class="form-control" id="usuariosEscala" placeholder="Usuário ..." aria-describedby="adc">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" id="adc"><i class="fas fa-plus"></i></button>
                         </div>

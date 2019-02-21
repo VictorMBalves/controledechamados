@@ -12,11 +12,6 @@
          window.location.assign("../pages/chamadoespera.php");
     }
 
-    function refresh_usuarios() {
-        var url="../utilsPHP/atendentedispo.php";
-        jQuery("#usuarios").load(url);
-    }
-    
     function chamadospendentes() {
         var url="../pages/chamadospendentes.php";
         jQuery("#pendentes").load(url, function(){
@@ -47,7 +42,6 @@
 
 
     $(function() {
-        refresh_usuarios();
         chamadoandamento();
         chamadosatrasados();
         chamadospendentes();
@@ -55,15 +49,13 @@
     });
 
     setInterval(function(){
-        refresh_usuarios();
-    }, 5000);
-
-    setInterval(function(){
-        chamadoandamento();
-        chamadosatrasados();
-        chamadospendentes();
-        chamadoagendados();
-    }, 30000);
+        if(isEmpty($("#keyword").val())){
+            chamadoandamento();
+            chamadosatrasados();
+            chamadospendentes();
+            chamadoagendados();
+        }
+    }, 30000);//
 
     function loadAvisos(){
         $.ajax({
@@ -73,6 +65,10 @@
                 $("#avisos").html(data);
             }
         });
+        if(!$.cookie('showAvisos')){
+            $.cookie('showAvisos', 'true', { expires: 1, path: '/' });
+            $("#showAvisos").click();
+        }
     }
    
     function abrirVisualizacao(id){
@@ -98,9 +94,9 @@
 
     function colorNotification(showBlue){
         if(showBlue)
-            $("#labelNotification").addClass(' brand-info ');
+            $("#labelNotification").addClass(' text-info ');
         else
-            $("#labelNotification").removeClass(' brand-info ');
+            $("#labelNotification").removeClass(' text-info ');
     }    
 
     $("#showAtendente").click(function(){

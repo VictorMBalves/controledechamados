@@ -49,8 +49,10 @@ if (empty($resultado)) {
     if($_SESSION['UsuarioNivel'] == 1){
         echo 'successNivel1';
         exit;
+    }else if($_SESSION['UsuarioNivel'] == 3){
+        echo 'successNivel3';
+        exit;
     }
-
     echo 'success';
     exit;
 }

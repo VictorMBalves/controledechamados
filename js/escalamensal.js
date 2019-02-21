@@ -10,9 +10,14 @@
         });
         $( "#lista" ).disableSelection();
     });
-    $(function() {
-        $("#usuarios").autocomplete({
-            source: '../utilsPHP/searchusers.php'
+    $(function () {
+        $.getJSON('../utilsPHP/searchusers.php').done(function(response){
+            $('#usuariosEscala').flexdatalist({
+                minLength: 1,
+                searchIn: 'nome',
+                data: response,
+                noResultsText: 'Sem resultados para "{keyword}"',
+            })
         });
     });
 
@@ -20,22 +25,22 @@
         adcusuario();
     });
 
-    $( "#usuarios" ).on( "keydown", function(event) {
+    $( "#usuariosEscala" ).on( "keydown", function(event) {
       if(event.which == 13){ 
         adcusuario();
-        $("#usuarios").val("");
+        $("#usuariosEscala").val("");
         return false;
       }
     });
     
     function adcusuario(){
-        var usuario = $("#usuarios").val();
+        var usuario = $("#usuariosEscala").val();
         var hash = '"'+hex_md5(usuario)+'"';
         if(usuario == "" || usuario == null){
             return notificationWarning("Alerta","Nenhum usuário selecionado");
         }else{
             $( "#lista" ).append("<a href='#' class='list-group-item' id="+hash+">"+usuario+"<button class='btn btn-xs float-right' onclick='remover("+hash+")'><i class='fas fa-times'></i></button></a>");
-            $("#usuarios").val("");
+            $("#usuariosEscala").val("");
         }
     }
 

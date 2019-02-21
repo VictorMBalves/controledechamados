@@ -1,6 +1,7 @@
 <?php 
   include '../validacoes/verificaSession.php';
   require_once '../include/Database.class.php';
+  require_once '../include/Mailer.class.php';
   $db = Database::conexao();
 
   $id=$_POST['id_chamado'];
@@ -41,6 +42,15 @@
       echo $e->getMessage();
       exit;
     }
+  }
+  //ENVIA O EMAIL
+  $sql = $db->prepare("SELECT cha.empresa as empresa, usu.nome as nome, usu.email as email, usu.enviarEmail as enviaremail, c.datainicio as datainicio FROM chamado c INNER JOIN chamadoespera cha ON cha.id_chamadoespera = c.id_chamadoespera INNER JOIN usuarios usu ON usu.id = cha.usuario_id WHERE c.id_chamado='$id'");
+  $sql->execute();
+  $chaespera = $sql->fetch(PDO::FETCH_ASSOC);
+  if($chaespera['enviaremail']){
+    $mailer = new Mailer();
+    $body = 'O seu chamado para empresa <strong>'.$chaespera['empresa'].'</strong> Foi finalizado.<br/>Data início: <strong>'.$chaespera['datainicio'].'</strong><br/>Data finalização: <strong>'.$datafinal.'</strong><br/>Atendente: <strong>'.$usuario.'</strong><br/>Descrição do problema:<strong>'.$descproblema.'</strong><br/>Solução:<strong>'.$descsolucao.'</strong>';
+    $mailer->sendEmail($chaespera['email'], $chaespera['nome'],'Fim de atendimento', $body);
   }
   
   $sql = $db->prepare("SELECT usuario FROM chamado WHERE id_chamado = '$id'");

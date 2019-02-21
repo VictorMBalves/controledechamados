@@ -17,6 +17,7 @@
 		<link href="../assets/css/jquery-ui.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
 	<body id="page-top">
@@ -63,7 +64,7 @@
 									<?php
 										if($_SESSION['UsuarioNivel'] == 3){
 											echo '<li class="nav-item">
-													<a class="nav-link" id="escala-tab" data-toggle="tab" href="#escala" role="tab" aria-controls="escala" aria-selected="false"></i>&nbsp&nbspEscala sobreaviso</a>
+													<a class="nav-link" id="escala-tab" data-toggle="tab" href="#escala" role="tab" aria-controls="escala" aria-selected="false"><i class="fas fa-calendar-alt"></i>&nbsp&nbspEscala sobreaviso</a>
 												</li>';
 										}
 									?>

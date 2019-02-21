@@ -2,13 +2,44 @@
     require_once '../include/Database.class.php';
     $db = Database::conexao();
     
-    $sql = "SELECT id_chamadoespera, usuario, status, empresa, contato, telefone, data as databanco, enderecado, historico, notification, descproblema FROM chamadoespera WHERE status <> 'Finalizado' and dataagendamento is null  AND data < DATE_ADD(NOW(), INTERVAL -10 MINUTE) ORDER BY status, data DESC";
+    $sql = "SELECT 
+                id_chamadoespera, 
+                usuario, 
+                status, 
+                empresa, 
+                contato, 
+                telefone, 
+                data as databanco,
+                DATE_FORMAT(data,'%d/%m/%Y %H:%i') as dataFormatada,
+                enderecado, 
+                historico, 
+                notification, 
+                descproblema,
+                dataagendamento,
+                DATE_FORMAT(dataagendamento,'%d/%m/%Y %H:%i') as dataagendamentoformat
+            FROM chamadoespera 
+            WHERE status <> 'Finalizado' 
+            AND data < DATE_ADD(NOW(), INTERVAL -10 MINUTE) AND (dataagendamento IS NULL OR dataagendamento < DATE_ADD(NOW(), INTERVAL -10 MINUTE))
+            ORDER BY status, data DESC";
+    $query = $db->prepare($sql);
+    $query->execute();
+    $resultados = $query->fetchall(PDO::FETCH_ASSOC);
+
+    foreach ($resultados as $chamado) {
+        if($chamado['status'] == 'Entrado em contato'){
+            $id = $chamado['id_chamadoespera'];
+            $update = "UPDATE chamadoespera SET dataagendamento = DATE_ADD(NOW(), INTERVAL 30 MINUTE) WHERE id_chamadoespera = '$id'";
+            $stmt = $db->prepare($update);
+            $stmt->execute();
+        }
+    }
+    
     $query = $db->prepare($sql);
     $query->execute();
     $resultados = $query->fetchall(PDO::FETCH_ASSOC);
 
     echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
-            <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card border-left-warning shadow h-100 py-2" style="background-color:#fdf0ce;">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -16,16 +47,19 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">'.sizeof($resultados).' chamados</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-list-ul fa-2x text-gray-300"></i>
+                            <i class="far fa-clock fa-2x text-gray-600"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>';
-
+    if(isset($_GET['continue'])){
+        return;
+    }
+    
     foreach($resultados as $chamado){
-            echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">';
-                echo '<div class="card for-search border-left-warning shadow h-100 py-2">';
+            echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12 for-search" style="padding-bottom:10px;">';
+                echo '<div class="card border-left-warning shadow h-100 py-2">';
                    echo '<div class="card-header" onclick="abrirVisualizacao('.$chamado['id_chamadoespera'].')" style="cursor: pointer;">';
                         echo'<div class="row no-gutters align-items-center text-uppercase">';
                                 echo $chamado['empresa'];
@@ -47,8 +81,8 @@
                                         echo '<span class="badge badge-info">Entrado em contato</span>';
                                     }
                             echo '</div>
-                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 align-items-center text-center">
-                                        <a href="../pages/abrechamadoespera='.$chamado['id_chamadoespera'].'" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Atender">
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 align-items-center text-right">
+                                        <a href="../pages/abrechamadoespera='.$chamado['id_chamadoespera'].'" target="_blank" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Atender">
                                             <i class="fas fa-phone"></i>
                                         </a>
                                         <a  class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="Agendar" onclick="abrirAgendamento('.$chamado['id_chamadoespera'].')" style="cursor: pointer; color:white;">
@@ -56,11 +90,30 @@
                                         </a>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 align-middle text-danger">
+                                <div class="row">';
+                                    if($chamado['dataagendamento'] != null && $chamado['dataagendamento'] > $chamado['databanco']){
+                                        echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12 align-middle text-info">
+                                                 <small data-toggle="tooltip" data-placement="bottom" title="Data agendamento">
+                                                    <i class="fas fa-calendar-alt"></i>&nbsp'.
+                                                    $chamado['dataagendamentoformat'].'
+                                                </small>
+                                                </div>';
+                                        }else{
+                                        echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12 align-middle text-success">
+                                        <small data-toggle="tooltip" data-placement="bottom" title="Última data atualizada">
+                                            <i class="fas fa-calendar-alt"></i>&nbsp'.
+                                            $chamado['dataFormatada'].'
+                                    </small>
+                                    </div>';
+                                    }
+                                    echo'<div class="col-12 col-sm-12 col-md-12 col-lg-12 align-middle text-danger">
                                         <small data-toggle="tooltip" data-placement="bottom" title="Tempo decorrido">
                                             <i class="far fa-clock"></i>&nbsp';
-                                                echo formatDateDiff(date_create($chamado['databanco']));
+                                                if($chamado['dataagendamento'] != null){
+                                                    echo formatDateDiff(date_create($chamado['dataagendamento']));
+                                                }else{
+                                                    echo formatDateDiff(date_create($chamado['databanco']));
+                                                }
                                     echo '</small>
                                     </div>
                                 </div>

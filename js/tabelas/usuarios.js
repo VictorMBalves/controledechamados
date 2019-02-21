@@ -1,6 +1,5 @@
 $(document).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
-    loadTable();
 });
 
 function erro() {
@@ -11,6 +10,15 @@ function erro() {
 function cancelar() {
     window.location.assign("../pages/chamados");
 }
+
+$("#usuariosList-tab").click(function(){
+    $("#loading").html('<img src="../imagem/loading.gif">');
+    if($.fn.DataTable.isDataTable( '#tabela' )){
+        $('#tabela').DataTable().destroy();
+        $('#tbody').empty();
+    }
+    loadTable();
+})
 
 function loadTable(){
     $.ajax({
@@ -37,7 +45,7 @@ function buildTable(data){
             txt+='<td>'+data[i].nome+'</td>';
             txt+='<td>'+data[i].usuario+'</td>';
             txt+='<td>'+data[i].email+'</td>';
-            txt+="<td><a style='margin-top:2px;' href='../pages/editausuario="+data[i].id+"'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><span class='glyphicon glyphicon-pencil'></span></button></a></td>";
+            txt+="<td><a style='margin-top:2px;' href='../pages/editausuario="+data[i].id+"'><button data-toggle='tooltip' data-placement='left' title='Editar cadastro' class='btn btn-warning btn-sm btn-block' type='button'><i class='fas fa-pencil-alt'></i></button></a></td>";
             txt+="</tr>";
         }
 
@@ -49,6 +57,9 @@ function buildTable(data){
                 responsive: isCelular(),
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
+                },
+                "initComplete": function(settings, json) {
+                    $('[data-toggle="tooltip"]').tooltip()
                 }
             });
         }

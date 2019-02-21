@@ -66,7 +66,7 @@
     function enviarDados(){
         try{
             var request = new XMLHttpRequest();
-            request.open('POST', 'http://coruja.gtech.site/generate_pdf/', true);
+            request.open('POST', 'http://urubu.gtech.site/generate_pdf/', true);
             request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8', "Access-Control-Expose-Headers", "Content-Disposition");
             request.responseType = 'blob';
             request.onload = function() {

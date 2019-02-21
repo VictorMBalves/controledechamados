@@ -1,6 +1,6 @@
     
     id = $("#id_chamado");
-    empresa = $("#empresa");
+    empresa = $("#empresaCad");
     contato = $("#contato");
     formaContato = $("#forma_contato");
     telefone = $("#telefone");
@@ -10,53 +10,20 @@
     categoria = $("#categoria");
     descProblema = $("#descricao_proplema");
     erros = [];
+$( document ).ready(function() {
+    $("#submit").click();
+});
+
+
 $("#submit").click(function(){
     $("#submit").addClass( ' disabled ' );
     $("#submit").html('<img src="../imagem/ajax-loader.gif">');
-    validar();
+    enviarDados();
     return null;
 })
 $("#cancel").click(function(){
     window.location.assign("../pages/home");
-})
-
-function validar(){ 
-    erros = [];
-    if(isEmpty(id.val()))
-        erros.push(id.selector);
-    if(isEmpty(empresa.val()))
-        erros.push(empresa.selector);
-    if(isEmpty(contato.val()))
-        erros.push(contato.selector);
-    if(isEmpty(formaContato.val()))
-        erros.push(formaContato.selector);
-    if(isEmpty(telefone.val()))
-        erros.push(telefone.selector);
-    if(isEmpty(sistema.val()))
-        erros.push(sistema.selector);
-    if(isEmpty(versao.val()))
-        erros.push(versao.selector);
-    if(isEmpty(backup.val()))
-        erros.push(backup.selector);
-    if(isEmpty(categoria.val()))
-        erros.push(categoria.selector);
-    if(isEmpty(descProblema.val()))
-        erros.push(descProblema.selector);
-
-    if(isEmpty(erros)){
-        enviarDados();
-    }else{
-        $("#submit").removeClass("disabled");
-        $("#submit").html("Atender");
-        for(i = 0; i < erros.length; i++){
-            if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]).addClass("is-invalid");
-            }
-        }
-        notificationWarningOne("Preencha os campos obrigatórios!");
-    }
-    return null;
-}
+}) 
 function enviarDados(){
     $.ajax({
         type: "POST",
@@ -67,7 +34,7 @@ function enviarDados(){
             if(data.status == "success"){
                 notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
                 setTimeout(function(){
-                    window.location.assign("../pages/chamados");
+                    window.location.assign("../pages/abrechamadoFa="+data.idChamado);
                 }, 1000);
             }else{
                 notificationError('Ocorreu um erro ao salvar o registro: ', data);
@@ -80,39 +47,6 @@ function enviarDados(){
         }
     });
 }
-
-contato.focusout(function() {
-    if(!isEmpty(contato.val()))
-    $(contato.selector).removeClass("is-invalid");
-});
-formaContato.focusout(function() {
-    if(!isEmpty(formaContato.val()))
-    $(formaContato.selector).removeClass("is-invalid");
-});
-telefone.focusout(function() {
-    if(!isEmpty(telefone.val()))
-    $(telefone.selector).removeClass("is-invalid");
-});
-sistema.focusout(function() {
-    if(!isEmpty(sistema.val()))
-    $(sistema.selector).removeClass("is-invalid");
-});
-versao.focusout(function() {
-    if(!isEmpty(versao.val()))
-    $(versao.selector).removeClass("is-invalid");
-});
-backup.focusout(function() {
-    if(!isEmpty(backup.val()))
-    $(backup.selector).removeClass("is-invalid");
-});
-categoria.focusout(function() {
-    if(!isEmpty(categoria.val()))
-    $(categoria.selector).removeClass("is-invalid");
-});
-descProblema.focusout(function() {
-    if(!isEmpty(descProblema.val()))
-    $(descProblema.selector).removeClass("is-invalid");
-});
 
 function carregaDados(){
     var data = [];

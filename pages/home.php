@@ -15,6 +15,7 @@
   <link href="../assets/css/jquery-ui.css" rel="stylesheet">
   <link href="../assets/css/toastr.css" rel="stylesheet"/>
   <link href="../assets/css/animate.css" rel="stylesheet"/>
+  <link href="../assets/css/style.css" rel="stylesheet"/>
 	<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 </head>
 
@@ -25,7 +26,7 @@
 		<!-- Sidebar -->
 		<?php 
 			include '../validacoes/verificaSession.php'; 
-			include '../include/sidebar.php';
+      include '../include/sidebar.php';
 		?>
     <!-- End of Sidebar -->
 
@@ -38,7 +39,8 @@
         <!-- Topbar -->
         <?php include '../include/topbar.php';?>
         <!-- End of Topbar -->
-
+        <div class="container-fluid collapse" style="margin-bottom:20px;" id="avisos">
+        </div>
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -67,19 +69,19 @@
 				</div>
 				<!--Chamados pendentes-->
 
-				<!--Chamados AGENDADOS -->
+				<!--Chamados ATRASADOS -->
+				<div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+					<div id="atrasados"></div>
+					<?php //include 'chamadosatrasados.php'; ?>
+				  <!--Chamados ATRASADOS-->
+				</div>
+
+        <!--Chamados AGENDADOS -->
 				<div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
 					<div id="agendados"></div>
 					<?php //include 'chamadosagendados.php'; ?>
 				</div>
 				<!--Chamados AGENDADOS -->
-				
-				<!--Chamados ATRASADOS -->
-				<div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-					<div id="atrasados"></div>
-					<?php //include 'chamadosatrasados.php'; ?>
-				<!--Chamados ATRASADOS-->
-				</div>
 
 				<!--Chamados EM ATENDIMENTO -->
 				<div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
@@ -118,22 +120,15 @@
 	</div>
 
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <!-- <script src="../assets/js/jquery-1.8.3.min.js"></script> -->
-		<!-- <script src="../assets/js/jquery-ui-1.9.2.custom.min.js"></script> -->
-		<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
   <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Core plugin JavaScript-->
   <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-  <!-- Custom scripts for all pages-->
   <script src="../assets/js/sb-admin-2.min.js"></script>
   <script src="../assets/js/jquery.flexdatalist.js"></script>	
-  <!-- Page level plugins -->
-	<!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
 	<script src="../assets/js/jquery.shortcuts.js"></script>
 	<script src="../assets/js/toastr.min.js"></script>
   <script src="../assets/js/date.js"></script>
-  <script src="../assets/js/jcfilter.min.js"></script>
 	<script src="../js/links.js"></script>
 	<script src="../js/tabelas/home.js"></script>
 </body>

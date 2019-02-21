@@ -5,9 +5,9 @@
     if (!isset($_SESSION)) {
         session_start();
     }
-    $usuario = $_SESSION['UsuarioNome'];
+    $usuario_id = $_SESSION['UsuarioID'];
 
-    $sql = "SELECT id_plantao, usuario, status, empresa, contato, telefone, DATE_FORMAT(data,'%d/%m/%Y') as data FROM plantao WHERE usuario = '$usuario' ORDER BY id_plantao DESC";
+    $sql = "SELECT id_plantao, usuario, status, empresa, contato, telefone, DATE_FORMAT(data,'%d/%m/%Y') as data FROM plantao WHERE usuario_id = '$usuario_id' ORDER BY id_plantao DESC";
     $query = $db->prepare($sql);
     $query->execute();
     $resultado = $query->fetchall(PDO::FETCH_ASSOC);

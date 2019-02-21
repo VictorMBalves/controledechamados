@@ -12,18 +12,18 @@ var modalConfirm = function(callback){
         i = 0;
 
        if(descricao == ""){
-        $("#descricaoAvisodiv").addClass("has-error");
+        $("#descricaoAviso").addClass("is-invalid");
         notificationWarningOne("Preencha os campos obrigatórios!");
         i++;
        }else{
-        $("#descricaoAvisodiv").removeClass("has-error");
+        $("#descricaoAviso").removeClass("is-invalid");
        }
        if(titulo == ""){
-        $("#tituloAvisodiv").addClass("has-error");
+        $("#tituloAviso").addClass("is-invalid");
         notificationWarningOne("Preencha os campos obrigatórios!");
         i++;
        }else{
-        $("#tituloAvisodiv").removeClass("has-error");
+        $("#tituloAviso").removeClass("is-invalid");
        }
        if(i<=0){
         callback(true);

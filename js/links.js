@@ -1,17 +1,29 @@
 $(document).ready(function() {
   consultaChamadosEspera();
   loadResponsavelSemana();
+  refresh_usuarios();
   $.Shortcuts.start();
 }); 
 
 
 $.Shortcuts.add({
     type: 'down',
-    mask: 'Alt+C',
+    mask: 'Alt+q',
     handler: function() {
-       if(!($("#modalCad").data('bs.modal') || {}).isShown)
-            openModal();
+      window.open(
+        '../pages/chamadoespera',
+        '_blank' 
+        );
     }
+});
+
+$.Shortcuts.add({
+  type: 'down',
+  mask: 'Alt+w',
+  handler: function() {
+     if(!($("#modalCad").data('bs.modal') || {}).isShown)
+          openModal();
+  }
 });
 
 $("#adcChamado").click(function(){
@@ -187,11 +199,11 @@ function notificaUsuario(chamado){
       body: "Há um chamado para empresa "+chamado.empresa+" em espera com mais de 10 minutos sem resposta",
       });
 
-      notificacao.onclick = function () {
-          url = "../pages/abrechamadoespera="+chamado.id_chamadoespera;
-          window.open(url,
-          '_blank' );      
-      };
+      // notificacao.onclick = function () {
+      //     url = "../pages/abrechamadoespera="+chamado.id_chamadoespera;
+      //     window.open(url,
+      //     '_blank' );      
+      // };
 }
 
 $("#registroAtividadeEcf").click(function(){
@@ -213,4 +225,26 @@ function loadResponsavelSemana(){
           $("#plantao").html(data);
       }
   });
+}
+
+$("#sidebarToggle").click(function(){
+    refresh_usuarios();
+})
+
+function refresh_usuarios() {
+  var url="../utilsPHP/atendentedispo.php";
+  jQuery("#usuarios").load(url, function(){
+    if($("#accordionSidebar").hasClass("toggled")){
+      toogleUsers()
+    }
+  });
+}
+
+setInterval(function(){
+  refresh_usuarios();
+}, 5000);
+
+function toogleUsers(){
+  $(".userName").toggleClass("col-sm-12 col-md-12 col-lg-12 text-center ")
+  $(".userImage").toggleClass("col-sm-12 col-md-12 col-lg-12")
 }

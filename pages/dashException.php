@@ -17,6 +17,7 @@
 		<link href="../assets/css/jquery-ui.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.0/themes/prism.min.css">
 	</head>

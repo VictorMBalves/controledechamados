@@ -9,10 +9,10 @@
   $email=$_POST['email'];
   $senha=$_POST['senha'];
   $nivel=$_POST['nivel'];
-
+  $enviarEmail = $_POST['enviarEmail'];
   $pass =SHA1($senha);
 
-  $sql = $db->prepare("UPDATE usuarios SET nome='$nome', usuario='$usuario', email='$email', senha='$pass', nivel='$nivel' WHERE id='$id'") or die(mysql_error());
+  $sql = $db->prepare("UPDATE usuarios SET nome='$nome', usuario='$usuario', email='$email', senha='$pass', nivel='$nivel', enviarEmail='$enviarEmail' WHERE id='$id'") or die(mysql_error());
   try
   {
     $sql->execute();

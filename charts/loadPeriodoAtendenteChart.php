@@ -3,7 +3,7 @@
     $db = Database::conexao();
     $week_start =  $_GET['dtInicial1'];
     $week_end = $_GET['dtFinal1'];
-    $sql = "SELECT DISTINCT chamado.usuario from chamado INNER JOIN usuarios us on chamado.usuario = us.nome where date(datainicio) BETWEEN '$week_start' and '$week_end' group by date(datainicio), chamado.usuario ORDER BY usuario";
+    $sql = "SELECT DISTINCT chamado.usuario from chamado INNER JOIN usuarios us on chamado.usuario_id = us.id where date(datainicio) BETWEEN '$week_start' and '$week_end' group by date(datainicio), chamado.usuario ORDER BY usuario";
 
     $query = $db->prepare($sql);
     $query->execute();
@@ -14,7 +14,7 @@
         array_push($usuariosArray, $usuario['usuario']);
     }
     
-    $query = $db->prepare("SELECT DISTINCT date(datainicio) from chamado inner JOIN usuarios us ON us.nome = chamado.usuario where date(datainicio) BETWEEN '$week_start' and '$week_end' group by date(datainicio), chamado.usuario ORDER BY date(datainicio)");
+    $query = $db->prepare("SELECT DISTINCT date(datainicio) from chamado inner JOIN usuarios us ON chamado.usuario_id = us.id where date(datainicio) BETWEEN '$week_start' and '$week_end' group by date(datainicio), chamado.usuario ORDER BY date(datainicio)");
     $query->execute();
     $datas = $query->fetchall(PDO::FETCH_ASSOC);
     

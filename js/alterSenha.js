@@ -1,6 +1,7 @@
 components = [
     senha = $("#senha"),
     senhaConfirm = $("#senhaconfirm"),
+    userName = $("#nome")
 ];
 erros = [];
 
@@ -32,7 +33,7 @@ function validar(components){
         resetSubmit();
         for(i = 0; i < erros.length; i++){
             if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]+"-div").addClass("has-error");
+                $(erros[i]).addClass("is-invalid");
             }
         }
         notificationWarningOne("Preencha os campos obrigatórios!");
@@ -65,17 +66,18 @@ function enviarDados(){
 function carregaDados(){
     var data = [];
     data.push({name: 'senha', value: senha.val()}); 
+    data.push({name: 'usuario', value: userName.val()});
     return data;
 }
 
 senha.focusout(function() {
     if(!isEmpty(senha.val()))
-    $(senha.selector+"-div").removeClass("has-error");
+    $(senha.selector).removeClass("is-invalid");
 });
 
 senhaConfirm.focusout(function() {
     if(!isEmpty(senhaConfirm.val()))
-    $(senhaConfirm.selector+"-div").removeClass("has-error");
+    $(senhaConfirm.selector).removeClass("is-invalid");
     validarSenha();
 });
 

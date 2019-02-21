@@ -43,7 +43,7 @@
                 $query = " $query WHERE date(datainicio) BETWEEN '".$datainicio."' AND '".$datafim."'";
             }
         }
-        $sql = " $query ORDER BY datainicio desc";
+        $sql = " $query ORDER BY id_chamado desc";
 
         $query = $db->prepare($sql);
         $query->execute();

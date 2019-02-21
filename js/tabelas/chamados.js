@@ -100,7 +100,8 @@ function buildTable(data){
                 },
                 "initComplete": function(settings, json) {
                     $('[data-toggle="tooltip"]').tooltip()
-                  }
+                  },
+                "order": [[ 3, "desc" ]] 
             });
         }
     }else{

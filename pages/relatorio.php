@@ -15,6 +15,7 @@
     <link href="../assets/css/jquery-ui.css" rel="stylesheet">
     <link href="../assets/css/toastr.css" rel="stylesheet"/>
     <link href="../assets/css/animate.css" rel="stylesheet"/>
+<link href="../assets/css/style.css" rel="stylesheet"/>
     <link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 </head>
 <body id="page-top">
@@ -199,7 +200,6 @@
         <script src="../assets/js/jquery.shortcuts.js"></script>
         <script src="../assets/js/toastr.min.js"></script>
         <script src="../assets/js/date.js"></script>
-        <script src="../assets/js/jcfilter.min.js"></script>
         <script src="../js/links.js"></script>
     </body>
 </html>
