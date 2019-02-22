@@ -1,6 +1,7 @@
     $( document ).ready(function() {
         loadAvisos();
         $("#loading").html('<img src="../imagem/loading.gif">');
+        $("#liHome").addClass('active')
     });
 
     $( window ).on( "load", function() {

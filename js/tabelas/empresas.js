@@ -11,6 +11,7 @@ $(function () {
 $(document).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
     loadTable();
+    $("#liClientes").addClass('active')
 });
 
 $("#buscar").on("click", function(){

@@ -2,7 +2,7 @@
     require_once '../include/Database.class.php';
     $db = Database::conexao();
     $data = $_GET['dtInicialRank'];
-    $sql = "SELECT 
+    $sql = "SELECT DISTINCT
 	            user.nome as nome,
 	            count(cha.id_chamado) as numChamados
             FROM chamado cha

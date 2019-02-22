@@ -1,6 +1,8 @@
 $(document).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
     loadTable();
+    $("#liRelatorio").addClass("active")
+    $("#liRelatorio").children('a').click()
 }); 
 
 

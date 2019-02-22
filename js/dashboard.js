@@ -1,3 +1,6 @@
+$( document ).ready(function() {
+    $("#liDashboard").addClass('active')
+});
 
 google.charts.load('current', { callback: drawCharts, 'packages': ['corechart', 'line','timeline'], 'language': 'pt-br' });
 var chartUsuario;
@@ -51,6 +54,7 @@ setInterval(function () {
 }, 30000);//
 
 function drawCharts() {
+    // console.log();
     chartUsuario = new google.visualization.BarChart(document.getElementById('chart_div'));
     chartCategoria = new google.visualization.BarChart(document.getElementById('chart_div2'));
     chartRank = new google.visualization.ColumnChart(document.getElementById("chart_div3"));
@@ -68,35 +72,40 @@ $("#btnChamadoAtendente").on("click", function () {
     $(this).html('<img src="../imagem/ajax-loader.gif">');
     drawChamadosPorAtendente()
     $(this).html("Gerar");
+    return false;
 })
 
 $("#btnChamadoCategoria").on("click", function () {
     $(this).html('<img src="../imagem/ajax-loader.gif">');
     drawChamadosPorCategoria()
     $(this).html("Gerar");
+    return false;
 })
 
 $("#btnRankAtendentes").on("click", function () {
     $(this).html('<img src="../imagem/ajax-loader.gif">');
     drawRankAtendentes()
     $(this).html("Gerar");
+    return false;
 })
 
 $("#btnChamadosPorHora").on("click", function () {
     $(this).html('<img src="../imagem/ajax-loader.gif">');
     drawChamadosPorHora()
     $(this).html("Gerar");
+    return false;
 })
 
 $("#btnTempoMedioAtendimento").on("click", function(){
     $(this).html('<img src="../imagem/ajax-loader.gif">');
     drawChartTempoMedioAtendimento()
     $(this).html("Gerar");
+    return false;
 })
 
 
 function drawChamadosPorCategoria() {
-    event.preventDefault();
+    // event.preventDefault(event);
     var dados = getDataChamadosPorCategoria();
     if (isEmpty(dados)) {
         $("#chart_div2").html("Nenhum dado no período");
@@ -104,6 +113,7 @@ function drawChamadosPorCategoria() {
     }
     chartCategoria.clearChart();
     chartCategoria.draw(dados, getOptionsChamadosPorCategoria());
+    // return false;
 }
 
 function getDataChamadosPorCategoria() {
@@ -115,7 +125,7 @@ function getDataChamadosPorCategoria() {
         async: false
     }).responseText;
 
-    if ($.parseJSON(jsonData).length <= 1) {
+    if (isEmpty($.parseJSON(jsonData))) {
         notificationWarningOne("Nenhum registro no período informado")
         return null;
     }
@@ -170,7 +180,7 @@ function getOptionsChamadosPorCategoria() {
 }
 
 function drawChamadosPorAtendente() {
-    event.preventDefault();
+    //event.preventDefault(event);
     var dados = getDataChamadosPorAtendente();
     if (isEmpty(dados)) {
         $("#chart_div").html("Nenhum dado no período");
@@ -178,6 +188,7 @@ function drawChamadosPorAtendente() {
     }
     chartUsuario.clearChart()
     chartUsuario.draw(dados, getOptionsChamadosPorAtendente());
+    // return false;
 }
 
 function getDataChamadosPorAtendente() {
@@ -189,7 +200,7 @@ function getDataChamadosPorAtendente() {
         async: false
     }).responseText;
 
-    if ($.parseJSON(jsonData).length <= 1) {
+    if (isEmpty($.parseJSON(jsonData))) {
         notificationWarningOne("Nenhum registro no período informado")
         return null;
     }
@@ -245,7 +256,7 @@ function getOptionsChamadosPorAtendente() {
 }
 
 function drawRankAtendentes() {
-    event.preventDefault();
+    //event.preventDefault(event);
     var dados = getDataRankAtendentes();
     if (isEmpty(dados)) {
         $("#chart_div3").html("Nenhum dado no período");
@@ -253,6 +264,7 @@ function drawRankAtendentes() {
     }
     chartRank.clearChart();
     chartRank.draw(dados, getOptionsRankAtendentes());
+    // return false;
 }
 
 function getDataRankAtendentes() {
@@ -264,7 +276,7 @@ function getDataRankAtendentes() {
         dataType: "json",
         async: false
     }).responseText;
-    if ($.parseJSON(jsonData).length <= 1) {
+    if (isEmpty($.parseJSON(jsonData))) {
         return null;
     }
     return google.visualization.arrayToDataTable($.parseJSON(jsonData));
@@ -292,7 +304,7 @@ function getOptionsRankAtendentes() {
 }
 
 function drawChamadosPorHora() {
-    event.preventDefault();
+    //event.preventDefault(event);
     var dados = getDataChamadosPorHora();
     if (isEmpty(dados)) {
         $("#chart_div4").html("Nenhum dado no período");
@@ -300,6 +312,7 @@ function drawChamadosPorHora() {
     }
     chartPorHora.clearChart();
     chartPorHora.draw(dados, getOptionsChamadosPorHora());
+    // return false;
 }
 
 function getDataChamadosPorHora() {
@@ -312,7 +325,7 @@ function getDataChamadosPorHora() {
         async: false
     }).responseText;
 
-    if ($.parseJSON(jsonData).length <= 1) {
+    if (isEmpty($.parseJSON(jsonData))) {
         return null;
     }
     return google.visualization.arrayToDataTable($.parseJSON(jsonData));
@@ -375,7 +388,7 @@ function getOptionsChamadosPorHora() {
 }
 
 function drawChartTempoMedioAtendimento() {
-    event.preventDefault();
+    //event.preventDefault(event);
     var dataJson = getDataChamadosTempoMedioAtendimento();
     var data;
     if (isEmpty(dataJson)) {
@@ -393,7 +406,7 @@ function drawChartTempoMedioAtendimento() {
     var options = {
         timeline: { showRowLabels: true },
         hAxis: {
-            format: 'HH:mm:ss',
+            format: 'dd/MM HH:mm:ss',
             gridlines: {count: 15}
           },
           vAxis: {
@@ -405,6 +418,7 @@ function drawChartTempoMedioAtendimento() {
     
     chartTempoMedioAtendimento.clearChart()
     chartTempoMedioAtendimento.draw(data, options);
+    // return false;
   }
 
 function getDataChamadosTempoMedioAtendimento() {
@@ -417,7 +431,7 @@ function getDataChamadosTempoMedioAtendimento() {
         async: false
     }).responseText;
 
-    if ($.parseJSON(jsonData).length <= 1) {
+    if (isEmpty($.parseJSON(jsonData))) {
         return null;
     }
     return $.parseJSON(jsonData);

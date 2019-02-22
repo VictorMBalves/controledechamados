@@ -12,6 +12,7 @@ ALTER TABLE `chamadoespera` ADD `usuario_id` INT NOT NULL AFTER `enderecado`
 ALTER TABLE `plantao` ADD `usuario_id` INT NOT NULL
 ALTER TABLE `historicochamado` ADD `usuario_id` INT NOT NULL
 ALTER TABLE `usuarios` ADD `enviarEmail` BOOLEAN NOT NULL DEFAULT TRUE AFTER `cadastro`;
+ALTER TABLE `chamadoespera` ADD `emailEnviado` BOOLEAN NULL DEFAULT FALSE AFTER `dataagendamento`;
 
 UPDATE chamadoespera cha
 INNER JOIN usuarios usu ON usu.nome = cha.usuario

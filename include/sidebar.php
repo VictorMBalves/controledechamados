@@ -12,14 +12,14 @@
 <hr class="sidebar-divider my-0">
 
 <!-- Nav Item - Dashboard -->
-<li class="nav-item active">
+<li class="nav-item" id="liHome">
   <a class="nav-link" href="../pages/home">
     <i class="fas fa-fw fa-home"></i>
     <span>Home</span></a>
 </li>
 <?php
 if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) { 
-  echo '<li class="nav-item">
+  echo '<li class="nav-item" id="liDashboard">
     <a class="nav-link" href="../pages/dashBoard">
     <i class="fas fa-tachometer-alt"></i>
     <span>Dashboard</span></a>
@@ -36,7 +36,7 @@ if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) {
 </div> -->
 
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
+  <li class="nav-item" id="liChamados">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
       <i class="fas fa-fw fas fa-plus"></i>
       <span>Chamado</span>
@@ -57,7 +57,7 @@ if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) {
   </li>
 
   <!-- Nav Item - -->
-  <li class="nav-item">
+  <li class="nav-item" id="liRegistroErros">
     <a class="nav-link" href="../pages/dashException">
       <i class="fab fa-fw fa-stack-overflow"></i>
       <span>Registro de erros</span></a>
@@ -66,7 +66,7 @@ if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) {
 <!-- Nav Item - Relatórios Collapse Menu -->
   <?php
     if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) { 
-      echo'<li class="nav-item">
+      echo'<li class="nav-item" id="liRelatorio">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
               <i class="far fa-fw fa-chart-bar"></i>
               <span>Relatórios</span>
@@ -86,14 +86,14 @@ if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) {
       }
   ?>
 
-  <li class="nav-item">
+  <li class="nav-item" id="liClientes">
     <a class="nav-link" href="../pages/empresa">
       <i class="far fa-fw fa-building"></i>
       <span>Clientes</span></a>
   </li>
   <?php
     if($_SESSION['UsuarioNivel'] != 1) { 
-    echo'  <li class="nav-item">
+    echo'  <li class="nav-item" id="liPlantao">
               <a class="nav-link" href="../pages/plantao">
                 <i class="fas fa-fw fa-first-aid"></i>
                 <span>Plantão</span></a>

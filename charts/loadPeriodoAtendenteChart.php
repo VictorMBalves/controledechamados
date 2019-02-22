@@ -3,7 +3,7 @@
     $db = Database::conexao();
     $week_start =  $_GET['dtInicial1'];
     $week_end = $_GET['dtFinal1'];
-    $sql = "SELECT DISTINCT chamado.usuario from chamado INNER JOIN usuarios us on chamado.usuario_id = us.id where date(datainicio) BETWEEN '$week_start' and '$week_end' group by date(datainicio), chamado.usuario ORDER BY usuario";
+    $sql = "SELECT DISTINCT chamado.usuario from chamado INNER JOIN usuarios us on chamado.usuario_id = us.id where date(datainicio) BETWEEN '$week_start' and '$week_end' and chamado.status LIKE 'Finalizado' group by chamado.usuario ORDER BY usuario";
 
     $query = $db->prepare($sql);
     $query->execute();
@@ -14,7 +14,7 @@
         array_push($usuariosArray, $usuario['usuario']);
     }
     
-    $query = $db->prepare("SELECT DISTINCT date(datainicio) from chamado inner JOIN usuarios us ON chamado.usuario_id = us.id where date(datainicio) BETWEEN '$week_start' and '$week_end' group by date(datainicio), chamado.usuario ORDER BY date(datainicio)");
+    $query = $db->prepare("SELECT DISTINCT date(datainicio) from chamado inner JOIN usuarios us ON chamado.usuario_id = us.id where date(datainicio) BETWEEN '$week_start' and '$week_end' and chamado.status LIKE 'Finalizado' group by date(datainicio) ORDER BY date(datainicio)");
     $query->execute();
     $datas = $query->fetchall(PDO::FETCH_ASSOC);
     
@@ -29,7 +29,7 @@
         array_push($datasArray, $dataFormatada);
 
         $datainicio = $data['date(datainicio)'];
-        $query = $db->prepare("SELECT cha.usuario, count(datainicio) from chamado cha INNER JOIN usuarios us ON us.nome = cha.usuario where date(datainicio) = '$datainicio'  group by date(datainicio), usuario ORDER BY usuario");
+        $query = $db->prepare("SELECT cha.usuario, count(datainicio) from chamado cha INNER JOIN usuarios us on cha.usuario_id = us.id where date(datainicio) = '$datainicio' and cha.status LIKE 'Finalizado'  group by date(datainicio), usuario ORDER BY usuario");
         $query->execute();
         $resultados = $query->fetchall(PDO::FETCH_ASSOC);
         $atual = 0;

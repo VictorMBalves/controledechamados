@@ -1,5 +1,6 @@
 <?php
     require_once '../include/Database.class.php';
+    require_once '../include/Mailer.class.php';
     $db = Database::conexao();
     
     $sql = "SELECT 
@@ -16,7 +17,8 @@
                 notification, 
                 descproblema,
                 dataagendamento,
-                DATE_FORMAT(dataagendamento,'%d/%m/%Y %H:%i') as dataagendamentoformat
+                DATE_FORMAT(dataagendamento,'%d/%m/%Y %H:%i') as dataagendamentoformat,
+                emailEnviado
             FROM chamadoespera 
             WHERE status <> 'Finalizado' 
             AND data < DATE_ADD(NOW(), INTERVAL -10 MINUTE) AND (dataagendamento IS NULL OR dataagendamento < DATE_ADD(NOW(), INTERVAL -10 MINUTE))
@@ -25,10 +27,24 @@
     $query->execute();
     $resultados = $query->fetchall(PDO::FETCH_ASSOC);
 
+    $userstmt = $db->prepare("SELECT * FROM usuarios WHERE nivel = 3 AND enviarEmail IS TRUE");
+    $userstmt->execute();
+    $usuarioSuporteAvancado = $userstmt->fetchall(PDO::FETCH_ASSOC);
+
     foreach ($resultados as $chamado) {
         if($chamado['status'] == 'Entrado em contato'){
             $id = $chamado['id_chamadoespera'];
             $update = "UPDATE chamadoespera SET dataagendamento = DATE_ADD(NOW(), INTERVAL 30 MINUTE) WHERE id_chamadoespera = '$id'";
+            $stmt = $db->prepare($update);
+            $stmt->execute();
+        }else if(!$chamado['emailEnviado'] && (date_add(date_create($chamado['databanco']), date_interval_create_from_date_string('30 minutes')) <= date_create(date("Y-m-d H:i:s")))){
+            $mailer = new Mailer();
+            foreach ($usuarioSuporteAvancado as $usuario) {
+                $body = 'O chamado em espera da empresa <strong>'.$chamado['empresa'].'</strong> está a mais de '.formatDateDiff(date_create($chamado['databanco']), date_create(date("Y-m-d H:i:s"))).' atrasado.<br/>Data: <strong>'.$chamado['dataFormatada'].'</strong><br/>';
+                $mailer->sendEmail($usuario['email'], $usuario['nome'],'Chamado atrasado', $body);
+            }
+            $id = $chamado['id_chamadoespera'];
+            $update = "UPDATE chamadoespera SET emailEnviado = TRUE WHERE id_chamadoespera = '$id'";
             $stmt = $db->prepare($update);
             $stmt->execute();
         }

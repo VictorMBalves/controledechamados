@@ -1,15 +1,16 @@
 $(document).ready(function() {
- 
+    $("#liChamados").addClass("active")
+    $("#liChamados").children('a').click()
 }); 
   
-empresa = $("#empresaEspera");
-enderecado = $("#enderecado");
-contato = $("#contato");
-telefone = $("#telefone");
-versao = $("#versao");
-sistema = $("#sistema");
-descProblema = $("#desc_problema");
-erros = [];
+empresaEspera = $("#empresaEspera");
+enderecadoEspera = $("#enderecado");
+contatoEspera = $("#contatoespera");
+telefoneEspera = $("#telefone");
+versaoEspera = $("#versao");
+sistemaEspera = $("#sistema");
+descProblemaEspera = $("#desc_problema");
+errosEspera = [];
 
 $("#submit").click(function(){
     $("#submit").addClass( ' disabled ' );
@@ -28,28 +29,28 @@ $("#showAtendente").click(function(){
 })
 
 function validar(){ 
-    erros = [];
-    if(isEmpty(empresa.val()))
-        erros.push(empresa.selector);
-    if(isEmpty(contato.val()))
-        erros.push(contato.selector);
-    if(isEmpty(telefone.val()))
-        erros.push(telefone.selector);
-    if(isEmpty(versao.val()))
-        erros.push(versao.selector);
-    if(isEmpty(sistema.val()))
-        erros.push(sistema.selector);
-    if(isEmpty(descProblema.val()))
-        erros.push(descProblema.selector);
+    errosEspera = [];
+    if(isEmpty(empresaEspera.val()))
+        errosEspera.push(empresaEspera.selector);
+    if(isEmpty(contatoEspera.val()))
+        errosEspera.push(contatoEspera.selector);
+    if(isEmpty(telefoneEspera.val()))
+        errosEspera.push(telefoneEspera.selector);
+    if(isEmpty(versaoEspera.val()))
+        errosEspera.push(versaoEspera.selector);
+    if(isEmpty(sistemaEspera.val()))
+        errosEspera.push(sistemaEspera.selector);
+    if(isEmpty(descProblemaEspera.val()))
+        errosEspera.push(descProblemaEspera.selector);
 
-    if(isEmpty(erros)){
+    if(isEmpty(errosEspera)){
         enviarDados();
     }else{
         $("#submit").removeClass("disabled");
         $("#submit").html("Salvar");
-        for(i = 0; i < erros.length; i++){
-            if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]).addClass("is-invalid");
+        for(i = 0; i < errosEspera.length; i++){
+            if(!$(errosEspera[i]).hasClass("vazio")){
+                $(errosEspera[i]).addClass("is-invalid");
             }
         }
         notificationWarningOne("Preencha os campos obrigatórios!");
@@ -86,12 +87,12 @@ function enviarDados(){
 }
 
 function resetForm(){
-    empresa.val('');
-    contato.val('');
-    telefone.val('');
-    versao.val('');
-    descProblema.val('');
-    sistema.val('');
+    empresaEspera.val('');
+    contatoEspera.val('');
+    telefoneEspera.val('');
+    versaoEspera.val('');
+    descProblemaEspera.val('');
+    sistemaEspera.val('');
     $('#infLoad').addClass('hidden');
     $('#erroLoad').addClass('hidden');
     $('#successLoad').addClass('hidden');
@@ -99,62 +100,46 @@ function resetForm(){
     $('#resultado').html('<div class="alert alert-info text-center" role="alert">Novo chamado em espera:</div>');
 }
 
-empresa.focusout(function() {
-    if(!isEmpty(empresa.val()))
-        $(empresa.selector).removeClass("is-invalid");
+empresaEspera.focusout(function() {
+    if(!isEmpty(empresaEspera.val()))
+        $(empresaEspera.selector).removeClass("is-invalid");
 });
-enderecado.focusout(function() {
-    if(!isEmpty(enderecado.val()))
-        $(enderecado.selector).removeClass("is-invalid");
+enderecadoEspera.focusout(function() {
+    if(!isEmpty(enderecadoEspera.val()))
+        $(enderecadoEspera.selector).removeClass("is-invalid");
 });
-contato.focusout(function() {
-    if(!isEmpty(contato.val()))
-        $(contato.selector).removeClass("is-invalid");
+contatoEspera.focusout(function() {
+    if(!isEmpty(contatoEspera.val()))
+        $(contatoEspera.selector).removeClass("is-invalid");
 });
-telefone.focusout(function() {
-    if(!isEmpty(telefone.val()))
-        $(telefone.selector).removeClass("is-invalid");
+telefoneEspera.focusout(function() {
+    if(!isEmpty(telefoneEspera.val()))
+        $(telefoneEspera.selector).removeClass("is-invalid");
 });
-versao.focusout(function() {
-    if(!isEmpty(versao.val()))
-        $(versao.selector).removeClass("is-invalid");
+versaoEspera.focusout(function() {
+    if(!isEmpty(versaoEspera.val()))
+        $(versaoEspera.selector).removeClass("is-invalid");
 });
-sistema.focusout(function() {
-    if(!isEmpty(sistema.val()))
-        $(sistema.selector).removeClass("is-invalid");
+sistemaEspera.focusout(function() {
+    if(!isEmpty(sistemaEspera.val()))
+        $(sistemaEspera.selector).removeClass("is-invalid");
 });
-descProblema.focusout(function() {
-    if(!isEmpty(descProblema.val()))
-        $(descProblema.selector).removeClass("is-invalid");
+descProblemaEspera.focusout(function() {
+    if(!isEmpty(descProblemaEspera.val()))
+        $(descProblemaEspera.selector).removeClass("is-invalid");
 });
 
 function carregaDados(){
     var data = [];
-    data.push({name: 'empresa', value: empresa.val()});
-    data.push({name: 'enderecado', value: enderecado.val()});
-    data.push({name: 'contato', value: contato.val()});
-    data.push({name: 'telefone', value: telefone.val()});
-    data.push({name: 'versao', value: versao.val()});
-    data.push({name: 'sistema', value: sistema.val()});
-    data.push({name: 'descproblema', value: descProblema.val()});
+    data.push({name: 'empresa', value: empresaEspera.val()});
+    data.push({name: 'enderecado', value: enderecadoEspera.val()});
+    data.push({name: 'contato', value: contatoEspera.val()});
+    data.push({name: 'telefone', value: telefoneEspera.val()});
+    data.push({name: 'versao', value: versaoEspera.val()});
+    data.push({name: 'sistema', value: sistemaEspera.val()});
+    data.push({name: 'descproblema', value: descProblemaEspera.val()});
     return data;
 }
-
-function refresh_usuarios() {
-    var url = "../utilsPHP/atendentedispo.php";
-    jQuery("#usuarios").load(url);
-}
-
-$(window).load(function (){
-    $("#tarefas").addClass("col-sm-9");
-})
-
-$(function () {
-    refresh_usuarios(); //first initialize
-});
-setInterval(function () {
-    refresh_usuarios() // this will run after every 5 seconds
-}, 5000);
 
 function erro() {
     alert('Acesso negado! Redirecinando a pagina principal.');

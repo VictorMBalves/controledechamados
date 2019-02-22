@@ -1,6 +1,7 @@
 $( document ).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
     loadTable();
+    $("#liPlantao").addClass('active')
 });
 
 function erro(){

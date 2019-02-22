@@ -5,7 +5,7 @@ const development = "http://localhost:3000/";
 $( document ).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
     loadTable();
-    
+    $("#liRegistroErros").addClass("active")
 });
 
 

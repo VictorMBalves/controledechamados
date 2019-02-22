@@ -92,10 +92,10 @@
                             <?php 
                                 if (!empty($historicos)) {
                                     echo ' <label>Histórico de contato:</label>
-                                            <div class="form-group well" style="max-height: 150px; overflow: auto;"> 
+                                            <div class="form-group well" style="max-height: 150px; overflow: auto; background-color:#eaecf4;"> 
                                             ';
                                             foreach ($historicos as $historico) {
-                                                echo '<div class="card" style="padding:5px;">';
+                                                echo '<div class="card" style="padding:5px; margin:10px;">';
                                                 echo '<div class="card-header">
                                                         <div class="row">';
                                                     echo '<div class="col-6 col-sm-6 col-md-6 col-lg-6"> 
