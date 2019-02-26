@@ -25,7 +25,7 @@ platforms:
 pre_deploy:
     - "php -v"
 post_deploy:
-    - "composer install"
+    - "composer update"
     - "/etc/init.d/httpd restart"
 
 plugins:
