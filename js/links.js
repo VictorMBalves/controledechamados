@@ -237,7 +237,7 @@ function loadResponsavelSemana(){
   });
 }
 
-$("#sidebarToggle").click(function(){
+$("#sidebarToggle, #sidebarToggleTop").click(function(){
     refresh_usuarios();
     if($("#accordionSidebar").hasClass('toggled'))
       $.cookie('sidebarToggled', 'true', { expires: 1000, path: '/' });
