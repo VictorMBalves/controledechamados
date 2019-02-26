@@ -17,7 +17,7 @@
 		<link href="../assets/css/jquery-ui.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
-<link href="../assets/css/style.css" rel="stylesheet"/>
+		<link href="../assets/css/style.css" rel="stylesheet"/>
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
 	<body id="page-top">
@@ -136,6 +136,7 @@
 
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 		<script src="../assets/js/sb-admin-2.min.js"></script>

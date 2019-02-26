@@ -77,9 +77,8 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<script src="assets/js/bootstrap.min.js"></script>
 		<script src="assets/js/toastr.min.js"></script>
-		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="assets/js/date.js"></script>
-		<script src="js/links.js"></script>
+		<!-- <script src="js/links.js"></script> -->
 		<script src="js/menu.js"></script>
 	</body>
 </html>

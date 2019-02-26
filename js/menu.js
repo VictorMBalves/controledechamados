@@ -66,3 +66,11 @@ function validaLogin(){
         });
     }
 }
+
+function notificationErrorLogin(message){
+    toastr.options = {
+      "positionClass": "toast-top-center",
+      "preventDuplicates": "true",
+    }
+    toastr.error(message, "Erro");
+}

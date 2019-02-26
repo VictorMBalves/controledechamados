@@ -11,6 +11,7 @@
     $sql2 = $db->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
     $sql2->execute();
     $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
+    $linkRequest = "http://request.gtech.site/requests/new?request[description]=".$row['descproblema']."&request[requester_cnpj]=".$row['cnpj']."&request[requester_name]=".$row['cnpj']." - ".$row['empresa'];
 ?>
 <div class="modal" tabindex="-1" role="dialog" id="modalCon">
         <div class="modal-dialog modal-lg" role="document">
@@ -91,6 +92,11 @@
                 </div>
                 <div class="modal-footer">
                     <div class="col-md-12 text-center">
+                        <?php
+                            if($row['categoria'] == "Erro" || $row['categoria'] == "Sugestão de melhoria"){
+                                echo '<a href="'.$linkRequest.'" target="_blank" id="criarRequest" name="criarRequest" class="btn btn-group-lg btn-danger"><i class="fas fa-bug" style="-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);"></i>&nbsp;Criar request</a>';
+                            }
+                        ?>
                         <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary" data-dismiss="modal">Retornar</button>
                     </div>
                 </div>

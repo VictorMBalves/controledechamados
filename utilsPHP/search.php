@@ -1,9 +1,6 @@
 <?php
-require_once '../include/Database.class.php';
-$db = Database::conexao();
-$searchTerm = $_GET['term'];
-$query = $db->prepare("SELECT nome FROM empresa WHERE nome LIKE '%".$searchTerm."%'");
-$query->execute();
-$result = $query->fetchall(PDO::FETCH_ASSOC);
-
+require_once '../include/ConsultacURL.class.php';
+$curl = new ConsultacURL();
+$url = "http://api.gtech.site/companies/find_companies?term=".$_GET['keyword'];
+$result = $curl->connection($url);
 echo json_encode($result);

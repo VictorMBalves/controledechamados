@@ -8,18 +8,6 @@ function erro(){
     alert('Acesso negado! Redirecinando a pagina principal.');
     window.location.assign("../pages/chamadoespera.php");
 }
-$(function () {
-    $.getJSON('../utilsPHP/search.php').done(function(response){
-        $('#empresaCad').flexdatalist({
-            minLength: 1,
-            searchIn: 'nome',
-            data: response,
-            noResultsText: 'Sem resultados para "{keyword}" <a href="../pages/cad_empresa?term={keyword}">Cadastrar!</a>',
-        }).on('select:flexdatalist', function(ev, result){
-            callApi(result.nome);
-        });;
-    });
-});
 
 function loadTable(){
     $.ajax({

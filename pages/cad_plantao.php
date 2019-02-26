@@ -1,12 +1,13 @@
 <?php $time = date("Y-m-d");?>
     <div class="row">
         <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">    
-            <label for="empresaCad">Empresa solicitante:</label>  
-            <input name="empresaCad" type="text" id="empresaCad" class="form-control">
+            <label for="empresaPlantao">Empresa solicitante:</label>  
+            <input name="empresaPlantao" type="text" id="empresaPlantao" class="form-control">
+            <div id="empresaBloqueada" class="text-danger hidden"><small>Empresa bloqueada</small></div>
         </div>
         <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">  
-            <label for="contatoCad">Contato:</label>
-            <input name="contatoCad" id="contatoCad" type="text" class="form-control">
+            <label for="contatoPlantao">Contato:</label>
+            <input name="contatoPlantao" id="contatoPlantao" type="text" class="form-control">
         </div>
     </div>
     <div class="row">                
@@ -28,12 +29,12 @@
             </select>
         </div>
         <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4"> 
-            <label for="telefone">Telefone</label>  
-            <input name="telefone" id="telefone" type="text" class="form-control" >
+            <label for="telefonePlantao">Telefone</label>  
+            <input name="telefonePlantao" id="telefonePlantao" type="text" class="form-control" >
         </div>
         <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
-            <label for="versao">Versão:</label>
-            <input name="versao" id="versao" type="text" class="form-control">
+            <label for="versaoPlantao">Versão:</label>
+            <input name="versaoPlantao" id="versaoPlantao" type="text" class="form-control">
         </div>
     </div>
     <div class="row">
@@ -52,8 +53,8 @@
     </div>
     <div class="row">
         <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
-            <label for="sistema">Sistema:</label>
-            <input name="sistema" id="sistema" type="text" class="form-control" >
+            <label for="sistemaPlantao">Sistema:</label>
+            <input name="sistemaPlantao" id="sistemaPlantao" type="text" class="form-control" >
         </div>
         <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
             <label for="backup">Backup:</label>

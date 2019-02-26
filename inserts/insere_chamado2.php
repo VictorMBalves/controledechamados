@@ -33,6 +33,7 @@
   $usuario=$_SESSION['UsuarioNome'];
   $backup=$_POST['backup'];
   $usuario_id = $_SESSION['UsuarioID'];
+  $cnpj = $_POST['cnpj'];
   if(isset($backup)){
     $sql = $db->prepare("UPDATE empresa set backup = '$backup' where nome='$empresa'") or die(mysql_error());
     try
@@ -57,8 +58,8 @@
     echo $e->getMessage();
     exit;
   }
-  $sql = $db->prepare("INSERT INTO chamado (id_chamadoespera, usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, datainicio, usuario_id) 
-  VALUES (:idesp, :us, :sta, :empre, :cont, :tel, :sis, :versao, :for, :cat, :des, :data, :usuario_id)") or die(mysql_error());
+  $sql = $db->prepare("INSERT INTO chamado (id_chamadoespera, usuario, status, empresa, contato, telefone, sistema, versao, formacontato, categoria, descproblema, datainicio, usuario_id, cnpj) 
+  VALUES (:idesp, :us, :sta, :empre, :cont, :tel, :sis, :versao, :for, :cat, :des, :data, :usuario_id, :cnpj)") or die(mysql_error());
   $sql->bindParam(":idesp", $idchamadoespera, PDO::PARAM_INT);
   $sql->bindParam(":us", $usuario, PDO::PARAM_STR, 500);
   $sql->bindParam(":sta", $status, PDO::PARAM_STR, 500);
@@ -72,6 +73,7 @@
   $sql->bindParam(":des", $descproblema, PDO::PARAM_STR, 500);
   $sql->bindParam(":data", $datainicio, PDO::PARAM_STR, 500);
   $sql->bindParam(":usuario_id", $usuario_id, PDO::PARAM_STR, 500);
+  $sql->bindParam(":cnpj", $cnpj, PDO::PARAM_STR, 500);
   try
   {
     if($sql->execute()){

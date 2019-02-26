@@ -32,7 +32,6 @@
 
 			<!-- Sidebar -->
 			<?php 
-				include '../validacoes/verificaSession.php'; 
 				include '../include/sidebar.php';
 			?>
 			<!-- End of Sidebar -->
@@ -61,6 +60,7 @@
 									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 										<label for="empresaEspera">Empresa solicitante:</label>
 										<input name="empresaEspera" type="text" id="empresaEspera" class="form-control flexdatalist">
+										<div id="empresaBloqueada" class="text-danger hidden"><small>Empresa bloqueada</small></div>
 									</div>
 									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 										<label for="enderecado">Atribuir para:</label>
@@ -76,22 +76,22 @@
 								</div>
 								<div class="row">
 									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-										<label for="contatoespera">Contato:</label>
-										<input name="contatoespera" id="contatoespera" type="text" class="form-control">
+										<label for="contatoEspera">Contato:</label>
+										<input name="contatoEspera" id="contatoEspera" type="text" class="form-control">
 									</div>
 									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-										<label for="telefone">Telefone:</label>
-										<input name="telefone" type="text" id="telefone" class="form-control" onkeypress="return SomenteNumero(event)">
+										<label for="telefoneEspera">Telefone:</label>
+										<input name="telefoneEspera" type="text" id="telefoneEspera" class="form-control" onkeypress="return SomenteNumero(event)">
 									</div>
 								</div>
 								<div class="row">
 									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-										<label for="versao">Versão</label>
-										<input id="versao" name="versao" type="text" class="form-control">
+										<label for="versaoEspera">Versão</label>
+										<input id="versaoEspera" name="versaoEspera" type="text" class="form-control">
 									</div>
 									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-									<label for="sistema">Sistema:</label>
-										<input id="sistema" name="sistema" type="text" class="form-control">
+									<label for="sistemaEspera">Sistema:</label>
+										<input id="sistemaEspera" name="sistemaEspera" type="text" class="form-control">
 									</div>
 								</div>
 								<div class="form-group">
@@ -127,11 +127,13 @@
 		<a class="scroll-to-top rounded" href="#page-top">
 			<i class="fas fa-angle-up"></i>
 		</a>
-
-		<div id="modalCadastro">
-		</div>
+		<?php  if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) { 
+			echo '<div id="modalCadastro">
+					</div>';
+		}?>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 		<script src="../assets/js/sb-admin-2.min.js"></script>
@@ -140,7 +142,6 @@
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>					
-		<script src="../js/apiConsulta.js"></script>				
 		<script src="../js/cadChamadoEspera.js"></script>
 	</body>
 

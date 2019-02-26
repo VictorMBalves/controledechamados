@@ -9,6 +9,10 @@
     $query->execute();
     $categorias = $query->fetchall(PDO::FETCH_ASSOC);
 
+    if(sizeof($categorias) == 0){
+        return;
+    }
+
     $categoriasArray = ['Mês'];
     foreach($categorias as $categoria){
         if($categoria['categoria'] == NULL)

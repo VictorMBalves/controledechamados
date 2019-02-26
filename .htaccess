@@ -5,7 +5,6 @@ RewriteRule ^(.*)$ $1 [L,R=204]
 
 ###################
 ## Add custom headers
-
 Header set X-Content-Type-Options "nosniff"
 Header set X-XSS-Protection "1; mode=block"
 # Always set these headers for CORS.
@@ -48,7 +47,7 @@ ErrorDocument 500 /pages/error/404.html
   RewriteRule ^pages/chamados/?$ pages/chamados.php [NC,L]
   RewriteRule ^pages/dashboard/?$ pages/dashBoard.php [NC,L]
   RewriteRule ^pages/plantao/?$ pages/plantao.php [NC,L]
-  RewriteRule ^pages/empresa/?$ pages/empresa.php [NC,L]
+  RewriteRule ^pages/empresa/?$ pages/home.php [NC,L]
   RewriteRule ^pages/meuschamados/?$ pages/meuschamados.php [NC,L]
   RewriteRule ^pages/chamadoespera/?$ pages/chamadoespera.php [NC,L]
   RewriteRule ^pages/cad_chamado/?$ pages/cad_chamado.php [NC,L]

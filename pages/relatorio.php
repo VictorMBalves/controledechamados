@@ -15,7 +15,7 @@
     <link href="../assets/css/jquery-ui.css" rel="stylesheet">
     <link href="../assets/css/toastr.css" rel="stylesheet"/>
     <link href="../assets/css/animate.css" rel="stylesheet"/>
-<link href="../assets/css/style.css" rel="stylesheet"/>
+    <link href="../assets/css/style.css" rel="stylesheet"/>
     <link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 </head>
 <body id="page-top">
@@ -185,18 +185,12 @@
 	<div id="modalCadastro">
 	</div>
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <!-- <script src="../assets/js/jquery-1.8.3.min.js"></script> -->
-        <!-- <script src="../assets/js/jquery-ui-1.9.2.custom.min.js"></script> -->
-        <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>           
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- Core plugin JavaScript-->
         <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-        <!-- Custom scripts for all pages-->
         <script src="../assets/js/sb-admin-2.min.js"></script>
         <script src="../assets/js/jquery.flexdatalist.js"></script>	
-        <!-- Page level plugins -->
-        <!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
         <script src="../assets/js/jquery.shortcuts.js"></script>
         <script src="../assets/js/toastr.min.js"></script>
         <script src="../assets/js/date.js"></script>

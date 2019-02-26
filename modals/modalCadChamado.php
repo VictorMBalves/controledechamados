@@ -10,6 +10,7 @@
                     <div class="form-group">
                         <label for="empresa">Empresa solicitante:</label>
                         <input name="empresa" type="text" id="empresa" class="form-control flexdatalist">
+                        <div id="empresaBloqueada" class="text-danger hidden"><small>Empresa bloqueada</small></div>
                     </div>
                     <div class="form-group">
                         <label for="contato">Contato:</label>
@@ -30,36 +31,46 @@
                             <input id="sistema" name="sistema" type="text" class="form-control disabled" disabled>
                         </div>
                     </div>
-                </form>
-                <div class="form-group">
-                    <div class="col-sm-12 text-center">
-                        <?php include "../utilsPHP/statusDados.php";?>
+                    <div class="form-group">
+                        <div class="col-sm-12 text-center">
+                            <?php include "../utilsPHP/statusDados.php";?>
+                        </div>
                     </div>
-                </div>
-                <br>
+                </form>
             </div>
             <div class="modal-footer">
                 <div class="col-md-12 text-center">
-                    <button id="cadastrar" name="cadastrar" class="btn btn-group-lg btn-success">Cadastrar</button>
+                    <button id="cadastrar" name="cadastrar" class="btn btn-group-lg btn-success">Salvar</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="../js/apiConsulta.js"></script>
 <script>
-    $(function () {
-        $.getJSON('../utilsPHP/search.php').done(function(response){
-            $('#empresa').flexdatalist({
-                minLength: 1,
-                searchIn: 'nome',
-                data: response,
-                noResultsText: 'Sem resultados para "{keyword}" <a href="../pages/cad_empresa?term={keyword}">Cadastrar!</a>',
-            }).on('select:flexdatalist', function(ev, result){
-                callApi(result.nome);
-            });
-        });
+    var cnpj = "";
+    $('#empresa').flexdatalist({
+        minLength: 1,
+        visibleProperties: '{cnpj} - {name}',
+        textProperty: 'name',
+        searchIn: ['name', 'cnpj'],
+        url: "../utilsPHP/search.php",
+        noResultsText: 'Sem resultados para "{keyword}"',
+    }).on('select:flexdatalist', function(ev, result){
+        $("#infoLoad").addClass(' hidden ');
+        $("#successLoad").removeClass(' hidden ');
+        if(result.is_blocked){
+            $("#empresaBloqueada").removeClass(' hidden ');
+            $("#empresa").addClass(' is-invalid ');
+        }
+        $("#sistema").val(result.system);
+        $("#telefone").val(result.phone);
+        $("#versao").val(result.version);
+        cnpj = result.cnpj;
+    }).on('before:flexdatalist.search', function(ev, key, data){
+        $("#infoLoad").removeClass(' hidden ');
     });
+
+
 
     $("#cadastrar").click(function(){
         versao = $("#versao");
@@ -86,7 +97,6 @@
         }else{
             $("#cadastrar").removeClass("disabled");
             $("#cadastrar").html("Cadastrar");
-            console.log(erros)
             for(i = 0; i < erros.length; i++){
                 if(!$(erros[i]).hasClass("vazio")){
                     $(erros[i]).addClass("is-invalid");
@@ -114,7 +124,7 @@
                 }else{
                     notificationError('Ocorreu um erro ao salvar o registro: ', data);
                     $("#cadastrar").removeClass( ' disabled ' );
-                    $("#cadastrar").html('Cadastrar');
+                    $("#cadastrar").html('Salvar');
                 }
             },
             error: function(jqXHR, textStatus, errorThrown){
@@ -130,6 +140,7 @@
         data.push({name: 'telefone', value: telefone.val()});
         data.push({name: 'versao', value: versao.val()});
         data.push({name: 'sistema', value: sistema.val()});
+        data.push({name: 'cnpj', value: cnpj});
         return data;
     }
 </script>

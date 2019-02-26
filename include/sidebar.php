@@ -86,11 +86,11 @@ if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) {
       }
   ?>
 
-  <li class="nav-item" id="liClientes">
+  <!-- <li class="nav-item" id="liClientes">
     <a class="nav-link" href="../pages/empresa">
       <i class="far fa-fw fa-building"></i>
       <span>Clientes</span></a>
-  </li>
+  </li> -->
   <?php
     if($_SESSION['UsuarioNivel'] != 1) { 
     echo'  <li class="nav-item" id="liPlantao">

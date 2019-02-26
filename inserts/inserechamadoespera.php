@@ -15,8 +15,9 @@ try
   $versao = $_POST['versao'];
   $usuario=$_SESSION['UsuarioNome'];
   $usuario_id = $_SESSION['UsuarioID'];
-  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id) 
-  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', '$usuario_id')") or die(mysql_error());
+  $cnpj = $_POST['cnpj'];
+  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id, cnpj) 
+  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', '$usuario_id', '$cnpj')") or die(mysql_error());
 
   $sql->execute();
   if ($_SESSION['UsuarioNivel'] != 1) {

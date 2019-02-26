@@ -11,6 +11,7 @@
 		echo '<h1>Chamado Nº'.$id.' já encerrado<h1>';
 		return;
 	}
+	$linkPesquisa = "http://copel.gtech.site:8888?empresa=".$row['empresa']."&usuario=".$row['usuario'];
 ?>
 <!Doctype html>
 <html>
@@ -69,6 +70,7 @@
 			<div class="card-body animated fadeInRight">
 				<div class="form-horizontal">
 					<input style="display:none;" name="id_chamado" id="id_chamado" value="<?php echo $id; ?>"/>
+					<input style="display:none;" name="cnpj" id="cnpj" value="<?php echo $row['cnpj']; ?>"/>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="empresafin">Empresa solicitante:</label>
@@ -179,7 +181,15 @@
 						<textarea name="descsolucaofin" id="descsolucaofin" type="text" class="form-control"></textarea>
 					</div>
 					<div class="text-center">
-						<button id="finalizar" name="finalizar" class="btn btn-group-lg btn-primary">Finalizar</button>
+						<div class="input-group input-group-sm mb-3 col-12 col-sm-12 col-md-12 col-lg-12" style="right:0px;">
+								<input type="text" id="linkPesquisa" class="form-control readonly" value="<?php echo $linkPesquisa; ?>" aria-label="Link pesquisa de satisfação" aria-describedby="inputGroup-sizing-sm" readonly> 
+								<div class="input-group-prepend">
+									<button class="btn btn-outline-secondary" data-clipboard-target="#linkPesquisa" type="button" id="btnClipPesquisa"><i id="iconCopy" class="fas fa-copy"></i></button>
+								</div>
+						</div>
+						<button id="criarRequest" name="criarRequest" class="btn btn-group-lg btn-danger" disabled><i class="fas fa-bug" style="-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);"></i>&nbsp;Criar request</button>
+						<button id="finalizar" name="finalizar" class="btn btn-group-lg btn-primary" disabled>Finalizar</button>
+						<button id="agendar" name="agendar" class="btn btn-group-lg btn-success">Agendar</button>
 						<button id="cancel" type="reset" name="cancelar" class="btn btn-group-lg btn-warning">Cancelar</button>
 					</div>
 				</div>
@@ -200,28 +210,56 @@
 
   </div>
   <!-- End of Page Wrapper -->
-  	<div id="modalCadastro">
+	<div id="modalCadastro">
 	</div>
+
+
+	<div class="modal fade" id="modalAgenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agendamento chamado Nº<?php echo $id;?></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <input type="text" name="id" id="id" class="form-control" value="<?php echo $id; ?>" style="display:none;">
+                    <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                        <label for="dataAgenda">Data:</label>  
+                        <input type="date" name="dataAgenda" id="dataAgenda" class="form-control">
+                    </div>
+                    <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                        <label class="col-md-2 control-label" for="horarioAgenda">Horario:</label>  
+                        <input name="horarioAgenda" id="horarioAgenda" type="time" class="form-control">
+                    </div>
+								</div>
+								<div class="form-group">
+									<label for="descproblemaAgenda">Descrição do problema:</label>
+									<textarea name="descproblemaAgenda" id="descproblemaAgenda" type="text" class="form-control"><?php echo $row['descproblema'];?></textarea>
+								</div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" id="salvarAgendamento" type="button">Salvar</a>
+            </div>
+        </div>
+    </div>
+	</div>
+
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<!-- <script src="../vendor/jquery/jquery.min.js"></script> -->
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Core plugin JavaScript-->
 	<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
-	<!-- Custom scripts for all pages-->
 	<script src="../assets/js/sb-admin-2.min.js"></script>
 	<script src="../assets/js/jquery.flexdatalist.js"></script>	
-	<!-- <script src="../vendor/chart.js/Chart.min.js"></script> -->
 	<script src="../assets/js/jquery.shortcuts.js"></script>
 	<script src="../assets/js/toastr.min.js"></script>
 	<script src="../assets/js/date.js"></script>
+	<script src="../assets/js/clipboard.min.js"></script>
 	<script src="../js/links.js"></script>
 	<script src="../js/finalizaChamadoFa.js" ></script> 
-	<script>
-		function Erro(){
-			notificationError('Acesso restrito');
-		}
-	</script>
 	</body>
 </html>

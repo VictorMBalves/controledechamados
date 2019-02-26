@@ -9,6 +9,10 @@
     $query->execute();
     $usuarios = $query->fetchall(PDO::FETCH_ASSOC);
 
+    if(sizeof($usuarios) == 0){
+        return;
+    }
+
     $usuariosArray = ['Mês'];
     foreach($usuarios as $usuario){
         array_push($usuariosArray, $usuario['usuario']);

@@ -1,8 +1,8 @@
-$( document ).ready(function() {
+$(document).ready(function () {
     $("#liDashboard").addClass('active')
 });
 
-google.charts.load('current', { callback: drawCharts, 'packages': ['corechart', 'line','timeline'], 'language': 'pt-br' });
+google.charts.load('current', { callback: drawCharts, 'packages': ['corechart', 'line', 'timeline'], 'language': 'pt-br' });
 var chartUsuario;
 var chartCategoria;
 var chartRank;
@@ -96,7 +96,7 @@ $("#btnChamadosPorHora").on("click", function () {
     return false;
 })
 
-$("#btnTempoMedioAtendimento").on("click", function(){
+$("#btnTempoMedioAtendimento").on("click", function () {
     $(this).html('<img src="../imagem/ajax-loader.gif">');
     drawChartTempoMedioAtendimento()
     $(this).html("Gerar");
@@ -105,7 +105,6 @@ $("#btnTempoMedioAtendimento").on("click", function(){
 
 
 function drawChamadosPorCategoria() {
-    // event.preventDefault(event);
     var dados = getDataChamadosPorCategoria();
     if (isEmpty(dados)) {
         $("#chart_div2").html("Nenhum dado no período");
@@ -113,7 +112,6 @@ function drawChamadosPorCategoria() {
     }
     chartCategoria.clearChart();
     chartCategoria.draw(dados, getOptionsChamadosPorCategoria());
-    // return false;
 }
 
 function getDataChamadosPorCategoria() {
@@ -125,8 +123,7 @@ function getDataChamadosPorCategoria() {
         async: false
     }).responseText;
 
-    if (isEmpty($.parseJSON(jsonData))) {
-        notificationWarningOne("Nenhum registro no período informado")
+    if (isEmpty(jsonData)) {
         return null;
     }
     return google.visualization.arrayToDataTable($.parseJSON(jsonData));
@@ -180,7 +177,6 @@ function getOptionsChamadosPorCategoria() {
 }
 
 function drawChamadosPorAtendente() {
-    //event.preventDefault(event);
     var dados = getDataChamadosPorAtendente();
     if (isEmpty(dados)) {
         $("#chart_div").html("Nenhum dado no período");
@@ -188,7 +184,6 @@ function drawChamadosPorAtendente() {
     }
     chartUsuario.clearChart()
     chartUsuario.draw(dados, getOptionsChamadosPorAtendente());
-    // return false;
 }
 
 function getDataChamadosPorAtendente() {
@@ -200,8 +195,7 @@ function getDataChamadosPorAtendente() {
         async: false
     }).responseText;
 
-    if (isEmpty($.parseJSON(jsonData))) {
-        notificationWarningOne("Nenhum registro no período informado")
+    if (isEmpty(jsonData)) {
         return null;
     }
 
@@ -256,7 +250,6 @@ function getOptionsChamadosPorAtendente() {
 }
 
 function drawRankAtendentes() {
-    //event.preventDefault(event);
     var dados = getDataRankAtendentes();
     if (isEmpty(dados)) {
         $("#chart_div3").html("Nenhum dado no período");
@@ -264,7 +257,6 @@ function drawRankAtendentes() {
     }
     chartRank.clearChart();
     chartRank.draw(dados, getOptionsRankAtendentes());
-    // return false;
 }
 
 function getDataRankAtendentes() {
@@ -276,7 +268,7 @@ function getDataRankAtendentes() {
         dataType: "json",
         async: false
     }).responseText;
-    if (isEmpty($.parseJSON(jsonData))) {
+    if (isEmpty(jsonData)) {
         return null;
     }
     return google.visualization.arrayToDataTable($.parseJSON(jsonData));
@@ -304,7 +296,6 @@ function getOptionsRankAtendentes() {
 }
 
 function drawChamadosPorHora() {
-    //event.preventDefault(event);
     var dados = getDataChamadosPorHora();
     if (isEmpty(dados)) {
         $("#chart_div4").html("Nenhum dado no período");
@@ -312,7 +303,6 @@ function drawChamadosPorHora() {
     }
     chartPorHora.clearChart();
     chartPorHora.draw(dados, getOptionsChamadosPorHora());
-    // return false;
 }
 
 function getDataChamadosPorHora() {
@@ -325,7 +315,7 @@ function getDataChamadosPorHora() {
         async: false
     }).responseText;
 
-    if (isEmpty($.parseJSON(jsonData))) {
+    if (isEmpty(jsonData)) {
         return null;
     }
     return google.visualization.arrayToDataTable($.parseJSON(jsonData));
@@ -388,39 +378,64 @@ function getOptionsChamadosPorHora() {
 }
 
 function drawChartTempoMedioAtendimento() {
-    //event.preventDefault(event);
     var dataJson = getDataChamadosTempoMedioAtendimento();
     var data;
+
+    tempoMedio()
+
     if (isEmpty(dataJson)) {
         $("#chart_div5").html("Nenhum dado no período");
         return;
     }
 
-    if($("#tipoTempoMedioAtendimento").val() == "2"){
-       data = getEstruturaTempoMedioUsuario(dataJson);
-    }else {
+    if ($("#tipoTempoMedioAtendimento").val() == "2") {
+        data = getEstruturaTempoMedioUsuario(dataJson);
+    } else {
         data = getEstruturaTempoMedioEmpresa(dataJson);
     }
-    
+
 
     var options = {
         timeline: { showRowLabels: true },
         hAxis: {
             format: 'dd/MM HH:mm:ss',
-            gridlines: {count: 15}
-          },
-          vAxis: {
-            gridlines: {color: 'none'},
+            gridlines: { count: 15 }
+        },
+        vAxis: {
+            gridlines: { color: 'none' },
             minValue: 0
-          }
+        }
     };
 
-    
+
     chartTempoMedioAtendimento.clearChart()
     chartTempoMedioAtendimento.draw(data, options);
-    // return false;
-  }
 
+
+   
+}
+
+function tempoMedio() {
+    tempoMedioAtendimento = getDataTempoMedioAtendimento();
+    icone = $("#iconatrasados");
+    icone.className = '';
+    if (!isEmpty(tempoMedioAtendimento)) {
+        
+        $("#media").html(tempoMedioAtendimento.tempo);
+        $("#atendidos").html(tempoMedioAtendimento.numeroChamados);
+        $("#atrasaram").html(tempoMedioAtendimento.numeroChamadosatrasados)
+
+        if (tempoMedioAtendimento.numeroChamadosatrasados == 0) {
+            icone.addClass("far fa-smile fa-2x text-gray-600")
+        } else if (tempoMedioAtendimento.numeroChamadosatrasados > 0 && tempoMedioAtendimento.numeroChamadosatrasados < 5) {
+            icone.addClass("far fa-meh fa-2x text-gray-600")
+        } else if (tempoMedioAtendimento.numeroChamadosatrasados > 10) {
+            icone.addClass("far fa-sad-cry fa-2x text-gray-600")
+        } else {
+            icone.addClass("far fa-frown fa-2x text-gray-600")
+        }
+    }
+}
 function getDataChamadosTempoMedioAtendimento() {
     $('#dataTempoMedioAtendimento').html(Date.parse($("#dtInicialTempoMedioAtendimento").val()).toString('d/MM/yyyy'))
     var dados = $('#formTempoMedioAtendimento').serialize();
@@ -436,38 +451,54 @@ function getDataChamadosTempoMedioAtendimento() {
     }
     return $.parseJSON(jsonData);
 }
-function getEstruturaTempoMedioUsuario(dataJson){
+function getEstruturaTempoMedioUsuario(dataJson) {
     var rows = [];
-        for (let i = 0; i < dataJson.length; i++) {
-            rows.push({c: [ {v: dataJson[i].usuario}, {v: dataJson[i].empresa}, {v: Date.parse(dataJson[i].datainicio)}, {v: Date.parse(dataJson[i].datafinal)}]});
-        }
+    for (let i = 0; i < dataJson.length; i++) {
+        rows.push({ c: [{ v: dataJson[i].usuario }, { v: dataJson[i].empresa }, { v: Date.parse(dataJson[i].datainicio) }, { v: Date.parse(dataJson[i].datafinal) }] });
+    }
     var data = new google.visualization.DataTable({
-      cols: [
-        {id: 'usuario', label: 'Usuario', type: 'string'},
-        {id: 'empresa', label: 'Empresa', type: 'string'},
-        {id: 'inicio', label: 'Início atendimento', type: 'date'},
-        {id: 'fim', label: 'Fim atendimento', type: 'date'}
-      ],
-      rows
+        cols: [
+            { id: 'usuario', label: 'Usuario', type: 'string' },
+            { id: 'empresa', label: 'Empresa', type: 'string' },
+            { id: 'inicio', label: 'Início atendimento', type: 'date' },
+            { id: 'fim', label: 'Fim atendimento', type: 'date' }
+        ],
+        rows
     });
 
     return data;
 }
 
-function getEstruturaTempoMedioEmpresa(dataJson){
+function getEstruturaTempoMedioEmpresa(dataJson) {
     var rows = [];
-        for (let i = 0; i < dataJson.length; i++) {
-            rows.push({c: [  {v: dataJson[i].empresa}, {v: dataJson[i].usuario}, {v: Date.parse(dataJson[i].datainicio)}, {v: Date.parse(dataJson[i].datafinal)}]});
-        }
+    for (let i = 0; i < dataJson.length; i++) {
+        rows.push({ c: [{ v: dataJson[i].empresa }, { v: dataJson[i].usuario }, { v: Date.parse(dataJson[i].datainicio) }, { v: Date.parse(dataJson[i].datafinal) }] });
+    }
     var data = new google.visualization.DataTable({
-      cols: [
-        {id: 'empresa', label: 'Empresa', type: 'string'},
-        {id: 'usuario', label: 'Usuario', type: 'string'},
-        {id: 'inicio', label: 'Início atendimento', type: 'date'},
-        {id: 'fim', label: 'Fim atendimento', type: 'date'}
-      ],
-      rows
+        cols: [
+            { id: 'empresa', label: 'Empresa', type: 'string' },
+            { id: 'usuario', label: 'Usuario', type: 'string' },
+            { id: 'inicio', label: 'Início atendimento', type: 'date' },
+            { id: 'fim', label: 'Fim atendimento', type: 'date' }
+        ],
+        rows
     });
 
     return data;
+}
+
+
+function getDataTempoMedioAtendimento() {
+    var dados = $('#formTempoMedioAtendimento').serialize();
+    var jsonData = $.ajax({
+        url: "../charts/tempomedioatendimento.php",
+        dataType: "json",
+        data: dados,
+        async: false
+    }).responseText;
+
+    if (isEmpty($.parseJSON(jsonData))) {
+        return null;
+    }
+    return $.parseJSON(jsonData);
 }

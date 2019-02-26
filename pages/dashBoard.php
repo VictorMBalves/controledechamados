@@ -63,33 +63,30 @@
                             <!--Chamados pendentes-->
                             <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
                                 <div id="pendentes"></div>
-                                <?php //include 'chamadospendentes.php';?>
                             </div>
                             <!--Chamados pendentes-->
 
                             <!--Chamados ATRASADOS -->
                             <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
                                 <div id="atrasados"></div>
-                                <?php //include 'chamadosatrasados.php'; ?>
                             <!--Chamados ATRASADOS-->
                             </div>
 
                             <!--Chamados AGENDADOS -->
                             <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
                                 <div id="agendados"></div>
-                                <?php //include 'chamadosagendados.php'; ?>
                             </div>
                             <!--Chamados AGENDADOS -->
 
                             <!--Chamados EM ATENDIMENTO -->
                             <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
                                 <div id="andamento"></div>
-                                <?php //include 'chamadosandamento.php'; ?>
                             <!--Chamados EM ATENDIMENTO -->
                             </div>
                         </div>
 
                         <div class="row">
+                            <!--TIMELINE DE ATENDIMENTOS-->
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding:20px;">
                                 <div class="card shadow">
                                     <!-- Card Header - Dropdown -->
@@ -120,10 +117,60 @@
                                     </div>
                                     <!-- Card Body -->
                                     <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:10px;">
+                                                <div class="card border-left-info shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1"><h6>Tempo médio de atendimento</h6></div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><label id="media"></label></div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="far fa-clock fa-2x text-gray-600"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:10px;">
+                                                <div class="card border-left-success shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1"><h6>Nº de chamados atendidos</h6></div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><label id="atendidos"></label></div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="far fa-check-square fa-2x text-gray-600"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:10px;">
+                                                <div class="card border-left-danger shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1"><h6>Nº de chamados que atrasaram</h6></div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800"><label id="atrasaram"></label></div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i id="iconatrasados" class="far fa-frown fa-2x text-gray-600"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div id="chart_div5" class="chart"></div>
                                     </div>
                                 </div>
                             </div>
+                            <!--/TIMELINE DE ATENDIMENTOS-->
+
+                            <!--CHAMADOS POR HORA-->
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding:20px;">
                                 <div class="card shadow">
                                     <!-- Card Header - Dropdown -->
@@ -151,6 +198,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--/CHAMADOS POR HORA-->
+
+                            <!--CHAMADOS POR CATEGORIA-->
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6" style="padding:20px;">
                                 <div class="card shadow">
                                     <!-- Card Header - Dropdown -->
@@ -182,6 +232,9 @@
                                     </div>
                                 </div>
                             </div>
+                             <!--/CHAMADOS POR CATEGORIA-->
+
+                            <!--CHAMADOS POR ATENDENTE-->
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6" style="padding:20px;">
                                 <div class="card shadow ">
                                     <!-- Card Header - Dropdown -->
@@ -213,6 +266,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--/CHAMADOS POR ATENDENTE-->
+                            
+                            <!--RANK POR ATENDENTE-->
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6" style="padding:20px;">
                                 <div class="card shadow">
                                     <!-- Card Header - Dropdown -->
@@ -240,6 +296,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--/RANK POR ATENDENTE-->
                         </div>
                     </div>
                     <!-- /.container-fluid -->
@@ -272,6 +329,7 @@
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
         <script src="../assets/js/sb-admin-2.min.js"></script>
@@ -281,8 +339,6 @@
         <script src="../assets/js/date.js"></script>
         <script src="../js/links.js"></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript" src="../assets/js/ladda/spin.min.js"></script>
-        <script type="text/javascript" src="../assets/js/ladda/ladda.min.js"></script>
         <script type="text/javascript" src="../js/dashboard.js"></script>
 	</body>
 </html>

@@ -1,55 +1,72 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $("#liChamados").addClass("active")
     $("#liChamados").children('a').click()
-}); 
-  
+});
+var cnpjEspera = "";
 empresaEspera = $("#empresaEspera");
 enderecadoEspera = $("#enderecado");
-contatoEspera = $("#contatoespera");
-telefoneEspera = $("#telefone");
-versaoEspera = $("#versao");
-sistemaEspera = $("#sistema");
+contatoEspera = $("#contatoEspera");
+telefoneEspera = $("#telefoneEspera");
+versaoEspera = $("#versaoEspera");
+sistemaEspera = $("#sistemaEspera");
 descProblemaEspera = $("#desc_problema");
 errosEspera = [];
 
-$("#submit").click(function(){
-    $("#submit").addClass( ' disabled ' );
+empresaEspera.flexdatalist({
+    minLength: 1,
+    visibleProperties: '{cnpj} - {name}',
+    textProperty: 'name',
+    searchIn: ['name', 'cnpj'],
+    url: "../utilsPHP/search.php",
+    noResultsText: 'Sem resultados para "{keyword}"',
+}).on('select:flexdatalist', function (ev, result) {
+    $("#infoLoad").addClass(' hidden ');
+    $("#successLoad").removeClass(' hidden ');
+    if(result.is_blocked){
+        $("#empresaBloqueada").removeClass(' hidden ');
+        empresaEspera.addClass(' is-invalid ');
+    }
+    sistemaEspera.val(result.system);
+    telefoneEspera.val(result.phone);
+    versaoEspera.val(result.version);
+    cnpjEspera = result.cnpj;
+}).on('before:flexdatalist.search', function(ev, key, data){
+    $("#infoLoad").removeClass(' hidden ');
+});
+
+$("#submit").click(function () {
+    $("#submit").addClass(' disabled ');
     $("#submit").html('<img src="../imagem/ajax-loader.gif">');
     validar();
     return null;
 })
 
-$("#cancel").click(function(){
+$("#cancel").click(function () {
     window.location.assign("../pages/home");
 })
-$("#showAtendente").click(function(){
-    $("#sidebar").toggleClass("collapsed");
-    $("#content").toggleClass("col-md-9 col-md-12");
-    $("#flecha").toggleClass("glyphicon-arrow-left glyphicon-arrow-right");
-})
 
-function validar(){ 
+function validar() {
     errosEspera = [];
-    if(isEmpty(empresaEspera.val()))
+    if (isEmpty(empresaEspera.val()))
         errosEspera.push(empresaEspera.selector);
-    if(isEmpty(contatoEspera.val()))
+    if (isEmpty(contatoEspera.val()))
         errosEspera.push(contatoEspera.selector);
-    if(isEmpty(telefoneEspera.val()))
+    if (isEmpty(telefoneEspera.val()))
         errosEspera.push(telefoneEspera.selector);
-    if(isEmpty(versaoEspera.val()))
+    if (isEmpty(versaoEspera.val()))
         errosEspera.push(versaoEspera.selector);
-    if(isEmpty(sistemaEspera.val()))
+    if (isEmpty(sistemaEspera.val()))
         errosEspera.push(sistemaEspera.selector);
-    if(isEmpty(descProblemaEspera.val()))
+    if (isEmpty(descProblemaEspera.val()))
         errosEspera.push(descProblemaEspera.selector);
 
-    if(isEmpty(errosEspera)){
+    if (isEmpty(errosEspera)) {
         enviarDados();
-    }else{
+    } else {
         $("#submit").removeClass("disabled");
         $("#submit").html("Salvar");
-        for(i = 0; i < errosEspera.length; i++){
-            if(!$(errosEspera[i]).hasClass("vazio")){
+        for (i = 0; i < errosEspera.length; i++) {
+            if (!$(errosEspera[i]).hasClass("vazio")) {
                 $(errosEspera[i]).addClass("is-invalid");
             }
         }
@@ -57,36 +74,36 @@ function validar(){
     }
     return null;
 }
-function enviarDados(){
+function enviarDados() {
     $.ajax({
         type: "POST",
         url: "../inserts/inserechamadoespera.php",
         data: carregaDados(),
-        success: function(data){
+        success: function (data) {
             data = data.trim();
-            if(data == "success"){
+            if (data == "success") {
                 notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
                 resetForm();
                 $("#submit").removeClass('disabled');
                 $("#submit").html('Salvar');
-            }else if(data == "success1"){
+            } else if (data == "success1") {
                 notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
                 resetForm();
                 $("#submit").removeClass('disabled');
                 $("#submit").html('Salvar');
-            }else{
+            } else {
                 notificationError('Ocorreu um erro ao salvar o registro: ', data);
-                $("#submit").removeClass( ' disabled ' );
+                $("#submit").removeClass(' disabled ');
                 $("#submit").html('Salvar');
             }
         },
-        error: function(jqXHR, textStatus, errorThrown){
+        error: function (jqXHR, textStatus, errorThrown) {
             alert('error: ' + textStatus + ': ' + errorThrown);
         }
     });
 }
 
-function resetForm(){
+function resetForm() {
     empresaEspera.val('');
     contatoEspera.val('');
     telefoneEspera.val('');
@@ -100,44 +117,45 @@ function resetForm(){
     $('#resultado').html('<div class="alert alert-info text-center" role="alert">Novo chamado em espera:</div>');
 }
 
-empresaEspera.focusout(function() {
-    if(!isEmpty(empresaEspera.val()))
+empresaEspera.focusout(function () {
+    if (!isEmpty(empresaEspera.val()))
         $(empresaEspera.selector).removeClass("is-invalid");
 });
-enderecadoEspera.focusout(function() {
-    if(!isEmpty(enderecadoEspera.val()))
+enderecadoEspera.focusout(function () {
+    if (!isEmpty(enderecadoEspera.val()))
         $(enderecadoEspera.selector).removeClass("is-invalid");
 });
-contatoEspera.focusout(function() {
-    if(!isEmpty(contatoEspera.val()))
+contatoEspera.focusout(function () {
+    if (!isEmpty(contatoEspera.val()))
         $(contatoEspera.selector).removeClass("is-invalid");
 });
-telefoneEspera.focusout(function() {
-    if(!isEmpty(telefoneEspera.val()))
+telefoneEspera.focusout(function () {
+    if (!isEmpty(telefoneEspera.val()))
         $(telefoneEspera.selector).removeClass("is-invalid");
 });
-versaoEspera.focusout(function() {
-    if(!isEmpty(versaoEspera.val()))
+versaoEspera.focusout(function () {
+    if (!isEmpty(versaoEspera.val()))
         $(versaoEspera.selector).removeClass("is-invalid");
 });
-sistemaEspera.focusout(function() {
-    if(!isEmpty(sistemaEspera.val()))
+sistemaEspera.focusout(function () {
+    if (!isEmpty(sistemaEspera.val()))
         $(sistemaEspera.selector).removeClass("is-invalid");
 });
-descProblemaEspera.focusout(function() {
-    if(!isEmpty(descProblemaEspera.val()))
+descProblemaEspera.focusout(function () {
+    if (!isEmpty(descProblemaEspera.val()))
         $(descProblemaEspera.selector).removeClass("is-invalid");
 });
 
-function carregaDados(){
+function carregaDados() {
     var data = [];
-    data.push({name: 'empresa', value: empresaEspera.val()});
-    data.push({name: 'enderecado', value: enderecadoEspera.val()});
-    data.push({name: 'contato', value: contatoEspera.val()});
-    data.push({name: 'telefone', value: telefoneEspera.val()});
-    data.push({name: 'versao', value: versaoEspera.val()});
-    data.push({name: 'sistema', value: sistemaEspera.val()});
-    data.push({name: 'descproblema', value: descProblemaEspera.val()});
+    data.push({ name: 'empresa', value: empresaEspera.val() });
+    data.push({ name: 'enderecado', value: enderecadoEspera.val() });
+    data.push({ name: 'contato', value: contatoEspera.val() });
+    data.push({ name: 'telefone', value: telefoneEspera.val() });
+    data.push({ name: 'versao', value: versaoEspera.val() });
+    data.push({ name: 'sistema', value: sistemaEspera.val() });
+    data.push({ name: 'descproblema', value: descProblemaEspera.val() });
+    data.push({name: 'cnpj', value: cnpjEspera});
     return data;
 }
 
@@ -145,16 +163,3 @@ function erro() {
     alert('Acesso negado! Redirecinando a pagina principal.');
     window.location.assign("home");
 }
-
-$(function () {
-    $.getJSON('../utilsPHP/search.php').done(function(response){
-        $('#empresaEspera').flexdatalist({
-            minLength: 1,
-            searchIn: 'nome',
-            data: response,
-            noResultsText: 'Sem resultados para "{keyword}" <a href="../pages/cad_empresa?term={keyword}">Cadastrar!</a>',
-        }).on('select:flexdatalist', function(ev, result){
-            callApi(result.nome);
-        });;
-    });
-});

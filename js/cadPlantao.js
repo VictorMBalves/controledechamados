@@ -1,51 +1,74 @@
-$("#gerarSobreaviso").click(function(){
+$("#gerarSobreaviso").click(function () {
     progressReport("Gerando relatório de sobreaviso");
 })
+var cnpjPlantao = "";
 components = [
- empresa = $("#empresaCad"),
- contato = $("#contatoCad"),
- forma_contato = $("#formacontato"),
- telefone = $("#telefone"),
- versao = $("#versao"),
- dataPlantao = $("#data"),
- horainicio = $("#horainicio"),
- horafim = $("#horafim"),
- sistema = $("#sistema"),
- backup = $("#backup"),
- categoria = $("#categoria"),
- descproblema = $("#descproblema"),
- descsolucao = $("#descsolucao"),
+    empresaPlantao = $("#empresaPlantao"),
+    contatoPlantao = $("#contatoPlantao"),
+    forma_contatoPlantao = $("#formacontato"),
+    telefonePlantao = $("#telefonePlantao"),
+    versaoPlantao = $("#versaoPlantao"),
+    dataPlantaoPlantao = $("#data"),
+    horainicioPlantao = $("#horainicio"),
+    horafimPlantao = $("#horafim"),
+    sistemaPlantao = $("#sistemaPlantao"),
+    backupPlantao = $("#backup"),
+    categoriaPlantao = $("#categoria"),
+    descproblemaPlantao = $("#descproblema"),
+    descsolucaoPlantao = $("#descsolucao"),
 ];
-erros = [];
+errosPlantao = [];
 
-$("#salvarPlantao").click(function(){
-    $("#salvarPlantao").addClass( ' disabled ' );
+empresaPlantao.flexdatalist({
+    minLength: 1,
+    visibleProperties: '{cnpj} - {name}',
+    textProperty: 'name',
+    searchIn: ['name', 'cnpj'],
+    url: "../utilsPHP/search.php",
+    noResultsText: 'Sem resultados para "{keyword}"',
+}).on('select:flexdatalist', function (ev, result) {
+    $("#infoLoad").addClass(' hidden ');
+    $("#successLoad").removeClass(' hidden ');
+    if(result.is_blocked){
+        $("#empresaBloqueada").removeClass(' hidden ');
+        empresaPlantao.addClass(' is-invalid ');
+    }
+    sistemaPlantao.val(result.system);
+    telefonePlantao.val(result.phone);
+    versaoPlantao.val(result.version);
+    cnpjPlantao = result.cnpj;
+}).on('before:flexdatalist.search', function(ev, key, data){
+    $("#infoLoad").removeClass(' hidden ');
+});
+
+$("#salvarPlantao").click(function () {
+    $("#salvarPlantao").addClass(' disabled ');
     $("#salvarPlantao").html('<img src="../imagem/ajax-loader.gif">');
     validarPlantao(components);
     return null;
 })
-$("#cancel").click(function(){
+$("#cancel").click(function () {
     resetForm();
 })
-function validarPlantao(components){
-    erros = [];
-    for(i = 0; i < components.length; i++){
-        if(isEmpty(components[i].val()))
-            erros.push(components[i].selector);
+function validarPlantao(components) {
+    errosPlantao = [];
+    for (i = 0; i < components.length; i++) {
+        if (isEmpty(components[i].val()))
+            errosPlantao.push(components[i].selector);
     }
-    if(isEmpty(erros)){
-        if(!validarHorario()){
+    if (isEmpty(errosPlantao)) {
+        if (!validarHorario()) {
             $("#salvarPlantao").removeClass("disabled");
             $("#salvarPlantao").html("Salvar");
             return;
         }
         enviarDadosPlantao();
-    }else{
+    } else {
         $("#salvarPlantao").removeClass("disabled");
         $("#salvarPlantao").html("Salvar");
-        for(i = 0; i < erros.length; i++){
-            if(!$(erros[i]).hasClass("vazio")){
-                $(erros[i]).addClass("is-invalid");
+        for (i = 0; i < errosPlantao.length; i++) {
+            if (!$(errosPlantao[i]).hasClass("vazio")) {
+                $(errosPlantao[i]).addClass("is-invalid");
             }
         }
         notificationWarningOne("Preencha os campos obrigatórios!");
@@ -53,125 +76,126 @@ function validarPlantao(components){
     return null;
 }
 
-function enviarDadosPlantao(){
+function enviarDadosPlantao() {
     $.ajax({
         type: "POST",
         url: "../inserts/insere_plantao2.php",
         data: carregaDados(),
-        success: function(data){
+        success: function (data) {
             data = data.trim();
-            if(data == "success"){
+            if (data == "success") {
                 notificationSuccess('Registro salvo', 'Chamado registrado com sucesso!');
                 resetForm();
-                $("#salvarPlantao").removeClass( ' disabled ' );
+                $("#salvarPlantao").removeClass(' disabled ');
                 $("#salvarPlantao").html('Salvar');
-            }else{
+            } else {
                 notificationError('Ocorreu um erro ao salvar o registro: ', data);
-                $("#salvarPlantao").removeClass( ' disabled ' );
+                $("#salvarPlantao").removeClass(' disabled ');
                 $("#salvarPlantao").html('Salvar');
             }
         },
-        error: function(jqXHR, textStatus, errorThrown){
+        error: function (jqXHR, textStatus, errorThrown) {
             alert('error: ' + textStatus + ': ' + errorThrown);
         }
     });
 }
 
-function carregaDados(){
+function carregaDados() {
     var data = [];
-    data.push({name: 'empresa', value: empresa.val()});
-    data.push({name: 'contato', value: contato.val()});
-    data.push({name: 'telefone', value: telefone.val()});
-    data.push({name: 'versao', value: versao.val()});
-    data.push({name: 'formacontato', value: forma_contato.val()});
-    data.push({name: 'categoria', value: categoria.val()});
-    data.push({name: 'descproblema', value: descproblema.val()});
-    data.push({name: 'backup', value: backup.val()});
-    data.push({name: 'sistema', value: sistema.val()});
-    data.push({name: 'horafim', value: horafim.val()});
-    data.push({name: 'horainicio', value: horainicio.val()});
-    data.push({name: 'data', value: dataPlantao.val()});
-    data.push({name: 'descsolucao', value: descsolucao.val()});
+    data.push({ name: 'empresa', value: empresaPlantao.val() });
+    data.push({ name: 'contato', value: contatoPlantao.val() });
+    data.push({ name: 'telefone', value: telefonePlantao.val() });
+    data.push({ name: 'versao', value: versaoPlantao.val() });
+    data.push({ name: 'formacontato', value: forma_contatoPlantao.val() });
+    data.push({ name: 'categoria', value: categoriaPlantao.val() });
+    data.push({ name: 'descproblema', value: descproblemaPlantao.val() });
+    data.push({ name: 'backup', value: backupPlantao.val() });
+    data.push({ name: 'sistema', value: sistemaPlantao.val() });
+    data.push({ name: 'horafim', value: horafimPlantao.val() });
+    data.push({ name: 'horainicio', value: horainicioPlantao.val() });
+    data.push({ name: 'data', value: dataPlantaoPlantao.val() });
+    data.push({ name: 'descsolucao', value: descsolucaoPlantao.val() });
+    data.push({name: 'cnpj', value: cnpjPlantao});
     return data;
 }
 
-function resetForm(){
-    empresa.val('');
-    contato.val('');
-    telefone.val('');
-    versao.val('');
-    forma_contato.val('');
-    categoria.val('');
-    descproblema.val('');
-    backup.val('');
-    sistema.val('');
-    dataPlantao.val('');
-    horafim.val('');
-    horainicio.val('');
-    descsolucao.val('');
+function resetForm() {
+    empresaPlantao.val('');
+    contatoPlantao.val('');
+    telefonePlantao.val('');
+    versaoPlantao.val('');
+    forma_contatoPlantao.val('');
+    categoriaPlantao.val('');
+    descproblemaPlantao.val('');
+    backupPlantao.val('');
+    sistemaPlantao.val('');
+    dataPlantaoPlantao.val('');
+    horafimPlantao.val('');
+    horainicioPlantao.val('');
+    descsolucaoPlantao.val('');
     $('#infLoad').addClass('hidden');
     $('#erroLoad').addClass('hidden');
     $('#successLoad').addClass('hidden');
     $('#alertLoad').addClass('hidden');
 }
-contato.focusout(function() {
-    if(!isEmpty(contato.val()))
-    $(contato.selector).removeClass("is-invalid");
+contatoPlantao.focusout(function () {
+    if (!isEmpty(contatoPlantao.val()))
+        $(contatoPlantao.selector).removeClass("is-invalid");
 });
-empresa.focusout(function() {
-    if(!isEmpty(empresa.val()))
-    $(empresa.selector).removeClass("is-invalid");
+empresaPlantao.focusout(function () {
+    if (!isEmpty(empresaPlantao.val()))
+        $(empresaPlantao.selector).removeClass("is-invalid");
 });
-forma_contato.focusout(function() {
-    if(!isEmpty(forma_contato.val()))
-    $(forma_contato.selector).removeClass("is-invalid");
+forma_contatoPlantao.focusout(function () {
+    if (!isEmpty(forma_contatoPlantao.val()))
+        $(forma_contatoPlantao.selector).removeClass("is-invalid");
 });
-telefone.focusout(function() {
-    if(!isEmpty(telefone.val()))
-    $(telefone.selector).removeClass("is-invalid");
+telefonePlantao.focusout(function () {
+    if (!isEmpty(telefonePlantao.val()))
+        $(telefonePlantao.selector).removeClass("is-invalid");
 });
-sistema.focusout(function() {
-    if(!isEmpty(sistema.val()))
-    $(sistema.selector).removeClass("is-invalid");
+sistemaPlantao.focusout(function () {
+    if (!isEmpty(sistemaPlantao.val()))
+        $(sistemaPlantao.selector).removeClass("is-invalid");
 });
-versao.focusout(function() {
-    if(!isEmpty(versao.val()))
-    $(versao.selector).removeClass("is-invalid");
+versaoPlantao.focusout(function () {
+    if (!isEmpty(versaoPlantao.val()))
+        $(versaoPlantao.selector).removeClass("is-invalid");
 });
-backup.focusout(function() {
-    if(!isEmpty(backup.val()))
-    $(backup.selector).removeClass("is-invalid");
+backupPlantao.focusout(function () {
+    if (!isEmpty(backupPlantao.val()))
+        $(backupPlantao.selector).removeClass("is-invalid");
 });
-categoria.focusout(function() {
-    if(!isEmpty(categoria.val()))
-    $(categoria.selector).removeClass("is-invalid");
+categoriaPlantao.focusout(function () {
+    if (!isEmpty(categoriaPlantao.val()))
+        $(categoriaPlantao.selector).removeClass("is-invalid");
 });
-descproblema.focusout(function() {
-    if(!isEmpty(descproblema.val()))
-    $(descproblema.selector).removeClass("is-invalid");
+descproblemaPlantao.focusout(function () {
+    if (!isEmpty(descproblemaPlantao.val()))
+        $(descproblemaPlantao.selector).removeClass("is-invalid");
 });
-horafim.focusout(function() {
-    if(!isEmpty(horafim.val()))
-    $(horafim.selector).removeClass("is-invalid");
+horafimPlantao.focusout(function () {
+    if (!isEmpty(horafimPlantao.val()))
+        $(horafimPlantao.selector).removeClass("is-invalid");
 });
-horainicio.focusout(function() {
-    if(!isEmpty(horainicio.val()))
-    $(horainicio.selector).removeClass("is-invalid");
+horainicioPlantao.focusout(function () {
+    if (!isEmpty(horainicioPlantao.val()))
+        $(horainicioPlantao.selector).removeClass("is-invalid");
 });
-dataPlantao.focusout(function() {
-    if(!isEmpty(dataPlantao.val()))
-    $(dataPlantao.selector).removeClass("is-invalid");
+dataPlantaoPlantao.focusout(function () {
+    if (!isEmpty(dataPlantaoPlantao.val()))
+        $(dataPlantaoPlantao.selector).removeClass("is-invalid");
 });
-descsolucao.focusout(function() {
-    if(!isEmpty(descsolucao.val()))
-    $(descsolucao.selector).removeClass("is-invalid");
+descsolucaoPlantao.focusout(function () {
+    if (!isEmpty(descsolucaoPlantao.val()))
+        $(descsolucaoPlantao.selector).removeClass("is-invalid");
 });
 
-function validarHorario(){
-    var startTime = horainicio.val();
-    var endTime = horafim.val();
+function validarHorario() {
+    var startTime = horainicioPlantao.val();
+    var endTime = horafimPlantao.val();
     var regExp = /(\d{1,2})\:(\d{1,2})\:(\d{1,2})/;
-    if(parseInt(endTime .replace(regExp, "$1$2$3")) < parseInt(startTime .replace(regExp, "$1$2$3"))){
+    if (parseInt(endTime.replace(regExp, "$1$2$3")) < parseInt(startTime.replace(regExp, "$1$2$3"))) {
         notificationWarningOne("Horário de termino deve ser maior que o horário de inicio");
         horafim.focus();
         return false;

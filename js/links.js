@@ -3,8 +3,18 @@ $(document).ready(function() {
   loadResponsavelSemana();
   refresh_usuarios();
   $.Shortcuts.start();
+  verificaPreferenciaSideBar()
 }); 
 
+function verificaPreferenciaSideBar(){
+  if($.cookie('sidebarToggled')){
+    $("body").toggleClass("sidebar-toggled");
+    $(".sidebar").toggleClass("toggled");
+    if ($(".sidebar").hasClass("toggled")) {
+      $('.sidebar .collapse').collapse('hide');
+    };
+  }
+}
 
 $.Shortcuts.add({
     type: 'down',
@@ -229,6 +239,11 @@ function loadResponsavelSemana(){
 
 $("#sidebarToggle").click(function(){
     refresh_usuarios();
+    if($("#accordionSidebar").hasClass('toggled'))
+      $.cookie('sidebarToggled', 'true', { expires: 1000, path: '/' });
+    else{
+      $.removeCookie('sidebarToggled', { path: '/' });
+    }
 })
 
 function refresh_usuarios() {

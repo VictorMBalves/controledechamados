@@ -13,6 +13,10 @@
     $stmt->execute();
     $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
 
+    if(sizeof($resultado) == 0){
+        return;
+    }
+
     $dataTable = [];
     $header = ['Atendente', 'Nº Chamados'];
     array_push($dataTable, $header);
