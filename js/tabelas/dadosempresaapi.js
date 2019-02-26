@@ -1,7 +1,6 @@
 $(document).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
     $("#liRelatorio").addClass("active")
-    $("#liRelatorio").children('a').click()
     $.ajax({
         type: 'POST',
         url: '../utilsPHP/callTodasEmpresas.php',

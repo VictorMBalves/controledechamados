@@ -1,6 +1,5 @@
 $(document).ready(function () {
     $("#liChamados").addClass("active")
-    $("#liChamados").children('a').click()
 });
 var cnpjEspera = "";
 empresaEspera = $("#empresaEspera");

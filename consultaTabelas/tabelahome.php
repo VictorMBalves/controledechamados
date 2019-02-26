@@ -25,4 +25,5 @@
     $query->execute();
     $resultado = $query->fetchall(PDO::FETCH_ASSOC);
     echo json_encode($resultado);
+    
 ?>

@@ -178,7 +178,6 @@
         <script src="../js/links.js"></script>
 		<script>
             $("#liRelatorio").addClass("active")
-            $("#liRelatorio").children('a').click()
         </script>
 	</body>
 </html>

@@ -208,7 +208,6 @@ function notificaUsuario(chamado){
       icon: '../imagem/favicon-3.png',
       body: "Há um chamado para empresa "+chamado.empresa+" em espera com mais de 10 minutos sem resposta",
       });
-
       // notificacao.onclick = function () {
       //     url = "../pages/abrechamadoespera="+chamado.id_chamadoespera;
       //     window.open(url,

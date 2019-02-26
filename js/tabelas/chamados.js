@@ -18,7 +18,6 @@ $(document).ready(function() {
     $("#loading").html('<img src="../imagem/loading.gif">');
     loadTable();
     $("#liChamados").addClass("active")
-    $("#liChamados").children('a').click()
 });
 
 $("#buscar").on("click", function(){
