@@ -1,5 +1,5 @@
 <?php
-require_once '/var/www/html/chamados/include/Database.class.php';
+require_once '/var/www/html/chamados/current/include/Database.class.php';
 $db = Database::conexao();
 
 $sql = "SELECT 
