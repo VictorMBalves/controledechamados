@@ -8,8 +8,8 @@ platforms:
         servers:
             dev:
                 host: 192.168.33.10
-                user: root
-                password: vagrant
+                user: vagrant
+                ssh_key: /machine/private_key
                 path: /var/www/html/testechamados
                 port: 22
     production:
