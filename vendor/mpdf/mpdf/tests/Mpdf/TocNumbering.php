@@ -2,6 +2,10 @@
 
 namespace Mpdf;
 
+use Mpdf\Pdf\Protection;
+use Mpdf\Pdf\Protection\UniqidGenerator;
+use Mpdf\Writer\BaseWriter;
+
 class TocNumbering extends \PHPUnit_Framework_TestCase
 {
 
@@ -17,8 +21,8 @@ class TocNumbering extends \PHPUnit_Framework_TestCase
 
 	public function testTocPageNumbering()
 	{
-		$this->mpdf->setCompression(false);
-		$this->mpdf->h2toc = array('H1' => 0, 'H2' => 1);
+		$this->mpdf->SetCompression(false);
+		$this->mpdf->h2toc = ['H1' => 0, 'H2' => 1];
 
 		$this->mpdf->WriteHTML('
 			<style>
@@ -52,7 +56,7 @@ class TocNumbering extends \PHPUnit_Framework_TestCase
 
 		$this->mpdf->Close();
 
-		$this->assertNotFalse(strpos($this->mpdf->pages[2], $this->getPattern(3)));
+		$this->assertContains($this->getPattern(3), $this->mpdf->pages[2]);
 	}
 
 	/**
@@ -60,7 +64,7 @@ class TocNumbering extends \PHPUnit_Framework_TestCase
 	 */
 	public function testTocMultiPageNumbering()
 	{
-		$this->mpdf->setCompression(false);
+		$this->mpdf->SetCompression(false);
 		$markup = str_repeat('
 		<h1><tocentry content="Heading 1" name="first" />Heading 1</h1>
 		<h2><tocentry content="Heading 2" name="first" level="1" />Heading 2</h2>
@@ -117,9 +121,9 @@ class TocNumbering extends \PHPUnit_Framework_TestCase
 
 		$this->mpdf->Close();
 
-		$this->assertNotFalse(strpos($this->mpdf->pages[1], $this->getPattern(7)));
-		$this->assertNotFalse(strpos($this->mpdf->pages[4], $this->getPattern(8)));
-		$this->assertNotFalse(strpos($this->mpdf->pages[6], $this->getPattern(9)));
+		$this->assertContains($this->getPattern(7), $this->mpdf->pages[1]);
+		$this->assertContains($this->getPattern(8), $this->mpdf->pages[4]);
+		$this->assertContains($this->getPattern(9), $this->mpdf->pages[6]);
 	}
 
 	public function testTocAlternateSymbols()
@@ -181,34 +185,90 @@ class TocNumbering extends \PHPUnit_Framework_TestCase
 
 		$this->mpdf->Close();
 
-		$this->assertNotFalse(
-			strpos(
-				$this->mpdf->pages[1],
-				$this->getPattern('VII', 'q 0.000 0.000 0.000 rg  0 Tr BT 540.165 784.480 Td  (%s) Tj ET Q')
-			)
-		);
+		$this->assertContains($this->getPattern('VII', 'q 0.000 0.000 0.000 rg  0 Tr BT 540.165 784.480 Td  (%s) Tj ET Q'), $this->mpdf->pages[1]);
 
-		$this->assertNotFalse(
-			strpos(
-				$this->mpdf->pages[4],
-				$this->getPattern('VIII', 'q 0.000 0.000 0.000 rg  0 Tr BT 537.250 784.480 Td  (%s) Tj ET Q')
-			)
-		);
+		$this->assertContains($this->getPattern('VIII', 'q 0.000 0.000 0.000 rg  0 Tr BT 537.250 784.480 Td  (%s) Tj ET Q'), $this->mpdf->pages[4]);
 
-		$this->assertNotFalse(
-			strpos(
-				$this->mpdf->pages[6],
-				$this->getPattern('IX', 'q 0.000 0.000 0.000 rg  0 Tr BT 543.069 784.480 Td  (%s) Tj ET Q')
-			)
-		);
+		$this->assertContains($this->getPattern('IX', 'q 0.000 0.000 0.000 rg  0 Tr BT 543.069 784.480 Td  (%s) Tj ET Q'), $this->mpdf->pages[6]);
+	}
+
+	public function testTocNumberSuppression()
+	{
+		$this->mpdf->setCompression(false);
+
+		$this->mpdf->AddPageByArray([
+			'suppress' => 'on'
+		]);
+		$this->mpdf->WriteHTML('<p>TitlePage</p>');
+
+		$this->mpdf->TOCpagebreakByArray([
+			'links' => true,
+			'resetpagenum' => 3,
+			'name' => 'main',
+			'suppress' => 'off'
+		]);
+		$this->mpdf->TOC_Entry('1', 1, 'main');
+		$this->mpdf->WriteHTML("<h1>chapter 1</h1>");
+
+		$this->mpdf->AddPage();
+		$this->mpdf->TOC_Entry('1.1', 2, 'main');
+		$this->mpdf->WriteHTML("<h1>chapter 1.1</h1>");
+
+		$this->mpdf->AddPage();
+		$this->mpdf->TOC_Entry('2', 1, 'main');
+		$this->mpdf->WriteHTML("<h1>chapter 2</h1>");
+
+		$this->mpdf->AddPage();
+		$this->mpdf->TOC_Entry('3', 1, 'main');
+		$this->mpdf->WriteHTML("<h1>chapter 3</h1>");
+
+		$this->mpdf->Close();
+
+		$this->assertContains($this->getPattern('6', 'q 0.000 0.000 0.000 rg  0 Tr BT 546.468 741.642 Td  (%s) Tj ET Q'), $this->mpdf->pages[2]);
+	}
+
+	public function testTocNumberWithCustomNumberStylingOnTocPage()
+	{
+		$this->mpdf->setCompression(false);
+
+		$this->mpdf->writeHTML('
+		<style>
+			@page {
+				footer: html_myFooter;
+			}
+		</style>
+		
+		<htmlpagefooter name="myFooter">
+			Page {PAGENO} / {nbpg}
+		</htmlpagefooter>
+		
+		Content
+		
+		<pagebreak />
+		
+		<tocpagebreak links="on" toc-pagenumstyle="i" />
+		
+		<pagebreak pagenumstyle="1" />
+	
+		<h2>Entry 1 <tocentry content="Entry 1"></h2>
+	
+		<pagebreak />
+	
+		<h2>Entry 2 <tocentry content="Entry 2"></h2>');
+
+		$this->mpdf->Close();
+
+		$this->assertContains($this->getPattern('5', 'q 0.000 0.000 0.000 rg  0 Tr BT 546.468 767.980 Td  (%s) Tj ET Q'), $this->mpdf->pages[2]);
 	}
 
 	protected function getPattern(
 		$pageNumber,
 		$pattern = 'q 0.000 0.000 0.000 rg  0 Tr BT 546.468 784.480 Td  (%s) Tj ET Q'
 	) {
-		$pageNumber = $this->mpdf->_escape(
-			$this->mpdf->UTF8ToUTF16BE($pageNumber, false)
+		$writer = new BaseWriter($this->mpdf, new Protection(new UniqidGenerator()));
+
+		$pageNumber = $writer->escape(
+			$writer->utf8ToUtf16BigEndian($pageNumber, false)
 		);
 
 		return sprintf(
