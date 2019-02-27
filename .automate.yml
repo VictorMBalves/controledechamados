@@ -8,8 +8,8 @@ platforms:
         servers:
             dev:
                 host: 192.168.33.10
-                user: vagrant
-                ssh_key: /machine/private_key
+                user: root
+                password: vagrant
                 path: /var/www/html/testechamados
                 port: 22
     production:
@@ -24,7 +24,6 @@ platforms:
 
 pre_deploy:
     - "php -v"
-    - "sudo su"
 post_deploy:
     - "composer install"
     - "/etc/init.d/httpd restart"
