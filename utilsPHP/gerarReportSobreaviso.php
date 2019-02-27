@@ -304,7 +304,7 @@ try {
                     <td width="33%" style="text-align: right;"><img src="../imagem/favicon-0.png"> Controle de chamados</td>
                 </tr>
             </table>');
-    $stylesheet = file_get_contents('../assets/css/bootstrap.min.css');
+    $stylesheet = file_get_contents('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
     $mpdf->WriteHTML($stylesheet, 1);
     $mpdf->WriteHTML($html, 2);
     // Write some HTML code:
