@@ -9,7 +9,7 @@
             "type": "php",
             "request": "launch",
             "pathMappings": {
-                "chamados.gtech.site": "${workspaceRoot}",
+                "/var/www/html/chamados": "${workspaceRoot}",
             },
             "port": 9000,
             "log": true,

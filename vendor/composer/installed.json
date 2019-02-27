@@ -41,7 +41,7 @@
                 "dev-development": "7.0-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "psr-4": {
                 "Mpdf\\": "src/"
@@ -142,7 +142,7 @@
         },
         "time": "2018-06-08T15:26:40+00:00",
         "type": "library",
-        "installation-source": "dist",
+        "installation-source": "source",
         "autoload": {
             "files": [
                 "lib/random.php"
@@ -370,7 +370,7 @@
                 "dev-master": "3.x-dev"
             }
         },
-        "installation-source": "dist",
+        "installation-source": "source",
         "notification-url": "https://packagist.org/downloads/",
         "license": [
             "BSD-3-Clause"
