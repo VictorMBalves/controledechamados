@@ -9,7 +9,8 @@ platforms:
             dev:
                 host: 192.168.33.10
                 user: vagrant
-                ssh_key: /machine/private_key
+                # ssh_key: /machine/private_key
+                password: vagrant
                 path: /var/www/html/testechamados
                 port: 22
     production:
