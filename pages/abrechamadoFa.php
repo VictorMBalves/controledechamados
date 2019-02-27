@@ -129,6 +129,8 @@
 								</option>
 								<option value="Folha">Folha
 								</option>
+								<option value="Emissor">Emissor
+								</option>
 							</select>
 						</div>
 					</div>
