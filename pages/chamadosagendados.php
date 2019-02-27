@@ -42,9 +42,9 @@
             echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12 for-search" style="padding-bottom:10px;">';
                 echo '<div class="card border-left-info shadow h-100 py-2">';
                    echo '<div class="card-header" onclick="abrirVisualizacao('.$chamado['id_chamadoespera'].')" style="cursor: pointer;">';
-                        echo'<div class="row no-gutters align-items-center text-uppercase">';
+                        echo'<div class="row no-gutters align-items-center text-uppercase text-gray-800"><strong>';
                                 echo $chamado['empresa'];
-                        echo '</div>
+                        echo '</strong></div>
                         </div>
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">

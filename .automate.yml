@@ -25,6 +25,7 @@ platforms:
 pre_deploy:
     - "php -v"
 post_deploy:
+    - "rm -rf /var/www/html/chamados/current/vendor/mpdf"
     - "composer update"
     - "/etc/init.d/httpd restart"
 
