@@ -25,7 +25,6 @@ platforms:
 pre_deploy:
     - "php -v"
 post_deploy:
-    - "rm -rf /var/www/html/chamados/current/vendor/phpmailer"
     - "composer install"
     - "/etc/init.d/httpd restart"
 

@@ -8,7 +8,7 @@
 		<meta name="description" content="Controle de chamados German Tech">
 		<meta name="author" content="Victor Alves">
 		<link rel="shortcut icon" href="../imagem/favicon.ico" />
-		<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+		<link href="../assets/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 		<link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 		<link href="../datatables/datatables.min.css" rel="stylesheet">
@@ -137,8 +137,8 @@
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-		<script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-		<script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+		<script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="../assets/jquery-easing/jquery.easing.min.js"></script>
 		<script src="../assets/js/sb-admin-2.min.js"></script>
 		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
