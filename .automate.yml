@@ -24,6 +24,8 @@ platforms:
 
 pre_deploy:
     - "php -v"
+    only: dev
+    - "sudo su"
 post_deploy:
     - "composer install"
     - "/etc/init.d/httpd restart"
