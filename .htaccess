@@ -66,4 +66,5 @@ ErrorDocument 500 /pages/error/404.html
   RewriteRule ^pages/editausuario=([0-9]+)?$ pages/editausuario.php?id=$1 [NC,L]
   RewriteRule ^pages/editaempresa=([0-9]+)?$ pages/editaempresa.php?id_empresa=$1 [NC,L]
   RewriteRule ^pages/dashexception/?$ pages/dashException.php [NC,L]
+  RewriteRule ^slack/requestInteractivity/?$ slack/requestInteractivity.php [NC,L]
 </IfModule>

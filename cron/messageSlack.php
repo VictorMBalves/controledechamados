@@ -29,20 +29,21 @@ foreach($resultado as $chamado){
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-    CURLOPT_URL => "https://hooks.slack.com/services/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",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "POST",
-    CURLOPT_POSTFIELDS => "{'text': ':clock1: Há um chamado para empresa ".$chamado['empresa']." com mais de 10 minutos de atraso!!!'}",
-    CURLOPT_HTTPHEADER => array(
-        "Content-Type: application/json",
-        "Postman-Token: 26044770-ef0c-424d-814a-a8cd9f10bc2d",
-        "cache-control: no-cache"
-    ),
-    ));
+            CURLOPT_URL => "https://hooks.slack.com/services/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",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{'text': ':clock1: Há um chamado para empresa ".$chamado['empresa']." com mais de 10 minutos de atraso!!!'}",
+            CURLOPT_HTTPHEADER => array(
+                "Content-Type: application/json",
+                "Postman-Token: 26044770-ef0c-424d-814a-a8cd9f10bc2d",
+                "cache-control: no-cache"
+            ),
+        )
+    );
 
     $response = curl_exec($curl);
     $err = curl_error($curl);

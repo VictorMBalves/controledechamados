@@ -53,17 +53,17 @@
 							<div class="col-md-12">
 								<ul class="nav nav-tabs">
 									<li class="nav-item">
-										<a class="nav-link active" id="direcionado-tab" data-toggle="tab" href="#direcionado" role="tab" aria-controls="direcionado" aria-selected="true"><i class="fas fa-bell"></i>&nbsp&nbspChamados direcionados</a>
+										<a class="nav-link " id="direcionado-tab" data-toggle="tab" href="#direcionado" role="tab" aria-controls="direcionado" aria-selected="true"><i class="fas fa-bell"></i>&nbsp&nbspChamados direcionados</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" id="chamados-tab" data-toggle="tab" href="#chamados" role="tab" aria-controls="chamados" aria-selected="false"><i class="fas fa-list-ul"></i>&nbsp&nbspMeus chamados</a>
+										<a class="nav-link active" id="chamados-tab" data-toggle="tab" href="#chamados" role="tab" aria-controls="chamados" aria-selected="false"><i class="fas fa-list-ul"></i>&nbsp&nbspMeus chamados</a>
 									</li>
 								</ul>
 
 								<div class="tab-content card" style="margin-bottom:15px;">
-									<div class="tab-pane fade show active animated fadeInRight" id="direcionado" role="tabpanel" aria-labelledby="direcionado-tab">
+									<div class="tab-pane fade  animated fadeInRight" id="direcionado" role="tabpanel" aria-labelledby="direcionado-tab">
 										<div class="container-fluid" style="padding: .75rem;">
-											<table id="tabeladirecionados" class="table table-responsive table-hover" style="width:100%;">
+											<table id="tabeladirecionados" class="table table-hover" style="width:100%;">
 												<thead>
 													<tr>
 														<th>Status</th>
@@ -83,9 +83,9 @@
 										</div>
 									</div>
 
-									<div class="tab-pane fade animated fadeInRight" id="chamados" role="tabpanel" aria-labelledby="chamados-tab">
+									<div class="tab-pane fade show active animated fadeInRight" id="chamados" role="tabpanel" aria-labelledby="chamados-tab">
 										<div class="container-fluid" style="padding: .75rem;">
-											<table id="tabela" class="table table-responsive table-hover" style="width:100%;">
+											<table id="tabela" class="table table-hover" style="width:100%;">
 												<thead>
 													<tr>
 														<th>Status</th>
@@ -95,7 +95,7 @@
 														<th>Empresa</th>
 														<th>Contato</th>
 														<th>Telefone</th>
-														<th width="100" class="text-center"><img src="../imagem/acao.png"></th>
+														<th id="thAcao" width="100" class="text-center"><img src="../imagem/acao.png"></th>
 													</tr>
 												</thead>
 												<tbody id ="tbody">

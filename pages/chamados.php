@@ -62,7 +62,7 @@
 
 					<!-- Content Row -->
 					<div class="animated fadeInRight">
-						<table id="tabela" class="table table-responsive table-hover" style="width:100%">
+						<table id="tabela" class="table table-hover" style="width:100%">
 							<thead>
 								<tr>
 									<th>Status</th>

@@ -41,10 +41,9 @@ $("#adcChamado").click(function(){
 });
 
 function openModal(){
-    $("#modalCadastro").load("../modals/modalCadChamado.php");
-        setTimeout(function(){
-            $("#modalCad").modal('show');
-        }, 300);
+    $("#modalCadastro").load("../modals/modalCadChamado.php", function(){
+      $("#modalCad").modal('show');
+    });
 }
 
 function SomenteNumero(e) {
@@ -215,15 +214,14 @@ function notificaUsuario(chamado){
       // };
 }
 
-$("#registroAtividadeEcf").click(function(){
-    $.get("../modals/modalRegistroAtividades.php", function(data){
-        $( "body" ).append(data);
-    });
-    setTimeout(function(){
-        $("#dtInicial").removeClass(' is-invalid ')
-        $("#dtFinal").removeClass(' is-invalid ')
-        $("#modalRegistroAtividadeEcf").modal('show');
-    }, 300);
+$("#registroAtividadeEcf").click(function () {
+  $.get("../modals/modalRegistroAtividades.php", function (data) {
+    $("body").append(data);
+  }).done(function () {
+    $("#dtInicial").removeClass(' is-invalid ')
+    $("#dtFinal").removeClass(' is-invalid ')
+    $("#modalRegistroAtividadeEcf").modal('show');
+  });
 })
 
 function loadResponsavelSemana(){

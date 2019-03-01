@@ -1,8 +1,15 @@
 $( document ).ready(function() {
-    $("#loading").html('<img src="../imagem/loading.gif">');
-    loadTable();
     $("#liPlantao").addClass('active')
 });
+
+$("#plantoes-tab").on("click", function(){
+    $("#loading").html('<img src="../imagem/loading.gif">');
+    if($.fn.DataTable.isDataTable( '#tabela' )){
+        $('#tabela').DataTable().destroy();
+        $('#tbody').empty();
+    }
+    loadTable();
+})
 
 function erro(){
     alert('Acesso negado! Redirecinando a pagina principal.');
@@ -66,8 +73,7 @@ $.extend( true, $.fn.dataTable.defaults, {
 } );
 
 function abrirVisualizacao(id){
-    $("#modalConsulta").load("../modals/modalConsultaPlantao.php?id_plantao="+id);
-    setTimeout(function(){
+    $("#modalConsulta").load("../modals/modalConsultaPlantao.php?id_plantao="+id, function(){
         $("#modalCon").modal('show');
-    }, 300);
+    });
 }

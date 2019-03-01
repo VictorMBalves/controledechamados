@@ -103,7 +103,7 @@ function buildTable(data){
                     $('[data-toggle="tooltip"]').tooltip()
                   },
                 "order": [[ 3, "desc" ]] 
-            });
+            }).columns.adjust().draw();
         }
     }else{
         $('#loading').html('<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nenhum registro encontrado com os filtros informados</div>');
@@ -111,8 +111,7 @@ function buildTable(data){
 }
 
 function abrirVisualizacao(id){
-    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id);
-    setTimeout(function(){
+    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id, function(){
         $("#modalCon").modal('show');
-    }, 300);
+    });
 }

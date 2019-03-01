@@ -82,14 +82,13 @@ var modalConfirm = function(callback){
         var getAviso = "../updates/updateAviso.php?id="+id+"&acao=getAviso";
         $.getJSON( getAviso, {
             format: "json"
-        })
-            .done(function( data ) {
+        }).done(function( data ) {
                 $("#descricaoAviso").val(data.descricao);
                 $("#tituloAviso").val(data.titulo);
                 $("#rodape").html('<button type="button" class="btn btn-primary" onclick="updateAviso('+id+')">Salvar</button>');
                 $("#modalAdc").modal('show');
             });
-        })();
+        });
     }
 
     function updateAviso(id){

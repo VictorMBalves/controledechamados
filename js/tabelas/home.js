@@ -73,24 +73,21 @@
     }
    
     function abrirVisualizacao(id){
-        $("#modalConsulta").load("../modals/modalConsultaEspera.php?id_chamadoespera="+id);
-        setTimeout(function(){
+        $("#modalConsulta").load("../modals/modalConsultaEspera.php?id_chamadoespera="+id, function(){
             $("#modalCon").modal('show');
-        }, 400);
+        });
     }
 
     function abrirVisualizacaoChamado(id){
-        $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id);
-        setTimeout(function(){
+        $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id, function(){
             $("#modalCon").modal('show');
-        }, 300);
+        });
     }
 
     function abrirAgendamento(id){
-        $("#modalAgendamento").load("../modals/modalAgendamento.php?id_chamadoespera="+id);
-        setTimeout(function(){
+        $("#modalAgendamento").load("../modals/modalAgendamento.php?id_chamadoespera="+id, function(){
             $("#modalAgenda").modal('show');
-        }, 400);
+        });
     }
 
     function colorNotification(showBlue){

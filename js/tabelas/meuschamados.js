@@ -10,6 +10,24 @@ $( document ).ready(function(){
     loadTableDirecionados();
 });
 
+$("#direcionado-tab").on("click", function(){
+    $("#loadingdirecionados").html('<img src="../imagem/loading.gif">');
+    if($.fn.DataTable.isDataTable( '#tabeladirecionados' )){
+        $('#tabeladirecionados').DataTable().destroy();
+        $('#tbodydirecionados').empty();
+    }
+    loadTableDirecionados();
+})
+
+$("#chamados-tab").on("click", function(){
+    $("#loading").html('<img src="../imagem/loading.gif">');
+    if($.fn.DataTable.isDataTable( '#tabela' )){
+        $('#tabela').DataTable().destroy();
+        $('#tbody').empty();
+    }
+    loadTable();
+})
+
 function loadTable(){
     $.ajax({
         type: 'POST',
@@ -61,8 +79,9 @@ function buildTable(data){
                 },
                 "initComplete": function(settings, json) {
                     $('[data-toggle="tooltip"]').tooltip()
+                    $("#thAcao").css("width", 100);
                   }
-            });
+            }).columns.adjust().draw();
         }
     }else{
         $('#loading').html('<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nenhum registro encontrado</div>');
@@ -131,15 +150,13 @@ $.extend( true, $.fn.dataTable.defaults, {
 } );
 
 function abrirVisualizacao(id){
-    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id);
-    setTimeout(function(){
+    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id, function(){
         $("#modalCon").modal('show');
-    }, 300);
+    });
 }
 
 function abrirVisualizacaoEspera(id){
-    $("#modalConsulta").load("../modals/modalConsultaEspera.php?id_chamadoespera="+id);
-    setTimeout(function(){
+    $("#modalConsulta").load("../modals/modalConsultaEspera.php?id_chamadoespera="+id, function(){
         $("#modalCon").modal('show');
-    }, 300);
+    });
 }

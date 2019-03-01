@@ -117,14 +117,14 @@
 
 									<div class="tab-pane fade animated fadeInRight" id="usuariosList" role="tabpanel" aria-labelledby="usuariosList-tab">
 										<div class="container-fluid" style="padding: .75rem;width:100%;">
-											<table id="tabela" class="table table-responsive table-hover" style="width:100%;">
+											<table id="tabela" class="table table-hover" style="width:100%;">
 												<thead>
 													<tr>
 														<th>ID</th>
 														<th>Nome</th>
 														<th>Login</th>
-														<th style="width:100%;">Email</th>
-														<th width="100" class="text-center"><img src="../imagem/acao.png"></th>
+														<th>Email</th>
+														<th class="text-center"><img src="../imagem/acao.png"></th>
 													</tr>
 												</thead>
 												<tbody id ="tbody">
