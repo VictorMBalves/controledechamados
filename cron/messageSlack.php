@@ -29,7 +29,7 @@ foreach($resultado as $chamado){
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://hooks.slack.com/services/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",
+            CURLOPT_URL => "https://hooks.slack.com/services/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",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
