@@ -16,7 +16,7 @@
 	$cnpj = $row['cnpj'];
 	$empresa = $row['empresa'];
 
-	$sqlChamados = $db->prepare("SELECT id_chamado, DATE_FORMAT(datainicio,'%d/%m/%Y %H:%i') as datainicio, descsolucao, descproblema, usu.nome  FROM chamado INNER JOIN usuarios usu ON usu.id = chamado.usuario_id WHERE (cnpj = '$cnpj' OR empresa = '$empresa') AND status = 'Finalizado' ORDER BY id_chamado DESC LIMIT 3");
+	$sqlChamados = $db->prepare("SELECT id_chamado, DATE_FORMAT(datainicio,'%d/%m/%Y %H:%i') as datainicio, descsolucao, descproblema, usu.nome  FROM chamado INNER JOIN usuarios usu ON usu.id = chamado.usuario_id WHERE (('$cnpj' <> '' AND cnpj = '$cnpj') OR ('$empresa' <> '' AND empresa = '$empresa')) AND status = 'Finalizado' ORDER BY id_chamado DESC LIMIT 3");
 	$sqlChamados->execute();
 	$ultimosChamados = $sqlChamados->fetchall(PDO::FETCH_ASSOC);
 ?>
