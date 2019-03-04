@@ -47,7 +47,15 @@
 			<div class="skin-settings ">
 					<?php
 						if(empty($ultimosChamados)){
-							echo '<small>Nenhum registro de atendimento finalizado para empresa.</small>';
+							echo '<div class="card border-left-info shadow h-100 py-2">
+									<div class="card-body">
+										<div class="row no-gutters align-items-center">
+											<div class="col mr-2">
+												<div class="text-sm font-weight-bold text-info mb-1">Sem informações...</div>
+											</div>
+										</div>
+									</div>
+								</div>';
 						}else{
 							foreach($ultimosChamados as $chamado){
 							echo'<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
@@ -55,7 +63,7 @@
 										<div class="card-body" onclick="abrirVisualizacao('.$chamado['id_chamado'].')" style="cursor: pointer;">
 											<div class="row no-gutters align-items-center">
 												<div class="col mr-2">
-													<div class="text-xs font-weight-bold text-info text-uppercase mb-1">'.$chamado['datainicio'].'</div>
+													<div class="text-xs font-weight-bold text-info mb-1">'.$chamado['datainicio'].'</div>
 													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Desc. problema:</strong> '.$chamado['descproblema'].'</small></div>
 													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Solução:</strong> '.$chamado['descsolucao'].'</small></div>
 													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Atendente responsável:</strong> '.$chamado['nome'].'</small></div>
