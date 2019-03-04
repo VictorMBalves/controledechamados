@@ -39,6 +39,37 @@
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 		<link href="../css/collapsed.css" rel="stylesheet" />
 	</head>
+	<div class="theme-config ">
+		<div class="theme-config-box ">
+			<div class="spin-icon" data-toggle="tooltip" data-placement="left" title="Três últimos atendimentos para <?php echo $row['empresa']?>">
+				<i class="fas fa-clipboard-list"></i>
+			</div>
+			<div class="skin-settings ">
+					<?php
+						if(empty($ultimosChamados)){
+							echo '<small>Nenhum registro de atendimento finalizado para empresa.</small>';
+						}else{
+							foreach($ultimosChamados as $chamado){
+							echo'<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
+									<div class="card border-left-info shadow h-100 py-2">
+										<div class="card-body" onclick="abrirVisualizacao('.$chamado['id_chamado'].')" style="cursor: pointer;">
+											<div class="row no-gutters align-items-center">
+												<div class="col mr-2">
+													<div class="text-xs font-weight-bold text-info text-uppercase mb-1">'.$chamado['datainicio'].'</div>
+													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Desc. problema:</strong> '.$chamado['descproblema'].'</small></div>
+													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Solução:</strong> '.$chamado['descsolucao'].'</small></div>
+													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Atendente responsável:</strong> '.$chamado['nome'].'</small></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>';
+							}
+						}
+					?>
+			</div>
+		</div>
+	</div>
 	<body id="page-top">
 
 		<!-- Page Wrapper -->
@@ -69,14 +100,11 @@
 							<h1 class="h3 mb-0 text-gray-800">Finalizar chamado Nº <?php echo $id;?> </h1>
 							<div id="plantao"></div>
 						</div>
-						<div class="switch-version text-center" style="font-size:30px;" id="showUltimos" data-toggle="tooltip" data-placement="right" title="Últimos atendimentos">
-							<i class="fas fa-clipboard-list"></i>
-						</div>
 						<!-- Card cadastro-->
 						<div class="card" style="background-color:#f4f4f4;">
 							<div class="card-body animated fadeInRight">
-								<div class="row" id="row-main">
-									<div class="form-horizontal col-md-12 hovered" id="contentForm">
+								<!-- <div class="row" id="row-main"> -->
+									<div class="form-horizontal">
 										<input style="display:none;" name="id_chamado" id="id_chamado" value="<?php echo $id; ?>" />
 										<input style="display:none;" name="cnpj" id="cnpj" value="<?php echo $row['cnpj']; ?>" />
 										<div class="row">
@@ -203,36 +231,7 @@
 											<button id="cancel" type="reset" name="cancelar" class="btn btn-group-lg btn-warning">Cancelar</button>
 										</div>
 									</div>
-									<div class="col-md-4 collapsedRight animated fadeInRight" id="divLateral">
-										<div class="d-sm-flex align-items-center justify-content-between mb-4">
-											<h1 class="h3 mb-0 text-gray-800">Últimos chamados atendidos</h1>
-										</div>
-										<div style="max-height:600px;overflow:auto;">
-										<?php
-											if(empty($ultimosChamados)){
-												echo '<small>Nenhum registro de atendimento finalizado para empresa.</small>';
-											}else{
-												foreach($ultimosChamados as $chamado){
-												echo'<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
-														<div class="card border-left-info shadow h-100 py-2">
-															<div class="card-body" onclick="abrirVisualizacao('.$chamado['id_chamado'].')" style="cursor: pointer;">
-																<div class="row no-gutters align-items-center">
-																	<div class="col mr-2">
-																		<div class="text-xs font-weight-bold text-info text-uppercase mb-1">'.$chamado['datainicio'].'</div>
-																		<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Desc. problema:</strong> '.$chamado['descproblema'].'</small></div>
-																		<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Solução:</strong> '.$chamado['descsolucao'].'</small></div>
-																		<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Atendente responsável:</strong> '.$chamado['nome'].'</small></div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>';
-												}
-											}
-										?>
-										</div>
-									</div>
-								</div>			
+								<!-- </div>			 -->
 							</div>
 						</div>
 						<!--Fim Card cadastro-->

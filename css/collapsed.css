@@ -40,16 +40,39 @@
     float: none;
 }
 
-
-.switch-version {
-    position: fixed;
-    top: 160px;
+.theme-config {
+    position: absolute;
+    top: 150px;
     right: 0;
-    width: 40px;
-    background: #fff;
-    -webkit-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px;
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    overflow: hidden;
+}
+
+.theme-config-box {
+    margin-right: -320px;
+    position: relative;
     z-index: 1000;
+    transition-duration: 0.8s;
+}
+
+.spin-icon {
+    background:#f3f3f400 ;
+    position: absolute;
+    /* padding: 7px 10px 7px 13px; */
+    border-radius: 20px 0 0 20px;
+    font-size: 40px;
+    top: 0;
+    left: 0;
+    width: 80px;
+    color: #2e3133;
+    cursor: pointer;
+}
+
+.skin-settings {
+    width: 320px;
+    margin-left: 40px;
+    background: #f3f3f400;
+}
+
+.theme-config-box.show {
+    margin-right: 0;
 }

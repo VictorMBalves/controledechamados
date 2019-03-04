@@ -12,6 +12,15 @@ $("#showUltimos").on("click", function(){
 
 })
 
+$(".spin-icon").on("click", function(){
+    $(".theme-config-box ").toggleClass('show')
+})
+
+$("#wrapper").on("click", function(){
+    if($(".theme-config-box ").hasClass('show'))
+        $(".theme-config-box ").removeClass('show')
+})
+
 cnjp = $("#cnpj");
 components = [
     id = $("#id_chamado"),
