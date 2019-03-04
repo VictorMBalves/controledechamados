@@ -5,6 +5,13 @@ clipboard.on('success', function (e) {
     e.clearSelection();
     $("#btnClipPesquisa").html('<i id="iconCopy" class="fas fa-check"></i>');
 });
+
+$("#showUltimos").on("click", function(){
+    $("#divLateral").toggleClass("collapsedRight");
+    $("#contentForm").toggleClass("col-md-8 col-md-12");
+
+})
+
 cnjp = $("#cnpj");
 components = [
     id = $("#id_chamado"),
@@ -206,3 +213,14 @@ $("#salvarAgendamento").on("click", function () {
 
     return false;
 })
+
+$("#showAtendente").click(function(){
+    $("#sidebar").toggleClass("collapsed");
+    $("#content").toggleClass("col-md-9 col-md-12");
+})
+
+function abrirVisualizacao(id){
+    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id, function(){
+        $("#modalCon").modal('show');
+    });
+}
