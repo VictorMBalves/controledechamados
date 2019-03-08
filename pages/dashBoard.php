@@ -4,6 +4,8 @@
     $week_end = date('Y-m-d', strtotime('+'.(6-$day).' days'));
     $dataEng = date('Y-m-d');
     $data = date('d/m/Y');
+    $semana_start = date('d/m/Y', strtotime('-'.$day.' days'));
+    $semana_end = date('d/m/Y', strtotime('+'.(6-$day).' days'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,7 +93,9 @@
                                 <div class="card shadow">
                                     <!-- Card Header - Dropdown -->
                                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">Timeline atendimentos - <label id="dataTempoMedioAtendimento"><?php echo $data?></label></h6>
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Timeline atendimentos</span><br/>
+                                            <small><label class="mb-0" id="dataTempoMedioAtendimento"><?php echo $data?></label> à <label class="mb-0" id="dataFinalTempoMedioAtendimento"><?php echo $data?></label></small>
+                                        </div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -100,8 +104,12 @@
                                             <div class="dropdown-header">Período:</div>
                                                 <form id="formTempoMedioAtendimento" class="container">
                                                     <div class="form-group">
-                                                        <label  for="dtInicialTempoMedioAtendimento">Data</label>
+                                                        <label  for="dtInicialTempoMedioAtendimento">Data inicial</label>
                                                         <input id="dtInicialTempoMedioAtendimento" name="dtInicialTempoMedioAtendimento" type="date" class="form-control" value="<?php echo $dataEng?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label  for="dtFinalTempoMedioAtendimento">Data final</label>
+                                                        <input id="dtFinalTempoMedioAtendimento" name="dtFinalTempoMedioAtendimento" type="date" class="form-control" value="<?php echo $dataEng?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label  for="tipoTempoMedioAtendimento">Agrupar por</label>
@@ -175,7 +183,9 @@
                                 <div class="card shadow">
                                     <!-- Card Header - Dropdown -->
                                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">Chamados por hora - <label id="dataChamadosPorHora"><?php echo $data?></label></h6>
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Chamados por hora</span><br/> 
+                                            <small><label class="mb-0" id="dataChamadosPorHora"><?php echo $data?></label></small>
+                                        </div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -205,7 +215,9 @@
                                 <div class="card shadow">
                                     <!-- Card Header - Dropdown -->
                                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">Chamados atendidos na semana por categoria</h6>
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Chamados atendidos na semana por categoria </span><br/>
+                                            <small><label class="mb-0" id="dataChamadosCategoria"><?php echo $semana_start?></label> à <label id="dataFinalChamadosCategoria"><?php echo $semana_end?></label></small>
+                                        </div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -239,7 +251,9 @@
                                 <div class="card shadow ">
                                     <!-- Card Header - Dropdown -->
                                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Chamados atendidos na semana por atendente</h6>
+                                    <div class="m-0 font-weight-bold"><span class="text-primary">Chamados atendidos na semana por atendente</span><br/>
+                                        <small><label class="mb-0" id="datainicioPorAtendente"><?php echo $semana_start?></label> à <label id="dataFinalPorAtendente"><?php echo $semana_end?></label></small>
+                                    </div>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -273,7 +287,9 @@
                                 <div class="card shadow">
                                     <!-- Card Header - Dropdown -->
                                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bold text-primary">Rank atendentes - <label id="dataRank"><?php echo $data?></label></h6>
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Rank atendentes</span><br/>
+                                            <small><label id="dataRank"><?php echo $data?></label></small>
+                                        </div>
                                         <div class="dropdown no-arrow">
                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

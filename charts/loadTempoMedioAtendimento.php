@@ -1,14 +1,15 @@
 <?php
     require_once '../include/Database.class.php';
     $db = Database::conexao();
-    $data = $_GET['dtInicialTempoMedioAtendimento'];
+    $dataInicio = $_GET['dtInicialTempoMedioAtendimento'];
+    $datafinal = $_GET['dtFinalTempoMedioAtendimento'];
     $sql = "SELECT 
 	            empresa,
                 datafinal,
                 datainicio,
                 usuario
             FROM chamado cha
-            WHERE date(datafinal) = date('$data')
+            WHERE date(datafinal) BETWEEN date('$dataInicio') AND date('$datafinal')
             AND status = 'Finalizado'";
     $stmt = $db->prepare($sql);
     $stmt->execute();

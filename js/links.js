@@ -158,6 +158,16 @@ function notificationSuccessLink(title, message, link){
     toastr.error(message, title);
   }
 
+function progressEvent(title, message){
+    toastr.options = {
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": "true",
+      "progressBar": true,
+    }
+    toastr.info(message, title);
+}
+
+
   setInterval(function(){
     consultaChamadosEspera();
   }, 50000);

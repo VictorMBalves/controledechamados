@@ -1,52 +1,41 @@
-$(document).ready(function () {
+$(document).ready(()=> {
+    progressEvent("Executando", "Gerando gráficos")
     $("#liDashboard").addClass('active')
 });
 
-google.charts.load('current', { callback: drawCharts, 'packages': ['corechart', 'line', 'timeline'], 'language': 'pt-br' });
-var chartUsuario;
-var chartCategoria;
-var chartRank;
-var chartPorHora;
-var chartTempoMedioAtendimento;
-
+window.onload = ()=>{
+    google.charts.load('current', { callback: drawCharts, 'packages': ['corechart', 'line', 'timeline'], 'language': 'pt-br' });
+};
 
 function chamadospendentes() {
     var url = "../pages/chamadospendentes.php?continue=true";
-    jQuery("#pendentes").load(url, function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
+    jQuery("#pendentes").load(url);
 }
 
 function chamadosatrasados() {
     var url = "../pages/chamadosatrasados.php?continue=true";
-    jQuery("#atrasados").load(url, function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
+    jQuery("#atrasados").load(url);
 }
 
 function chamadoagendados() {
     var url = "../pages/chamadosagendados.php?continue=true";
-    jQuery("#agendados").load(url, function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
+    jQuery("#agendados").load(url);
 }
 
 function chamadoandamento() {
     var url = "../pages/chamadosandamento.php?continue=true";
-    jQuery("#andamento").load(url, function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    });
+    jQuery("#andamento").load(url);
 }
 
 
-$(function () {
+$(()=>{
     chamadoandamento();
     chamadosatrasados();
     chamadospendentes();
     chamadoagendados();
 });
 
-setInterval(function () {
+setInterval(()=>{
     chamadoandamento();
     chamadosatrasados();
     chamadospendentes();
@@ -54,52 +43,37 @@ setInterval(function () {
 }, 30000);//
 
 function drawCharts() {
-    // console.log();
-    chartUsuario = new google.visualization.BarChart(document.getElementById('chart_div'));
-    chartCategoria = new google.visualization.BarChart(document.getElementById('chart_div2'));
-    chartRank = new google.visualization.ColumnChart(document.getElementById("chart_div3"));
-    chartPorHora = new google.visualization.LineChart(document.getElementById('chart_div4'));
-    chartTempoMedioAtendimento = new google.visualization.Timeline(document.getElementById('chart_div5'));
     drawChamadosPorCategoria()
     drawChamadosPorAtendente()
     drawRankAtendentes()
     drawChamadosPorHora()
     drawChartTempoMedioAtendimento()
-    notificationSuccess("Sucesso", "Gráfico gerado com sucesso")
+    notificationSuccess("Sucesso", "Gráficos gerados com sucesso")
+    
 }
 
-$("#btnChamadoAtendente").on("click", function () {
-    $(this).html('<img src="../imagem/ajax-loader.gif">');
+$("#btnChamadoAtendente").on("click", ()=> {
     drawChamadosPorAtendente()
-    $(this).html("Gerar");
     return false;
 })
 
-$("#btnChamadoCategoria").on("click", function () {
-    $(this).html('<img src="../imagem/ajax-loader.gif">');
+$("#btnChamadoCategoria").on("click", ()=> {
     drawChamadosPorCategoria()
-    $(this).html("Gerar");
     return false;
 })
 
-$("#btnRankAtendentes").on("click", function () {
-    $(this).html('<img src="../imagem/ajax-loader.gif">');
+$("#btnRankAtendentes").on("click", ()=> {
     drawRankAtendentes()
-    $(this).html("Gerar");
     return false;
 })
 
-$("#btnChamadosPorHora").on("click", function () {
-    $(this).html('<img src="../imagem/ajax-loader.gif">');
+$("#btnChamadosPorHora").on("click", ()=> {
     drawChamadosPorHora()
-    $(this).html("Gerar");
     return false;
 })
 
-$("#btnTempoMedioAtendimento").on("click", function () {
-    $(this).html('<img src="../imagem/ajax-loader.gif">');
-    drawChartTempoMedioAtendimento()
-    $(this).html("Gerar");
+$("#btnTempoMedioAtendimento").on("click", ()=> {
+    drawChartTempoMedioAtendimento();
     return false;
 })
 
@@ -110,11 +84,13 @@ function drawChamadosPorCategoria() {
         $("#chart_div2").html("Nenhum dado no período");
         return;
     }
-    chartCategoria.clearChart();
+    chartCategoria = new google.visualization.BarChart(document.getElementById('chart_div2'));
     chartCategoria.draw(dados, getOptionsChamadosPorCategoria());
 }
 
 function getDataChamadosPorCategoria() {
+    $('#dataChamadosCategoria').html(Date.parse($("#dtInicial2").val()).toString('dd/MM/yyyy'))
+    $('#dataFinalChamadosCategoria').html(Date.parse($("#dtFinal2").val()).toString('dd/MM/yyyy'))
     var dados = $('#form2').serialize();
     var jsonData = $.ajax({
         url: "../charts/loadPeriodoCategoriaChart.php",
@@ -182,11 +158,13 @@ function drawChamadosPorAtendente() {
         $("#chart_div").html("Nenhum dado no período");
         return;
     }
-    chartUsuario.clearChart()
+    chartUsuario = new google.visualization.BarChart(document.getElementById('chart_div'));
     chartUsuario.draw(dados, getOptionsChamadosPorAtendente());
 }
 
 function getDataChamadosPorAtendente() {
+    $('#datainicioPorAtendente').html(Date.parse($("#dtInicial1").val()).toString('dd/MM/yyyy'))
+    $('#dataFinalPorAtendente').html(Date.parse($("#dtFinal1").val()).toString('dd/MM/yyyy'))
     var dados = $('#form1').serialize();
     var jsonData = $.ajax({
         url: "../charts/loadPeriodoAtendenteChart.php",
@@ -255,12 +233,12 @@ function drawRankAtendentes() {
         $("#chart_div3").html("Nenhum dado no período");
         return;
     }
-    chartRank.clearChart();
+    chartRank = new google.visualization.ColumnChart(document.getElementById("chart_div3"));
     chartRank.draw(dados, getOptionsRankAtendentes());
 }
 
 function getDataRankAtendentes() {
-    $('#dataRank').html(Date.parse($("#dtInicialRank").val()).toString('d/MM/yyyy'))
+    $('#dataRank').html(Date.parse($("#dtInicialRank").val()).toString('dd/MM/yyyy'))
     var dados = $('#formRankAtendentes').serialize();
     var jsonData = $.ajax({
         url: "../charts/loadRankAtendentes.php",
@@ -301,12 +279,12 @@ function drawChamadosPorHora() {
         $("#chart_div4").html("Nenhum dado no período");
         return;
     }
-    chartPorHora.clearChart();
+    chartPorHora = new google.visualization.LineChart(document.getElementById('chart_div4'));
     chartPorHora.draw(dados, getOptionsChamadosPorHora());
 }
 
 function getDataChamadosPorHora() {
-    $('#dataChamadosPorHora').html(Date.parse($("#dtInicialPorHora").val()).toString('d/MM/yyyy'))
+    $('#dataChamadosPorHora').html(Date.parse($("#dtInicialPorHora").val()).toString('dd/MM/yyyy'))
     var dados = $('#formChamadosPorHora').serialize();
     var jsonData = $.ajax({
         url: "../charts/loadChamadosPorHora.php",
@@ -404,15 +382,17 @@ function drawChartTempoMedioAtendimento() {
         vAxis: {
             gridlines: { color: 'none' },
             minValue: 0
-        }
+        },
+        animation: {
+            startup: true,
+            duration: 1000,
+            easing: 'out'
+        },
     };
 
-
-    chartTempoMedioAtendimento.clearChart()
+    chartTempoMedioAtendimento = new google.visualization.Timeline(document.getElementById('chart_div5'));
     chartTempoMedioAtendimento.draw(data, options);
-
-
-   
+    console.log("TESTE 2");
 }
 
 function tempoMedio() {
@@ -436,8 +416,10 @@ function tempoMedio() {
         }
     }
 }
+
 function getDataChamadosTempoMedioAtendimento() {
-    $('#dataTempoMedioAtendimento').html(Date.parse($("#dtInicialTempoMedioAtendimento").val()).toString('d/MM/yyyy'))
+    $('#dataTempoMedioAtendimento').html(Date.parse($("#dtInicialTempoMedioAtendimento").val()).toString('dd/MM/yyyy'))
+    $('#dataFinalTempoMedioAtendimento').html(Date.parse($("#dtFinalTempoMedioAtendimento").val()).toString('dd/MM/yyyy'))
     var dados = $('#formTempoMedioAtendimento').serialize();
     var jsonData = $.ajax({
         url: "../charts/loadTempoMedioAtendimento.php",
