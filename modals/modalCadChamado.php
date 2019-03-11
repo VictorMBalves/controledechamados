@@ -71,7 +71,6 @@
         cnpj = result.cnpj;
     }).on('before:flexdatalist.search', function(ev, key, data){
         $("#infoLoad").removeClass(' hidden ');
-        console.log(data);
     });
 
 
