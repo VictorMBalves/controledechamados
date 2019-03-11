@@ -13,7 +13,7 @@
         echo json_encode($resultado);
     }else{
         $status = $_POST['status'];
-        $palavra = $_POST['palavra'];
+        $palavra = $_POST['flexdatalist-palavra'];
         $usuario = $_POST['usuario'];
         $datainicio = $_POST['datainicio'];
         $datafim = $_POST['datafinal'];

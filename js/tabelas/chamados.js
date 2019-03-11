@@ -2,16 +2,17 @@ function erro(){
     alert('Acesso negado! Redirecinando a pagina principal.');
     window.location.assign("../pages/chamadoespera.php");
 }
-$(function () {
-    $.getJSON('../utilsPHP/search.php').done(function(response){
-        $('#empresafiltro').flexdatalist({
-            minLength: 1,
-            searchIn: 'nome',
-            data: response,
-            noResultsText: 'Sem resultados para "{keyword}" <a href="../pages/cad_empresa?term={keyword}">Cadastrar!</a>',
-        })
-    });
-});
+$('#empresafiltro').flexdatalist({
+    minLength: 1,
+    visibleProperties: '{cnpj} - {name}',
+    valueProperty: '*',
+    textProperty: 'name',
+    searchIn: ['name', 'cnpj'],
+    url: "../utilsPHP/search.php",
+    noResultsText: 'Sem resultados para "{keyword}"',
+    searchByWord: true,
+    searchContain: true,
+})
 
 
 $(document).ready(function() {

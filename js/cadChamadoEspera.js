@@ -14,10 +14,13 @@ errosEspera = [];
 empresaEspera.flexdatalist({
     minLength: 1,
     visibleProperties: '{cnpj} - {name}',
+    valueProperty: '*',
     textProperty: 'name',
     searchIn: ['name', 'cnpj'],
     url: "../utilsPHP/search.php",
     noResultsText: 'Sem resultados para "{keyword}"',
+    searchByWord: true,
+    searchContain: true,
 }).on('select:flexdatalist', function (ev, result) {
     $("#infoLoad").addClass(' hidden ');
     $("#successLoad").removeClass(' hidden ');
