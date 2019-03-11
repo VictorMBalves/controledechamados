@@ -51,7 +51,7 @@
     $('#empresa').flexdatalist({
         minLength: 1,
         visibleProperties: '{cnpj} - {name}',
-        valueProperty: '*',
+        valueProperty: 'name',
         textProperty: 'name',
         searchIn: ['name', 'cnpj'],
         url: "../utilsPHP/search.php",
