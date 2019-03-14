@@ -119,7 +119,7 @@ function formatDateDiff($start, $end=null) {
     } 
     
     $interval = $end->diff($start); 
-    $doPlural = function($nb,$str){return $nb>1?$str.'s':$str;}; // adds plurals 
+    $doPlural = function($nb,$str){return $nb>1?$str.'':$str;}; // adds plurals 
     
     $format = array(); 
     if($interval->y !== 0) { 
