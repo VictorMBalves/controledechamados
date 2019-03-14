@@ -69,11 +69,11 @@ function usuarioStatus($needle='', $haystack=array(), $numChamado){
                 if($numChamado != 0){
                     $result .= '<span class="text-danger" ><small><em>';
                     if($numChamado == "1"){
-                         $result .= $numChamado. " chamado";  
+                         $result .= $numChamado. " atendimento";  
                     }else{
-                        $result .= $numChamado. " chamados";
+                        $result .= $numChamado. " atendimentos";
                     } 
-                        $result .= ' em atendimento </em></small></span>';
+                        $result .= '</em></small></span>';
                 }else{
                     $result .= '<span class="text-success" ><small><em>Online</em><span>';
                 }
