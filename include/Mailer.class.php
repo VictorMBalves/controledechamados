@@ -3,7 +3,6 @@
     use PHPMailer\PHPMailer\Exception;
     class Mailer{
         
-        
         public function sendEmail($destEmail, $nome, $subject, $body){
             require '../vendor/autoload.php';
             $mail = new PHPMailer(true); 
@@ -42,7 +41,7 @@
                 $mail->send();
                 return true;
             } catch (Exception $e) {
-                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+                error_log('Message could not be sent. Mailer Error: ', $mail->ErrorInfo);
                 return false;
             }
         }
