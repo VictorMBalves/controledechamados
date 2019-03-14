@@ -132,16 +132,16 @@ function formatDateDiff($start, $end=null) {
         $format[] = "%d ".$doPlural($interval->d, "dia"); 
     } 
     if($interval->h !== 0) { 
-        $format[] = "%h ".$doPlural($interval->h, "hora"); 
+        $format[] = "%h ".$doPlural($interval->h, "h"); 
     } 
     if($interval->i !== 0) { 
-        $format[] = "%i ".$doPlural($interval->i, "minuto"); 
+        $format[] = "%i ".$doPlural($interval->i, "min"); 
     } 
     if($interval->s !== 0) { 
         if(!count($format)) { 
             return "há menos de um ninuto"; 
         } else { 
-            $format[] = "%s ".$doPlural($interval->s, "segundo"); 
+            $format[] = "%s ".$doPlural($interval->s, "s"); 
         } 
     } 
     
