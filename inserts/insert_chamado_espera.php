@@ -23,6 +23,11 @@ try
         throw new Exception('Received content contained invalid JSON!');
     } 
 
+    if($decoded['cnpj'] == "11586637000128"){
+      echo '{"message": "Chamado não criado. Empresa: German tech"}';
+      exit;
+    }
+
   require_once '../include/Database.class.php';
   $db = Database::conexao();
   $data = date("Y-m-d H:i:s");
@@ -35,8 +40,9 @@ try
   $sistema = $decoded['sistema'];
   $versao = $decoded['versao'];
   $usuario=$decoded['UsuarioNome'];
-  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id) 
-  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', 56)") or die(mysql_error());
+  $cnpj=$decoded['cnpj'];
+  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id, cnpj) 
+  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', 56, '$cnpj')") or die(mysql_error());
 
  
   if ($sql->execute()) {

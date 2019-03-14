@@ -9,7 +9,7 @@
                 (SELECT
      		        COUNT(id_chamado)
                 FROM chamado cha1
-     			INNER JOIN chamadoespera espera ON espera.id_chamadoespera = cha1.id_chamadoespera AND ((espera.dataagendamento IS NULL OR DATE_ADD(espera.dataagendamento, INTERVAL +10 MINUTE) < cha1.datainicio) AND DATE_ADD(espera.data, INTERVAL +10 MINUTE) < cha1.datainicio) WHERE date(datafinal) BETWEEN date('$dataInicio') AND date('$datafinal')) as numeroChamadosatrasados 
+     			INNER JOIN chamadoespera espera ON espera.id_chamadoespera = cha1.id_chamadoespera AND espera.usuario_id != 56 AND ((espera.dataagendamento IS NULL OR DATE_ADD(espera.dataagendamento, INTERVAL +10 MINUTE) < cha1.datainicio) AND DATE_ADD(espera.data, INTERVAL +10 MINUTE) < cha1.datainicio) WHERE date(datafinal) BETWEEN date('$dataInicio') AND date('$datafinal')) as numeroChamadosatrasados 
             FROM chamado cha
             WHERE date(datafinal) BETWEEN date('$dataInicio') AND date('$datafinal')
             AND status = 'Finalizado'";

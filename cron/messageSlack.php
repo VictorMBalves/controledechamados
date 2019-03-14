@@ -19,6 +19,7 @@ $sql = "SELECT
             DATE_FORMAT(dataagendamento,'%d/%m/%Y %H:%i') as dataagendamentoformat
         FROM chamadoespera 
         WHERE status <> 'Finalizado' 
+        AND usuario_id != 56
         AND data < DATE_ADD(NOW(), INTERVAL -10 MINUTE) AND (dataagendamento IS NULL OR dataagendamento < DATE_ADD(NOW(), INTERVAL -10 MINUTE))
         ORDER BY status, data DESC";
 $query = $db->prepare($sql);

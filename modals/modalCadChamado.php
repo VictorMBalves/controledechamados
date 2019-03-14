@@ -56,7 +56,7 @@
         searchIn: ['name', 'cnpj'],
         url: "../utilsPHP/search.php",
         noResultsText: 'Sem resultados para "{keyword}"',
-        searchByWord: true,
+        // searchByWord: true,
         searchContain: true,
     }).on('select:flexdatalist', function(ev, result){
         $("#infoLoad").addClass(' hidden ');
@@ -71,6 +71,7 @@
         cnpj = result.cnpj;
     }).on('before:flexdatalist.search', function(ev, key, data){
         $("#infoLoad").removeClass(' hidden ');
+        console.log(data);
     });
 
 

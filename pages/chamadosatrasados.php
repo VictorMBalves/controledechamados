@@ -2,7 +2,6 @@
     require_once '../include/Database.class.php';
     require_once '../include/Mailer.class.php';
     $db = Database::conexao();
-    
     $sql = "SELECT 
                 id_chamadoespera, 
                 usuario, 
@@ -38,6 +37,9 @@
             $stmt = $db->prepare($update);
             $stmt->execute();
         }else if(!$chamado['emailEnviado'] && (date_add(date_create($chamado['databanco']), date_interval_create_from_date_string('30 minutes')) <= date_create(date("Y-m-d H:i:s")))){
+            if(!horarioValidoEnvio()){
+                continue;
+            }
             $mailer = new Mailer();
             foreach ($usuarioSuporteAvancado as $usuario) {
                 $body = 'O chamado em espera da empresa <strong>'.$chamado['empresa'].'</strong> está a mais de '.formatDateDiff(date_create($chamado['databanco']), date_create(date("Y-m-d H:i:s"))).' atrasado.<br/>Data: <strong>'.$chamado['dataFormatada'].'</strong><br/>';
@@ -188,4 +190,20 @@
         // Prepend 'since ' or whatever you like 
         return $interval->format($format); 
     } 
+
+    function horarioValidoEnvio(){
+        $hora = date('H');
+        $dia = date('w');
+        $horasSemana = array("08","09","10","11","12","13","14","15","16","17");
+        $horasSabado = array("08", "09", "10", "11");
+        if($dia == "0"){//Domingo
+            return false;
+        }else if($dia == "6" && !in_array($hora, $horasSabado)){//Sabado Antes das 08hrs e depois das 12hrs
+            return false;
+        }else if(!in_array($hora, $horasSemana)){//Segunda a sexta Antes das 08hrs e depois das 18hrs
+            return false;
+        }
+
+        return true;
+    }
 ?>

@@ -1,6 +1,7 @@
 <?php
 require_once '../include/ConsultacURL.class.php';
 $curl = new ConsultacURL();
-$url = "http://api.gtech.site/companies/find_companies?term=".$_GET['keyword'];
+$term = urlencode($_GET['keyword']);
+$url = "http://api.gtech.site/companies/find_companies?term=".$term;
 $result = $curl->connection($url);
 echo json_encode($result);
