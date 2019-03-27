@@ -44,3 +44,15 @@ SET cha.cnpj = emp.cnpj
 UPDATE chamadoespera cha 
 INNER JOIN empresa emp ON emp.nome = cha.empresa 
 SET cha.cnpj = emp.cnpj
+
+ALTER TABLE `chamadoespera` ADD `datacadastro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+CREATE TABLE `categoria` ( `id` INT(10) NOT NULL , `categoria` VARCHAR(255) NOT NULL , `descricao` VARCHAR(255) NOT NULL , `datacadastro` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ) ENGINE = InnoDB CHARSET=utf8 COLLATE utf8_bin;
+
+ALTER TABLE `plantao` CHANGE `categoria` `categoria` VARCHAR(300) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL;
+
+
+util pra debugar
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);

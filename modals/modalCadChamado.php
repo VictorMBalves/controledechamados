@@ -56,7 +56,7 @@
         searchIn: ['name', 'cnpj'],
         url: "../utilsPHP/search.php",
         noResultsText: 'Sem resultados para "{keyword}"',
-        // searchByWord: true,
+        searchByWord: true,
         searchContain: true,
     }).on('select:flexdatalist', function(ev, result){
         $("#infoLoad").addClass(' hidden ');
@@ -64,6 +64,9 @@
         if(result.is_blocked){
             $("#empresaBloqueada").removeClass(' hidden ');
             $("#empresa").addClass(' is-invalid ');
+        }else{
+            $('#empresaBloqueada').addClass('hidden');
+            empresaEspera.removeClass(' is-invalid ');
         }
         $("#sistema").val(result.system);
         $("#telefone").val(result.phone);
@@ -71,7 +74,6 @@
         cnpj = result.cnpj;
     }).on('before:flexdatalist.search', function(ev, key, data){
         $("#infoLoad").removeClass(' hidden ');
-        console.log(data);
     });
 
 

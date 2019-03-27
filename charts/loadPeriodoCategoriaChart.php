@@ -3,7 +3,7 @@
     $db = Database::conexao();
     $week_start =  $_GET['dtInicial2'];
     $week_end = $_GET['dtFinal2'];
-    $sql = "SELECT DISTINCT categoria from chamado where date(datainicio) BETWEEN '$week_start' and '$week_end' group by date(datainicio), categoria  ORDER BY categoria";
+    $sql = "SELECT DISTINCT cat.descricao AS categoria from chamado cha INNER JOIN categoria cat ON cat.id = cha.categoria_id where date(cha.datainicio) BETWEEN '$week_start' and '$week_end' group by date(cha.datainicio), cat.descricao  ORDER BY cat.descricao";
 
     $query = $db->prepare($sql);
     $query->execute();
@@ -35,7 +35,7 @@
         array_push($datasArray, $dataFormatada);
 
         $datainicio = $data['date(datainicio)'];
-        $query = $db->prepare("SELECT cha.categoria, count(datainicio) from chamado cha where date(datainicio) = '$datainicio'  group by date(datainicio),cha.categoria ORDER BY categoria");
+        $query = $db->prepare("SELECT cat.descricao AS categoria, count(datainicio) from chamado cha INNER JOIN categoria cat ON cat.id = cha.categoria_id where date(datainicio) = '$datainicio'  group by date(datainicio),cat.descricao ORDER BY cat.descricao");
         $query->execute();
         $resultados = $query->fetchall(PDO::FETCH_ASSOC);
         $atual = 0;

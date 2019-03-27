@@ -1,3 +1,4 @@
+var dataTempoMedioAtendimento;
 $(document).ready(()=> {
     progressEvent("Executando", "Gerando gráficos")
     $("#liDashboard").addClass('active')
@@ -357,7 +358,6 @@ function getOptionsChamadosPorHora() {
 
 function drawChartTempoMedioAtendimento() {
     var dataJson = getDataChamadosTempoMedioAtendimento();
-    var data;
 
     tempoMedio()
 
@@ -367,9 +367,9 @@ function drawChartTempoMedioAtendimento() {
     }
 
     if ($("#tipoTempoMedioAtendimento").val() == "2") {
-        data = getEstruturaTempoMedioUsuario(dataJson);
+        dataTempoMedioAtendimento = getEstruturaTempoMedioUsuario(dataJson);
     } else {
-        data = getEstruturaTempoMedioEmpresa(dataJson);
+        dataTempoMedioAtendimento = getEstruturaTempoMedioEmpresa(dataJson);
     }
 
 
@@ -391,8 +391,19 @@ function drawChartTempoMedioAtendimento() {
     };
 
     chartTempoMedioAtendimento = new google.visualization.Timeline(document.getElementById('chart_div5'));
-    chartTempoMedioAtendimento.draw(data, options);
-    console.log("TESTE 2");
+    google.visualization.events.addListener(chartTempoMedioAtendimento, 'select', ()=>{
+        var selection = chartTempoMedioAtendimento.getSelection();
+        if (selection.length > 0) {
+            var id = dataTempoMedioAtendimento.getValue(selection[0].row, 1);
+            var id = id.match(/(?<=\[)\d+(?=\])/);
+            link = "timeline="+id[0];
+            toastr.options = {
+                "positionClass": "toast-top-right",
+            }
+            toastr.success("<a href='"+link+"' target='_blank'>Deseja visualizar a timeline detalhada para o chamado Nº"+id[0]+"?</a>", "Timeline");
+        }
+    });
+    chartTempoMedioAtendimento.draw(dataTempoMedioAtendimento, options);
 }
 
 function tempoMedio() {
@@ -436,7 +447,7 @@ function getDataChamadosTempoMedioAtendimento() {
 function getEstruturaTempoMedioUsuario(dataJson) {
     var rows = [];
     for (let i = 0; i < dataJson.length; i++) {
-        rows.push({ c: [{ v: dataJson[i].usuario }, { v: dataJson[i].empresa }, { v: Date.parse(dataJson[i].datainicio) }, { v: Date.parse(dataJson[i].datafinal) }] });
+        rows.push({ c: [{ v: dataJson[i].usuario }, { v: "["+dataJson[i].id_chamado+"] "+dataJson[i].empresa }, { v: Date.parse(dataJson[i].datainicio) }, { v: Date.parse(dataJson[i].datafinal) }]});
     }
     var data = new google.visualization.DataTable({
         cols: [
@@ -454,7 +465,7 @@ function getEstruturaTempoMedioUsuario(dataJson) {
 function getEstruturaTempoMedioEmpresa(dataJson) {
     var rows = [];
     for (let i = 0; i < dataJson.length; i++) {
-        rows.push({ c: [{ v: dataJson[i].empresa }, { v: dataJson[i].usuario }, { v: Date.parse(dataJson[i].datainicio) }, { v: Date.parse(dataJson[i].datafinal) }] });
+        rows.push({ c: [{ v: dataJson[i].empresa }, { v: "["+dataJson[i].id_chamado+"] "+dataJson[i].usuario }, { v: Date.parse(dataJson[i].datainicio) }, { v: Date.parse(dataJson[i].datafinal) }]});
     }
     var data = new google.visualization.DataTable({
         cols: [

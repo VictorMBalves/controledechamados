@@ -48,14 +48,14 @@ for ($i = 0; $i < count($datas); $i++) {
     $datas[$i]['isSabado'] = isSabado($datas[$i]['data']);
     $datas[$i]['descricao'] = 'Dia util';
     $datas[$i]['duracao'] = '00:00:00';
-    $datas[$i]['horas'] = isSabado($datas[$i]['data']) ? '14:00:00' : isDomingo($datas[$i]['data']) ? '14:00:00' : '05:27:00';
+    $datas[$i]['horas'] = isSabado($datas[$i]['data']) ? '14:00:00' : isDomingo($datas[$i]['data']) ? '14:00:00' : '04:00:00';
     $dataplantao = $datas[$i]['data'];
 
     foreach ($feriados as $feriado) {
         if (formatarData($dataplantao) == $feriado->date && ($feriado->type_code == 1 || $feriado->name == 'Corpus Christi')) {
             $datas[$i]['descricao'] = $feriado->name;
             $datas[$i]['isFeriado'] = true;
-            $datas[$i]['horas'] = $datas[$i]['isFeriado'] ? '14:00:00' : '05:27:00';
+            $datas[$i]['horas'] = $datas[$i]['isFeriado'] ? '14:00:00' : '04:00:00';
         }
     }
 
@@ -258,11 +258,11 @@ ob_start();
             <div width="500px">
                 <table class="table table-hover">
                     <tr>
-                        <th>Segunda à Sexta Feira: 12:01 às 13:29 e 18:01 às 22:00. Sábados, domingos e feriados: 08:00 às 22:00.</th>
+                        <th>Segunda à Sexta Feira: 18:01 às 22:00. Sábados, domingos e feriados: 08:00 às 22:00.</th>
                     </tr>
                     <tr>
                         <td>TOTAL DIARIO SEGUNDA A SEXTA</td>
-                        <th>05:27:00</th>
+                        <th>04:00:00</th>
                     </tr>
                     <tr>
                         <td>SABÁDO</td>

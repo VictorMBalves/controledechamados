@@ -74,6 +74,7 @@ $.extend( true, $.fn.dataTable.defaults, {
 
 function abrirVisualizacao(id){
     $("#modalConsulta").load("../modals/modalConsultaPlantao.php?id_plantao="+id, function(){
+        $('[data-toggle="tooltip"]').tooltip()
         $("#modalCon").modal('show');
     });
 }

@@ -37,6 +37,7 @@
 		<link href="../assets/css/animate.css" rel="stylesheet" />
 		<link href="../assets/css/style.css" rel="stylesheet" />
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
+		<link href="../assets/css/component-chosen.min.css" rel="stylesheet" />
 		<link href="../css/collapsed.css" rel="stylesheet" />
 	</head>
 	<div class="theme-config ">
@@ -177,46 +178,11 @@
 												</select>
 											</div>
 										</div>
-										<div class="row">
-											<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-												<label for="backupfin">Backup:</label>
-												<select id="backupfin" name="backupfin" class="form-control" required="">
-													<?php 
-															if ($row2['backup'] == 0) {
-																echo "<option value='0'>Google drive não configurado</option>";
-															} else {
-																echo "<option value='1'>Google drive configurado</option>";
-															}
-														?>
-													<option>
-													</option>
-													<option value="1">Google drive configurado
-													</option>
-													<option value="0">Google drive não configurado
-													</option>
-												</select>
-											</div>
-											<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-												<label for="categoriafin">Categoria:</label>
-												<select name="categoriafin" id="categoriafin" type="text"
-													class="form-control forma" required="">
-													<option>
-														<?php echo $row['categoria'];?>
-													</option>
-													<option></option>
-													<option value="Erro">Erro
-													</option>
-													<option value="Duvida">Duvida
-													</option>
-													<option value="Atualização sistema">Atualização sistema
-													</option>
-													<option value="Sugestão de melhoria">Sugestão de melhoria
-													</option>
-													<option value="Retorno">Retorno</option>
-													<option value="Outros">Outros
-													</option>
-												</select>
-											</div>
+										<div class="form-group">
+											<label for="categoriafin">Categoria:</label>
+											<select name="categoriafilter" data-placeholder=" " multiple id="categoriafilter" type="text" class="form-control chosen-select" required="">
+												<option value=""></option>
+											</select>
 										</div>
 										<div class="form-group">
 											<label for="descproblemafin">Descrição do problema:</label>
@@ -233,7 +199,7 @@
 													<button class="btn btn-outline-secondary" data-clipboard-target="#linkPesquisa" type="button" id="btnClipPesquisa"><i id="iconCopy" class="fas fa-copy"></i></button>
 												</div>
 											</div>
-											<button id="criarRequest" name="criarRequest" class="btn btn-group-lg btn-danger" disabled><i class="fas fa-bug" style="-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);"></i>&nbsp;Criar request</button>
+											<button id="criarRequest" name="criarRequest" class="btn btn-group-lg btn-danger"><i class="fas fa-bug" style="-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);"></i>&nbsp;Criar request</button>
 											<button id="finalizar" name="finalizar" class="btn btn-group-lg btn-primary" disabled>Finalizar</button>
 											<button id="agendar" name="agendar" class="btn btn-group-lg btn-success">Agendar</button>
 											<button id="cancel" type="reset" name="cancelar" class="btn btn-group-lg btn-warning">Cancelar</button>
@@ -309,6 +275,7 @@
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>
 		<script src="../assets/js/clipboard.min.js"></script>
+		<script src="../assets/js/chosen.jquery.min.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/finalizaChamadoFa.js"></script>
 	</body>

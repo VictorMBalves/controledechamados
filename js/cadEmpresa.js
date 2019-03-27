@@ -34,7 +34,6 @@ function validar(components){
         $("#submit").removeClass("disabled");
         $("#submit").html("Salvar");
         for(i = 0; i < erros.length; i++){
-            console.log(erros)
             if(!$(erros[i]).hasClass("vazio")){
                 $(erros[i]).addClass("is-invalid");
             }

@@ -5,7 +5,6 @@
 		header("Location: pages/home");
 		exit();
 	}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

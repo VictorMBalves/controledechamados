@@ -27,6 +27,9 @@ empresaEspera.flexdatalist({
     if(result.is_blocked){
         $("#empresaBloqueada").removeClass(' hidden ');
         empresaEspera.addClass(' is-invalid ');
+    }else{
+        $('#empresaBloqueada').addClass('hidden');
+        empresaEspera.removeClass(' is-invalid ');
     }
     sistemaEspera.val(result.system);
     telefoneEspera.val(result.phone);

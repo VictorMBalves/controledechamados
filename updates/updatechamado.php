@@ -22,7 +22,7 @@
     echo $e->getMessage();
     exit;
   }
-  $sql = $db->prepare("UPDATE chamado SET  contato='$contato', telefone='$telefone', sistema='$sistema', formacontato='$formacontato', descproblema='$descproblema', categoria='$categoria', versao='$versao'  WHERE id_chamado='$id'")
+  $sql = $db->prepare("UPDATE chamado SET  contato='$contato', telefone='$telefone', sistema='$sistema', formacontato='$formacontato', descproblema='$descproblema', categoria_id='$categoria', versao='$versao'  WHERE id_chamado='$id'")
   or die(mysql_error());
   try
   {

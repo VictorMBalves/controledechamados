@@ -51,6 +51,10 @@ if($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) {
             echo '<h6 class="collapse-header">Consulta:</h6>';
             echo '<a class="collapse-item" href="chamados">Chamados</a>';
           }
+          if($_SESSION['UsuarioNivel'] == 3) {
+            echo '<h6 class="collapse-header">Cadastrar:</h6>';
+            echo '<a class="collapse-item" href="categorias">Categorias</a>';
+          }
         ?>
       </div>
     </div>

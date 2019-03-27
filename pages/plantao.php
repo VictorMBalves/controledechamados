@@ -18,6 +18,7 @@
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
 		<link href="../assets/css/style.css" rel="stylesheet"/>
+		<link href="../assets/css/component-chosen.min.css" rel="stylesheet" />
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
 	<body id="page-top">
@@ -175,6 +176,7 @@
 		<script src="../datatables/responsive.min.js"></script>
 		<script src="../datatables/rowReorder.min.js"></script>
 		<script src="../assets/js/jquery.flexdatalist.js"></script>	
+		<script src="../assets/js/chosen.jquery.min.js"></script>
 		<script src="../js/md5.js"></script>
 		<script src="../js/escalamensal.js"></script>
 		<script src="../js/tabelas/plantao.js"></script>

@@ -53,7 +53,7 @@
 						</div>
 						<div class="row">
 							<div class="col-md-6 col-sm-6 col-lg-6 sidebar-outer" stile="border-left:2px solid black;">
-								<table id="tabela" class="table table-responsive table-hover" style="width:100%;">
+								<table id="tabela" class="table table-hover" style="width:100%;">
 									<thead>
 										<tr>
 											<th>Empresa</th>

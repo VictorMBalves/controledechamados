@@ -6,7 +6,7 @@ versao = $("#versaoEdit");
 telefone = $("#telefoneEdit");
 sistema = $("#sistemaEdit");
 backup = $("#backupEdit");
-categoria = $("#categoriaEdit");
+categoria = $("#categoriafilter");
 descproblema = $("#descproblemaEdit");
 erros = [];
 $("#alterar").click(function(){
@@ -131,4 +131,42 @@ descproblema.focusout(function() {
     $(descproblema.selector).removeClass("is-invalid");
 });
 
+
+$("#categoriafin").on('change', () => {
+    $('.chosen-select').chosen({ no_results_text: "Categoria não encontrada", allow_single_deselect: true });
+    alterarCategoria()
+})
+
+function alterarCategoria() {
+    sendRequestCategoria((response) => {
+        $(".chosen-select").html('');
+        $(".chosen-select").append('<option value=""></option>');
+        for (i = 0; i < response.length; i++) {
+            dado = response[i];
+            var txt = '<option value="' + dado.id + '">' + dado.descricao + '</option>';
+            $(".chosen-select").append(txt);
+        }
+        $('.chosen-select').trigger("chosen:updated");
+    })
+}
+
+function sendRequestCategoria(callback) {
+    var term = $("#categoriafin").val();
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "../inserts/insere_categoria.php?term=" + term,
+        "method": "GET",
+        "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache",
+            "Postman-Token": "1fbbd708-31dc-4395-8462-c333ae164ec5"
+        },
+        "processData": false,
+        "data": ""
+    }
+    $.ajax(settings).done(function (response) {
+        callback(JSON.parse(response));
+    });
+}
 

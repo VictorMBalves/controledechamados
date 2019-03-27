@@ -6,18 +6,18 @@ clipboard.on('success', function (e) {
     $("#btnClipPesquisa").html('<i id="iconCopy" class="fas fa-check"></i>');
 });
 
-$("#showUltimos").on("click", function(){
+$("#showUltimos").on("click", function () {
     $("#divLateral").toggleClass("collapsedRight");
     $("#contentForm").toggleClass("col-md-8 col-md-12");
 
 })
 
-$(".spin-icon").on("click", function(){
+$(".spin-icon").on("click", function () {
     $(".theme-config-box ").toggleClass('show')
 })
 
-$("#wrapper").on("click", function(){
-    if($(".theme-config-box ").hasClass('show'))
+$("#wrapper").on("click", function () {
+    if ($(".theme-config-box ").hasClass('show'))
         $(".theme-config-box ").removeClass('show')
 })
 
@@ -30,8 +30,7 @@ components = [
     versao = $("#versaofin"),
     telefone = $("#telefonefin"),
     sistema = $("#sistemafin"),
-    backup = $("#backupfin"),
-    categoria = $("#categoriafin"),
+    categoria = $("#categoriafilter"),
     descproblema = $("#descproblemafin"),
     descsolucao = $("#descsolucaofin"),
 ]
@@ -41,9 +40,9 @@ $("#finalizar").click(function () {
     finalizar();
     return null;
 })
-function finalizar(){
-    $(this).addClass(' disabled ');
-    $(this).html('<img src="../imagem/ajax-loader.gif">');
+function finalizar() {
+    $("#finalizar").addClass(' disabled ');
+    $("#finalizar").html('<img src="../imagem/ajax-loader.gif">');
     validar(components);
 }
 
@@ -108,7 +107,6 @@ function carregaDados() {
     data.push({ name: 'categoria', value: categoria.val() });
     data.push({ name: 'descproblema', value: descproblema.val() });
     data.push({ name: 'descsolucao', value: descsolucao.val() });
-    data.push({ name: 'backup', value: backup.val() });
     data.push({ name: 'sistema', value: sistema.val() });
     return data;
 }
@@ -133,48 +131,34 @@ versao.focusout(function () {
     if (!isEmpty(versao.val()))
         $(versao.selector).removeClass("is-invalid");
 });
-backup.focusout(function () {
-    if (!isEmpty(backup.val()))
-        $(backup.selector).removeClass("is-invalid");
-});
-categoria.focusout(function () {
+categoria.focusout(() => {
     if (!isEmpty(categoria.val()))
         $(categoria.selector).removeClass("is-invalid");
 });
-descproblema.focusout(function () {
+descproblema.focusout(() => {
     if (!isEmpty(descproblema.val()))
         $(descproblema.selector).removeClass("is-invalid");
 });
-descsolucao.focusout(function () {
+descsolucao.focusout(() => {
     if (!isEmpty(descsolucao.val()))
         $(descsolucao.selector).removeClass("is-invalid");
 });
 
-$("#categoriafin").on("change", function(){
-    value = this.value.trim() ;
-    if(value == "Erro" || value == "Sugestão de melhoria"){
-        $("#criarRequest").removeAttr(" disabled ")
-    }else{
-        $("#criarRequest").attr( "disabled", "disabled" );
-    }
-    return false;
-})
-
-$("#criarRequest").on("click", function(){
-    linkRequest = "http://request.gtech.site/requests/new?request[description]="+descproblema.val()+"&request[requester_cnpj]="+cnjp.val()+"&request[requester_name]="+cnjp.val()+" - "+empresa.val();
+$("#criarRequest").on("click", () => {
+    linkRequest = "http://request.gtech.site/requests/new?request[description]=" + descproblema.val() + "&request[requester_cnpj]=" + cnjp.val() + "&request[requester_name]=" + cnjp.val() + " - " + empresa.val();
     window.open(
         linkRequest,
-        '_blank' 
-        );
-    if($("#categoriafin").val() == "Sugestão de melhoria" && $("#iconCopy").hasClass(' fa-check ')){
+        '_blank'
+    );
+    if ($("#categoriafin").val() == "Sugestão de melhoria" && $("#iconCopy").hasClass(' fa-check ')) {
         finalizar();
-    }else if(!$("#iconCopy").hasClass(' fa-check ')){
+    } else if (!$("#iconCopy").hasClass(' fa-check ')) {
         notificationWarningOne("Copie o link da pesquisa!")
     }
     return false;
 });
 
-$("#agendar").on("click", function () {
+$("#agendar").on("click", () => {
     $('#modalAgenda').modal('show');
     return false;
 })
@@ -202,7 +186,7 @@ $("#salvarAgendamento").on("click", function () {
     $.ajax({
         type: "POST",
         url: "../inserts/finaliza_chamado_insere_espera.php",
-        data: { id: id.val(), dataagendamento: data.val() + " " + horario.val(), problema:  $("#descproblemaAgenda").val() },
+        data: { id: id.val(), dataagendamento: data.val() + " " + horario.val(), problema: $("#descproblemaAgenda").val() },
         success: function (data) {
             data = data.trim();
             if (data == "success") {
@@ -223,13 +207,61 @@ $("#salvarAgendamento").on("click", function () {
     return false;
 })
 
-$("#showAtendente").click(function(){
+$("#showAtendente").click(function () {
     $("#sidebar").toggleClass("collapsed");
     $("#content").toggleClass("col-md-9 col-md-12");
 })
 
-function abrirVisualizacao(id){
-    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id, function(){
+function abrirVisualizacao(id) {
+    $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado=" + id, function () {
         $("#modalCon").modal('show');
+    });
+}
+
+$("#categoriafin").on('change', () => {
+    alterarCategoria()
+})
+
+$(() => {
+    $('.chosen-select').chosen({ no_results_text: "Categoria não encontrada", allow_single_deselect: true });
+    alterarCategoria();
+})
+
+function alterarCategoria() {
+    sendRequestCategoria((response) => {
+        for (i = 0; i < response.length; i++) {
+            dado = response[i];
+            icon = '<i class="fas fa-cubes"></i>';
+            if(dado.categoria == "ERROS"){
+                icon = '<i class="fas fa-bug"></i>';
+            }else if(dado.categoria == "DÚVIDAS"){
+                icon = '<i class="fas fa-question"></i>';
+            }
+            $(".chosen-select").append($('<option>', {
+                html : icon+" ["+dado.categoria+"] "+dado.descricao,
+                value: dado.id,
+                // text : ''
+            }));
+        }
+        $('.chosen-select').trigger("chosen:updated");
+    })
+
+}
+function sendRequestCategoria(callback) {
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "../inserts/insere_categoria.php",
+        "method": "GET",
+        "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache",
+            "Postman-Token": "1fbbd708-31dc-4395-8462-c333ae164ec5"
+        },
+        "processData": false,
+        "data": ""
+    }
+    $.ajax(settings).done(function (response) {
+        callback(JSON.parse(response));
     });
 }

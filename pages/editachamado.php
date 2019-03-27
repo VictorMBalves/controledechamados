@@ -1,10 +1,19 @@
 <?php
   include '../validacoes/verificaSession.php';
   require_once '../include/Database.class.php';
-  require_once '../include/Permissao.class.php';
   $db = Database::conexao();
   $id=$_GET['id_chamado'];
-  $sql = $db->prepare("SELECT * FROM chamado WHERE id_chamado=$id");
+  $sql = $db->prepare("SELECT cha.empresa,
+						cha.contato,
+						cha.formacontato,
+						cha.telefone,
+						cha.versao,
+						cha.sistema,
+						cha.descproblema,
+						cha.descsolucao,
+						cat.descricao,
+						cat.categoria
+					FROM chamado cha LEFT JOIN categoria cat ON cat.id = cha.categoria_id WHERE id_chamado=$id");
   $sql->execute();
   $row = $sql->fetch(PDO::FETCH_ASSOC);
   if($row['status'] == 'Finalizado'){
@@ -32,6 +41,7 @@
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
 		<link href="../assets/css/style.css" rel="stylesheet"/>
+		<link href="../assets/css/component-chosen.min.css" rel="stylesheet" />
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
 
@@ -150,24 +160,32 @@
 							</select>
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-						<label for="categoriaEdit">Categoria:</label>
-							<select name="categoriaEdit" id="categoriaEdit" type="text" class="form-control forma" required="">
-								<option>
-									<?php echo $row['categoria'];?>
-								</option>
-								<option></option>
-								<option value="Erro">Erro
-								</option>
-								<option value="Duvida">Duvida
-								</option>
-								<option value="Atualização sistema">Atualização sistema
-								</option>
-								<option value="Sugestão de melhoria">Sugestão de melhoria
-								</option>
-								<option value="Retorno">Retorno</option>
-								<option value="Outros">Outros
-								</option>
-							</select>
+							<label for="categoriafin">Categoria:</label>
+							<div class="row">
+								<select name="categoriafin" id="categoriafin" type="text" class="form-control col-4 col-sm-4 col-md-4 col-lg-4 ml-3 mr-2" required="">
+									<?php echo'
+										<option value="'.$row['categoria'].'">'.$row['categoria'].'
+										</option>';
+									?>
+									<option value="">
+									</option>
+									<option value="ERROS">ERROS
+									</option>
+									<option value="DÚVIDAS">DÚVIDAS
+									</option>
+									<option value="OUTROS">OUTROS
+									</option>
+								</select>
+								<div class="col-7">
+									<select name="categoriafilter" data-placeholder=" " id="categoriafilter" type="text" class="form-control chosen-select" required="">
+										<?php echo'
+											<option value="'.$row['categoria'].'">'.$row['descricao'].'
+											</option>';
+										?>
+										<option value=""></option>
+									</select>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -209,6 +227,7 @@
 		<script src="../assets/js/jquery.shortcuts.js"></script>
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>
+		<script src="../assets/js/chosen.jquery.min.js"></script>
 		<script src="../js/links.js"></script>
 		<script src="../js/editaChamado.js"></script>
 	</body>

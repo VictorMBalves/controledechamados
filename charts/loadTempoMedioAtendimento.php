@@ -4,6 +4,7 @@
     $dataInicio = $_GET['dtInicialTempoMedioAtendimento'];
     $datafinal = $_GET['dtFinalTempoMedioAtendimento'];
     $sql = "SELECT 
+                id_chamado,
 	            empresa,
                 datafinal,
                 datainicio,

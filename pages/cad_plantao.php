@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row">                
-        <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4"> 
+        <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6"> 
             <label for="formacontato">Forma de contato:</label>  
             <select name="formacontato" id="formacontato" class="form-control">
                 <option>
@@ -28,13 +28,9 @@
                 </option>
             </select>
         </div>
-        <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4"> 
+        <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6"> 
             <label for="telefonePlantao">Telefone</label>  
             <input name="telefonePlantao" id="telefonePlantao" type="text" class="form-control" >
-        </div>
-        <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
-            <label for="versaoPlantao">Versão:</label>
-            <input name="versaoPlantao" id="versaoPlantao" type="text" class="form-control">
         </div>
     </div>
     <div class="row">
@@ -52,30 +48,20 @@
         </div>
     </div>
     <div class="row">
-        <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
             <label for="sistemaPlantao">Sistema:</label>
             <input name="sistemaPlantao" id="sistemaPlantao" type="text" class="form-control" >
         </div>
-        <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
-            <label for="backup">Backup:</label>
-            <select id="backup" name="backup" type="text" class="form-control" >
-                <option></option>
-                <option value="1">Google drive configurado</option>
-                <option value="0">Google drive não configurado</option>
-            </select>
+        <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+            <label for="versaoPlantao">Versão:</label>
+            <input name="versaoPlantao" id="versaoPlantao" type="text" class="form-control">
         </div>
-        <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
-            <label for="categoria">Categoria:</label>  
-            <select name="categoria" id="categoria" type="text" class="form-control" >
-                <option></option>
-                <option value="Erro">Erro</option>
-                <option value="Duvida">Duvida</option>
-                <option value="Atualização sistema">Atualização sistema</option>
-                <option value="Sugestão de melhoria">Sugestão de melhoria</option>
-                <option value="Retorno">Retorno</option>
-                <option value="Outros">Outros</option>
-            </select>
-        </div>
+    </div>
+    <div class="form-group">
+        <label for="categoriafin">Categoria:</label>
+        <select name="categoriafilter" data-placeholder=" " id="categoriafilter" multiple type="text" class="form-control chosen-select" required="">
+            <option value=""></option>
+        </select>
     </div>
     <div class="form-group">
         <label for="descproblema">Descrição do problema:</label>  

@@ -113,6 +113,7 @@ function buildTable(data){
 
 function abrirVisualizacao(id){
     $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado="+id, function(){
+        $('[data-toggle="tooltip"]').tooltip()
         $("#modalCon").modal('show');
     });
 }

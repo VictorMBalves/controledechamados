@@ -16,7 +16,6 @@
   $formacontato = $_POST['formacontato'];
   $categoria = $_POST['categoria'];
   $descproblema = str_replace("'","''",$_POST['descproblema']);
-  $backup = $_POST['backup'];
 
   if(!isset($descproblema) || $descproblema == ""){
     $sql = $db->prepare("UPDATE chamado SET status= :status, descsolucao= :descs, datafinal= :data WHERE id_chamado=:id") or die(mysql_error());
@@ -33,7 +32,7 @@
       exit;
     }
   }else{
-    $sql = $db->prepare("UPDATE chamado SET status='$status', descsolucao='$descsolucao', contato='$contato', telefone='$telefone', sistema='$sistema', formacontato='$formacontato', descproblema='$descproblema', categoria='$categoria', versao='$versao', datafinal= '$datafinal'  WHERE id_chamado='$id'")or die(mysql_error());
+    $sql = $db->prepare("UPDATE chamado SET status='$status', descsolucao='$descsolucao', contato='$contato', telefone='$telefone', sistema='$sistema', formacontato='$formacontato', descproblema='$descproblema', categoria_id='$categoria', versao='$versao', datafinal= '$datafinal'  WHERE id_chamado='$id'")or die(mysql_error());
     try
     {
       $sql->execute();
