@@ -4,6 +4,7 @@
 	$db = Database::conexao();
 	$id = $_GET['id'];
 	$sql = $db->prepare("SELECT
+							cha.empresa,
 							cha.status,
 							cha.descproblema,
 							cha.descsolucao,
@@ -103,6 +104,9 @@
                         <h1 class="h3 mb-0 text-gray-800">Timeline chamado Nº<?php echo $id;?></h1>
                         <div id="plantao"></div>
                     </div>
+					<div class="d-sm-flex justify-content-between">
+						<h5><i class="fas fa-building mr-1"></i><?php echo $chamado['empresa']; ?></h5>
+					</div>
                     <?php
 						if($chamadoespera){
 							echo '<div class="row no-gutters">';
