@@ -66,7 +66,7 @@
             $("#empresa").addClass(' is-invalid ');
         }else{
             $('#empresaBloqueada').addClass('hidden');
-            empresaEspera.removeClass(' is-invalid ');
+            $("#empresa").removeClass(' is-invalid ');
         }
         $("#sistema").val(result.system);
         $("#telefone").val(result.phone);
