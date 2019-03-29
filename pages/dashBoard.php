@@ -215,7 +215,7 @@
                                 <div class="card shadow">
                                     <!-- Card Header - Dropdown -->
                                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <div class="m-0 font-weight-bold"><span class="text-primary">Chamados atendidos na semana por categoria </span><br/>
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Categorias relacionadas na semana</span><br/>
                                             <small><label class="mb-0" id="dataChamadosCategoria"><?php echo $semana_start?></label> à <label id="dataFinalChamadosCategoria"><?php echo $semana_end?></label></small>
                                         </div>
                                         <div class="dropdown no-arrow">
