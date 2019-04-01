@@ -189,7 +189,7 @@ function getOptionsChamadosPorAtendente() {
             width: '80%',
             height: '70%'
         },
-        bar: { groupWidth: "100%" },
+        bar: { groupWidth: "90%" },
         lineWidth: 1,
         hAxis: {
             title: 'Nº de chamados atendidos',

@@ -60,17 +60,14 @@ function buildTable(data){
                 },
                 "initComplete": function(settings, json) {
                     $('[data-toggle="tooltip"]').tooltip()
-                }
-            });
+                  },
+                "order": [[ 1, "desc" ]] 
+            }).columns.adjust().draw();
         }
     }else{
         $('#loading').html('<div class="alert alert-info alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Nenhum registro encontrado</div>');
     }
 }
-
-$.extend( true, $.fn.dataTable.defaults, {
-    "ordering": false
-} );
 
 function abrirVisualizacao(id){
     $("#modalConsulta").load("../modals/modalConsultaPlantao.php?id_plantao="+id, function(){
@@ -78,3 +75,45 @@ function abrirVisualizacao(id){
         $("#modalCon").modal('show');
     });
 }
+
+$('#empresafiltro').flexdatalist({
+    minLength: 1,
+    visibleProperties: '{cnpj} - {name}',
+    valueProperty: 'name',
+    textProperty: 'name',
+    searchIn: ['name', 'cnpj'],
+    url: "../utilsPHP/search.php",
+    noResultsText: 'Sem resultados para "{keyword}"',
+    searchByWord: true,
+    searchContain: true,
+})
+
+$("#buscar").on("click", function(){
+    $("#loading").html('<img src="../imagem/loading.gif">');
+    var data = $('#filtros').serialize();
+    $.ajax({
+        type: 'POST',
+        url: '../consultaTabelas/tabelaplantao.php',
+        data: data,
+        dataType:"json",
+        success: function(data){ 
+            $('#tabela').DataTable().destroy();
+            $('#tbody').empty();
+            if(data){
+                buildTable(data);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            alert('error: ' + textStatus + ': ' + errorThrown);
+        }
+    });
+    return false;
+});
+
+$("#refresh").on("click", function(){
+    $("#loading").html('<img src="../imagem/loading.gif">');
+    $('#tabela').DataTable().destroy();
+    $('#tbody').empty();
+    loadTable();
+    return false;
+});

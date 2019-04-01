@@ -78,6 +78,16 @@
 									
 									<div class="tab-pane fade animated fadeInRight" id="plantoes" role="tabpanel" aria-labelledby="plantoes-tab">
 										<div class="container-fluid" style="padding: .75rem;">
+											<div  class="card" style="margin:15px;padding:5px; background-color:#f4f4f4;">
+												<div class="card-header" style="border-bottom:none;"data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+													Filtros	
+												</div>
+												<div class="collapse" id="collapseExample">
+													<div class="card-body animated fadeInRight">
+														<?php include '../filtros/filtroChamados.php';?> 
+													</div>
+												</div>
+											</div>
 											<table id="tabela" class="table table-hover" style="width:100%;">
 												<thead>
 													<tr>
