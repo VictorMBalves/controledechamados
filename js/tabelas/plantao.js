@@ -61,7 +61,7 @@ function buildTable(data){
                 "initComplete": function(settings, json) {
                     $('[data-toggle="tooltip"]').tooltip()
                   },
-                "order": [[ 1, "desc" ]] 
+                "order": [[ 3, "desc" ]] 
             }).columns.adjust().draw();
         }
     }else{
