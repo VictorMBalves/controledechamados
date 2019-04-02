@@ -4,13 +4,14 @@
     $dataInicio = $_GET['dtInicialTempoMedioAtendimento'];
     $datafinal = $_GET['dtFinalTempoMedioAtendimento'];
     $sql = "SELECT 
-                id_chamado,
-	            empresa,
-                datafinal,
-                datainicio,
-                usuario
+                cha.id_chamado,
+	            cha.empresa,
+                cha.datafinal,
+                cha.datainicio,
+                us.nome AS usuario
             FROM chamado cha
-            WHERE date(datafinal) BETWEEN date('$dataInicio') AND date('$datafinal')
+            INNER JOIN usuarios us ON us.id = cha.usuario_id
+            WHERE date(cha.datafinal) BETWEEN date('$dataInicio') AND date('$datafinal')
             AND status = 'Finalizado'";
     $stmt = $db->prepare($sql);
     $stmt->execute();

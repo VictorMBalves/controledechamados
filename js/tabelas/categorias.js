@@ -137,7 +137,7 @@ function sendRequest(request_method, dados, callback) {
     var settings = {
         "async": false,
         "crossDomain": true,
-        "url": "../inserts/insere_categoria.php",
+        "url": "../controllers/controllerCategoria.php",
         "method": request_method,
         "headers": {
             "Content-Type": "application/json",

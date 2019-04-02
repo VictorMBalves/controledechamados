@@ -3,22 +3,46 @@
 	require_once '../include/Database.class.php';
     $db = Database::conexao();
 	$id=$_GET['id_chamado'];
-	$sql = $db->prepare("SELECT * FROM chamado WHERE id_chamado = :id");
-	$sql->bindParam(":id", $id, PDO::PARAM_INT);
-	$sql->execute();
-	$row = $sql->fetch(PDO::FETCH_ASSOC);
-	if($row['status'] == 'Finalizado'){
-		echo '<h1>Chamado Nº'.$id.' já encerrado<h1>';
+	$sql = $db->prepare("SELECT 
+								cha.id_chamado,
+								cha.status,
+								cha.empresa,
+								cha.contato,
+								cha.formacontato,
+								cha.versao,
+								cha.categoria_id,
+								cha.telefone,
+								cha.sistema,
+								cha.descproblema,
+								usu.nome 
+							FROM chamado cha 
+							INNER JOIN usuarios usu ON usu.id = cha.usuario_id WHERE cha.id_chamado = :id");
+	$sql->execute(array(
+		":id" => $id
+	));
+
+	$chamado = $sql->fetch(PDO::FETCH_ASSOC);
+	if($chamado['status'] == 'Finalizado'){
+		echo '<h1>Chamado Nº'.$id.' já encerrado<h1>
+			  <small><a href="home">Retornar</a></small>';
 		return;
 	}
-	$linkPesquisa = "http://copel.gtech.site:8888?empresa=".$row['empresa']."&usuario=".$row['usuario'];
+	$linkPesquisa = "http://copel.gtech.site:8888?empresa=".$chamado['empresa']."&usuario=".$chamado['nome'];
 
-	$cnpj = $row['cnpj'];
-	$empresa = $row['empresa'];
+	$cnpj = $chamado['cnpj'];
 
 	$sqlChamados = $db->prepare("SELECT id_chamado, DATE_FORMAT(datainicio,'%d/%m/%Y %H:%i') as datainicio, descsolucao, descproblema, usu.nome  FROM chamado INNER JOIN usuarios usu ON usu.id = chamado.usuario_id WHERE (('$cnpj' <> '' AND cnpj = '$cnpj') OR ('$empresa' <> '' AND empresa = '$empresa')) AND status = 'Finalizado' ORDER BY id_chamado DESC LIMIT 3");
 	$sqlChamados->execute();
 	$ultimosChamados = $sqlChamados->fetchall(PDO::FETCH_ASSOC);
+
+	$idCategorias = $chamado['categoria_id'];
+	$categorias = [];
+
+	if($idCategorias){
+		$sql = $db->prepare("SELECT * FROM categoria WHERE id in ($idCategorias)");
+		$sql->execute();
+		$categorias = $sql->fetchall(PDO::FETCH_ASSOC);
+	}
 ?>
 <!Doctype html>
 <html>
@@ -42,7 +66,7 @@
 	</head>
 	<div class="theme-config ">
 		<div class="theme-config-box ">
-			<div class="spin-icon" data-toggle="tooltip" data-placement="left" title="Três últimos atendimentos para <?php echo $row['empresa']?>">
+			<div class="spin-icon" data-toggle="tooltip" data-placement="left" title="Três últimos atendimentos para <?php echo $chamado['empresa']?>">
 				<i class="fas fa-clipboard-list"></i>
 			</div>
 			<div class="skin-settings ">
@@ -58,16 +82,16 @@
 									</div>
 								</div>';
 						}else{
-							foreach($ultimosChamados as $chamado){
+							foreach($ultimosChamados as $chamadoOld){
 							echo'<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
 									<div class="card border-left-info shadow h-100 py-2">
-										<div class="card-body" onclick="abrirVisualizacao('.$chamado['id_chamado'].')" style="cursor: pointer;">
+										<div class="card-body" onclick="abrirVisualizacao('.$chamadoOld['id_chamado'].')" style="cursor: pointer;">
 											<div class="row no-gutters align-items-center">
 												<div class="col mr-2">
-													<div class="text-xs font-weight-bold text-info mb-1">'.$chamado['datainicio'].'</div>
-													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Desc. problema:</strong> '.$chamado['descproblema'].'</small></div>
-													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Solução:</strong> '.$chamado['descsolucao'].'</small></div>
-													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Atendente responsável:</strong> '.$chamado['nome'].'</small></div>
+													<div class="text-xs font-weight-bold text-info mb-1">'.$chamadoOld['datainicio'].'</div>
+													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Desc. problema:</strong> '.$chamadoOld['descproblema'].'</small></div>
+													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Solução:</strong> '.$chamadoOld['descsolucao'].'</small></div>
+													<div class="mb-0 font-weight-bold text-gray-800"><small><strong>Atendente responsável:</strong> '.$chamadoOld['nome'].'</small></div>
 												</div>
 											</div>
 										</div>
@@ -115,15 +139,15 @@
 								<!-- <div class="row" id="row-main"> -->
 									<div class="form-horizontal">
 										<input style="display:none;" name="id_chamado" id="id_chamado" value="<?php echo $id; ?>" />
-										<input style="display:none;" name="cnpj" id="cnpj" value="<?php echo $row['cnpj']; ?>" />
+										<input style="display:none;" name="cnpj" id="cnpj" value="<?php echo $chamado['cnpj']; ?>" />
 										<div class="row">
 											<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 												<label for="empresafin">Empresa solicitante:</label>
-												<input value='<?php echo $row['empresa'];?>' id="empresafin" name="empresafin" type="text" class="form-control disabled" disabled>
+												<input value='<?php echo $chamado['empresa'];?>' id="empresafin" name="empresafin" type="text" class="form-control disabled" disabled>
 											</div>
 											<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 												<label for="contatofin">Contato:</label>
-												<input value='<?php echo $row['contato'];?>' id="contatofin" name="contatofin" type="text" class="form-control">
+												<input value='<?php echo $chamado['contato'];?>' id="contatofin" name="contatofin" type="text" class="form-control">
 											</div>
 										</div>
 										<div class="row">
@@ -131,7 +155,7 @@
 												<label for="formacontatofin">Forma de contato:</label>
 												<select name="formacontatofin" type="text" id="formaContatofin" class="form-control">
 													<option>
-														<?php echo $row['formacontato'];?>
+														<?php echo $chamado['formacontato'];?>
 													</option>
 													<option></option>
 													<option value="Cliente ligou">Cliente ligou
@@ -148,19 +172,19 @@
 											</div>
 											<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 												<label for="telefonefin">Telefone</label>
-												<input value='<?php echo $row['telefone'];?>' id="telefonefin" data-mask="(999)9999-9999" name="telefonefin" type="text"  class="form-control label2" onkeypress="return SomenteNumero(event)" required="">
+												<input value='<?php echo $chamado['telefone'];?>' id="telefonefin" data-mask="(999)9999-9999" name="telefonefin" type="text"  class="form-control label2" onkeypress="return SomenteNumero(event)" required="">
 											</div>
 										</div>
 										<div class="row">
 											<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 												<label for="versaofin">Versão:</label>
-												<input type="text" id="versaofin" name="versaofin" class="form-control" required="" value="<?php echo $row['versao'] ?>">
+												<input type="text" id="versaofin" name="versaofin" class="form-control" required="" value="<?php echo $chamado['versao'] ?>">
 											</div>
 											<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 												<label for="sistemafin">Sistema:</label>
 												<select name="sistemafin" type="text" id="sistemafin" class="form-control" required="">
 													<option>
-														<?php echo $row['sistema'];?>
+														<?php echo $chamado['sistema'];?>
 													</option>
 													<option></option>
 													<option value="Manager">Manager
@@ -181,12 +205,19 @@
 										<div class="form-group">
 											<label for="categoriafin">Categoria:</label>
 											<select name="categoriafilter" data-placeholder=" " multiple id="categoriafilter" type="text" class="form-control chosen-select" required="">
-												<option value=""></option>
+												<?php 
+													foreach ($categorias as $categoria) {
+														$id = $categoria['id'];
+														$desc = $categoria['descricao'];
+														$cat = $categoria['categoria'];
+														echo "<option selected value='{$id}'>[{$cat}] {$desc} </option>";
+													}	
+												?>
 											</select>
 										</div>
 										<div class="form-group">
 											<label for="descproblemafin">Descrição do problema:</label>
-											<textarea name="descproblemafin" id="descproblemafin" type="text" class="form-control label1" required=""><?php echo $row['descproblema'];?></textarea>
+											<textarea name="descproblemafin" id="descproblemafin" type="text" class="form-control label1" required=""><?php echo $chamado['descproblema'];?></textarea>
 										</div>
 										<div class="form-group">
 											<label for="descsolucaofin">Solução:</label>
@@ -199,7 +230,8 @@
 													<button class="btn btn-outline-secondary" data-clipboard-target="#linkPesquisa" type="button" id="btnClipPesquisa"><i id="iconCopy" class="fas fa-copy"></i></button>
 												</div>
 											</div>
-											<button id="criarRequest" name="criarRequest" class="btn btn-group-lg btn-danger"><i class="fas fa-bug" style="-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);"></i>&nbsp;Criar request</button>
+											<button id="alterarAtendente" name="alterarAtendente" class="btn btn-group-lg btn-info"><i class="fas fa-user-friends"></i></button>
+											<button id="criarRequest" name="criarRequest" class="btn btn-group-lg btn-danger"><i class="fas fa-bug m-1" style="-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);"></i>Criar request</button>
 											<button id="finalizar" name="finalizar" class="btn btn-group-lg btn-primary" disabled>Finalizar</button>
 											<button id="agendar" name="agendar" class="btn btn-group-lg btn-success">Agendar</button>
 											<button id="cancel" type="reset" name="cancelar" class="btn btn-group-lg btn-warning">Cancelar</button>
@@ -250,7 +282,7 @@
 							<div class="form-group">
 								<label for="descproblemaAgenda">Descrição do problema:</label>
 								<textarea name="descproblemaAgenda" id="descproblemaAgenda" type="text"
-								class="form-control"><?php echo $row['descproblema'];?></textarea>
+								class="form-control"><?php echo $chamado['descproblema'];?></textarea>
 							</div>
 						</div>
 						<div class="modal-footer">

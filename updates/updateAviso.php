@@ -4,7 +4,7 @@ $db = Database::conexao();
 
 if($_GET['acao'] == "novo"){
     $titulo = $_POST['tituloAviso'];
-    $descricao = str_replace("'","''",stringInsert($_POST['descricaoAviso'],60,"\n"));
+    $descricao = str_replace("'","''", $_POST['descricaoAviso']);
 
     $sql = $db->prepare("INSERT INTO avisos (titulo, descricao) VALUES('$titulo','$descricao')");
     $sql->execute();
@@ -28,6 +28,7 @@ if($_GET['acao'] == "excluir"){
         return;
     }
 }
+
 if($_GET['acao'] == "getAviso"){
     $id = $_GET['id'];
     $query = $db->prepare("SELECT  `titulo`,`descricao` FROM `avisos` WHERE `id` = '{$id}' ");
@@ -37,9 +38,10 @@ if($_GET['acao'] == "getAviso"){
         echo json_encode($result);
     }
 } 
+
 if($_GET['acao'] == "update"){
     $titulo = $_POST['tituloAviso'];
-    $descricao = str_replace("'","''",stringInsert($_POST['descricaoAviso'],60,"\n"));
+    $descricao = str_replace("'","''", $_POST['descricaoAviso']);
     $id = $_GET['id'];
 
     $sql = $db->prepare("UPDATE avisos SET titulo = '$titulo', descricao = '$descricao' WHERE id = '$id'");
@@ -54,18 +56,18 @@ if($_GET['acao'] == "update"){
 }  
 
 
-function stringInsert($str,$pos,$insertstr)
-{
-    if (!is_array($pos))
-        $pos=array($pos);
+// function stringInsert($str,$pos,$insertstr)
+// {
+//     if (!is_array($pos))
+//         $pos=array($pos);
 
-    $offset=-1;
-        foreach($pos as $p)
-        {
-            $offset++;
-            $str = substr($str, 0, $p+$offset) . $insertstr . substr($str, $p+$offset);
-        }
-    return $str;
-}
+//     $offset=-1;
+//         foreach($pos as $p)
+//         {
+//             $offset++;
+//             $str = substr($str, 0, $p+$offset) . $insertstr . substr($str, $p+$offset);
+//         }
+//     return $str;
+// }
 
 ?>

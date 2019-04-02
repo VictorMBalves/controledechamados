@@ -5,7 +5,6 @@ forma_contato = $("#formaContatoEdit");
 versao = $("#versaoEdit");
 telefone = $("#telefoneEdit");
 sistema = $("#sistemaEdit");
-backup = $("#backupEdit");
 categoria = $("#categoriafilter");
 descproblema = $("#descproblemaEdit");
 erros = [];
@@ -35,8 +34,6 @@ function validar(){
         erros.push(sistema.selector);
     if(isEmpty(descproblema.val()))
         erros.push(descproblema.selector);
-    if(isEmpty(backup.val()))
-        erros.push(backup.selector);
     if(isEmpty(categoria.val()))
         erros.push(categoria.selector);
             
@@ -89,7 +86,6 @@ function carregaDados(){
     data.push({name: 'formacontato', value: forma_contato.val()});
     data.push({name: 'categoria', value: categoria.val()});
     data.push({name: 'descproblema', value: descproblema.val()});
-    data.push({name: 'backup', value: backup.val()});
     data.push({name: 'sistema', value: sistema.val()});
     return data;
 }
@@ -118,10 +114,6 @@ versao.focusout(function() {
     if(!isEmpty(versao.val()))
     $(versao.selector).removeClass("is-invalid");
 });
-backup.focusout(function() {
-    if(!isEmpty(backup.val()))
-    $(backup.selector).removeClass("is-invalid");
-});
 categoria.focusout(function() {
     if(!isEmpty(categoria.val()))
     $(categoria.selector).removeClass("is-invalid");
@@ -133,29 +125,39 @@ descproblema.focusout(function() {
 
 
 $("#categoriafin").on('change', () => {
-    $('.chosen-select').chosen({ no_results_text: "Categoria não encontrada", allow_single_deselect: true });
     alterarCategoria()
+})
+
+$(() => {
+    $('.chosen-select').chosen({ no_results_text: "Categoria não encontrada", allow_single_deselect: true });
+    alterarCategoria();
 })
 
 function alterarCategoria() {
     sendRequestCategoria((response) => {
-        $(".chosen-select").html('');
-        $(".chosen-select").append('<option value=""></option>');
         for (i = 0; i < response.length; i++) {
             dado = response[i];
-            var txt = '<option value="' + dado.id + '">' + dado.descricao + '</option>';
-            $(".chosen-select").append(txt);
+            icon = '<i class="fas fa-cubes"></i>';
+            if(dado.categoria == "ERROS"){
+                icon = '<i class="fas fa-bug"></i>';
+            }else if(dado.categoria == "DÚVIDAS"){
+                icon = '<i class="fas fa-question"></i>';
+            }
+            $(".chosen-select").append($('<option>', {
+                html : icon+" ["+dado.categoria+"] "+dado.descricao,
+                value: dado.id,
+                // text : ''
+            }));
         }
         $('.chosen-select').trigger("chosen:updated");
     })
-}
 
+}
 function sendRequestCategoria(callback) {
-    var term = $("#categoriafin").val();
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "../inserts/insere_categoria.php?term=" + term,
+        "url": "../controllers/controllerCategoria.php",
         "method": "GET",
         "headers": {
             "Content-Type": "application/json",
@@ -169,4 +171,3 @@ function sendRequestCategoria(callback) {
         callback(JSON.parse(response));
     });
 }
-

@@ -1,13 +1,12 @@
 <?php
 require_once '../include/Database.class.php';
-// include '../validacoes/verificaSession.php';
 $db = Database::conexao();
 
 $request_method = $_SERVER["REQUEST_METHOD"];
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
  if(strcasecmp($contentType, 'application/json') != 0){
-     returnMessage("Content type precisa ser: application/json", 405);
+     returnMessage("Content type precisa ser: application/json", 400);
      exit;
  }
 
@@ -94,7 +93,7 @@ function updateCategoria(){
     $decoded =  getContentsBody();
 
     if(!is_array($decoded)){
-        echo returnMessage("Estrutura do body não corresponde a um JSON valido", 405);
+        echo returnMessage("Estrutura do body não corresponde a um JSON valido", 400);
         exit;
     }
 
@@ -128,7 +127,7 @@ function deleteCategoria(){
     $decoded =  getContentsBody();
 
     if(!is_array($decoded)){
-        echo returnMessage("Estrutura do body não corresponde a um JSON valido", 405);
+        echo returnMessage("Estrutura do body não corresponde a um JSON valido", 400);
         exit;
     }
 

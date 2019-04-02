@@ -1,18 +1,10 @@
 <?php
 require_once '../include/Database.class.php';
 $db = Database::conexao();
-$sql = $db->prepare("SELECT nome, email, disponivel FROM usuarios WHERE nivel = 2");
+$sql = $db->prepare("SELECT id, nome, email FROM usuarios WHERE nivel = 2");
 $sql->execute();
 $result = $sql->fetchall(PDO::FETCH_ASSOC);
 //HEADER
-// echo'<div class="bg-gradient-info">';
-    // echo '<li class="nav-item ">';
-    //     echo '<a class="nav-link" href="#">';
-    //         echo '<i class="fas fa-fw fa-users"></i>';
-    //             echo '<span>Help-desk</span>';
-    //     echo '</a>';
-    //     echo '<hr class="sidebar-divider d-none d-md-block">';
-    // echo '</li>';
     echo '<div class="sidebar-heading">Help-desk</div>';
 //HEADER
 
@@ -30,7 +22,8 @@ foreach ($result as $row) {
     if ($row > 1) {
         
         $usuario = $row['nome'];
-        $sql = $db->prepare("SELECT count(id_chamado) as numeroChamados FROM chamado WHERE usuario = '$usuario' AND status = 'Aberto'");
+        $id = $row['id'];
+        $sql = $db->prepare("SELECT count(cha.id_chamado) as numeroChamados FROM chamado cha INNER JOIN usuarios u ON u.id = cha.usuario_id AND u.id = $id WHERE cha.status = 'Aberto'");
         $sql->execute();
         $result = $sql->fetch(PDO::FETCH_ASSOC);
 
@@ -139,7 +132,7 @@ function formatDateDiff($start, $end=null) {
     } 
     if($interval->s !== 0) { 
         if(!count($format)) { 
-            return "há menos de um ninuto"; 
+            return "há menos de um minuto"; 
         } else { 
             $format[] = "%s ".$doPlural($interval->s, "s"); 
         } 

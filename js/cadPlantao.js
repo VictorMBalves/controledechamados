@@ -232,7 +232,7 @@ function sendRequestCategoria(callback) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "../inserts/insere_categoria.php",
+        "url": "../controllers/controllerCategoria.php",
         "method": "GET",
         "headers": {
             "Content-Type": "application/json",

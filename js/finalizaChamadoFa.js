@@ -16,11 +16,6 @@ $(".spin-icon").on("click", function () {
     $(".theme-config-box ").toggleClass('show')
 })
 
-$("#wrapper").on("click", function () {
-    if ($(".theme-config-box ").hasClass('show'))
-        $(".theme-config-box ").removeClass('show')
-})
-
 cnjp = $("#cnpj");
 components = [
     id = $("#id_chamado"),
@@ -207,11 +202,6 @@ $("#salvarAgendamento").on("click", function () {
     return false;
 })
 
-$("#showAtendente").click(function () {
-    $("#sidebar").toggleClass("collapsed");
-    $("#content").toggleClass("col-md-9 col-md-12");
-})
-
 function abrirVisualizacao(id) {
     $("#modalConsulta").load("../modals/modalConsultaChamado.php?id_chamado=" + id, function () {
         $("#modalCon").modal('show');
@@ -251,7 +241,7 @@ function sendRequestCategoria(callback) {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "../inserts/insere_categoria.php",
+        "url": "../controllers/controllerCategoria.php",
         "method": "GET",
         "headers": {
             "Content-Type": "application/json",
@@ -263,5 +253,93 @@ function sendRequestCategoria(callback) {
     }
     $.ajax(settings).done(function (response) {
         callback(JSON.parse(response));
+    });
+}
+
+$(()=>{
+    body = "<div class='form-group'>"+
+                "<select data-placeholder=' ' width='100' id='usuarioAlterecao' type='text' class='form-control chosen-select-usuario'><option value=''></option></select>"+
+            "</div>"+
+            "<div class='form-group text-center'>"+
+            "<button id='alterarUsuario' onclick='alterarUsuario()' class='btn btn-success'>Alterar</button>"
+            "</div>"
+
+
+    var options = {
+        title: "<div class='text-center' style='width:250px;'>Alterar usuário</div>",
+        placement: "top",
+        html: true,
+        content: body,
+        trigger: 'click'
+    }
+    $("#alterarAtendente").popover(options);
+})
+
+$("#alterarAtendente").on("click", ()=>{
+    updateUsuariosList()
+    return false;
+})
+
+function updateUsuariosList(){
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "../utilsPHP/searchusers.php",
+        "method": "GET",
+        "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache",
+            "Postman-Token": "1fbbd708-31dc-4395-8462-c333ae164ec5"
+        },
+        "processData": false,
+        "data": ""
+    }
+    $.ajax(settings).done(function (response) {
+        $('.chosen-select-usuario').chosen({ no_results_text: "Usuário não encontrada"});
+        $('#usuarioAlterecao_chosen').css( "width", "+=200" );
+        var usuarios = JSON.parse(response);
+        $.each( usuarios, function( key, usuario ) {
+            $(".chosen-select-usuario").append($('<option>', {
+                html : usuario.nome,
+                value: usuario.id
+            }));
+        });
+        $('.chosen-select-usuario').trigger("chosen:updated");
+    });
+}
+
+ function alterarUsuario(){
+     if(isEmpty($('.chosen-select-usuario').val())){
+         notificationWarning('Alerta', "Informe o usuário para continuar");
+         return;
+     }
+    $("#alterarUsuario").html('<img src="../imagem/ajax-loader.gif">')
+    var data = JSON.stringify({
+        "usuario_id": $('.chosen-select-usuario').val(),
+        "usuario": $('.chosen-select-usuario').text
+    })
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "../controllers/controllerChamado.php?id="+id.val(),
+        "method": "PUT",
+        "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache",
+        },
+        "processData": false,
+        "data": data,
+    }
+    $.ajax(settings).done(function (response) {
+        response = JSON.parse(response);
+        if (response.status == "200") {
+            notificationSuccess('Sucesso', response.message);
+            location.reload();
+        } else if (response.status == "201") {
+            notificationWarning('Alerta', response.message);
+        } else {
+            notificationError('Erro', response.message);
+        }
+        $("#alterarUsuario").html('Alterar')
     });
 }

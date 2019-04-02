@@ -259,6 +259,7 @@ function refresh_usuarios() {
     if($("#accordionSidebar").hasClass("toggled")){
       toogleUsers()
     }
+    $('[data-toggle="tooltip"]').tooltip()
   });
 }
 

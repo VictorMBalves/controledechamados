@@ -11,19 +11,24 @@
 						cha.sistema,
 						cha.descproblema,
 						cha.descsolucao,
-						cat.descricao,
-						cat.categoria
-					FROM chamado cha LEFT JOIN categoria cat ON cat.id = cha.categoria_id WHERE id_chamado=$id");
+						cha.categoria_id
+					FROM chamado cha WHERE id_chamado=$id");
   $sql->execute();
-  $row = $sql->fetch(PDO::FETCH_ASSOC);
-  if($row['status'] == 'Finalizado'){
+  $chamado = $sql->fetch(PDO::FETCH_ASSOC);
+  if($chamado['status'] == 'Finalizado'){
 		echo "<h1>Chamado Nº{$id} já encerrado<h1>";
-	return;
+		return;
   }
-  $empresa = $row['empresa'];
-  $sql2 = $db->prepare("SELECT backup FROM empresa WHERE nome = '$empresa'");
-  $sql2->execute();
-  $row2 = $sql2->fetch(PDO::FETCH_ASSOC);
+
+  $idCategorias = $chamado['categoria_id'];
+  $categorias = [];
+
+  if($idCategorias){
+	$sql = $db->prepare("SELECT * FROM categoria WHERE id in ($idCategorias)");
+  	$sql->execute();
+  	$categorias = $sql->fetchall(PDO::FETCH_ASSOC);
+  }
+  
 ?>
 <!Doctype html>
 <html>
@@ -82,11 +87,11 @@
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="empresaEdit">Empresa solicitante:</label>
-							<input value='<?php echo $row['empresa'];?>' id="empresaEdit" name="empresaEdit" type="text" class="form-control disabled" disabled>
+							<input value='<?php echo $chamado['empresa'];?>' id="empresaEdit" name="empresaEdit" type="text" class="form-control disabled" disabled>
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="contatoEdit">Contato:</label>
-							<input value='<?php echo $row['contato'];?>' id="contatoEdit" name="contatoEdit" type="text" class="form-control">
+							<input value='<?php echo $chamado['contato'];?>' id="contatoEdit" name="contatoEdit" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="row">
@@ -94,7 +99,7 @@
 							<label for="formacontatoEdit">Forma de contato:</label>
 							<select name="formacontatoEdit" type="text" id="formaContatoEdit" class="form-control">
 								<option>
-									<?php echo $row['formacontato'];?>
+									<?php echo $chamado['formacontato'];?>
 								</option>
 								<option></option>
 								<option value="Cliente ligou">Cliente ligou
@@ -111,20 +116,20 @@
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="telefoneEdit">Telefone</label>
-							<input value='<?php echo $row['telefone'];?>' id="telefoneEdit" data-mask="(999)9999-9999" name="telefoneEdit" type="text" class="form-control label2"
+							<input value='<?php echo $chamado['telefone'];?>' id="telefoneEdit" data-mask="(999)9999-9999" name="telefoneEdit" type="text" class="form-control label2"
 								onkeypress="return SomenteNumero(event)" required="">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="versaoEdit">Versão:</label>
-							<input type="text" id="versaoEdit" name="versaoEdit" class="form-control" required="" value="<?php echo $row['versao'] ?>">
+							<input type="text" id="versaoEdit" name="versaoEdit" class="form-control" required="" value="<?php echo $chamado['versao'] ?>">
 						</div>
 						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
 							<label for="sistemaEdit">Sistema:</label>
 							<select name="sistemaEdit" type="text" id="sistemaEdit" class="form-control" required="">
 								<option>
-									<?php echo $row['sistema'];?>
+									<?php echo $chamado['sistema'];?>
 								</option>
 								<option></option>
 								<option value="Manager">Manager
@@ -140,57 +145,22 @@
 							</select>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-						<label for="backupEdit">Backup:</label>
-							<select id="backupEdit" name="backupEdit" class="form-control" required="">
-									<?php 
-										if ($row2['backup'] == 0) {
-											echo "<option value='0'>Google drive não configurado</option>";
-										} else {
-											echo "<option value='1'>Google drive configurado</option>";
-										}
-									?>
-								<option>
-								</option>
-								<option value="1">Google drive configurado
-								</option>
-								<option value="0">Google drive não configurado
-								</option>
-							</select>
-						</div>
-						<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-							<label for="categoriafin">Categoria:</label>
-							<div class="row">
-								<select name="categoriafin" id="categoriafin" type="text" class="form-control col-4 col-sm-4 col-md-4 col-lg-4 ml-3 mr-2" required="">
-									<?php echo'
-										<option value="'.$row['categoria'].'">'.$row['categoria'].'
-										</option>';
-									?>
-									<option value="">
-									</option>
-									<option value="ERROS">ERROS
-									</option>
-									<option value="DÚVIDAS">DÚVIDAS
-									</option>
-									<option value="OUTROS">OUTROS
-									</option>
-								</select>
-								<div class="col-7">
-									<select name="categoriafilter" data-placeholder=" " id="categoriafilter" type="text" class="form-control chosen-select" required="">
-										<?php echo'
-											<option value="'.$row['categoria'].'">'.$row['descricao'].'
-											</option>';
-										?>
-										<option value=""></option>
-									</select>
-								</div>
-							</div>
-						</div>
+					<div class="form-group">
+						<label for="categoriafin">Categoria:</label>
+						<select name="categoriafilter" data-placeholder=" " multiple id="categoriafilter" type="text" class="form-control chosen-select" required="">
+							  <?php 
+							 	foreach ($categorias as $categoria) {
+									$id = $categoria['id'];
+									$desc = $categoria['descricao'];
+									$cat = $categoria['categoria'];
+									echo "<option selected value='{$id}'>[{$cat}] {$desc} </option>";
+								}
+							  ?>
+						</select>
 					</div>
 					<div class="form-group">
 						<label for="descproblemaEdit">Descrição do problema:</label>
-						<textarea name="descproblemaEdit" id="descproblemaEdit" type="text" class="form-control label1" required=""><?php echo $row['descproblema'];?></textarea>
+						<textarea name="descproblemaEdit" id="descproblemaEdit" type="text" class="form-control label1" required=""><?php echo $chamado['descproblema'];?></textarea>
 					</div>
 					<div class="col-md-12 text-center">
 						<button id="alterar" name="singlebutton" class="btn btn-group-lg btn-primary">Salvar</button>

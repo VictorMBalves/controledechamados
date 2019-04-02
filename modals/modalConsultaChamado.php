@@ -2,14 +2,27 @@
     include '../validacoes/verificaSession.php';
     require_once '../include/Database.class.php';
     $db = Database::conexao();
-
     $id=$_GET['id_chamado'];
     $sql = $db->prepare("SELECT 
-                                *, 
-                                DATE_FORMAT(datainicio,'%d/%m/%Y %H:%i') as datainicio, 
-                                DATE_FORMAT(datafinal,'%d/%m/%Y %H:%i') as datafinal
-                        FROM chamado WHERE id_chamado=$id");
-    $sql->execute();
+                                cha.id_chamado,
+								cha.empresa,
+								cha.contato,
+								cha.formacontato,
+								cha.versao,
+								cha.categoria_id,
+                                cha.categoria,
+								cha.telefone,
+								cha.sistema,
+								cha.descproblema,
+                                cha.descsolucao,
+								usu.nome AS usuario, 
+                                DATE_FORMAT(cha.datainicio,'%d/%m/%Y %H:%i') as datainicio, 
+                                DATE_FORMAT(cha.datafinal,'%d/%m/%Y %H:%i') as datafinal
+                            FROM chamado cha 
+                            INNER JOIN usuarios usu ON usu.id = cha.usuario_id WHERE cha.id_chamado = :id");
+    $sql->execute(array(
+		":id" => $id
+	));
     $chamado = $sql->fetch(PDO::FETCH_ASSOC);
     $idCategorias = $chamado['categoria_id'];
     $categorias = [];
@@ -60,13 +73,15 @@
                             <label for="empresa">Empresa solicitante:</label>
                             <input value='<?php echo $chamado['empresa'];?>'name="empresa" type="text" disabled class="form-control disabled" required/>
                         </div>
-                        <div class="form-group">
-                            <label for="contato">Contato:</label>
-                            <input value='<?php echo $chamado['contato'];?>' id="nome" name="contato" type="text" disabled class="form-control disabled" required/>
-                        </div>
-                        <div class="form-group">
-                            <label for="responsavel">Responsável:</label>
-                            <input class="form-control label1 disabled" name="responsavel" disabled value='<?php echo $chamado['usuario']?>'>
+                        <div class="row">
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                <label for="contato">Contato:</label>
+                                <input value='<?php echo $chamado['contato'];?>' id="nome" name="contato" type="text" disabled class="form-control disabled" required/>
+                            </div>
+                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                <label for="responsavel">Responsável:</label>
+                                <input class="form-control label1 disabled" name="responsavel" disabled value='<?php echo $chamado['usuario']?>'>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">

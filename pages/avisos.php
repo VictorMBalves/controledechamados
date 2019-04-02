@@ -90,7 +90,7 @@
             <div class="modal-footer" id="rodape">
                 <div class="col-md-12 text-center">
                     <button type="button" class="btn btn-primary" id="modal-salvar">salvar</button>
-                    <button type="button" class="btn btn-secundary" id="modal-retornar">Retornar</button>
+                    <button type="button" class="btn btn-danger" id="modal-retornar">Retornar</button>
                 </div>
             </div>
         </div>
