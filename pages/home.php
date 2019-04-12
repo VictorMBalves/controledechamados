@@ -50,46 +50,41 @@
             <form class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
               <div class="input-group">
                   <input type="text" name="keyword" id="keyword" class="form-control bg-light border-0 small" placeholder="Buscar por..." aria-label="Search" aria-describedby="basic-addon2">
-                  <!-- <div class="input-group-append">
-                  <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search fa-sm"></i>
-                  </button>
-                  </div> -->
               </div>
             </form>
-           	<div id="plantao"></div>
+            <button class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm ml-4 mr-4" id="avulsoBtn"><i class="fas fa-box-open m-1"></i>Avulsos <label class="m-0" id="numAvulsos"></label></button>
+            <div id="plantao"></div>
           </div>
+          <!-- Content Row -->
+          <div id="chamados" class="row animated fadeInRight">
+            <!--Chamados pendentes-->
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+              <div id="pendentes"></div>
+              <?php //include 'chamadospendentes.php';?>
+            </div>
+            <!--Chamados pendentes-->
 
-			<!-- Content Row -->
-			<div id="chamados" class="row animated fadeInRight">
-				<!--Chamados pendentes-->
-				<div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-					<div id="pendentes"></div>
-					<?php //include 'chamadospendentes.php';?>
-				</div>
-				<!--Chamados pendentes-->
+            <!--Chamados ATRASADOS -->
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+              <div id="atrasados"></div>
+              <?php //include 'chamadosatrasados.php'; ?>
+              <!--Chamados ATRASADOS-->
+            </div>
 
-				<!--Chamados ATRASADOS -->
-				<div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-					<div id="atrasados"></div>
-					<?php //include 'chamadosatrasados.php'; ?>
-				  <!--Chamados ATRASADOS-->
-				</div>
+            <!--Chamados AGENDADOS -->
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+              <div id="agendados"></div>
+              <?php //include 'chamadosagendados.php'; ?>
+            </div>
+            <!--Chamados AGENDADOS -->
 
-        <!--Chamados AGENDADOS -->
-				<div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-					<div id="agendados"></div>
-					<?php //include 'chamadosagendados.php'; ?>
-				</div>
-				<!--Chamados AGENDADOS -->
-
-				<!--Chamados EM ATENDIMENTO -->
-				<div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-					<div id="andamento"></div>
-					<?php //include 'chamadosandamento.php'; ?>
-				<!--Chamados EM ATENDIMENTO -->
-				</div>
-			</div>
+            <!--Chamados EM ATENDIMENTO -->
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+              <div id="andamento"></div>
+              <?php //include 'chamadosandamento.php'; ?>
+            <!--Chamados EM ATENDIMENTO -->
+            </div>
+          </div>
 
         </div>
         <!-- /.container-fluid -->

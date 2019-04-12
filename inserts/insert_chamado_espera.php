@@ -41,8 +41,8 @@ try
   $versao = $decoded['versao'];
   $usuario=$decoded['UsuarioNome'];
   $cnpj=$decoded['cnpj'];
-  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id, cnpj) 
-  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', 56, '$cnpj')") or die(mysql_error());
+  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id, cnpj, notification) 
+  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', 56, '$cnpj', 0)") or die(mysql_error());
 
  
   if ($sql->execute()) {

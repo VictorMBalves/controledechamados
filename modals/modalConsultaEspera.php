@@ -30,13 +30,13 @@
                             if($_SESSION['UsuarioNivel'] == 3){
                                 echo '
                                     <script>colorNotification('.$row['notification'].')</script>
-                                    <div class="col-sm-2 align-self-end text-right">';
+                                    <div class="col-sm-2 align-self-end text-right" >';
                                     if($row['notification'])
-                                        echo '<input type="checkbox" name="notification" id="notification" style="display:none;" checked>';
+                                        echo '<input type="checkbox" name="notification" id="notification" style="display:none;" checked> ';
                                     else
-                                        echo '<input type="checkbox" name="notification" id="notification" style="display:none;" >';
+                                        echo '<input type="checkbox" name="notification" id="notification" style="display:none;">';
                                    
-                                     echo '<label id="labelNotification" for="notification" data-toggle="tooltip" data-placement="top" title="Habilitar/Desabilitar notificações"><i class="fas fa-bell"></i></label>';
+                                     echo '<label id="labelNotification" style="cursor: pointer;" for="notification" data-toggle="tooltip" data-placement="top" title="Habilitar/Desabilitar notificações"><i class="fas fa-bell"></i></label>';
                                 echo'</div>
                                     <br/>';
                             }
@@ -193,6 +193,12 @@
                         setTimeout(function(){
                             $("#modalCon").modal('hide');
                         }, 2000);
+                        $("#avulsoBtn").popover('update');
+                        chamadoandamento();
+                        chamadosatrasados();
+                        chamadospendentes();
+                        chamadoagendados();
+                        loadDataAvulsos();
                     }else{
                         $("#salvarHistorico").html("Salvar");
                         notificationError('Ocorreu um erro ao salvar o registro: ', data);

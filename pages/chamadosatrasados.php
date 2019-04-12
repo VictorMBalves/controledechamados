@@ -20,7 +20,9 @@
                 emailEnviado
             FROM chamadoespera 
             WHERE status <> 'Finalizado' 
-            AND data < DATE_ADD(NOW(), INTERVAL -10 MINUTE) AND (dataagendamento IS NULL OR dataagendamento < DATE_ADD(NOW(), INTERVAL -10 MINUTE))
+            AND data < DATE_ADD(NOW(), INTERVAL -10 MINUTE) 
+            AND (dataagendamento IS NULL OR dataagendamento < DATE_ADD(NOW(), INTERVAL -10 MINUTE))
+            AND notification IS TRUE
             ORDER BY status, data DESC";
     $query = $db->prepare($sql);
     $query->execute();
@@ -100,10 +102,10 @@
                                     }
                             echo '</div>
                                     <div class="col-6 col-sm-6 col-md-6 col-lg-6 align-items-center text-right">
-                                        <a href="../pages/abrechamadoespera='.$chamado['id_chamadoespera'].'" target="_blank" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Atender">
+                                        <a href="../pages/abrechamadoespera='.$chamado['id_chamadoespera'].'" target="_blank" class="btn btn-success btn-circle m-1" data-toggle="tooltip" data-placement="bottom" title="Atender">
                                             <i class="fas fa-phone"></i>
                                         </a>
-                                        <a  class="btn btn-info btn-circle" data-toggle="tooltip" data-placement="bottom" title="Agendar" onclick="abrirAgendamento('.$chamado['id_chamadoespera'].')" style="cursor: pointer; color:white;">
+                                        <a  class="btn btn-info btn-circle m-1" data-toggle="tooltip" data-placement="bottom" title="Agendar" onclick="abrirAgendamento('.$chamado['id_chamadoespera'].')" style="cursor: pointer; color:white;">
                                             <i class="fas fa-calendar-alt"></i>
                                         </a>
                                     </div>
@@ -112,21 +114,21 @@
                                     if($chamado['dataagendamento'] != null && $chamado['dataagendamento'] > $chamado['databanco']){
                                         echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12 align-middle text-info">
                                                  <small data-toggle="tooltip" data-placement="bottom" title="Data agendamento">
-                                                    <i class="fas fa-calendar-alt"></i>&nbsp'.
+                                                    <i class="fas fa-calendar-alt m-1"></i>'.
                                                     $chamado['dataagendamentoformat'].'
                                                 </small>
                                                 </div>';
                                         }else{
                                         echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12 align-middle text-success">
                                         <small data-toggle="tooltip" data-placement="bottom" title="Última data atualizada">
-                                            <i class="fas fa-calendar-alt"></i>&nbsp'.
+                                            <i class="fas fa-calendar-alt m-1"></i>'.
                                             $chamado['dataFormatada'].'
                                     </small>
                                     </div>';
                                     }
                                     echo'<div class="col-12 col-sm-12 col-md-12 col-lg-12 align-middle text-danger">
                                         <small data-toggle="tooltip" data-placement="bottom" title="Tempo decorrido">
-                                            <i class="far fa-clock"></i>&nbsp';
+                                            <i class="far fa-clock m-1"></i>';
                                                 if($chamado['dataagendamento'] != null){
                                                     echo formatDateDiff(date_create($chamado['dataagendamento']));
                                                 }else{
@@ -139,57 +141,6 @@
                     </div>
                 </div>';
     }
-
-    function formatDateDiff($start, $end=null) { 
-        if(!($start instanceof DateTime)) { 
-            $start = new DateTime($start); 
-        } 
-        
-        if($end === null) { 
-            $end = new DateTime(); 
-        } 
-        
-        if(!($end instanceof DateTime)) { 
-            $end = new DateTime($start); 
-        } 
-        
-        $interval = $end->diff($start); 
-        $doPlural = function($nb,$str){return $nb>1?$str.'s':$str;}; // adds plurals 
-        
-        $format = array(); 
-        if($interval->y !== 0) { 
-            $format[] = "%y ".$doPlural($interval->y, "Ano"); 
-        } 
-        if($interval->m !== 0) { 
-            $format[] = "%m ".$doPlural($interval->m, "mêses"); 
-        } 
-        if($interval->d !== 0) { 
-            $format[] = "%d ".$doPlural($interval->d, "dia"); 
-        } 
-        if($interval->h !== 0) { 
-            $format[] = "%h ".$doPlural($interval->h, "hora"); 
-        } 
-        if($interval->i !== 0) { 
-            $format[] = "%i ".$doPlural($interval->i, "minuto"); 
-        } 
-        if($interval->s !== 0) { 
-            if(!count($format)) { 
-                return "há menos de um minuto"; 
-            } else { 
-                $format[] = "%s ".$doPlural($interval->s, "segundo"); 
-            } 
-        } 
-        
-        // We use the two biggest parts 
-        if(count($format) > 1) { 
-            $format = array_shift($format)." e ".array_shift($format); 
-        } else { 
-            $format = array_pop($format); 
-        } 
-        
-        // Prepend 'since ' or whatever you like 
-        return $interval->format($format); 
-    } 
 
     function horarioValidoEnvio(){
         $hora = date('H');
