@@ -69,4 +69,5 @@ ErrorDocument 500 /pages/error/404.html
   RewriteRule ^slack/requestInteractivity/?$ slack/requestInteractivity.php [NC,L]
   RewriteRule ^pages/timeline=([0-9]+)?$ pages/timeline.php?id=$1 [NC,L]
   RewriteRule ^pages/categorias/?$ pages/categorias.php [NC,L]
+  RewriteRule ^pages/dashboard2/?$ pages/dashBoard2.php [NC,L]
 </IfModule>
