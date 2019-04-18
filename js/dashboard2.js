@@ -57,3 +57,37 @@ function formatTimeDiff(time) {
     }
     return tempo;
 }
+
+$(()=>{
+    chamadoandamento();
+    chamadosatrasados();
+    chamadospendentes();
+    chamadoagendados();
+});
+
+setInterval(()=>{
+    chamadoandamento();
+    chamadosatrasados();
+    chamadospendentes();
+    chamadoagendados();
+}, 30000);//
+
+function chamadospendentes() {
+    var url = "../pages/chamadospendentes.php?continue=true";
+    jQuery("#pendentes").load(url);
+}
+
+function chamadosatrasados() {
+    var url = "../pages/chamadosatrasados.php?continue=true";
+    jQuery("#atrasados").load(url);
+}
+
+function chamadoagendados() {
+    var url = "../pages/chamadosagendados.php?continue=true";
+    jQuery("#agendados").load(url);
+}
+
+function chamadoandamento() {
+    var url = "../pages/chamadosandamento.php?continue=true";
+    jQuery("#andamento").load(url);
+}
