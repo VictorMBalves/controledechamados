@@ -26,6 +26,7 @@ function drawCharts() {
     drawCategoriaQtd();
     drawRankingCategoriaTempo();
     drawCategoriaTempo();
+    getTotaisChamado();
     notificationSuccess("Sucesso", "Gráficos gerados com sucesso")
 }
 
