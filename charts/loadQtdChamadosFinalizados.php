@@ -11,7 +11,7 @@
                 (SELECT
                     COUNT( DISTINCT cast(cha1.datafinal as date) ) qtd_dias
                  FROM chamado cha1
-                 WHERE date(datafinal) BETWEEN date('2019-04-01') AND date('2019-04-30')
+                 WHERE date(datafinal) BETWEEN date('$data_inicio') AND date('$data_final')
                    AND cha1.status = 'Finalizado') as qtd_dias
             FROM chamado cha1
             INNER JOIN chamadoespera espera ON espera.id_chamadoespera = cha1.id_chamadoespera AND espera.usuario_id != 56 AND espera.notification IS TRUE
@@ -21,7 +21,7 @@
               AND cha1.status = 'Finalizado'   
               AND ((espera.dataagendamento IS NULL OR DATE_ADD(espera.dataagendamento, INTERVAL +10 MINUTE) < cha1.datainicio) 
                OR DATE_ADD(espera.data, INTERVAL +10 MINUTE) < cha1.datainicio)
-              AND ('$usuario' = '' or cha1.usuario_id = '$usuario')
+               and ('$usuario' = '' or cha1.usuario_id = cast('$usuario' as signed))
               AND ('$sistema' = '' or lower(cha1.sistema) like lower('%$sistema%'))
 
             UNION ALL 
@@ -32,13 +32,13 @@
                 (SELECT
                     COUNT( DISTINCT cast(cha1.datafinal as date) ) qtd_dias
                  FROM chamado cha1
-                 WHERE date(datafinal) BETWEEN date('2019-04-01') AND date('2019-04-30')
+                 WHERE date(datafinal) BETWEEN date('$data_inicio') AND date('$data_final')
                    AND cha1.status = 'Finalizado') as qtd_dias
             FROM chamado cha1
             left join categoria on categoria.id = cha1.categoria_id
             left join usuarios usuario on usuario.id = cha1.usuario_id
             WHERE date(datafinal) BETWEEN date('$data_inicio') AND date('$data_final')
-              AND ('$usuario' = '' or cha1.usuario_id = '$usuario')
+              and ('$usuario' = '' or cha1.usuario_id = cast('$usuario' as signed))
               AND ('$sistema' = '' or lower(cha1.sistema) like lower('%$sistema%'))
               AND cha1.status = 'Finalizado'";
 

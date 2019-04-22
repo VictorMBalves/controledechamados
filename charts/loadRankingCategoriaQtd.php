@@ -10,7 +10,7 @@
             left join categoria on categoria.id = chamado.categoria_id
             left join usuarios usuario on usuario.id = chamado.usuario_id
             where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final')
-            and ('$usuario' = '' or chamado.usuario_id = '$usuario')
+            and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
             and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
             GROUP by categoria.id, categoria.descricao
             order by count(chamado.id_chamado) desc";

@@ -30,10 +30,22 @@
     <link href="../assets/css/style.css" rel="stylesheet" />
     <link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
     <link href="../assets/css/component-chosen.min.css" rel="stylesheet" />
+    <link href="../datatables/datatables.min.css" rel="stylesheet">
+    <link href="../datatables/responsive.dataTables.min.css" rel="stylesheet">
+    <link href="../datatables/rowReorder.dataTables.min.css" rel="stylesheet">
     <style>
     .chart {
         width: 100%;
         min-height: 450px;
+    }
+    .dataTables_wrapper{
+        width: 100%;
+    }
+    .google-visualization-table-tr-even, .google-visualization-table-tr-odd{
+        cursor: pointer;
+    }
+    #chart_categoria_qtd g g g rect, #chart_categoria_qtd g g g rect {
+        cursor: pointer
     }
     </style>
 </head>
@@ -140,32 +152,6 @@
                     </div>
 
                     <div id="chamados" class="row animated fadeInRight">
-                        <!--Chamados pendentes-->
-                        <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-                            <div id="pendentes"></div>
-                        </div>
-                        <!--Chamados pendentes-->
-
-                        <!--Chamados ATRASADOS -->
-                        <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-                            <div id="atrasados"></div>
-                            <!--Chamados ATRASADOS-->
-                        </div>
-
-                        <!--Chamados AGENDADOS -->
-                        <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-                            <div id="agendados"></div>
-                        </div>
-                        <!--Chamados AGENDADOS -->
-
-                        <!--Chamados EM ATENDIMENTO -->
-                        <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-                            <div id="andamento"></div>
-                            <!--Chamados EM ATENDIMENTO -->
-                        </div>
-                    </div>
-
-                    <div id="chamados" class="row animated fadeInRight">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6" style="padding-bottom:5px;">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
                                 <div class="card border-left-info shadow h-100 py-2">
@@ -177,12 +163,14 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="qtdConcluido">
-                                                            </div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                            id="qtdConcluido">
+                                                        </div>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <div class="mb-0 font-weight-bold text-gray-800" id="mediaConcluido">
-                                                            </div>
+                                                        <div class="mb-0 font-weight-bold text-gray-800"
+                                                            id="mediaConcluido">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,12 +193,14 @@
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="qtdConcluidoForaPrazo">
-                                                            </div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                            id="qtdConcluidoForaPrazo">
+                                                        </div>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <div class="mb-0 font-weight-bold text-gray-800" id="mediaConcluidoForaPrazo">
-                                                            </div>
+                                                        <div class="mb-0 font-weight-bold text-gray-800"
+                                                            id="mediaConcluidoForaPrazo">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -230,7 +220,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <div class="m-0 font-weight-bold"><span class="text-primary">Ranking de categorias
+                                    <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por categorias
                                             (Qtd.)</span><br />
                                     </div>
                                 </div>
@@ -250,6 +240,44 @@
                         <!--/RANKING POR QTD-->
                     </div>
 
+                    <div class="row" id="rowTableChamados" style="margin-top: 10px !important; display: none; font-size: 12px;">
+                        <!--TABELA CHAMADOS-->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="card shadow">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="m-0 font-weight-bold"><span class="text-primary" id="textTabela1"></span>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <table style="width:100%"
+                                            class="table table-striped table-bordered table-hover table-ranking">
+                                            <thead>
+                                                <tr>
+                                                    <td style="width:5%">Número</td>
+                                                    <td style="width:23%">Empresa</td>
+                                                    <td style="width:15%">Contato</td>
+                                                    <td style="width:13%">Sistema</td>
+                                                    <td style="width:32%">Descrição</td>
+                                                    <td style="width:12%">Data Inicío</td>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="width:100%" id="tbody_ranking">
+
+                                            </tbody>
+                                            <tfoot>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/TABELA CHAMADOS-->
+                    </div>
+                    
                     <div class="row" style="margin-top: 10px !important">
                         <!--RANKING POR TEMPO-->
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -277,6 +305,44 @@
                         <!--/RANKING POR TEMPO-->
                     </div>
 
+                    <div class="row" id="rowTableChamadosTempo" style="margin-top: 10px !important; display: none; font-size: 12px;">
+                        <!--TABELA CHAMADOS-->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="card shadow">
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="m-0 font-weight-bold"><span class="text-primary" id="textTabela2"></span>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <table style="width:100%"
+                                            class="table table-striped table-bordered table-hover table-ranking-tempo">
+                                            <thead>
+                                                <tr>
+                                                    <td style="width:5%">Número</td>
+                                                    <td style="width:23%">Empresa</td>
+                                                    <td style="width:15%">Contato</td>
+                                                    <td style="width:13%">Sistema</td>
+                                                    <td style="width:32%">Descrição</td>
+                                                    <td style="width:12%">Data Inicío</td>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="width:100%" id="tbody_ranking_tempo">
+
+                                            </tbody>
+                                            <tfoot>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/TABELA CHAMADOS-->
+                    </div>
+
                 </div>
                 <!-- /.container-fluid -->
 
@@ -300,10 +366,6 @@
 
     <div id="modalConsulta">
     </div>
-    <div id="modalCadastro">
-    </div>
-    <div id="modalAgendamento">
-    </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -319,6 +381,10 @@
     <script src="../assets/js/toastr.min.js"></script>
     <script src="../assets/js/date.js"></script>
     <script src="../assets/js/chosen.jquery.min.js"></script>
+    <script src="../datatables/jquery.dataTables.min.js"></script>
+	<script src="../datatables/dataTables.bootstrap4.min.js"></script>
+	<script src="../datatables/responsive.min.js"></script>
+	<script src="../datatables/rowReorder.min.js"></script>
     <script src="../js/links.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="../js/dashboard2.js"></script>

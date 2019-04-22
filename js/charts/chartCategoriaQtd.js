@@ -1,12 +1,26 @@
 function drawCategoriaQtd() {
-    var dados = getDataRankingChamadosQtd();
-    if (isEmpty(dados)) {
+    var data = getDataChamadosQtd();
+    if (isEmpty(data)) {
         $("#chart_categoria_qtd").html("Nenhum dado no período");
         return;
     }
 
     var chart = new google.visualization.PieChart(document.getElementById('chart_categoria_qtd'));
-    var data = getDataChamadosQtd();
+
+    // The select handler. Call the chart's getSelection() method
+    function selectHandler() {        
+        var selectedItem = chart.getSelection()[0];
+        if (selectedItem) {
+            if(data.getValue(selectedItem.row, 2) != null)
+            preencherTabelaRanking(data.getValue(selectedItem.row, 2), data.getValue(selectedItem.row, 0))
+        }else{
+            $('#rowTableChamados').hide();
+        }
+    }
+
+    google.visualization.events.addListener(chart, 'select', selectHandler);
+
+    
     chart.draw(data, getOptionsChamadosCategoria());
 }
 
@@ -31,7 +45,7 @@ function getDataChamadosQtd() {
             if(i > 4){
                 totalOutros += parseInt(data[i].qtd);
             }else{
-                dataArray.push([(data[i].descricao + '(' + data[i].qtd + ')'), parseInt(data[i].qtd), data[i].id]);
+                dataArray.push([(data[i].descricao.toUpperCase() + '(' + data[i].qtd + ')'), parseInt(data[i].qtd), data[i].id]);
             }
         }
     }
