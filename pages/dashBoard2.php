@@ -168,21 +168,21 @@
                     <div id="chamados" class="row animated fadeInRight">
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6" style="padding-bottom:5px;">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
-                                <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card border-left-info shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                    <h6>CONCLUÍDAS DENTRO DO PRAZO</h6>
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                    <h6>CONCLUÍDOS</h6>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                            100</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="qtdConcluido">
+                                                            </div>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <div class="mb-0 font-weight-bold text-gray-800">
-                                                            Média</div>
+                                                        <div class="mb-0 font-weight-bold text-gray-800" id="mediaConcluido">
+                                                            </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -196,21 +196,21 @@
                         </div>
                         <div class="col-12 col-sm-6 col-md-6 col-lg-6" style="padding-bottom:5px;">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
-                                <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card border-left-warning shadow h-100 py-2">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
                                             <div class="col mr-2">
-                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                    <h6>CONCLUÍDAS DENTRO DO PRAZO</h6>
+                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                    <h6>CONCLUÍDAS FORA DO PRAZO</h6>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                                            100</div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800" id="qtdConcluidoForaPrazo">
+                                                            </div>
                                                     </div>
                                                     <div class="form-group col-md-6">
-                                                        <div class="mb-0 font-weight-bold text-gray-800">
-                                                            Média</div>
+                                                        <div class="mb-0 font-weight-bold text-gray-800" id="mediaConcluidoForaPrazo">
+                                                            </div>
                                                     </div>
                                                 </div>
                                             </div>

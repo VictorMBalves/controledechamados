@@ -63,6 +63,7 @@ $(()=>{
     chamadosatrasados();
     chamadospendentes();
     chamadoagendados();
+    getTotaisChamado();
 });
 
 setInterval(()=>{
@@ -70,6 +71,7 @@ setInterval(()=>{
     chamadosatrasados();
     chamadospendentes();
     chamadoagendados();
+    getTotaisChamado();
 }, 30000);//
 
 function chamadospendentes() {
@@ -90,4 +92,28 @@ function chamadoagendados() {
 function chamadoandamento() {
     var url = "../pages/chamadosandamento.php?continue=true";
     jQuery("#andamento").load(url);
+}
+
+function getTotaisChamado() {
+    var dados = $('#formFiltros').serialize();
+
+    var jsonData = $.ajax({
+        url: "../charts/loadQtdChamadosFinalizados.php",
+        data: dados,
+        dataType: "json",
+        async: false
+    }).responseText;
+
+    data = $.parseJSON(jsonData);
+
+    var qtdDias = new Number(data[0]['qtd_dias']);
+
+    var qtd = new Number(data[0]['qtd']);
+    var media = qtd/qtdDias;
+    $('#mediaConcluidoForaPrazo').text('Média/dia ' + media.toFixed(2));
+    $('#qtdConcluidoForaPrazo').text(qtd);
+    qtd = new Number(data[1]['qtd']);
+    media = qtd/qtdDias;
+    $('#mediaConcluido').text('Média/dia ' + media.toFixed(2));
+    $('#qtdConcluido').text(qtd)
 }
