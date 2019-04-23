@@ -5,6 +5,7 @@
     $data_final =  $_GET['dataFinal'];
     $usuario = $_GET['usuario'];
     $sistema = $_GET['sistema'];
+    $cnpj = $_GET['cnpj'];
     $sql = "SELECT
                 'ATRASADOS'  as tipo,
                 count(cha1.id_chamado) as qtd,
@@ -23,6 +24,7 @@
                OR DATE_ADD(espera.data, INTERVAL +10 MINUTE) < cha1.datainicio)
                and ('$usuario' = '' or cha1.usuario_id = cast('$usuario' as signed))
               AND ('$sistema' = '' or lower(cha1.sistema) like lower('%$sistema%'))
+              AND ('$cnpj' = '' or cha1.cnpj = '$cnpj')
 
             UNION ALL 
 
@@ -40,6 +42,7 @@
             WHERE date(datafinal) BETWEEN date('$data_inicio') AND date('$data_final')
               and ('$usuario' = '' or cha1.usuario_id = cast('$usuario' as signed))
               AND ('$sistema' = '' or lower(cha1.sistema) like lower('%$sistema%'))
+              AND ('$cnpj' = '' or cha1.cnpj = '$cnpj')
               AND cha1.status = 'Finalizado'";
 
     $stmt = $db->prepare($sql);

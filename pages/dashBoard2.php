@@ -38,13 +38,18 @@
         width: 100%;
         min-height: 450px;
     }
-    .dataTables_wrapper{
+
+    .dataTables_wrapper {
         width: 100%;
     }
-    .google-visualization-table-tr-even, .google-visualization-table-tr-odd{
+
+    .google-visualization-table-tr-even,
+    .google-visualization-table-tr-odd {
         cursor: pointer;
     }
-    #chart_categoria_qtd g g g rect, #chart_categoria_qtd g g g rect {
+
+    #chart_categoria_qtd g g g rect,
+    #chart_categoria_qtd g g g rect {
         cursor: pointer
     }
     </style>
@@ -106,7 +111,7 @@
                                                         class="form-control mb-2 mr-sm-2"
                                                         value="<?php echo $data_fim?>">
                                                 </div>
-                                                <div class="form-group col-md-3">
+                                                <div class="form-group col-md-2">
                                                     <label for="usuario">Usuário</label>
                                                     <select name="usuario" data-placeholder="Selecione um usuário..."
                                                         id="usuario" type="text" class="form-control chosen-select">
@@ -118,7 +123,7 @@
                                                         ?>
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-3">
+                                                <div class="form-group col-md-2">
                                                     <label for="sistema">Sistema</label>
                                                     <select name="sistema" type="text" id="sistema"
                                                         data-placeholder="Selecione um sistema..."
@@ -138,7 +143,11 @@
                                                         </option>
                                                     </select>
                                                 </div>
-                                                <div class="form-group col-md-2">
+                                                <div class="form-group col-md-3">
+                                                    <label for="cnpj">Empresa</label>
+                                                    <input name="cnpj" type="text" class="form-control flexdatalist" placeholder="Empresa" id="empresafiltro" >
+                                                </div>
+                                                <div class="form-group col-md-1">
                                                     <br>
                                                     <a id="btnFiltrar" class="btn btn-primary"
                                                         style="margin-top: 7px; color: white !important">Filtrar</a>
@@ -220,8 +229,20 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por categorias
-                                            (Qtd.)</span><br />
+                                    <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por
+                                                categorias </span><br />
+                                        </div>
+                                    </div>
+                                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                                        <select name="filtroTipoRanking" type="text" id="filtroTipoRanking"
+                                            class="form-control chosen-select" >
+                                            <option value="Quantidade">Quantidade
+                                            </option>
+                                            <option value="Tempo">Tempo
+                                            </option>
+
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- Card Body -->
@@ -240,13 +261,15 @@
                         <!--/RANKING POR QTD-->
                     </div>
 
-                    <div class="row" id="rowTableChamados" style="margin-top: 10px !important; display: none; font-size: 12px;">
+                    <div class="row" id="rowTableChamados"
+                        style="margin-top: 10px !important; display: none; font-size: 12px;">
                         <!--TABELA CHAMADOS-->
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="card shadow">
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <div class="m-0 font-weight-bold"><span class="text-primary" id="textTabela1"></span>
+                                    <div class="m-0 font-weight-bold"><span class="text-primary"
+                                            id="textTabela1"></span>
                                     </div>
                                 </div>
                                 <!-- Card Body -->
@@ -257,11 +280,13 @@
                                             <thead>
                                                 <tr>
                                                     <td style="width:5%">Número</td>
-                                                    <td style="width:23%">Empresa</td>
-                                                    <td style="width:15%">Contato</td>
+                                                    <td style="width:20%">Empresa</td>
+                                                    <td style="width:10%">Solicitante</td>
                                                     <td style="width:13%">Sistema</td>
-                                                    <td style="width:32%">Descrição</td>
+                                                    <td style="width:7%">Atendente</td>
+                                                    <td style="width:25%">Descrição</td>
                                                     <td style="width:12%">Data Inicío</td>
+                                                    <td style="width:8%">Duração</td>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -277,60 +302,76 @@
                         </div>
                         <!--/TABELA CHAMADOS-->
                     </div>
-                    
-                    <div class="row" style="margin-top: 10px !important">
-                        <!--RANKING POR TEMPO-->
+
+                    <div class="row" style="margin-top: 10px !important;">
+                        <!--RANKING POR ATENDENTE-->
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="card shadow">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <div class="m-0 font-weight-bold"><span class="text-primary">Ranking de categorias
-                                            (Tempo)</span><br />
+                                    <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por
+                                                atendentes</span><br />
+                                        </div>
+                                    </div>
+                                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                                        <select name="filtroTipoRankingAtendente" type="text" id="filtroTipoRankingAtendente"
+                                            class="form-control chosen-select" >
+                                            <option value="Quantidade">Quantidade
+                                            </option>
+                                            <option value="Tempo">Tempo
+                                            </option>
+
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                                            <div id="chart_chamados_categoria_tempo" style="height: 250px"></div>
+                                            <div id="chart_atendentes_qtd" style="height: 250px"></div>
                                         </div>
                                         <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                                            <div id="chart_categoria_tempo" style="height: 250px"></div>
+                                            <div id="chart_atendentes_categoria" style="height: 250px"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--/RANKING POR TEMPO-->
+                        <!--/RANKING POR ATENDENTE-->
                     </div>
 
-                    <div class="row" id="rowTableChamadosTempo" style="margin-top: 10px !important; display: none; font-size: 12px;">
-                        <!--TABELA CHAMADOS-->
+                    <div class="row" id="rowTableChamadosAtendente"
+                        style="margin-top: 10px !important; display: none; font-size: 12px;">
+                        <!--TABELA CHAMADOS ATENDENTE-->
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="card shadow">
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <div class="m-0 font-weight-bold"><span class="text-primary" id="textTabela2"></span>
+                                    <div class="m-0 font-weight-bold"><span class="text-primary"
+                                            id="textTabela2"></span>
                                     </div>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="row">
                                         <table style="width:100%"
-                                            class="table table-striped table-bordered table-hover table-ranking-tempo">
+                                            class="table table-striped table-bordered table-hover table-ranking-atendente">
                                             <thead>
                                                 <tr>
                                                     <td style="width:5%">Número</td>
-                                                    <td style="width:23%">Empresa</td>
-                                                    <td style="width:15%">Contato</td>
+                                                    <td style="width:20%">Empresa</td>
+                                                    <td style="width:10%">Solicitante</td>
                                                     <td style="width:13%">Sistema</td>
-                                                    <td style="width:32%">Descrição</td>
+                                                    <td style="width:7%">Atendente</td>
+                                                    <td style="width:25%">Descrição</td>
                                                     <td style="width:12%">Data Inicío</td>
+                                                    <td style="width:8%">Duração</td>
                                                     <th></th>
                                                 </tr>
                                             </thead>
-                                            <tbody style="width:100%" id="tbody_ranking_tempo">
+                                            <tbody style="width:100%" id="tbody_ranking">
 
                                             </tbody>
                                             <tfoot>
@@ -341,6 +382,30 @@
                             </div>
                         </div>
                         <!--/TABELA CHAMADOS-->
+                    </div>
+
+                    <div class="row" style="margin-top: 10px !important;">
+                        <!--QUANTIDADE POR HORA-->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="card shadow">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="m-0 font-weight-bold"><span class="text-primary">Quantidade de chamados
+                                            por hora</span><br />
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div id="chart_qtd_chamados_hora" style="height: 250px"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/QUANTIDADE POR HORA-->
                     </div>
 
                 </div>
@@ -366,6 +431,8 @@
 
     <div id="modalConsulta">
     </div>
+    <div id="modalCadastro">
+    </div>
 
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -382,9 +449,9 @@
     <script src="../assets/js/date.js"></script>
     <script src="../assets/js/chosen.jquery.min.js"></script>
     <script src="../datatables/jquery.dataTables.min.js"></script>
-	<script src="../datatables/dataTables.bootstrap4.min.js"></script>
-	<script src="../datatables/responsive.min.js"></script>
-	<script src="../datatables/rowReorder.min.js"></script>
+    <script src="../datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="../datatables/responsive.min.js"></script>
+    <script src="../datatables/rowReorder.min.js"></script>
     <script src="../js/links.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="../js/dashboard2.js"></script>

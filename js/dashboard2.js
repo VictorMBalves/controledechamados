@@ -1,8 +1,9 @@
 var importers = [
-    "../js/charts/chartRankingCategoriaQtd.js",
-    "../js/charts/chartCategoriaQtd.js",
-    "../js/charts/chartRankingCategoriaTempo.js",
-    "../js/charts/chartCategoriaTempo.js",
+    "../js/charts/chartRankingCategoria.js",
+    "../js/charts/chartCategoria.js",
+    "../js/charts/chartQtdChamadosPorHora.js",
+    "../js/charts/chartRankingAtendente.js",
+    "../js/charts/chartAtendenteCategoria.js",
 ]
 
 $(document).ready(()=> {
@@ -16,7 +17,7 @@ $(document).ready(()=> {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
         }
     });
-    $('.table-ranking-tempo').DataTable({
+    $('.table-ranking-atendente').DataTable({
         pageLength: 10,
         responsive: true,
         "autoWidth": false,
@@ -40,12 +41,23 @@ window.onload = ()=>{
 };
 
 function drawCharts() {
-    drawRankingCategoriaQtd();
-    drawCategoriaQtd();
-    drawRankingCategoriaTempo();
-    drawCategoriaTempo();
+    drawChatRanking();
+    drawChamadosPorHora();
+    drawChatRankingAtendente();
     getTotaisChamado();
+
     notificationSuccess("Sucesso", "Gráficos gerados com sucesso")
+}
+
+function drawChatRanking(){
+    drawRankingCategoria($('#filtroTipoRanking').val());
+    drawCategoria($('#filtroTipoRanking').val());
+    $('#rowTableChamados').hide();
+}
+
+function drawChatRankingAtendente(){
+    drawRankingAtendente($('#filtroTipoRankingAtendente').val());
+    drawAtendenteCategoria($('#filtroTipoRankingAtendente').val());
 }
 
 $("#btnFiltrar").on("click", ()=> {
@@ -55,6 +67,12 @@ $("#btnFiltrar").on("click", ()=> {
 
 $(() => {
     $('.chosen-select').chosen({ no_results_text: "Nenhum registro encontrado", allow_single_deselect: true });
+    $('#filtroTipoRanking').change(function(){
+        drawChatRanking();
+    });
+    $('#filtroTipoRankingAtendente').change(function(){
+        drawChatRankingAtendente();
+    });
 })
 
 
@@ -78,32 +96,8 @@ function formatTimeDiff(time) {
 }
 
 setInterval(()=>{
-    drawRankingCategoriaQtd();
-    drawCategoriaQtd();
-    drawRankingCategoriaTempo();
-    drawCategoriaTempo();
-    getTotaisChamado();
+    drawCharts();
 }, 30000);//
-
-function chamadospendentes() {
-    var url = "../pages/chamadospendentes.php?continue=true";
-    jQuery("#pendentes").load(url);
-}
-
-function chamadosatrasados() {
-    var url = "../pages/chamadosatrasados.php?continue=true";
-    jQuery("#atrasados").load(url);
-}
-
-function chamadoagendados() {
-    var url = "../pages/chamadosagendados.php?continue=true";
-    jQuery("#agendados").load(url);
-}
-
-function chamadoandamento() {
-    var url = "../pages/chamadosandamento.php?continue=true";
-    jQuery("#andamento").load(url);
-}
 
 function getTotaisChamado() {
     var dados = $('#formFiltros').serialize();
@@ -129,9 +123,12 @@ function getTotaisChamado() {
     $('#qtdConcluido').text(qtd)
 }
 
-function preencherTabelaRanking(id, descricao){
-    var dados = $('#formFiltros').serialize();
-    dados += "&categoria=" + id
+function preencherTabelaRanking(id, descricao, usuario, textTabela, tabela, row){
+    var dados = $('#formFiltros').serializeArray();
+    if(usuario != null)
+        dados[2].value = usuario;
+
+    dados.push({ name: "categoria", value: id });
 
     var jsonData = $.ajax({
         url: "../charts/loadTabelaChamados.php",
@@ -139,52 +136,24 @@ function preencherTabelaRanking(id, descricao){
         dataType: "json",
         async: false
     }).responseText;
-
+    
     data = $.parseJSON(jsonData);
 
-    $('#textTabela1').text(descricao)
+    textTabela.text(descricao)
 
-    $('#rowTableChamados').show();
-    var table = $('.table-ranking').DataTable();
+    row.show();
+    var table = tabela.DataTable();
     table.clear().draw();
     $.each(data,function (i,val){
         table.row.add( [
             val['id_chamado'],
-            '<span title="' + val['empresa'] + '">' + val['empresa'].substring(0, 60) + '...' + '</span>',
-            '<span title="' + val['contato'] + '">' + val['contato'].substring(0, 60) + '...' + '</span>',
+            '<span title="' + val['empresa'] + '">' + (val['empresa'].length > 27 ? val['empresa'].substring(0, 27) + '...' : val['empresa']) + '</span>',
+            '<span title="' + val['contato'] + '">' + (val['contato'].length > 12 ? val['contato'].substring(0, 12) + '...' : val['contato']) + '</span>',
             val['sistema'],
+            val['usuario'],
             '<span title="' + val['descproblema'] + '">' + (val['descproblema'].length > 59 ? (val['descproblema'].substring(0, 60) + '...') : val['descproblema']) + '</span>',
             Date.parse(val['datainicio']).toString('dd/MM/yyyy HH:mm'),
-            '<i onclick="abrirVisualizacao('+data[i].id_chamado+')" class="fa fa-search" aria-hidden="true" title="Ver registro do chamado"></i>',
-        ] ).draw( false );
-    });
-}
-
-function preencherTabelaRankingTempo(id, descricao){
-    var dados = $('#formFiltros').serialize();
-    dados += "&categoria=" + id
-
-    var jsonData = $.ajax({
-        url: "../charts/loadTabelaChamados.php",
-        data: dados,
-        dataType: "json",
-        async: false
-    }).responseText;
-
-    data = $.parseJSON(jsonData);
-
-    $('#textTabela2').text(descricao)
-    $('#rowTableChamadosTempo').show();
-    var table = $('.table-ranking-tempo').DataTable();
-    table.clear().draw();
-    $.each(data,function (i,val){
-        table.row.add( [
-            val['id_chamado'],
-            '<span title="' + val['empresa'] + '">' + val['empresa'].substring(0, 60) + '...' + '</span>',
-            '<span title="' + val['contato'] + '">' + val['contato'].substring(0, 60) + '...' + '</span>',
-            val['sistema'],
-            '<span title="' + val['descproblema'] + '">' + (val['descproblema'].length > 59 ? (val['descproblema'].substring(0, 60) + '...') : val['descproblema']) + '</span>',
-            Date.parse(val['datainicio']).toString('dd/MM/yyyy HH:mm'),
+            formatTimeDiff(val['tempo']),
             '<i onclick="abrirVisualizacao('+data[i].id_chamado+')" class="fa fa-search" aria-hidden="true" title="Ver registro do chamado"></i>',
         ] ).draw( false );
     });
@@ -196,3 +165,17 @@ function abrirVisualizacao(id){
         $("#modalCon").modal('show');
     });
 }
+
+$('#empresafiltro').flexdatalist({
+    minLength: 1,
+    visibleProperties: '{cnpj} - {name}',
+    valueProperty: 'cnpj',
+    textProperty: 'name',
+    searchIn: ['name', 'cnpj'],
+    url: "../utilsPHP/search.php",
+    noResultsText: 'Sem resultados para "{keyword}"',
+    searchByWord: true,
+    searchContain: true,
+}).on('select:flexdatalist', function(ev, result){
+
+})
