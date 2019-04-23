@@ -62,11 +62,6 @@
                         </div>
                         
                         <div id="chamados" class="row animated fadeInRight">
-                            <!--Chamados pendentes-->
-                            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-                                <div id="pendentes"></div>
-                            </div>
-                            <!--Chamados pendentes-->
 
                             <!--Chamados ATRASADOS -->
                             <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
@@ -74,17 +69,23 @@
                             <!--Chamados ATRASADOS-->
                             </div>
 
-                            <!--Chamados AGENDADOS -->
-                            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-                                <div id="agendados"></div>
-                            </div>
-                            <!--Chamados AGENDADOS -->
-
                             <!--Chamados EM ATENDIMENTO -->
                             <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
                                 <div id="andamento"></div>
                             <!--Chamados EM ATENDIMENTO -->
                             </div>
+
+                            <!--Chamados pendentes-->
+                            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+                                <div id="pendentes"></div>
+                            </div>
+                            <!--Chamados pendentes-->
+
+                            <!--Chamados AGENDADOS -->
+                            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+                                <div id="agendados"></div>
+                            </div>
+                            <!--Chamados AGENDADOS -->
                         </div>
 
                         <div class="row">

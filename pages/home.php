@@ -57,13 +57,6 @@
           </div>
           <!-- Content Row -->
           <div id="chamados" class="row animated fadeInRight">
-            <!--Chamados pendentes-->
-            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-              <div id="pendentes"></div>
-              <?php //include 'chamadospendentes.php';?>
-            </div>
-            <!--Chamados pendentes-->
-
             <!--Chamados ATRASADOS -->
             <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
               <div id="atrasados"></div>
@@ -71,19 +64,26 @@
               <!--Chamados ATRASADOS-->
             </div>
 
-            <!--Chamados AGENDADOS -->
-            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-              <div id="agendados"></div>
-              <?php //include 'chamadosagendados.php'; ?>
-            </div>
-            <!--Chamados AGENDADOS -->
-
             <!--Chamados EM ATENDIMENTO -->
             <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
               <div id="andamento"></div>
               <?php //include 'chamadosandamento.php'; ?>
             <!--Chamados EM ATENDIMENTO -->
             </div>
+
+            <!--Chamados pendentes-->
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+              <div id="pendentes"></div>
+              <?php //include 'chamadospendentes.php';?>
+            </div>
+            <!--Chamados pendentes-->
+
+            <!--Chamados AGENDADOS -->
+            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+              <div id="agendados"></div>
+              <?php //include 'chamadosagendados.php'; ?>
+            </div>
+            <!--Chamados AGENDADOS -->
           </div>
 
         </div>
