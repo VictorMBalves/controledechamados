@@ -1,7 +1,16 @@
 <?php
     require_once '../include/Database.class.php';
     $db = Database::conexao();
-    
+
+    $sql = "UPDATE chamadoespera
+            SET status = 'Aguardando Retorno'
+            WHERE status = 'Entrado em contato'
+            AND (dataagendamento IS NULL OR dataagendamento <= NOW())
+            AND (data between DATE_ADD(NOW(), INTERVAL -10 MINUTE) AND NOW() OR dataagendamento between DATE_ADD(NOW(), INTERVAL -10 MINUTE) AND NOW())
+            AND notification IS TRUE";
+    $query = $db->prepare($sql);
+    $query->execute();
+
     $sql = "SELECT 
                 id_chamadoespera, 
                 usuario, 
