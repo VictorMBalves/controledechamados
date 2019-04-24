@@ -15,7 +15,7 @@
 <li class="nav-item" id="liHome">
   <a class="nav-link" href="../pages/home">
     <i class="fas fa-fw fa-home"></i>
-    <span>CHAMADOS</span></a>
+    <span>HOME</span></a>
 </li>
 
 <?php
