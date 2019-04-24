@@ -10,7 +10,7 @@ function drawRankingAtendente(tipo) {
         var selectedItem = table.getSelection()[0];
         if (selectedItem) {
             drawAtendenteCategoria(tipo, dados.getValue(selectedItem.row, 4));
-            preencherTabelaRanking(null, dados.getValue(selectedItem.row, 1) + ' (' + dados.getValue(selectedItem.row, 2) + ')', dados.getValue(selectedItem.row, 4), $('#textTabela2'), $('.table-ranking-atendente'), $('#rowTableChamadosAtendente'))
+            preencherTabelaRanking(null, dados.getValue(selectedItem.row, 1) + ' (' + dados.getValue(selectedItem.row, 2) + ')', dados.getValue(selectedItem.row, 4), false);
         }else{
             drawAtendenteCategoria(tipo, null);
             $('#rowTableChamadosAtendente').hide();

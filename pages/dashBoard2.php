@@ -59,7 +59,8 @@
     </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" >
+<div class="lmask" style="display: none;"></div>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -310,6 +311,69 @@
                         <!--/RANKING POR QTD-->
                     </div>
 
+                    <div class="row" style="margin-top: 10px !important;">
+                        <!--RANKING POR ATENDENTE-->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="card shadow">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por
+                                                atendentes</span><br />
+                                        </div>
+                                    </div>
+                                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                                        <select name="filtroTipoRankingAtendente" type="text"
+                                            id="filtroTipoRankingAtendente" class="form-control chosen-select">
+                                            <option value="Quantidade">Quantidade
+                                            </option>
+                                            <option value="Tempo">Tempo
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                            <div id="chart_atendentes_qtd" style="height: 250px"></div>
+                                        </div>
+                                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                            <div id="chart_atendentes_categoria" style="height: 250px"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/RANKING POR ATENDENTE-->
+                    </div>
+
+                    <div class="row" style="margin-top: 10px !important;">
+                        <!--QUANTIDADE POR HORA-->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="card shadow">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="m-0 font-weight-bold"><span class="text-primary">Quantidade de chamados
+                                            por hora</span><br />
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div id="chart_qtd_chamados_hora" style="height: 250px"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/QUANTIDADE POR HORA-->
+                    </div>
+
                     <div class="row" id="rowTableChamados"
                         style="margin-top: 10px !important; display: none; font-size: 12px;">
                         <!--TABELA CHAMADOS-->
@@ -350,111 +414,6 @@
                             </div>
                         </div>
                         <!--/TABELA CHAMADOS-->
-                    </div>
-
-                    <div class="row" style="margin-top: 10px !important;">
-                        <!--RANKING POR ATENDENTE-->
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="card shadow">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <div class="col-9 col-sm-9 col-md-9 col-lg-9">
-                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por
-                                                atendentes</span><br />
-                                        </div>
-                                    </div>
-                                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">
-                                        <select name="filtroTipoRankingAtendente" type="text"
-                                            id="filtroTipoRankingAtendente" class="form-control chosen-select">
-                                            <option value="Quantidade">Quantidade
-                                            </option>
-                                            <option value="Tempo">Tempo
-                                            </option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                                            <div id="chart_atendentes_qtd" style="height: 250px"></div>
-                                        </div>
-                                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
-                                            <div id="chart_atendentes_categoria" style="height: 250px"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/RANKING POR ATENDENTE-->
-                    </div>
-
-                    <div class="row" id="rowTableChamadosAtendente"
-                        style="margin-top: 10px !important; display: none; font-size: 12px;">
-                        <!--TABELA CHAMADOS ATENDENTE-->
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="card shadow">
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <div class="m-0 font-weight-bold"><span class="text-primary"
-                                            id="textTabela2"></span>
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="row">
-                                        <table style="width:100%"
-                                            class="table table-striped table-bordered table-hover table-ranking-atendente">
-                                            <thead>
-                                                <tr>
-                                                    <td style="width:5%">Número</td>
-                                                    <td style="width:20%">Empresa</td>
-                                                    <td style="width:10%">Solicitante</td>
-                                                    <td style="width:13%">Sistema</td>
-                                                    <td style="width:7%">Atendente</td>
-                                                    <td style="width:25%">Descrição</td>
-                                                    <td style="width:12%">Data Inicío</td>
-                                                    <td style="width:8%">Duração</td>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style="width:100%" id="tbody_ranking">
-
-                                            </tbody>
-                                            <tfoot>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/TABELA CHAMADOS-->
-                    </div>
-
-                    <div class="row" style="margin-top: 10px !important;">
-                        <!--QUANTIDADE POR HORA-->
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="card shadow">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <div class="m-0 font-weight-bold"><span class="text-primary">Quantidade de chamados
-                                            por hora</span><br />
-                                    </div>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                            <div id="chart_qtd_chamados_hora" style="height: 250px"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/QUANTIDADE POR HORA-->
                     </div>
 
                 </div>

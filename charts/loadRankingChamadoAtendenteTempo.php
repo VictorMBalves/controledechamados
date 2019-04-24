@@ -6,6 +6,9 @@
     $usuario = $_GET['usuario'];
     $sistema = $_GET['sistema'];
     $cnpj = $_GET['cnpj'];
+    $categoria = $_GET['categoria'];
+    $exceto = $_GET['exceto'];
+
     $sql = "SELECT   usuario.id, usuario.nome, sum(TIMESTAMPDIFF(SECOND, chamado.datainicio , chamado.datafinal )) as tempo,
                     (SELECT
                     COUNT( DISTINCT cast(cha1.datafinal as date) ) qtd_dias
@@ -18,8 +21,13 @@
             where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final')
             and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
             and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
-            AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')
-            GROUP by usuario.id, usuario.nome
+            AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
+
+    if($categoria != ''){
+      $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
+    }
+
+    $sql.=" GROUP by usuario.id, usuario.nome
             order by sum(TIMESTAMPDIFF(SECOND, chamado.datainicio , chamado.datafinal )) desc";
 
     $stmt = $db->prepare($sql);

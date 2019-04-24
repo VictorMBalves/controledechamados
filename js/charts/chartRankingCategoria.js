@@ -10,7 +10,7 @@ function drawRankingCategoria(tipo) {
     function selectHandler() {
         var selectedItem = table.getSelection()[0];
         if (selectedItem) {
-            preencherTabelaRanking(dados.getValue(selectedItem.row, 4), dados.getValue(selectedItem.row, 1) + ' (' + dados.getValue(selectedItem.row, 2) + ')',  null, $('#textTabela1'), $('.table-ranking'), $('#rowTableChamados'))
+            preencherTabelaRanking(dados.getValue(selectedItem.row, 4), dados.getValue(selectedItem.row, 1) + ' (' + dados.getValue(selectedItem.row, 2) + ')',  null, false);
         }else{
             $('#rowTableChamados').hide();
         }
@@ -31,7 +31,7 @@ function getDataRankingChamados(tipo) {
     datatable.addColumn('string', 'Descrição');
 
     var dados = carregaDados();
-    console.log(dados)    
+    
     var jsonData;
     if(tipo == 'Quantidade'){
         datatable.addColumn('number', 'Quant.');
@@ -53,7 +53,6 @@ function getDataRankingChamados(tipo) {
         }).responseText;
     }
     datatable.addColumn('string', 'ID');
-console.log(jsonData)    
 
     data = $.parseJSON(jsonData);
 

@@ -6,6 +6,8 @@
     $usuario = $_GET['usuario'];
     $sistema = $_GET['sistema'];
     $cnpj = $_GET['cnpj'];
+    $categoria = $_GET['categoria'];
+    $exceto = $_GET['exceto'];
     $sql = "SELECT x.horas, count(chamado.id_chamado) as qtd,
                    (case x.horas when 7 then '07h às 08h' 
                                 when 8 then '08h às 09h'
@@ -26,8 +28,14 @@
             left join chamado on hour(chamado.datafinal) = x.horas and date(chamado.datafinal) BETWEEN '$data_inicio' and '$data_final'
                                                                    and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
                                                                    and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
-                                                                   AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')
-            group by x.horas";
+                                                                   AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
+
+    if($categoria != ''){
+        $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
+    }
+
+    $sql.=" group by x.horas";
+
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);

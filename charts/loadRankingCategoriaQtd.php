@@ -7,6 +7,7 @@
     $sistema = $_GET['sistema'];
     $cnpj = $_GET['cnpj'];
     $categoria = $_GET['categoria'];
+    $exceto = $_GET['exceto'];
 
     $sql = "SELECT  categoria.id, categoria.descricao, count(chamado.id_chamado) as qtd,
                 (SELECT
@@ -23,12 +24,13 @@
             AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
 
     if($categoria != ''){
-        $sql .=" AND  chamado.categoria_id in ($categoria)";
+        $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
     }
 
     $sql.=" GROUP by categoria.id, categoria.descricao
             order by count(chamado.id_chamado) desc";
-            
+    
+    // echo $sql;
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);

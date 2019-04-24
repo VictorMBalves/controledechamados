@@ -7,6 +7,9 @@
     $sistema = $_GET['sistema'];
     $categoria = $_GET['categoria'];
     $cnpj = $_GET['cnpj'];
+    $exceto = $_GET['exceto'];
+    $atrasado = $_GET['atrasados'];
+
     $sql = "SELECT  chamado.id_chamado, 
                     chamado.empresa,
                     chamado.contato,
@@ -17,13 +20,27 @@
                     TIMESTAMPDIFF(SECOND,datainicio,datafinal) as tempo
             from chamado
             left join categoria on categoria.id = chamado.categoria_id
-            left join usuarios usuario on usuario.id = chamado.usuario_id
-            where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final')
+            left join usuarios usuario on usuario.id = chamado.usuario_id ";
+
+    if($atrasado == 'true'){
+        $sql .=" INNER JOIN chamadoespera espera ON espera.id_chamadoespera = chamado.id_chamadoespera AND espera.usuario_id != 56 AND espera.notification IS TRUE ";
+    }
+    
+    $sql .=" where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final')
             and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
             and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
-            and ('$categoria' = '' or chamado.categoria_id = cast('$categoria' as signed))
-            AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')
-            order by chamado.id_chamado";
+            AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
+
+    if($atrasado == 'true'){
+        $sql .=" AND ((espera.dataagendamento IS NULL OR DATE_ADD(espera.dataagendamento, INTERVAL +10 MINUTE) < chamado.datainicio) 
+               OR DATE_ADD(espera.data, INTERVAL +10 MINUTE) < chamado.datainicio) ";
+    }
+
+    if($categoria != ''){
+        $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
+    }
+
+    $sql.=" order by chamado.id_chamado";
 
     $stmt = $db->prepare($sql);
     $stmt->execute();

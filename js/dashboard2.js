@@ -46,8 +46,6 @@ function drawCharts() {
     drawChatRankingAtendente();
     getTotaisChamado();
     setDataTempoMedioAtendimento();
-
-    notificationSuccess("Sucesso", "Gráficos gerados com sucesso")
 }
 
 function drawChatRanking(){
@@ -99,11 +97,11 @@ function formatTimeDiff(time) {
 
 setInterval(()=>{
     drawCharts();
-}, 30000);//
+}, 600000);//
 
 function getTotaisChamado() {
     var dados = carregaDados();
-console.log(dados)
+
     var jsonData = $.ajax({
         url: "../charts/loadQtdChamadosFinalizados.php",
         data: dados,
@@ -125,39 +123,46 @@ console.log(dados)
     $('#qtdConcluido').text(qtd)
 }
 
-function preencherTabelaRanking(id, descricao, usuario, textTabela, tabela, row){
+function preencherTabelaRanking(id, descricao, usuario, atrasados){
+    $('.lmask').show();
     var dados = carregaDados();
     if(usuario != null)
         dados[2].value = usuario;
-
-    dados[5].value = id;
-
-    var jsonData = $.ajax({
+    if(id != null)
+        dados[5].value = id;
+        
+    dados.push({ name: 'atrasados', value: atrasados });
+    $.ajax({
         url: "../charts/loadTabelaChamados.php",
         data: dados,
         dataType: "json",
-        async: false
-    }).responseText;
+        async: true
+    }).done(function(response){
+        data = response;
     
-    data = $.parseJSON(jsonData);
-
-    textTabela.text(descricao)
-
-    row.show();
-    var table = tabela.DataTable();
-    table.clear().draw();
-    $.each(data,function (i,val){
-        table.row.add( [
-            val['id_chamado'],
-            '<span title="' + val['empresa'] + '">' + (val['empresa'].length > 27 ? val['empresa'].substring(0, 27) + '...' : val['empresa']) + '</span>',
-            '<span title="' + val['contato'] + '">' + (val['contato'].length > 12 ? val['contato'].substring(0, 12) + '...' : val['contato']) + '</span>',
-            val['sistema'],
-            val['usuario'],
-            '<span title="' + val['descproblema'] + '">' + (val['descproblema'].length > 59 ? (val['descproblema'].substring(0, 60) + '...') : val['descproblema']) + '</span>',
-            Date.parse(val['datainicio']).toString('dd/MM/yyyy HH:mm'),
-            formatTimeDiff(val['tempo']),
-            '<i onclick="abrirVisualizacao('+data[i].id_chamado+')" class="fa fa-search" aria-hidden="true" title="Ver registro do chamado"></i>',
-        ] ).draw( false );
+        $('#textTabela1').text(descricao)
+    
+        $('#rowTableChamados').show();
+        var table = $('.table-ranking').DataTable();
+        table.clear().draw();
+        $.each(data,function (i,val){
+            table.row.add( [
+                val['id_chamado'],
+                '<span title="' + val['empresa'] + '">' + (val['empresa'].length > 27 ? val['empresa'].substring(0, 27) + '...' : val['empresa']) + '</span>',
+                '<span title="' + val['contato'] + '">' + (val['contato'].length > 12 ? val['contato'].substring(0, 12) + '...' : val['contato']) + '</span>',
+                val['sistema'],
+                val['usuario'],
+                '<span title="' + val['descproblema'] + '">' + (val['descproblema'].length > 59 ? (val['descproblema'].substring(0, 60) + '...') : val['descproblema']) + '</span>',
+                Date.parse(val['datainicio']).toString('dd/MM/yyyy HH:mm'),
+                formatTimeDiff(val['tempo']),
+                '<i onclick="abrirVisualizacao('+data[i].id_chamado+')" class="fa fa-search" aria-hidden="true" title="Ver registro do chamado"></i>',
+            ] ).draw( false );
+        });
+    
+        $('html, body').animate({
+            scrollTop: $('#rowTableChamados').offset().top - 100
+        }, 800);
+        $('.lmask').hide();
     });
 }
 
@@ -239,7 +244,11 @@ function setDataTempoMedioAtendimento() {
 }
 
 $('#cardConcluido').on('click', function(){
-    alert('teste')
+    preencherTabelaRanking(null, "CONCLUÍDOS", null, false);
+})
+
+$('#cardConcluidoAtrasado').on('click', function(){
+    preencherTabelaRanking(null, "CONCLUÍDOS", null, true);
 })
 
 function alterarCategoria() {
@@ -252,13 +261,13 @@ function alterarCategoria() {
             }else if(dado.categoria == "DÚVIDAS"){
                 icon = '<i class="fas fa-question"></i>';
             }
-            $(".chosen-select").append($('<option>', {
+            $("#categoria").append($('<option>', {
                 html : icon+" ["+dado.categoria+"] "+dado.descricao,
                 value: dado.id,
                 // text : ''
             }));
         }
-        $('.chosen-select').trigger("chosen:updated");
+        $('#categoria').trigger("chosen:updated");
     })
 
 }

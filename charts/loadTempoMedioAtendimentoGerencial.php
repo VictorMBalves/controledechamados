@@ -6,6 +6,9 @@
     $usuario = $_GET['usuario'];
     $sistema = $_GET['sistema'];
     $cnpj = $_GET['cnpj'];
+    $categoria = $_GET['categoria'];
+    $exceto = $_GET['exceto'];
+
     $sql = "SELECT 
 	            (SUM(TIMESTAMPDIFF(SECOND,datainicio,datafinal)) / COUNT(id_chamado)) as tempo,
                 COUNT(id_chamado) as numeroChamados
@@ -15,6 +18,11 @@
             and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
             AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')
             AND status = 'Finalizado'";
+
+    if($categoria != ''){
+        $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
+    }
+
     $stmt = $db->prepare($sql);
     $stmt->execute();
 

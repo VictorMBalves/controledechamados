@@ -6,6 +6,9 @@
     $usuario = $_GET['usuario'];
     $sistema = $_GET['sistema'];
     $cnpj = $_GET['cnpj'];
+    $categoria = $_GET['categoria'];
+    $exceto = $_GET['exceto'];
+
     $sql = "SELECT
                 'ATRASADOS'  as tipo,
                 count(cha1.id_chamado) as qtd,
@@ -24,9 +27,13 @@
                OR DATE_ADD(espera.data, INTERVAL +10 MINUTE) < cha1.datainicio)
                and ('$usuario' = '' or cha1.usuario_id = cast('$usuario' as signed))
               AND ('$sistema' = '' or lower(cha1.sistema) like lower('%$sistema%'))
-              AND ('$cnpj' = '' or cha1.cnpj = '$cnpj')
+              AND ('$cnpj' = '' or cha1.cnpj = '$cnpj')";
 
-            UNION ALL 
+    if($categoria != ''){
+      $sql .=" AND cha1.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
+    }
+
+    $sql .=" UNION ALL 
 
             SELECT
                 'TOTAL'  as tipo,
@@ -44,6 +51,10 @@
               AND ('$sistema' = '' or lower(cha1.sistema) like lower('%$sistema%'))
               AND ('$cnpj' = '' or cha1.cnpj = '$cnpj')
               AND cha1.status = 'Finalizado'";
+
+    if($categoria != ''){
+      $sql .=" AND cha1.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
+    }
 
     $stmt = $db->prepare($sql);
     $stmt->execute();
