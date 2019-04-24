@@ -31,7 +31,7 @@ function getDataRankingAtendente(tipo) {
     datatable.addColumn('string', '');
     datatable.addColumn('string', 'Atendente');
     
-    var dados = $('#formFiltros').serialize();
+    var dados = carregaDados();
 
     if(tipo == 'Quantidade'){
         datatable.addColumn('number', 'Quant.');

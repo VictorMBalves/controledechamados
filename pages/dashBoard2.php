@@ -4,8 +4,12 @@
     $sql = $db->prepare('SELECT id, nome, nivel, disponivel FROM usuarios');
     $sql->execute();
     $usuarios = $sql->fetchall(PDO::FETCH_ASSOC);
-    $data_incio = date('Y-m-d', mktime(0, 0, 0, date('m') , 1 , date('Y')));
-    $data_fim = date('Y-m-d',mktime(23, 59, 59, date('m'), date("t"), date('Y')));
+    $data_incio = date('Y-m-d');
+    $data_fim = date('Y-m-d');
+
+    $sql = $db->prepare("SELECT * FROM categoria order by descricao");
+    $sql->execute();
+    $categorias = $sql->fetchall(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -87,14 +91,24 @@
                     <div class="row">
                         <!--FILTROS-->
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="card shadow mb-4">
+                            <div class="card shadow">
                                 <!-- Card Header - Accordion -->
-                                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
-                                    role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                                    <h6 class="m-0 font-weight-bold text-primary">Filtros</h6>
+                                <a href="#collapseCardExample"
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                                    data-toggle="collapse" role="button" aria-expanded="true"
+                                    aria-controls="collapseCardExample">
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                        <h6 class="m-0 font-weight-bold text-primary">Filtros</h6>
+                                    </div>
+                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" style="text-align: right">
+                                        <button class="btn btn-primary btn-sm" id="btnDia">Dia</button>
+                                        <button class="btn btn-primary btn-sm" id="btnOntem">Ontem</button>
+                                        <button class="btn btn-primary btn-sm" id="btnSemana">Semana</button>
+                                        <button class="btn btn-primary btn-sm" id="btnMes">Mês</button>
+                                    </div>
                                 </a>
                                 <!-- Card Content - Collapse -->
-                                <div class="collapse" id="collapseCardExample" style="">
+                                <div class="collapse" id="collapseCardExample">
                                     <div class="card-body">
 
                                         <form id="formFiltros">
@@ -145,14 +159,24 @@
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <label for="cnpj">Empresa</label>
-                                                    <input name="cnpj" type="text" class="form-control flexdatalist" placeholder="Empresa" id="empresafiltro" >
+                                                    <input name="cnpj" type="text" class="form-control flexdatalist"
+                                                        placeholder="Empresa" id="empresafiltro">
                                                 </div>
                                                 <div class="form-group col-md-1">
                                                     <br>
                                                     <a id="btnFiltrar" class="btn btn-primary"
                                                         style="margin-top: 7px; color: white !important">Filtrar</a>
                                                 </div>
+                                                <div class="form-group col-md-12">
+                                                    <label for="categoria">Categoria</label> <input type="checkbox" id="exceto" name="exceto" value="exceto" data-toggle="tooltip" data-placement="top" title="Diferente de"><br>
+                                                    <select name="categoria" data-placeholder=" " multiple id="categoria" type="text" class="form-control chosen-select">
+                                                       
+                                                    </select>
+                                                </div>
                                             </div>
+                                            <!-- <div class="form-row">
+                                                
+                                            </div> -->
                                         </form>
                                     </div>
                                 </div>
@@ -160,8 +184,8 @@
                         </div>
                     </div>
 
-                    <div id="chamados" class="row animated fadeInRight">
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-6" style="padding-bottom:5px;">
+                    <div id="chamados" class="row animated fadeInRight" style="margin-top: 10px">
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:5px; cursor: pointer;" id="cardConcluido">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
                                 <div class="card border-left-info shadow h-100 py-2">
                                     <div class="card-body">
@@ -191,7 +215,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-6" style="padding-bottom:5px;">
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:5px; cursor: pointer;" id="cardConcluidoAtrasado" >
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
                                 <div class="card border-left-warning shadow h-100 py-2">
                                     <div class="card-body">
@@ -221,6 +245,31 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:5px;">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
+                                <div class="card border-left-success shadow h-100 py-2">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    <h6>TEMPO MÉDIO DE ATENDIMENTO</h6>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-12">
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"
+                                                            id="tempoMedioAtendimento">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="far fa-clock fa-2x text-gray-600"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <!--RANKING POR QTD-->
@@ -236,7 +285,7 @@
                                     </div>
                                     <div class="col-2 col-sm-2 col-md-2 col-lg-2">
                                         <select name="filtroTipoRanking" type="text" id="filtroTipoRanking"
-                                            class="form-control chosen-select" >
+                                            class="form-control chosen-select">
                                             <option value="Quantidade">Quantidade
                                             </option>
                                             <option value="Tempo">Tempo
@@ -316,8 +365,8 @@
                                         </div>
                                     </div>
                                     <div class="col-2 col-sm-2 col-md-2 col-lg-2">
-                                        <select name="filtroTipoRankingAtendente" type="text" id="filtroTipoRankingAtendente"
-                                            class="form-control chosen-select" >
+                                        <select name="filtroTipoRankingAtendente" type="text"
+                                            id="filtroTipoRankingAtendente" class="form-control chosen-select">
                                             <option value="Quantidade">Quantidade
                                             </option>
                                             <option value="Tempo">Tempo

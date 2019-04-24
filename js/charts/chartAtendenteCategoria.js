@@ -17,7 +17,7 @@ function drawAtendenteCategoria(tipo, usuario) {
 }
 
 function getDataAtendenteChamadosQtd(usuario) {
-    var dados = $('#formFiltros').serializeArray();
+    var dados = carregaDados();
     dados[2].value = usuario;
 
     var jsonData = $.ajax({
@@ -57,7 +57,7 @@ function getOptionsAtendenteChamadosCategoria() {
     return options;
 }
 function getDataAtendenteChamadosTempo(usuario) {
-    var dados = $('#formFiltros').serializeArray();
+    var dados = carregaDados();
     dados[2].value = usuario;
     
     var jsonData = $.ajax({

@@ -45,6 +45,7 @@ function drawCharts() {
     drawChamadosPorHora();
     drawChatRankingAtendente();
     getTotaisChamado();
+    setDataTempoMedioAtendimento();
 
     notificationSuccess("Sucesso", "Gráficos gerados com sucesso")
 }
@@ -73,6 +74,7 @@ $(() => {
     $('#filtroTipoRankingAtendente').change(function(){
         drawChatRankingAtendente();
     });
+    alterarCategoria();
 })
 
 
@@ -100,8 +102,8 @@ setInterval(()=>{
 }, 30000);//
 
 function getTotaisChamado() {
-    var dados = $('#formFiltros').serialize();
-
+    var dados = carregaDados();
+console.log(dados)
     var jsonData = $.ajax({
         url: "../charts/loadQtdChamadosFinalizados.php",
         data: dados,
@@ -124,11 +126,11 @@ function getTotaisChamado() {
 }
 
 function preencherTabelaRanking(id, descricao, usuario, textTabela, tabela, row){
-    var dados = $('#formFiltros').serializeArray();
+    var dados = carregaDados();
     if(usuario != null)
         dados[2].value = usuario;
 
-    dados.push({ name: "categoria", value: id });
+    dados[5].value = id;
 
     var jsonData = $.ajax({
         url: "../charts/loadTabelaChamados.php",
@@ -179,3 +181,115 @@ $('#empresafiltro').flexdatalist({
 }).on('select:flexdatalist', function(ev, result){
 
 })
+
+$('#btnDia').on('click', function () {
+    $("#dataInicial").val(new Date().toString('yyyy-MM-dd'));
+    $("#dataFinal").val(new Date().toString('yyyy-MM-dd'));
+    drawCharts();
+    return false;
+});
+
+$('#btnOntem').on('click', function () {
+    $("#dataInicial").val(addDays(new Date(), -1).toString('yyyy-MM-dd'));
+    $("#dataFinal").val(addDays(new Date(), -1).toString('yyyy-MM-dd'));
+
+    drawCharts();
+    return false;
+});
+
+$('#btnSemana').on('click', function () {
+    $("#dataInicial").val(addDays(new Date(), -7).toString('yyyy-MM-dd'));
+    $("#dataFinal").val(new Date().toString('yyyy-MM-dd'));
+
+    drawCharts();
+    return false;
+});
+
+$('#btnMes').on('click', function () {
+    var date = new Date();
+    $("#dataInicial").val(new Date(date.getFullYear(), date.getMonth(), 1).toString('yyyy-MM-dd'));
+    $("#dataFinal").val(new Date(date.getFullYear(), date.getMonth() + 1, 0).toString('yyyy-MM-dd'));
+
+    drawCharts();
+    return false;
+});
+
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
+
+function setDataTempoMedioAtendimento() {
+    var dados = carregaDados();
+
+    var jsonData = $.ajax({
+        url: "../charts/loadTempoMedioAtendimentoGerencial.php",
+        dataType: "json",
+        data: dados,
+        async: false
+    }).responseText;
+
+    if (isEmpty($.parseJSON(jsonData))) {
+        return null;
+    }
+    jsonData = $.parseJSON(jsonData);
+
+    $('#tempoMedioAtendimento').text(formatTimeDiff(jsonData['tempo']))
+}
+
+$('#cardConcluido').on('click', function(){
+    alert('teste')
+})
+
+function alterarCategoria() {
+    sendRequestCategoria((response) => {
+        for (i = 0; i < response.length; i++) {
+            dado = response[i];
+            icon = '<i class="fas fa-cubes"></i>';
+            if(dado.categoria == "ERROS"){
+                icon = '<i class="fas fa-bug"></i>';
+            }else if(dado.categoria == "DÚVIDAS"){
+                icon = '<i class="fas fa-question"></i>';
+            }
+            $(".chosen-select").append($('<option>', {
+                html : icon+" ["+dado.categoria+"] "+dado.descricao,
+                value: dado.id,
+                // text : ''
+            }));
+        }
+        $('.chosen-select').trigger("chosen:updated");
+    })
+
+}
+function sendRequestCategoria(callback) {
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "../controllers/controllerCategoria.php",
+        "method": "GET",
+        "headers": {
+            "Content-Type": "application/json",
+            "cache-control": "no-cache",
+            "Postman-Token": "1fbbd708-31dc-4395-8462-c333ae164ec5"
+        },
+        "processData": false,
+        "data": ""
+    }
+    $.ajax(settings).done(function (response) {
+        callback(JSON.parse(response));
+    });
+}
+
+
+function carregaDados() {
+    var data = [];
+    data.push({ name: 'dataInicial', value: $('#dataInicial').val() });
+    data.push({ name: 'dataFinal', value: $('#dataFinal').val() });
+    data.push({ name: 'usuario', value: $('#usuario').val() });
+    data.push({ name: 'sistema', value: $('#sistema').val() });
+    data.push({ name: 'cnpj', value: $('#empresafiltro').val() });
+    data.push({ name: 'categoria', value: $('#categoria').val() });
+    data.push({ name: 'exceto', value: $("#exceto").is( ":checked" )});
+    return data;
+}

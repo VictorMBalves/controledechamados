@@ -7,11 +7,11 @@ function drawChamadosPorHora() {
 
     var chart = new google.visualization.AreaChart(document.getElementById('chart_qtd_chamados_hora'));
 
-    chart.draw(data, getDataChamadosPorHora());
+    chart.draw(data, getOptionsChamadosPorHora());
 }
 
 function getDataChamadosPorHora() {
-    var dados = $('#formFiltros').serialize();
+    var dados = carregaDados();
     
     var jsonData = $.ajax({
         url: "../charts/loadQtdChamadosPorHora.php",
@@ -25,10 +25,10 @@ function getDataChamadosPorHora() {
     var datatable = new google.visualization.DataTable();
     datatable.addColumn('string', 'Descrição');
     datatable.addColumn('number', 'Quant.');
-
+    datatable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
     for (var i = 0; i < data.length; i++) {
-        if(data[i] != null){
-            datatable.addRow([(data[i].horas + 'h'), parseInt(data[i].qtd)]);
+        if(data[i] != null){            
+            datatable.addRow([(data[i].horas + 'h'), parseInt(data[i].qtd), getTootip(data[i].descricao, parseInt(data[i].qtd))]);
         }
     }
 
@@ -37,9 +37,15 @@ function getDataChamadosPorHora() {
 
 function getOptionsChamadosPorHora() {
     var options = {
-        title: 'Company Performance',
-        hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-        vAxis: {minValue: 0}
+        hAxis: {title: 'Período',  titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+        tooltip: {isHtml: true}
       };
     return options;
+}
+
+function getTootip(descricao, tempo){
+    return '<div class="col m-1 text-uppercase">' +
+                '<strong>'+descricao +
+                '<div class="text-success">Quantidade: '+ tempo + '</strong></div></div>';
 }

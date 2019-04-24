@@ -36,7 +36,7 @@ function drawCategoria(tipo) {
 }
 
 function getDataChamadosQtd() {
-    var dados = $('#formFiltros').serialize();
+    var dados = carregaDados();
 
     var jsonData = $.ajax({
         url: "../charts/loadRankingCategoriaQtd.php",
@@ -75,7 +75,7 @@ function getOptionsChamadosCategoria() {
     return options;
 }
 function getDataChamadosTempo() {
-    var dados = $('#formFiltros').serialize();
+    var dados = carregaDados();
     
     var jsonData = $.ajax({
         url: "../charts/loadRankingCategoriaTempo.php",

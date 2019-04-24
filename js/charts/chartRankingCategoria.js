@@ -30,7 +30,8 @@ function getDataRankingChamados(tipo) {
     datatable.addColumn('string', '');
     datatable.addColumn('string', 'Descrição');
 
-    var dados = $('#formFiltros').serialize();
+    var dados = carregaDados();
+    console.log(dados)    
     var jsonData;
     if(tipo == 'Quantidade'){
         datatable.addColumn('number', 'Quant.');
@@ -52,7 +53,7 @@ function getDataRankingChamados(tipo) {
         }).responseText;
     }
     datatable.addColumn('string', 'ID');
-    
+console.log(jsonData)    
 
     data = $.parseJSON(jsonData);
 

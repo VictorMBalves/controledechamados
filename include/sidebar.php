@@ -31,7 +31,7 @@ if( in_array($_SESSION['UsuarioID'], array('50','12','8','20'))) {
   echo '<li class="nav-item" id="liDashboard">
     <a class="nav-link" href="../pages/dashBoard2">
     <i class="fas fa-tachometer-alt"></i>
-    <span>Dashboard Gerencial</span></a>
+    <span>Gerencial</span></a>
   </li>';
 }
 ?>

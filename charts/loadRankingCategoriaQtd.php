@@ -6,6 +6,7 @@
     $usuario = $_GET['usuario'];
     $sistema = $_GET['sistema'];
     $cnpj = $_GET['cnpj'];
+    $categoria = $_GET['categoria'];
     $sql = "SELECT  categoria.id, categoria.descricao, count(chamado.id_chamado) as qtd,
                 (SELECT
                     COUNT( DISTINCT cast(cha1.datafinal as date) ) qtd_dias
@@ -19,15 +20,16 @@
             and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
             and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
             AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')
+            AND ('$categoria' = '' or chamado.categoria_id in ('$categoria'))
             GROUP by categoria.id, categoria.descricao
             order by count(chamado.id_chamado) desc";
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
 
-    // echo $sql;
+    echo $sql;
     // if(sizeof($resultado) == 0){
     //     return;
     // }
-    echo json_encode($resultado, JSON_UNESCAPED_UNICODE);
+    // echo json_encode($resultado, JSON_UNESCAPED_UNICODE);
 ?>
