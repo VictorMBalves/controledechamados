@@ -28,7 +28,7 @@ function getDataChamadosPorHora() {
     datatable.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
     for (var i = 0; i < data.length; i++) {
         if(data[i] != null){            
-            datatable.addRow([(data[i].horas + 'h'), parseInt(data[i].qtd), getTootip(data[i].descricao, parseInt(data[i].qtd))]);
+            datatable.addRow([(data[i].horas + 'h'), parseInt(data[i].qtd), getTootipChamadoHora(data[i].descricao, parseInt(data[i].qtd))]);
         }
     }
 
@@ -44,7 +44,7 @@ function getOptionsChamadosPorHora() {
     return options;
 }
 
-function getTootip(descricao, tempo){
+function getTootipChamadoHora(descricao, tempo){
     return '<div class="col m-1 text-uppercase">' +
                 '<strong>'+descricao +
                 '<div class="text-success">Quantidade: '+ tempo + '</strong></div></div>';
