@@ -23,12 +23,12 @@
             AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
 
     if($categoria != ''){
-        $sql .=" AND  chamado.categoria_id in ($categoria)";
+        $sql .=" AND chamado.categoria_id in ($categoria)";
     }
 
     $sql.=" GROUP by categoria.id, categoria.descricao
             order by count(chamado.id_chamado) desc";
-            
+
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);

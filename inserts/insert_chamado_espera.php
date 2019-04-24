@@ -41,9 +41,37 @@ try
   $versao = $decoded['versao'];
   $usuario=$decoded['UsuarioNome'];
   $cnpj=$decoded['cnpj'];
+
+  $consultaDuplicidade = "SELECT 
+                          id_chamadoespera
+                        FROM chamadoespera
+                        WHERE ((empresa LIKE '%$empresa%') OR (cnpj LIKE '$cnpj'))
+                        AND status <> 'Finalizado'
+                        AND descproblema LIKE '%$descproblema%'";
+  $stmt = $db->prepare($consultaDuplicidade);
+  $stmt->execute();
+  $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+  if(sizeof($resultado) != 0){
+      $id = $resultado['id_chamadoespera'];
+      $historico = "Mais uma ocorrência do problema descrito.";
+      $insert = "INSERT INTO historicochamado (id_chamadoespera, usuario, descricaohistorico, emailusuario, usuario_id) VALUES ($id, '$usuario', '$historico', 'api@germantech.com', 56)";
+      $stmt = $db->prepare($insert) or die(mysql_error());
+      if ($stmt->execute()) {
+        echo '{
+            "message": "success add historico"
+          }';
+        exit;
+      } else {
+        echo '{
+            "message": "error"
+            }';
+        exit;
+      }
+  }
+
   $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id, cnpj, notification) 
   VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', 56, '$cnpj', 0)") or die(mysql_error());
-
  
   if ($sql->execute()) {
     echo '{
