@@ -23,7 +23,7 @@
             AND data < DATE_ADD(NOW(), INTERVAL -10 MINUTE) 
             AND (dataagendamento IS NULL OR dataagendamento < DATE_ADD(NOW(), INTERVAL -10 MINUTE))
             AND notification IS TRUE
-            ORDER BY status, data DESC";
+            ORDER BY coalesce(dataagendamento, data), status";
     $query = $db->prepare($sql);
     $query->execute();
     $resultados = $query->fetchall(PDO::FETCH_ASSOC);
@@ -59,11 +59,11 @@
     $resultados = $query->fetchall(PDO::FETCH_ASSOC);
 
     echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
-            <div class="card border-left-warning shadow h-100 py-2" style="background-color:#fdf0ce;">
+            <div class="card border-left-danger shadow h-100 py-2" style="background-color:#f9d5d2;">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1"><h6>ATRASADOS</h6></div>
+                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1"><h6>ATRASADOS</h6></div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">'.sizeof($resultados).' chamados</div>
                         </div>
                         <div class="col-auto">
@@ -79,7 +79,7 @@
     
     foreach($resultados as $chamado){
             echo '<div class="col-12 col-sm-12 col-md-12 col-lg-12 for-search" style="padding-bottom:10px;">';
-                echo '<div class="card border-left-warning shadow h-100 py-2">';
+                echo '<div class="card border-left-danger shadow h-100 py-2">';
                    echo '<div class="card-header" onclick="abrirVisualizacao('.$chamado['id_chamadoespera'].')" style="cursor: pointer;">';
                         echo'<div class="row no-gutters align-items-center text-uppercase text-gray-800"><strong>';
                                 echo $chamado['empresa'];
@@ -94,14 +94,14 @@
                         </div>
                         <div class="card-footer">
                             <div class="row">
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">';
+                                <div class="col-4 col-sm-12 col-md-12 col-lg-12 col-xl-4">';
                                     if($chamado['status'] == "Aguardando Retorno"){
-                                        echo '<span class="badge badge-warning">Aguardando retorno</span>';
+                                        echo '<span class="badge badge-danger" style="white-space: pre-line !important;">Aguardando retorno</span>';
                                     }else{
-                                        echo '<span class="badge badge-info">Entrado em contato</span>';
+                                        echo '<span class="badge badge-info" style="white-space: pre-line !important;">Entrado em contato</span>';
                                     }
                             echo '</div>
-                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 align-items-center text-right">
+                                    <div class="col-8 col-sm-12 col-md-12 col-lg-12 col-xl-8 align-items-center text-right">
                                         <a href="../pages/abrechamadoespera='.$chamado['id_chamadoespera'].'" target="_blank" class="btn btn-success btn-circle m-1" data-toggle="tooltip" data-placement="bottom" title="Atender">
                                             <i class="fas fa-phone"></i>
                                         </a>

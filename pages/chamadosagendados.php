@@ -16,7 +16,7 @@
             AND dataagendamento IS NOT NULL 
             AND dataagendamento >= NOW() 
             AND notification IS TRUE
-            ORDER BY dataagendamento ASC";
+            ORDER BY coalesce(dataagendamento,data) ASC";
     $query = $db->prepare($sql);
     $query->execute();
     $resultados = $query->fetchall(PDO::FETCH_ASSOC);
@@ -58,14 +58,14 @@
                         </div>
                         <div class="card-footer">
                             <div class="row">
-                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">';
+                                <div class="col-8 col-sm-12 col-md-12 col-lg-12 col-xl-8">';
                                     if($chamado['status'] == "Aguardando Retorno"){
-                                        echo '<span class="badge badge-warning">Aguardando retorno</span>';
+                                        echo '<span class="badge badge-warning" style="white-space: pre-line !important;">Aguardando retorno</span>';
                                     }else{
-                                        echo '<span class="badge badge-info">Entrado em contato</span>';
+                                        echo '<span class="badge badge-info" style="white-space: pre-line !important;">Entrado em contato</span>';
                                     }
                             echo '</div>
-                                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 align-items-center text-right">
+                                    <div class="col-4 col-sm-12 col-md-12 col-lg-12 col-xl-4 align-items-center text-right">
                                         <a href="../pages/abrechamadoespera='.$chamado['id_chamadoespera'].'" target="_blank" class="btn btn-success btn-circle" data-toggle="tooltip" data-placement="bottom" title="Atender">
                                             <i class="fas fa-phone"></i>
                                         </a>

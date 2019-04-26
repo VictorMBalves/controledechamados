@@ -19,13 +19,13 @@
 </li>
 
 <?php
-      if(($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) && !in_array($_SESSION['UsuarioID'], array('50','12','8','20','59'))) { 
+      if(($_SESSION['UsuarioNivel'] != 1 && $_SESSION['UsuarioNivel'] != 4) && !in_array($_SESSION['UsuarioID'], array('50','12','8','20','59', '6'))) { 
         echo '<li class="nav-item" id="liDash">
                 <a class="nav-link" href="../pages/dashBoard">
                 <i class="fas fa-tachometer-alt"></i>
                 <span>DASHBOARD</span></a>
               </li>';
-      }elseif(in_array($_SESSION['UsuarioID'], array('50','12','8','20','59'))){
+      }elseif(in_array($_SESSION['UsuarioID'], array('50','12','8','20','59','6'))){
         echo '<li class="nav-item" id="liDash">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDash" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-tachometer-alt"></i>

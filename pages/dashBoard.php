@@ -69,12 +69,6 @@
                             <!--Chamados ATRASADOS-->
                             </div>
 
-                            <!--Chamados EM ATENDIMENTO -->
-                            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
-                                <div id="andamento"></div>
-                            <!--Chamados EM ATENDIMENTO -->
-                            </div>
-
                             <!--Chamados pendentes-->
                             <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
                                 <div id="pendentes"></div>
@@ -86,6 +80,12 @@
                                 <div id="agendados"></div>
                             </div>
                             <!--Chamados AGENDADOS -->
+
+                            <!--Chamados EM ATENDIMENTO -->
+                            <div class="col-12 col-sm-3 col-md-3 col-lg-3" style="padding-bottom:5px;">
+                                <div id="andamento"></div>
+                            <!--Chamados EM ATENDIMENTO -->
+                            </div>
                         </div>
 
                         <div class="row">
