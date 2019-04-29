@@ -18,11 +18,14 @@ try
   $cnpj = $_POST['cnpj'];
   $dataagendamento = $_POST['dataagendamento'];
 
-  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id, cnpj ".( $dataagendamento != '' ? ", dataagendamento" : "").") 
-  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', '$usuario_id', '$cnpj' ".( $dataagendamento != '' ? ", '$dataagendamento'" : "" ).")") or die(mysql_error());
-  // $sql->execute();
-  echo $sql
-  // echo "success";
+  $query = "INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id, cnpj";
+  $query .= ($dataagendamento != '' ? ", dataagendamento)" : ")");
+  $query .= " VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', '$usuario_id', '$cnpj'";
+  $query .= ($dataagendamento != '' ? ", '$dataagendamento');" : ");");
+
+  $sql = $db->prepare($query);
+  $sql->execute();
+  echo "success";
 }catch (PDOException $e){
   echo $e;
   exit;
