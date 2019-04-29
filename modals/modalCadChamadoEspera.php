@@ -183,7 +183,6 @@ function validar() {
 }
 
 function enviarDadosCadastroChamadoEspera() {
-    console.log("Enviando dados")
     $.ajax({
         type: "POST",
         url: "../inserts/inserechamadoespera.php",
