@@ -169,6 +169,8 @@
 		<!-- End of Page Wrapper -->
 		<div id="modalCadastro">
 		</div>
+		<div id="modalCadastroEspera">
+    </div>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>

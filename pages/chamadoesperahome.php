@@ -1,5 +1,14 @@
+<?php
+	include '../validacoes/verificaSessionFinan.php';
+	require_once '../include/Database.class.php';
+    $db = Database::conexao();
+	$sql = $db->prepare('SELECT nome, nivel, disponivel FROM usuarios WHERE nivel in(3,2)');
+	$sql->execute();
+	$result = $sql->fetchall(PDO::FETCH_ASSOC);
+?>
 <!Doctype html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title>Chamados</title>
@@ -14,7 +23,7 @@
 		<link href="../assets/css/jquery-ui.css" rel="stylesheet">
 		<link href="../assets/css/toastr.css" rel="stylesheet"/>
 		<link href="../assets/css/animate.css" rel="stylesheet"/>
-<link href="../assets/css/style.css" rel="stylesheet"/>
+		<link href="../assets/css/style.css" rel="stylesheet"/>
 		<link href="../assets/css/jquery.flexdatalist.css" rel="stylesheet" />
 	</head>
 	<body id="page-top">
@@ -23,7 +32,6 @@
 
 			<!-- Sidebar -->
 			<?php 
-				include '../validacoes/verificaSessionFinan.php'; 
 				include '../include/sidebar.php';
 			?>
 			<!-- End of Sidebar -->
@@ -43,41 +51,12 @@
 
 						<!-- Page Heading -->
 						<div class="d-sm-flex align-items-center justify-content-between mb-4">
-							<h1 class="h3 mb-0 text-gray-800">Perfil</h1>
+							<h1 class="h3 mb-0 text-gray-800"></h1>
 							<div id="plantao"></div>
 						</div>
-						<div  class="card" style="background-color:#f4f4f4;">
-							<div class="card-body animated fadeInRight">
-								<div class="row">
-									<div class="col-12 col-4 col-sm-4 col-md-4 col-lg-4">
-										<div class="col-12 text-center">
-											<img class="img-profile rounded-circle" src="<?php echo 'https://www.gravatar.com/avatar/'.$email.'?s=150'?>" style="border:1px solid withe;" ><br/>
-										</div>
-										<div class="col-12 text-center">
-											<span class="mr-2 d-none d-lg-inline text-gray-600 small"><h3><?php echo $_SESSION['UsuarioNome']?></h3></span>
-										</div>
-									</div>
-									<div class="col-12 col-8 col-sm-8 col-md-8 col-lg-8">
-										<div class="form-group">
-											<label for="nome">Nome</label>
-											<input name="nome" id="nome" type="text" value="<?php echo $_SESSION['UsuarioNome']?>" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="senha">Senha</label>
-											<input name="senha" id="senha" type="password" class="form-control">
-										</div>
-										<div class="form-group">
-											<label for="senhaconfirm">Senha confirmação</label>
-											<input name="senhaconfirm" id="senhaconfirm" type="password" class="form-control">
-										</div>
-										<div class="form-group text-center">
-											<button id="submit" name="singlebutton" class="btn btn-group-lg btn-primary">Alterar</button>
-										</div>
-									</div>
-								</div>
-							</div>
+						<div>
+							
 						</div>
-					
 					</div>
 					<!-- /.container-fluid -->
 
@@ -98,9 +77,6 @@
 		<a class="scroll-to-top rounded" href="#page-top">
 			<i class="fas fa-angle-up"></i>
 		</a>
-
-		<div id="modalCadastro">
-		</div>
 		<div id="modalCadastroEspera">
     	</div>
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -114,7 +90,7 @@
 		<script src="../assets/js/toastr.min.js"></script>
 		<script src="../assets/js/date.js"></script>
 		<script src="../js/links.js"></script>					
-		<script src="../js/alterSenha.js"></script>
+		<script src="../js/cadChamadoEspera.js"></script>
 	</body>
 
 </html>

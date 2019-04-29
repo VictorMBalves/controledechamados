@@ -16,17 +16,13 @@ try
   $usuario=$_SESSION['UsuarioNome'];
   $usuario_id = $_SESSION['UsuarioID'];
   $cnpj = $_POST['cnpj'];
-  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id, cnpj) 
-  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', '$usuario_id', '$cnpj')") or die(mysql_error());
+  $dataagendamento = $_POST['dataagendamento'];
 
-  $sql->execute();
-  if ($_SESSION['UsuarioNivel'] != 1) {
-    echo 'success';
-    exit;
-  } else {
-    echo 'success1';
-    exit;
-  }
+  $sql = $db->prepare("INSERT INTO chamadoespera (usuario, status, empresa, contato, telefone, descproblema, data, enderecado, sistema, versao, usuario_id, cnpj ".( $dataagendamento != '' ? ", dataagendamento" : "").") 
+  VALUES ('$usuario', '$status', '$empresa', '$contato', '$telefone', '$descproblema', '$data', '$enderecado','$sistema', '$versao', '$usuario_id', '$cnpj' ".( $dataagendamento != '' ? ", '$dataagendamento'" : "" ).")") or die(mysql_error());
+  // $sql->execute();
+  echo $sql
+  // echo "success";
 }catch (PDOException $e){
   echo $e;
   exit;

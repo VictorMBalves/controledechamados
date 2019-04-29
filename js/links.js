@@ -40,10 +40,20 @@ $("#adcChamado").click(function(){
     openModal()
 });
 
+$("#adcChamadoEspera").click(function(){
+  openModalChamadoEspera()
+});
+
 function openModal(){
     $("#modalCadastro").load("../modals/modalCadChamado.php", function(){
       $("#modalCad").modal('show');
     });
+}
+
+function openModalChamadoEspera(){
+  $("#modalCadastroEspera").load("../modals/modalCadChamadoEspera.php", function(){
+    $("#modalCadEspera").modal('show');
+  });
 }
 
 function SomenteNumero(e) {

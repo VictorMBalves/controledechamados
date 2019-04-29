@@ -257,6 +257,8 @@
 			</div>
 			<div id="modalConsulta">
 			</div>
+			<div id="modalCadastroEspera">
+    		</div>
 			<!--Modal agendamento-->
 			<div class="modal fade" id="modalAgenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
