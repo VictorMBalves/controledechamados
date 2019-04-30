@@ -144,15 +144,16 @@ function preencherTabelaRanking(id, descricao, usuario, atrasados, hora, empresa
         dados[3].value = sistema;
         
     dados.push({ name: 'atrasados', value: atrasados });
-
+    console.log(dados)
     $.ajax({
         url: "../charts/loadTabelaChamados.php",
         data: dados,
         dataType: "json",
         async: true
     }).done(function(response){
+        console.log(response)
         data = response;
-    console.log(response)
+    
         $('#textTabela1').text(descricao)
     
         $('#rowTableChamados').show();

@@ -56,14 +56,13 @@
 
     $sql.=" order by chamado.datafinal desc";
     
-    echo $sql;
-    // $stmt = $db->prepare($sql);
-    // $stmt->execute();
-    // $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
 
     // //  echo $sql;
     // // if(sizeof($resultado) == 0){
     // //     return;
     // // }
-    // echo json_encode($resultado, JSON_UNESCAPED_UNICODE);
+    echo json_encode($resultado, JSON_UNESCAPED_UNICODE);
 ?>

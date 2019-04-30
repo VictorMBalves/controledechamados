@@ -22,8 +22,7 @@ function getDataChamadosSistemaQtd(tipo) {
 
         for (var i = 0; i < data.length; i++) {
             if(data[i] != null){
-                console.log(data[i])
-                dataArray.addRow([(data[i].sistemaAgrupado.toUpperCase() + '(' + data[i].qtd + ')'), parseInt(data[i].qtd)]);
+                dataArray.addRow([(data[i].sistemaAgrupado.toUpperCase()), parseInt(data[i].qtd)]);
             }
         }
     
@@ -33,7 +32,7 @@ function getDataChamadosSistemaQtd(tipo) {
         function selectHandler() {        
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
-                preencherTabelaRanking(null, dataArray.getValue(selectedItem.row, 0),  null, false, null, dataArray.getValue(selectedItem.row, 0));
+                preencherTabelaRanking(null, dataArray.getValue(selectedItem.row, 0),  null, false, null, null, dataArray.getValue(selectedItem.row, 0));
             }else{
                 $('#rowTableChamados').hide();
             }
@@ -54,12 +53,12 @@ function getOptionsChamadosSistema() {
     return options;
 }
 
-function getDataChamadosClienteTempo(tipo) {
+function getDataChamadosSistemaTempo(tipo) {
     var dados = carregaDados();
-    dados.push({name: 'tipo_order', value: tipo});
+    dados.push({name: 'tipo_order', value: tipo})
 
     $.ajax({
-        url: "../charts/loadRankingCliente.php",
+        url: "../charts/loadRankingSistema.php",
         data: dados,
         dataType: "json",
         async: true
@@ -67,31 +66,23 @@ function getDataChamadosClienteTempo(tipo) {
         jsonData = response;
 
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Empresa');
+        data.addColumn('string', 'Sistema');
         data.addColumn('number', 'Quantidade');  
         data.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-        data.addColumn('string', 'Empresa');
     
-        var totalOutros = 0;
         for (var i = 0; i < jsonData.length; i++) {
             if(jsonData[i] != null){
-                if(i > 4){
-                    totalOutros += parseInt(jsonData[i].tempo);
-                }else{
-                    data.addRow([jsonData[i].empresa.toUpperCase(), parseInt(jsonData[i].tempo), getTootipClienteChart(jsonData[i].empresa.toUpperCase(), parseInt(jsonData[i].tempo)), jsonData[i].empresa]);
-                }
+                data.addRow([jsonData[i].sistemaAgrupado.toUpperCase(), parseInt(jsonData[i].tempo), getTootipClienteChart(jsonData[i].sistemaAgrupado.toUpperCase(), parseInt(jsonData[i].tempo))]);
             }
         }
-        data.addRow([("OUTROS"), parseInt(totalOutros), getTootipClienteChart("OUTROS", totalOutros), null]);
     
-        var chart = new google.visualization.PieChart(document.getElementById('chart_chamados_cliente_top_5'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_chamados_sistema_top_5'));
 
         // The select handler. Call the chart's getSelection() method
         function selectHandler() {        
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
-                if(data.getValue(selectedItem.row, 3) != null)
-                    preencherTabelaRanking(null, data.getValue(selectedItem.row, 0),  null, false, null, data.getValue(selectedItem.row, 3));
+                preencherTabelaRanking(null, data.getValue(selectedItem.row, 0),  null, false, null, null, data.getValue(selectedItem.row, 0));
             }else{
                 $('#rowTableChamados').hide();
             }
