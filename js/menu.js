@@ -50,7 +50,7 @@ function validaLogin(){
 		        if(data == 'success'){
 			        window.location.href='pages/home';
                 }else if (data == 'successNivel1'){
-                    window.location.href='pages/chamadoespera';
+                    window.location.href='pages/chamadoesperahome';
                 }else if (data == 'successNivel3'){
                     window.location.href='pages/dashBoard';
                 }else if (data == 'fail'){

@@ -20,7 +20,7 @@
     
     if ($_SESSION['UsuarioNivel'] == 1) {
         $email = md5($_SESSION['Email']);
-        header("Location: ../pages/chamadoespera");
+        header("Location: ../pages/chamadoesperahome");
         exit;
     }
     
