@@ -50,15 +50,15 @@ $(() => {
     loadDataAvulsos();
 });
 
-// setInterval(function () {
-//     if (isEmpty($("#keyword").val())) {
-//         chamadoandamento();
-//         chamadosatrasados();
-//         chamadospendentes();
-//         chamadoagendados();
-//         loadDataAvulsos();
-//     }
-// }, 30000);//
+setInterval(function () {
+    if (isEmpty($("#keyword").val())) {
+        chamadoandamento();
+        chamadosatrasados();
+        chamadospendentes();
+        chamadoagendados();
+        loadDataAvulsos();
+    }
+}, 30000);//
 
 function loadAvisos() {
     $.ajax({
