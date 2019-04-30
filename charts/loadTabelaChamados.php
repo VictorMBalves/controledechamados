@@ -10,6 +10,7 @@
     $exceto = $_GET['exceto'];
     $atrasado = $_GET['atrasados'];
     $hora = $_GET['hora'];
+    $empresa = $_GET['empresa'];
 
     $sql = "SELECT  chamado.id_chamado, 
                     chamado.empresa,
@@ -29,7 +30,11 @@
     
     $sql .=" where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final')
             and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
-            and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
+            and ('$sistema' = '' or (case when upper(chamado.sistema) like '%LIGHT%' then 'LIGHT'
+                                    when upper(chamado.sistema) like '%MANAGER%' then 'MANAGER'
+                                    when upper(chamado.sistema) like '%EMISSOR%' then 'EMISSOR'
+                                    when upper(chamado.sistema) like '%GOURMET%' then 'GOURMET' 
+                                    else 'OUTROS' end) like upper('%$sistema%'))
             AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
 
     if($atrasado == 'true'){
@@ -41,19 +46,24 @@
         $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
     }
 
+    if($empresa != ''){
+        $sql .=" AND chamado.empresa LIKE '%$empresa%' ";
+    }
+
     if($hora != ''){
         $sql .=" AND hour(chamado.datafinal) = $hora ";
     }
 
     $sql.=" order by chamado.datafinal desc";
+    
+    echo $sql;
+    // $stmt = $db->prepare($sql);
+    // $stmt->execute();
+    // $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
 
-    $stmt = $db->prepare($sql);
-    $stmt->execute();
-    $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
-
-    //  echo $sql;
-    // if(sizeof($resultado) == 0){
-    //     return;
-    // }
-    echo json_encode($resultado, JSON_UNESCAPED_UNICODE);
+    // //  echo $sql;
+    // // if(sizeof($resultado) == 0){
+    // //     return;
+    // // }
+    // echo json_encode($resultado, JSON_UNESCAPED_UNICODE);
 ?>

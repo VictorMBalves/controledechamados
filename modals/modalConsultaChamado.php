@@ -110,7 +110,7 @@
                             <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="datafinal">Data término:</label>
                                 <?php 
-                                    if($_SESSION['UsuarioNivel'] == 3){
+                                    if($_SESSION['UsuarioNivel'] == 3 && $chamado['datafinal'] != null){
                                         echo '<input class="form-control" name="datafinalchamadoconsulta" id="datafinalchamadoconsulta" value="'.$chamado['datafinal'].'">';
                                     }else{
                                         echo '<input class="form-control disabled" disabled name="datafinalchamadoconsulta" id="datafinalchamadoconsulta" value="'.$chamado['datafinal'].'">';

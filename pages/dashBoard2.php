@@ -374,6 +374,89 @@
                         <!--/QUANTIDADE POR HORA-->
                     </div>
 
+                    <div class="row" style="margin-top: 10px !important;">
+                        <!--RANKING POR CLIENTE-->
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="card shadow">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por
+                                                clientes</span><br />
+                                        </div>
+                                    </div>
+                                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                                        <select name="filtroTipoRankingCliente" type="text"
+                                            id="filtroTipoRankingCliente" class="form-control chosen-select">
+                                            <option value="Quantidade">Quantidade
+                                            </option>
+                                            <option value="Tempo">Tempo
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div id="chart_chamados_cliente" style="height: 250px"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/RANKING POR CLIENTE-->
+                    </div>
+
+                    <div class="row" style="margin-top: 10px !important;">
+                        <!--RANKING POR CLIENTE TOP-5-->
+                        <div class="col-6 col-sm-12 col-md-6 col-lg-6">
+                            <div class="card shadow">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por clientes (Top 5)</span><br />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div id="chart_chamados_cliente_top_5" style="height: 250px"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/RANKING POR CLIENTE-->
+                        <!--RANKING POR SISTEMA TOP-5-->
+                        <div class="col-6 col-sm-12 col-md-6 col-lg-6">
+                            <div class="card shadow">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="col-9 col-sm-9 col-md-9 col-lg-9">
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por sistemas (Top 5)</span><br />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div id="chart_chamados_sistema_top_5" style="height: 250px"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/RANKING POR CLIENTE-->
+                    </div>
+
                     <div class="row" id="rowTableChamados"
                         style="margin-top: 10px !important; display: none; font-size: 12px;">
                         <!--TABELA CHAMADOS-->

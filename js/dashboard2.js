@@ -4,6 +4,10 @@ var importers = [
     "../js/charts/chartQtdChamadosPorHora.js",
     "../js/charts/chartRankingAtendente.js",
     "../js/charts/chartAtendenteCategoria.js",
+    "../js/charts/chartRankingCliente.js",
+    "../js/charts/chartCliente.js",
+    "../js/charts/chartSistema.js",
+
 ]
 
 $(document).ready(()=> {
@@ -36,6 +40,14 @@ function drawCharts() {
     drawChatRankingAtendente();
     getTotaisChamado();
     setDataTempoMedioAtendimento();
+    drawChartRankingCliente();
+}
+
+function drawChartRankingCliente(){
+    drawRankingCliente($('#filtroTipoRankingCliente').val());
+    drawCliente($('#filtroTipoRankingCliente').val());
+    drawSistema($('#filtroTipoRankingCliente').val());
+    $('#rowTableChamados').hide();;
 }
 
 function drawChatRanking(){
@@ -47,6 +59,7 @@ function drawChatRanking(){
 function drawChatRankingAtendente(){
     drawRankingAtendente($('#filtroTipoRankingAtendente').val());
     drawAtendenteCategoria($('#filtroTipoRankingAtendente').val());
+    $('#rowTableChamados').hide();;
 }
 
 $("#btnFiltrar").on("click", ()=> {
@@ -61,6 +74,9 @@ $(() => {
     });
     $('#filtroTipoRankingAtendente').change(function(){
         drawChatRankingAtendente();
+    });
+    $('#filtroTipoRankingCliente').change(function(){
+        drawChartRankingCliente();
     });
     alterarCategoria();
 })
@@ -113,7 +129,7 @@ function getTotaisChamado() {
     $('#qtdConcluido').text(qtd)
 }
 
-function preencherTabelaRanking(id, descricao, usuario, atrasados, hora){
+function preencherTabelaRanking(id, descricao, usuario, atrasados, hora, empresa, sistema){
     $('.lmask').show();
     var dados = carregaDados();
     if(usuario != null)
@@ -122,10 +138,13 @@ function preencherTabelaRanking(id, descricao, usuario, atrasados, hora){
         dados[5].value = id;
     if(hora != null)
         dados.push({ name: 'hora', value: hora});
+    if(empresa != null)    
+        dados.push({name: 'empresa', value: empresa});
+    if(sistema != null)
+        dados[3].value = sistema;
         
     dados.push({ name: 'atrasados', value: atrasados });
 
-    console.log(dados)
     $.ajax({
         url: "../charts/loadTabelaChamados.php",
         data: dados,
@@ -133,7 +152,7 @@ function preencherTabelaRanking(id, descricao, usuario, atrasados, hora){
         async: true
     }).done(function(response){
         data = response;
-    
+    console.log(response)
         $('#textTabela1').text(descricao)
     
         $('#rowTableChamados').show();

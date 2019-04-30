@@ -1,14 +1,15 @@
-function drawCategoria(tipo) {
+function drawCliente(tipo) {
     if(tipo == 'Quantidade')
-        getDataChamadosQtd(tipo);
-    else getDataChamadosTempo(tipo);
+        getDataChamadosClienteQtd(tipo);
+    else getDataChamadosClienteTempo(tipo);
 }
 
-function getDataChamadosQtd(tipo) {
+function getDataChamadosClienteQtd(tipo) {
     var dados = carregaDados();
+    dados.push({name: 'tipo_order', value: tipo})
 
     $.ajax({
-        url: "../charts/loadRankingCategoriaQtd.php",
+        url: "../charts/loadRankingCliente.php",
         data: dados,
         dataType: "json",
         async: true
@@ -16,9 +17,9 @@ function getDataChamadosQtd(tipo) {
         data = response;
 
         var dataArray = new google.visualization.DataTable();
-        dataArray.addColumn('string', 'Categoria');
+        dataArray.addColumn('string', 'Empresa');
         dataArray.addColumn('number', 'Quantidade');  
-        dataArray.addColumn('string', 'ID'); 
+        dataArray.addColumn('string', 'Empresa'); 
 
         var totalOutros = 0;
         for (var i = 0; i < data.length; i++) {
@@ -26,25 +27,20 @@ function getDataChamadosQtd(tipo) {
                 if(i > 4){
                     totalOutros += parseInt(data[i].qtd);
                 }else{
-                    dataArray.addRow([(data[i].descricao.toUpperCase() + '(' + data[i].qtd + ')'), parseInt(data[i].qtd), data[i].id]);
+                    dataArray.addRow([(data[i].empresa.toUpperCase() + '(' + data[i].qtd + ')'), parseInt(data[i].qtd), data[i].empresa]);
                 }
             }
         }
         dataArray.addRow([("OUTROS" + '(' + totalOutros + ')'), totalOutros, null]);
     
-        var chart = new google.visualization.PieChart(document.getElementById('chart_categoria_qtd'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_chamados_cliente_top_5'));
 
         // The select handler. Call the chart's getSelection() method
         function selectHandler() {        
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
-                if(tipo == 'Quantidade'){
-                    if(dataArray.getValue(selectedItem.row, 2) != null)
-                        preencherTabelaRanking(dataArray.getValue(selectedItem.row, 2), dataArray.getValue(selectedItem.row, 0), null, false);
-                } else {
-                    if(data.getValue(selectedItem.row, 3) != null)
-                        preencherTabelaRanking(dataArray.getValue(selectedItem.row, 3), dataArray.getValue(selectedItem.row, 0), null, false);
-                }
+                if(dataArray.getValue(selectedItem.row, 2) != null)
+                    preencherTabelaRanking(null, dataArray.getValue(selectedItem.row, 0),  null, false, null, dataArray.getValue(selectedItem.row, 2));
             }else{
                 $('#rowTableChamados').hide();
             }
@@ -52,25 +48,25 @@ function getDataChamadosQtd(tipo) {
 
         google.visualization.events.addListener(chart, 'select', selectHandler);
 
-        chart.draw(dataArray, getOptionsChamadosCategoria());
+        chart.draw(dataArray, getOptionsChamadosCliente());
     });  
 }
 
-function getOptionsChamadosCategoria() {
+function getOptionsChamadosCliente() {
     var options = {
         'chartArea': {'width': '100%', 'height': '80%'},
-        pieStartAngle: 50,
-        title: 'Top 5'
+        pieStartAngle: 50
     };
 
     return options;
 }
 
-function getDataChamadosTempo(tipo) {
+function getDataChamadosClienteTempo(tipo) {
     var dados = carregaDados();
-    
+    dados.push({name: 'tipo_order', value: tipo});
+
     $.ajax({
-        url: "../charts/loadRankingCategoriaTempo.php",
+        url: "../charts/loadRankingCliente.php",
         data: dados,
         dataType: "json",
         async: true
@@ -78,10 +74,10 @@ function getDataChamadosTempo(tipo) {
         jsonData = response;
 
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Categoria');
+        data.addColumn('string', 'Empresa');
         data.addColumn('number', 'Quantidade');  
         data.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
-        data.addColumn('string', 'ID');  
+        data.addColumn('string', 'Empresa');
     
         var totalOutros = 0;
         for (var i = 0; i < jsonData.length; i++) {
@@ -89,25 +85,20 @@ function getDataChamadosTempo(tipo) {
                 if(i > 4){
                     totalOutros += parseInt(jsonData[i].tempo);
                 }else{
-                    data.addRow([(jsonData[i].descricao.toUpperCase()), parseInt(jsonData[i].tempo), getTootip(jsonData[i].descricao.toUpperCase(), parseInt(jsonData[i].tempo)),  jsonData[i].id]);
+                    data.addRow([jsonData[i].empresa.toUpperCase(), parseInt(jsonData[i].tempo), getTootipClienteChart(jsonData[i].empresa.toUpperCase(), parseInt(jsonData[i].tempo)), jsonData[i].empresa]);
                 }
             }
         }
-        data.addRow([("OUTROS"), parseInt(totalOutros), getTootip("OUTROS", totalOutros),  null]);
+        data.addRow([("OUTROS"), parseInt(totalOutros), getTootipClienteChart("OUTROS", totalOutros), null]);
     
-        var chart = new google.visualization.PieChart(document.getElementById('chart_categoria_qtd'));
+        var chart = new google.visualization.PieChart(document.getElementById('chart_chamados_cliente_top_5'));
 
         // The select handler. Call the chart's getSelection() method
         function selectHandler() {        
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
-                if(tipo == 'Quantidade'){
-                    if(data.getValue(selectedItem.row, 2) != null)
-                        preencherTabelaRanking(data.getValue(selectedItem.row, 2), data.getValue(selectedItem.row, 0), null, false);
-                } else {
-                    if(data.getValue(selectedItem.row, 3) != null)
-                        preencherTabelaRanking(data.getValue(selectedItem.row, 3), data.getValue(selectedItem.row, 0), null, false);
-                }
+                if(data.getValue(selectedItem.row, 3) != null)
+                    preencherTabelaRanking(null, data.getValue(selectedItem.row, 0),  null, false, null, data.getValue(selectedItem.row, 3));
             }else{
                 $('#rowTableChamados').hide();
             }
@@ -115,22 +106,21 @@ function getDataChamadosTempo(tipo) {
 
         google.visualization.events.addListener(chart, 'select', selectHandler);
 
-        chart.draw(data, getOptionsChamadosCategoriaTempo());
+        chart.draw(data, getOptionsChamadosClienteTempo());
     });
 }
 
-function getOptionsChamadosCategoriaTempo() {
+function getOptionsChamadosClienteTempo() {
     var options = {
         'chartArea': {'width': '100%', 'height': '80%'},
         pieStartAngle: 50,
-        title: 'Top 5',
         tooltip: {isHtml: true},
     };
 
     return options;
 }
 
-function getTootip(descricao, tempo){
+function getTootipClienteChart(descricao, tempo){
     return '<div class="col m-1 text-uppercase">' +
                 '<strong>'+descricao +
                 '<div class="text-success">Tempo: '+ formatTimeDiff(tempo) + '</strong></div></div>';
