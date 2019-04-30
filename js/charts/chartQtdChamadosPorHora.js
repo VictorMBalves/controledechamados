@@ -4,8 +4,18 @@ function drawChamadosPorHora() {
         $("#chart_qtd_chamados_hora").html("Nenhum dado no período");
         return;
     }
-
     var chart = new google.visualization.AreaChart(document.getElementById('chart_qtd_chamados_hora'));
+    
+    function selectHandler() {
+        var selectedItem = chart.getSelection()[0];
+        if (selectedItem) {
+            preencherTabelaRanking(null, data.getValue(selectedItem.row, 0) + ' (' + data.getValue(selectedItem.row, 1) + ')', null, null, parseInt(data.getValue(selectedItem.row,0 )));
+        }else{
+            $('#rowTableChamados').hide();
+        }
+    }
+
+    google.visualization.events.addListener(chart, 'select', selectHandler);
 
     chart.draw(data, getOptionsChamadosPorHora());
 }

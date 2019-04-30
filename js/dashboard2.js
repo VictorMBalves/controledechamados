@@ -12,16 +12,6 @@ $(document).ready(()=> {
         pageLength: 10,
         responsive: true,
         "autoWidth": false,
-        "ordering": false,
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
-        }
-    });
-    $('.table-ranking-atendente').DataTable({
-        pageLength: 10,
-        responsive: true,
-        "autoWidth": false,
-        "ordering": false,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Portuguese-Brasil.json"
         }
@@ -123,15 +113,19 @@ function getTotaisChamado() {
     $('#qtdConcluido').text(qtd)
 }
 
-function preencherTabelaRanking(id, descricao, usuario, atrasados){
+function preencherTabelaRanking(id, descricao, usuario, atrasados, hora){
     $('.lmask').show();
     var dados = carregaDados();
     if(usuario != null)
         dados[2].value = usuario;
     if(id != null)
         dados[5].value = id;
+    if(hora != null)
+        dados.push({ name: 'hora', value: hora});
         
     dados.push({ name: 'atrasados', value: atrasados });
+
+    console.log(dados)
     $.ajax({
         url: "../charts/loadTabelaChamados.php",
         data: dados,

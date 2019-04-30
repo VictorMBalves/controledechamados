@@ -13,7 +13,7 @@ function drawRankingAtendente(tipo) {
             preencherTabelaRanking(null, dados.getValue(selectedItem.row, 1) + ' (' + dados.getValue(selectedItem.row, 2) + ')', dados.getValue(selectedItem.row, 4), false);
         }else{
             drawAtendenteCategoria(tipo, null);
-            $('#rowTableChamadosAtendente').hide();
+            $('#rowTableChamados').hide();
         }
     }
 

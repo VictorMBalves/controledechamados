@@ -69,12 +69,7 @@
                         <div class="form-group">
                             <label for="descproblema">Descrição do problema:</label>
                             <textarea name="descproblema" id="desc_problema" class="form-control"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12 text-center">
-                                <?php include "../utilsPHP/statusDados.php";?>
-                            </div>
-                        </div>
+                        </div>  
                 </form>
             </div>
             <div class="modal-footer">

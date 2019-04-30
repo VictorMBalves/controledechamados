@@ -9,6 +9,7 @@
     $cnpj = $_GET['cnpj'];
     $exceto = $_GET['exceto'];
     $atrasado = $_GET['atrasados'];
+    $hora = $_GET['hora'];
 
     $sql = "SELECT  chamado.id_chamado, 
                     chamado.empresa,
@@ -40,7 +41,11 @@
         $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
     }
 
-    $sql.=" order by chamado.id_chamado";
+    if($hora != ''){
+        $sql .=" AND hour(chamado.datafinal) = $hora ";
+    }
+
+    $sql.=" order by chamado.datafinal desc";
 
     $stmt = $db->prepare($sql);
     $stmt->execute();

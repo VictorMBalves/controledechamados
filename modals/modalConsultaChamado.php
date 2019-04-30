@@ -33,6 +33,7 @@
     }
     $linkRequest = "http://request.gtech.site/requests/new?request[description]=".$chamado['descproblema']."&request[requester_cnpj]=".$chamado['cnpj']."&request[requester_name]=".$chamado['cnpj']." - ".$chamado['empresa'];
 ?>
+<link href="../assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <div class="modal" tabindex="-1" role="dialog" id="modalCon">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -74,31 +75,29 @@
                             <input value='<?php echo $chamado['empresa'];?>'name="empresa" type="text" disabled class="form-control disabled" required/>
                         </div>
                         <div class="row">
-                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
                                 <label for="contato">Contato:</label>
                                 <input value='<?php echo $chamado['contato'];?>' id="nome" name="contato" type="text" disabled class="form-control disabled" required/>
                             </div>
-                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
                                 <label for="responsavel">Responsável:</label>
                                 <input class="form-control label1 disabled" name="responsavel" disabled value='<?php echo $chamado['usuario']?>'>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
                             <label for="formacontato">Forma de contato:</label>
                                 <input value="<?php echo $chamado['formacontato'];?>" name="formacontato" type="text" class="form-control disabled" disabled>
                             </div>
-                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                        </div>
+                        <div class="row">
+                        <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
                                 <label for="versao">Versão:</label>
                                 <input type="text" name="versao" class="form-control disabled" value="<?php echo $chamado['versao']?>" disabled>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
                                 <label for="cep">Telefone:</label>
                                 <input value='<?php echo $chamado['telefone'];?>' disabled name="telefone" type="text" class="form-control disabled" onkeypress="return SomenteNumero(event)">
                             </div>
-                            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
                                 <label for="sistema">Sistema:</label>
                                 <input value="<?php  echo $chamado['sistema'];?>" name="sistema" type="text" class="form-control  disabled" disabled>
                             </div>
@@ -110,7 +109,13 @@
                             </div>
                             <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                                 <label for="datafinal">Data término:</label>
-                                <input class="form-control disabled" name="datafinal" disabled value='<?php echo $chamado['datafinal']?>'>
+                                <?php 
+                                    if($_SESSION['UsuarioNivel'] == 3){
+                                        echo '<input class="form-control" name="datafinalchamadoconsulta" id="datafinalchamadoconsulta" value="'.$chamado['datafinal'].'">';
+                                    }else{
+                                        echo '<input class="form-control disabled" disabled name="datafinalchamadoconsulta" id="datafinalchamadoconsulta" value="'.$chamado['datafinal'].'">';
+                                    }
+                                ?>
                             </div>
                         </div>
                         <div class="form-group">
@@ -131,8 +136,87 @@
                         ?>
                         <a id="showTimeLine" name="showTimeLine" class="btn btn-group-lg btn-info" href="timeline=<?php echo $id;?>"><i class="fas fa-stream m-1"></i>Timeline</a>
                         <button id="singlebutton" name="singlebutton" class="btn btn-group-lg btn-primary" data-dismiss="modal">Retornar</button>
+                        <?php 
+                            if($_SESSION['UsuarioNivel'] == 3){
+                                echo '<button id="btnSalvarAlteracaoChamado" name="btnSalvarAlteracaoChamado" class="btn btn-group-lg btn-info">Salvar</button>';
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="../assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script> 
+        dataFinalChamadoAlteracao = $("#datafinalchamadoconsulta");
+        chamadoId = <?php echo $id;?>;
+        $(function() {
+            $('#datafinalchamadoconsulta').datetimepicker({
+                icons: {
+                    time: 'fas fa-clock'
+                },
+                format: 'DD/MM/YYYY HH:mm'
+            });
+
+            $('#btnSalvarAlteracaoChamado').on('click', function(){
+                $("#btnSalvarAlteracaoChamado").addClass(' disabled ');
+                $("#btnSalvarAlteracaoChamado").html('<img src="../imagem/ajax-loader.gif">');
+                validar();
+                return null;
+            })
+        });
+
+        function validar() {
+            errosEspera = [];
+            if (isEmpty(dataFinalChamadoAlteracao.val()))
+                errosEspera.push(dataFinalChamadoAlteracao.selector);
+            if(!moment(dataFinalChamadoAlteracao.val(), "DD/MM/YYYY HH:mm").isValid()){
+                notificationWarningOne("Preencha os campos obrigatórios!");
+                return null;
+            }
+            
+            if (isEmpty(errosEspera)) {
+                enviarDadosCadastroChamadoEspera();
+            } else {
+                $("#btnSalvarAlteracaoChamado").removeClass("disabled");
+                $("#btnSalvarAlteracaoChamado").html("Salvar");
+                for (i = 0; i < errosEspera.length; i++) {
+                    if (!$(errosEspera[i]).hasClass("vazio")) {
+                        $(errosEspera[i]).addClass("is-invalid");
+                    }
+                }
+                notificationWarningOne("Preencha os campos obrigatórios!");
+            }
+            return null;
+        }  
+        
+        function enviarDadosCadastroChamadoEspera() {
+            $.ajax({
+                type: "POST",
+                url: "../inserts/alterarChamadoFinalizado.php",
+                data: carregaDadosAlteracao(),
+                success: function(data) {
+                    data = data.trim();
+                    if (data == "success") {
+                        notificationSuccessLink('Registro salvo', 'Chamado alterado com sucesso!', '../pages/chamados');
+                        location.href = location.href;
+                    } else {
+                        notificationError('Ocorreu um erro ao salvar o registro: ', data);
+                        $("#btnSalvarAlteracaoChamado").removeClass(' disabled ');
+                        $("#btnSalvarAlteracaoChamado").html('Salvar');
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('error: ' + textStatus + ': ' + errorThrown);
+                }
+            });
+        }
+
+        function carregaDadosAlteracao() {
+            var data = [];
+            data.push({ name: 'datafinal', value: dataFinalChamadoAlteracao.val() });
+            data.push({ name: 'chamado_id', value: chamadoId });
+            data.push({name: 'datafinal', value: moment(dataFinalChamadoAlteracao.val(), "DD/MM/YYYY HH:mm").format("YYYY-MM-DD HH:mm")});    
+            return data;
+        }
+    </script>
