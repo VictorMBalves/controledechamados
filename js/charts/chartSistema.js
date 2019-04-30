@@ -19,10 +19,11 @@ function getDataChamadosSistemaQtd(tipo) {
         var dataArray = new google.visualization.DataTable();
         dataArray.addColumn('string', 'Sistema');
         dataArray.addColumn('number', 'Quantidade');  
+        dataArray.addColumn('string', 'Sistema');
 
         for (var i = 0; i < data.length; i++) {
             if(data[i] != null){
-                dataArray.addRow([(data[i].sistemaAgrupado.toUpperCase()), parseInt(data[i].qtd)]);
+                dataArray.addRow([(data[i].sistemaAgrupado.toUpperCase() + ' (' + parseInt(data[i].qtd) + ')'), parseInt(data[i].qtd), data[i].sistemaAgrupado.toUpperCase()]);
             }
         }
     
@@ -32,7 +33,7 @@ function getDataChamadosSistemaQtd(tipo) {
         function selectHandler() {        
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
-                preencherTabelaRanking(null, dataArray.getValue(selectedItem.row, 0),  null, false, null, null, dataArray.getValue(selectedItem.row, 0));
+                preencherTabelaRanking(null, dataArray.getValue(selectedItem.row, 0),  null, false, null, null, dataArray.getValue(selectedItem.row, 2));
             }else{
                 $('#rowTableChamados').hide();
             }
@@ -69,10 +70,11 @@ function getDataChamadosSistemaTempo(tipo) {
         data.addColumn('string', 'Sistema');
         data.addColumn('number', 'Quantidade');  
         data.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+        data.addColumn('string', 'Sistema');
     
         for (var i = 0; i < jsonData.length; i++) {
             if(jsonData[i] != null){
-                data.addRow([jsonData[i].sistemaAgrupado.toUpperCase(), parseInt(jsonData[i].tempo), getTootipClienteChart(jsonData[i].sistemaAgrupado.toUpperCase(), parseInt(jsonData[i].tempo))]);
+                data.addRow([jsonData[i].sistemaAgrupado.toUpperCase() + ' (' + formatTimeDiff(jsonData[i].tempo) + ')', parseInt(jsonData[i].tempo), getTootipClienteChart(jsonData[i].sistemaAgrupado.toUpperCase(), parseInt(jsonData[i].tempo)), jsonData[i].sistemaAgrupado.toUpperCase()]);
             }
         }
     
@@ -82,7 +84,7 @@ function getDataChamadosSistemaTempo(tipo) {
         function selectHandler() {        
             var selectedItem = chart.getSelection()[0];
             if (selectedItem) {
-                preencherTabelaRanking(null, data.getValue(selectedItem.row, 0),  null, false, null, null, data.getValue(selectedItem.row, 0));
+                preencherTabelaRanking(null, data.getValue(selectedItem.row, 0),  null, false, null, null, data.getValue(selectedItem.row, 3));
             }else{
                 $('#rowTableChamados').hide();
             }
