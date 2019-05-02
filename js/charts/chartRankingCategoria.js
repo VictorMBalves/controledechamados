@@ -31,7 +31,7 @@ function getDataRankingChamados(tipo) {
     datatable.addColumn('string', 'Descrição');
 
     var dados = carregaDados();
-    
+
     var jsonData;
     if(tipo == 'Quantidade'){
         datatable.addColumn('number', 'Quant.');

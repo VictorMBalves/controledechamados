@@ -116,17 +116,25 @@ function getTotaisChamado() {
     }).responseText;
 
     data = $.parseJSON(jsonData);
-
-    var qtdDias = new Number(data[0]['qtd_dias']);
-
-    var qtd = new Number(data[0]['qtd']);
-    var media = qtd/qtdDias;
-    $('#mediaConcluidoForaPrazo').text('Média/dia ' + media.toFixed(2));
-    $('#qtdConcluidoForaPrazo').text(qtd);
-    qtd = new Number(data[1]['qtd']);
-    media = qtd/qtdDias;
-    $('#mediaConcluido').text('Média/dia ' + media.toFixed(2));
-    $('#qtdConcluido').text(qtd)
+    $('#mediaConcluidoForaPrazo').text('');
+    $('#qtdConcluidoForaPrazo').text('');
+    $('#mediaConcluido').text('');
+    $('#qtdConcluido').text('');
+    for (var i = 0; i < data.length; i++) {
+        var qtdDias = new Number(data[i]['qtd_dias']);
+        if(data[i]['tipo'] == 'TOTAL'){
+            qtd = new Number(data[i]['qtd']);
+            media = qtd/qtdDias;
+            $('#mediaConcluido').text('Média/dia ' + media.toFixed(2));
+            $('#qtdConcluido').text(qtd)
+        }
+        if(data[i]['tipo'] == 'ATRASADOS'){
+            var qtd = new Number(data[i]['qtd']);
+            var media = qtd/qtdDias;
+            $('#mediaConcluidoForaPrazo').text('Média/dia ' + media.toFixed(2));
+            $('#qtdConcluidoForaPrazo').text(qtd);
+        }
+    }
 }
 
 function preencherTabelaRanking(id, descricao, usuario, atrasados, hora, empresa, sistema){
@@ -144,7 +152,7 @@ function preencherTabelaRanking(id, descricao, usuario, atrasados, hora, empresa
         dados[3].value = sistema;
         
     dados.push({ name: 'atrasados', value: atrasados });
-    console.log(dados)
+    
     $.ajax({
         url: "../charts/loadTabelaChamados.php",
         data: dados,
@@ -315,6 +323,6 @@ function carregaDados() {
     data.push({ name: 'categoria', value: $('#categoria').val() });
     data.push({ name: 'exceto', value: $("#exceto").is( ":checked" )});
     data.push({ name: 'considerarPlantao', value: $("#considerarPlantao").is( ":checked" )});
-    data.push({ name: 'somentePlantao', value: $("#exceto").is( ":checked" )});
+    data.push({ name: 'somentePlantao', value: $("#somentePlantao").is( ":checked" )});
     return data;
 }

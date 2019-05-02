@@ -25,10 +25,15 @@
         return $sql;
     }
     
-    $sql = " select id, descricao, sum(idchamado) as qtd
+    $sql = " select id, descricao, sum(idchamado) as qtd, 
+                (SELECT
+                    COUNT( DISTINCT cast(cha1.datafinal as date) ) qtd_dias
+                FROM chamado cha1
+                WHERE date(datafinal) BETWEEN date('$data_inicio') AND date('$data_final')
+                AND cha1.status = 'Finalizado') as qtd_dias
              from ( " ;
 
-    if(!$somentePlantao){
+    if($somentePlantao == 'false'){
         $sql.= " SELECT  categoria.id, categoria.descricao, 1 as idchamado
                 from chamado
                 left join categoria on FIND_IN_SET(categoria.id, chamado.categoria_id)
@@ -36,17 +41,17 @@
                 where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final') ";
         $sql.= getWhereSql();
 
-        if($considerarPlantao){
+        if($considerarPlantao == 'true'){
             $sql.= " UNION ALL ";
         }
     }
              
-    if($somentePlantao || $considerarPlantao){
+    if($somentePlantao != 'false' || $considerarPlantao != 'false'){
         $sql.= " SELECT  categoria.id, categoria.descricao, 1 as idchamado
                 from plantao chamado
                 left join categoria on FIND_IN_SET(categoria.id, chamado.categoria_id)
                 left join usuarios usuario on usuario.id = chamado.usuario_id 
-                where date(plantao.data) BETWEEN date('$data_inicio') and date('$data_final') ";
+                where date(chamado.data) BETWEEN date('$data_inicio') and date('$data_final') ";
         $sql.= getWhereSql();
     }
 
