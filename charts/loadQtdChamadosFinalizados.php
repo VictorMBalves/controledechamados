@@ -27,6 +27,7 @@
                OR DATE_ADD(espera.data, INTERVAL +10 MINUTE) < cha1.datainicio)
                and ('$usuario' = '' or cha1.usuario_id = cast('$usuario' as signed))
               AND ('$sistema' = '' or lower(cha1.sistema) like lower('%$sistema%'))
+              and cha1.status = 'Finalizado'
               AND ('$cnpj' = '' or cha1.cnpj = '$cnpj')";
 
     if($categoria != ''){

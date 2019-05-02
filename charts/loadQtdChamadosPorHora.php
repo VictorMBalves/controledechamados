@@ -28,6 +28,7 @@
             left join chamado on hour(chamado.datafinal) = x.horas and date(chamado.datafinal) BETWEEN '$data_inicio' and '$data_final'
                                                                    and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
                                                                    and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
+                                                                   and chamado.status = 'Finalizado'
                                                                    AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
 
     if($categoria != ''){

@@ -21,6 +21,7 @@
             where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final')
             and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
               and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
+              and chamado.status = 'Finalizado'
               AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
 
             

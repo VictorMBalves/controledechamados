@@ -8,36 +8,56 @@
     $cnpj = $_GET['cnpj'];
     $categoria = $_GET['categoria'];
     $exceto = $_GET['exceto'];
+    $considerarPlantao = $_GET['considerarPlantao'];
+    $somentePlantao = $_GET['somentePlantao'];
 
-    $sql = "SELECT  categoria.id, categoria.descricao, count(chamado.id_chamado) as qtd,
-                (SELECT
-                    COUNT( DISTINCT cast(cha1.datafinal as date) ) qtd_dias
-                 FROM chamado cha1
-                 WHERE date(datafinal) BETWEEN date('$data_inicio') AND date('$data_final')
-                   AND cha1.status = 'Finalizado') as qtd_dias
-            from chamado
-            left join categoria on categoria.id = chamado.categoria_id
-            left join usuarios usuario on usuario.id = chamado.usuario_id
-            where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final')
-            and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
-            and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
-            AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
+    function getWhereSql(){
+        global $usuario, $sistema, $cnpj, $categoria, $exceto;
 
-    if($categoria != ''){
-        $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
+        $sql = " and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
+                      and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
+                      and chamado.status = 'Finalizado'
+                      and ('$cnpj' = '' or chamado.cnpj = '$cnpj') ";
+        if($categoria != ''){
+            $sql.=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria) ";
+        }
+
+        return $sql;
+    }
+    
+    $sql = " select id, descricao, sum(idchamado) as qtd
+             from ( " ;
+
+    if(!$somentePlantao){
+        $sql.= " SELECT  categoria.id, categoria.descricao, 1 as idchamado
+                from chamado
+                left join categoria on FIND_IN_SET(categoria.id, chamado.categoria_id)
+                left join usuarios usuario on usuario.id = chamado.usuario_id 
+                where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final') ";
+        $sql.= getWhereSql();
+
+        if($considerarPlantao){
+            $sql.= " UNION ALL ";
+        }
+    }
+             
+    if($somentePlantao || $considerarPlantao){
+        $sql.= " SELECT  categoria.id, categoria.descricao, 1 as idchamado
+                from plantao chamado
+                left join categoria on FIND_IN_SET(categoria.id, chamado.categoria_id)
+                left join usuarios usuario on usuario.id = chamado.usuario_id 
+                where date(plantao.data) BETWEEN date('$data_inicio') and date('$data_final') ";
+        $sql.= getWhereSql();
     }
 
-    $sql.=" GROUP by categoria.id, categoria.descricao
-            order by count(chamado.id_chamado) desc";
+    $sql.="  ) x
+            group by id, descricao
+            order by sum(idchamado) desc";
     
     // echo $sql;
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
 
-    // echo $sql;
-    // if(sizeof($resultado) == 0){
-    //     return;
-    // }
     echo json_encode($resultado, JSON_UNESCAPED_UNICODE);
 ?>

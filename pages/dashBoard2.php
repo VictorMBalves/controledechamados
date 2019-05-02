@@ -59,8 +59,8 @@
     </style>
 </head>
 
-<body id="page-top" >
-<div class="lmask" style="display: none;"></div>
+<body id="page-top">
+    <div class="lmask" style="display: none;"></div>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -169,9 +169,31 @@
                                                         style="margin-top: 7px; color: white !important">Filtrar</a>
                                                 </div>
                                                 <div class="form-group col-md-12">
-                                                    <label for="categoria">Categoria</label> <input type="checkbox" id="exceto" name="exceto" value="exceto" data-toggle="tooltip" data-placement="top" title="Diferente de"><br>
-                                                    <select name="categoria" data-placeholder=" " multiple id="categoria" type="text" class="form-control chosen-select">
-                                                       
+                                                    <div class="row col-12">
+                                                        <div class="col-3 col-sm-12 col-md-3 col-lg-3">
+                                                            <label for="categoria">Categoria</label>
+                                                            <input type="checkbox" id="exceto" name="exceto"
+                                                                value="exceto" data-toggle="tooltip"
+                                                                data-placement="top" title="Diferente de">
+                                                        </div>
+                                                        <div class="col-9 col-sm-12 col-md-9 col-lg-9"
+                                                            style="text-align: right">
+                                                            <input type="checkbox" id="considerarPlantao" name="considerarPlantao"
+                                                                value="considerarPlantao" checked data-toggle="tooltip"
+                                                                data-placement="top"
+                                                                title="Irá somar os chamados realizados no plantão">
+                                                            <label for="considerarPlantao">Considerar chamados do
+                                                                plantão?</label>
+                                                            <input type="checkbox" id="somentePlantao" name="somentePlantao"
+                                                                value="somentePlantao" data-toggle="tooltip"
+                                                                data-placement="top" style="margin-left: 15px ! important;"
+                                                                title="Irá buscar somente informações dos plantãoes">
+                                                            <label for="somentePlantao">Exibir apenas informações de plantão?</label>
+                                                        </div>
+                                                    </div>
+                                                    <select name="categoria" data-placeholder=" " multiple
+                                                        id="categoria" type="text" class="form-control chosen-select">
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -186,7 +208,8 @@
                     </div>
 
                     <div id="chamados" class="row animated fadeInRight" style="margin-top: 10px">
-                        <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:5px; cursor: pointer;" id="cardConcluido">
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:5px; cursor: pointer;"
+                            id="cardConcluido">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
                                 <div class="card border-left-info shadow h-100 py-2">
                                     <div class="card-body">
@@ -216,7 +239,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:5px; cursor: pointer;" id="cardConcluidoAtrasado" >
+                        <div class="col-12 col-sm-4 col-md-4 col-lg-4" style="padding-bottom:5px; cursor: pointer;"
+                            id="cardConcluidoAtrasado">
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" style="padding-bottom:10px;">
                                 <div class="card border-left-warning shadow h-100 py-2">
                                     <div class="card-body">
@@ -418,7 +442,8 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <div class="col-9 col-sm-9 col-md-9 col-lg-9">
-                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por clientes (Top 5)</span><br />
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por
+                                                clientes (Top 5)</span><br />
                                         </div>
                                     </div>
                                 </div>
@@ -440,7 +465,8 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <div class="col-9 col-sm-9 col-md-9 col-lg-9">
-                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por sistemas (Top 5)</span><br />
+                                        <div class="m-0 font-weight-bold"><span class="text-primary">Ranking por
+                                                sistemas (Top 5)</span><br />
                                         </div>
                                     </div>
                                 </div>

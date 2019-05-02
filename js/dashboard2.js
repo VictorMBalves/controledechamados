@@ -314,5 +314,7 @@ function carregaDados() {
     data.push({ name: 'cnpj', value: $('#empresafiltro').val() });
     data.push({ name: 'categoria', value: $('#categoria').val() });
     data.push({ name: 'exceto', value: $("#exceto").is( ":checked" )});
+    data.push({ name: 'considerarPlantao', value: $("#considerarPlantao").is( ":checked" )});
+    data.push({ name: 'somentePlantao', value: $("#exceto").is( ":checked" )});
     return data;
 }

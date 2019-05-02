@@ -30,6 +30,7 @@
     
     $sql .=" where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final')
             and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
+            and chamado.status = 'Finalizado'
             and ('$sistema' = '' or (case when upper(chamado.sistema) like '%LIGHT%' then 'LIGHT'
                                     when upper(chamado.sistema) like '%MANAGER%' then 'MANAGER'
                                     when upper(chamado.sistema) like '%EMISSOR%' then 'EMISSOR'
@@ -43,7 +44,7 @@
     }
 
     if($categoria != ''){
-        $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
+        $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria) ";
     }
 
     if($empresa != ''){
@@ -60,9 +61,5 @@
     $stmt->execute();
     $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
 
-    // //  echo $sql;
-    // // if(sizeof($resultado) == 0){
-    // //     return;
-    // // }
     echo json_encode($resultado, JSON_UNESCAPED_UNICODE);
 ?>
