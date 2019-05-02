@@ -8,9 +8,14 @@
     $cnpj = $_GET['cnpj'];
     $categoria = $_GET['categoria'];
     $exceto = $_GET['exceto'];
+    $agrupado = $_GET['agrupado'];
 
-    $sql = "SELECT   usuario.id, usuario.nome, sum(TIMESTAMPDIFF(SECOND, chamado.datainicio , chamado.datafinal )) as tempo,
-                    (SELECT
+    if($agrupado == 'false'){
+      $sql = "SELECT usuario.id, usuario.nome, chamado.datainicio , chamado.datafinal, ";
+    }else{
+      $sql = "SELECT usuario.id, usuario.nome, sum(TIMESTAMPDIFF(SECOND, chamado.datainicio , chamado.datafinal )) as tempo, ";
+    }
+    $sql.=" (SELECT
                     COUNT( DISTINCT cast(cha1.datafinal as date) ) qtd_dias
                  FROM chamado cha1
                  WHERE date(datafinal) BETWEEN date('$data_inicio') AND date('$data_final')
@@ -21,22 +26,21 @@
             where date(chamado.datafinal) BETWEEN date('$data_inicio') and date('$data_final')
             and ('$usuario' = '' or chamado.usuario_id = cast('$usuario' as signed))
             and ('$sistema' = '' or lower(chamado.sistema) like lower('%$sistema%'))
-            AND ('$cnpj' = '' or chamado.cnpj = '$cnpj')";
+            AND ('$cnpj' = '' or chamado.cnpj = '$cnpj') ";
 
     if($categoria != ''){
-      $sql .=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
+      $sql.=" AND chamado.categoria_id".($exceto == 'true' ? " not" : "")." in ($categoria)";
     }
 
-    $sql.=" GROUP by usuario.id, usuario.nome
-            order by sum(TIMESTAMPDIFF(SECOND, chamado.datainicio , chamado.datafinal )) desc";
-
+    if($agrupado == 'false'){
+      $sql.=" order by chamado.datainicio ";
+    }else{
+      $sql.=" GROUP by usuario.id, usuario.nome
+      order by sum(TIMESTAMPDIFF(SECOND, chamado.datainicio , chamado.datafinal )) desc";
+    }
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $resultado = $stmt->fetchall(PDO::FETCH_ASSOC);
 
-    //  echo $sql;
-    // if(sizeof($resultado) == 0){
-    //     return;
-    // }
     echo json_encode($resultado, JSON_UNESCAPED_UNICODE);
 ?>

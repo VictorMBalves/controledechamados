@@ -21,7 +21,7 @@ $.Shortcuts.add({
     mask: 'Alt+q',
     handler: function() {
       window.open(
-        '../pages/chamadoespera',
+        '../pages/chamadoesperahome',
         '_blank' 
         );
     }
